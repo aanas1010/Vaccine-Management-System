@@ -1,10 +1,6 @@
-package package1;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,7 +20,6 @@ public class testClass {
     }
 
     @Test
-    public void testTestMethod() {
-        assertEquals(main.testMethod(m, n), 26);
+    public void testTestMethod() { assertEquals(main.testMethod(m, n), 26);
     }
 }
