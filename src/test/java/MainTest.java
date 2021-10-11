@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class testClass {
+public class MainTest {
     int m;
     int n;
 
@@ -20,6 +20,6 @@ public class testClass {
     }
 
     @Test
-    public void testTestMethod() { assertEquals(main.testMethod(m, n), 26);
+    public void testTestMethod() { assertEquals(Main.testMethod(m, n), 26);
     }
 }
