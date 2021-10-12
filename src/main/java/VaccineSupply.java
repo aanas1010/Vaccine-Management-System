@@ -12,16 +12,11 @@ public class VaccineSupply {
         return this.batchList.isEmpty();
     }
 
-    @Override
-    public String toString (){
-        StringBuilder s = new StringBuilder("[");
-        int l = this.batchList.size();
-        for (VaccineBatch batch : this.batchList) {
-            s.append(batch.getBrand()).append("-").append(batch.getId()).append(", ");
-        }
-        return s.toString();
+    public ArrayList<VaccineBatch> getBatchList(){
+        return this.batchList;
     }
-    public HashMap getAvailableVaccine(){
+
+    public HashMap getAvailableVaccines(){
         HashMap vaccines = new HashMap<String, Integer>();
         for (VaccineBatch batch : this.batchList) {
             if(vaccines.containsKey(batch.getBrand())){
@@ -31,7 +26,18 @@ public class VaccineSupply {
                 vaccines.put(batch.getBrand(), batch.getAvailable());
             }
         }
-        return vaccines;
+        HashMap vaccinesCopy = new HashMap<String, Integer>(vaccines);
+        return vaccinesCopy;
+    }
+
+    @Override
+    public String toString () {
+        StringBuilder s = new StringBuilder("[");
+        int l = this.batchList.size();
+        for (VaccineBatch batch : this.batchList) {
+            s.append(batch.getBrand()).append("-").append(batch.getId()).append(", ");
+        }
+        return s.toString();
     }
 //    public VaccineBatch getEarliestBatch(String brand){
 //        VaccineBatch earlyBatch = null;
