@@ -4,6 +4,8 @@ import java.util.HashMap;
 public class VaccineSupply {
     private ArrayList<VaccineBatch> batchList;
 
+    public VaccineSupply(){}
+
     public VaccineSupply(ArrayList<VaccineBatch> batchList){
         this.batchList = batchList;
     }

@@ -5,14 +5,24 @@ public class VaccineBatch {
     private int quantity;
     private LocalDate expiry;
     private int id;
-    private int reserve;
+    private int reserve = 0;
 
     // Constructor
-    public VaccineBatch(String brand, int quantity, LocalDate expiry){
+    public VaccineBatch(String brand, int quantity, LocalDate expiry, int id){
         this.brand = brand;
         this.quantity = quantity;
         this.expiry = expiry;
+        this.id = id;
     }
+
+    public VaccineBatch(String brand, int quantity, LocalDate expiry, int id, int reserve){
+        this.brand = brand;
+        this.quantity = quantity;
+        this.expiry = expiry;
+        this.id = id;
+        this.reserve = reserve;
+    }
+
     // Check if a vaccine batch is expired
     public boolean isExpired(){
         LocalDate today = LocalDate.now();
