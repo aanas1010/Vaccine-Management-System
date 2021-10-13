@@ -1,9 +1,9 @@
-public class AddBatch {
+public class BatchAdding {
     private Clinic clinic;
     private VaccineBatch batch;
 
     // Constructor
-    public AddBatch(Clinic clinic, VaccineBatch batch){this.clinic = clinic; this.batch = batch;}
+    public BatchAdding(Clinic clinic, VaccineBatch batch){this.clinic = clinic; this.batch = batch;}
 
     // Adding a vaccine batch to the supply of a clinic if it is not expired
     public boolean addBatch(){
