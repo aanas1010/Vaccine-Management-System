@@ -23,4 +23,15 @@ public class Clinic{
     public int getClinicId() {
         return this.clinicId;
     }
+
+//    public VaccineBatch getOldest(){
+//        ArrayList<VaccineBatch> batchList = this.getSupply();
+//        VaccineBatch oldestBatch = null;
+//        for (VaccineBatch batch : batchList) {
+//            if(oldestBatch == null || oldestBatch.getExpiry().isAfter(batch.getExpiry())) {
+//                oldestBatch = batch;
+//            }
+//        }
+//        return oldestBatch;
+//    }
 }
