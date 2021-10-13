@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ClinicManagement {
@@ -31,10 +32,21 @@ public class ClinicManagement {
         return clinicNums;
     }
 
+    private Clinic getClinicById(int clinicId) {
+        for (Clinic clinic : clinics) {
+            //Call the getClinicId method for all clinics
+            if(clinic.getClinicId() == clinicId) {
+                return clinic;
+            }
+        }
+        return null;
+    }
+
 
     // Call the addBatch function to add a vaccine batch to the selected clinic
-    public boolean addBatch(VaccineBatch batch, Clinic clinic){
-        BatchAdding newBatch = new BatchAdding(clinic, batch);
+    public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
+        Clinic clinicById = getClinicById(clinicId);
+        BatchAdding newBatch = new BatchAdding(clinicById, batchBrand, batchQuantity, batchExpiry, batchId);
         return newBatch.addBatch();
     }
 

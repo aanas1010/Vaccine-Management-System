@@ -13,6 +13,7 @@ public class VaccineBatch {
         this.quantity = quantity;
         this.expiry = expiry;
         this.id = id;
+        this.reserve = 0;
     }
 
     public VaccineBatch(String brand, int quantity, LocalDate expiry, int id, int reserve){
