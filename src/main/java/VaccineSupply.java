@@ -22,7 +22,7 @@ public class VaccineSupply {
 
     // Return a hashmap that stores vaccine brand and the corresponding amount of vaccine
     public HashMap getAvailableVaccines(){
-        HashMap vaccines = new HashMap<String, Integer>();
+        HashMap<String, Integer> vaccines = new HashMap<String, Integer>();
         for (VaccineBatch batch : this.batchList) {
             if(vaccines.containsKey(batch.getBrand())){
                 vaccines.put(batch.getBrand(), (Integer) vaccines.get(batch.getBrand()) + batch.getAvailable());
@@ -31,7 +31,7 @@ public class VaccineSupply {
                 vaccines.put(batch.getBrand(), batch.getAvailable());
             }
         }
-        HashMap vaccinesCopy = new HashMap<String, Integer>(vaccines);
+        HashMap<String, Integer> vaccinesCopy = new HashMap<String, Integer>(vaccines);
         return vaccinesCopy;
     }
 

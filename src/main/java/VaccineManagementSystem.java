@@ -1,14 +1,23 @@
+import java.util.ArrayList;
+
 public class VaccineManagementSystem {
-    private ClinicManagement clinicManager;
-    //private ClientBooking clientBooker;
-    // Constructor (Comments are for a future class)
-    public VaccineManagementSystem(ClinicManagement clinicManager/*, ClientBooking clientBooker*/){
-        this.clinicManager = clinicManager;
-        /*this.clientBooker = clientBooker*/
+    private final ClinicManagement clinicManagement;
+
+    //Default constructor for skeleton: make num clinics (we can overload later)
+    public VaccineManagementSystem(int num) {
+        this.clinicManagement = new ClinicManagement(num);
     }
-    // Returning the clinic manager
+
+    public ArrayList<Clinic> getClinics() {
+        return this.clinicManagement.getClinics();
+    }
+    public ArrayList<Integer> getClinicIds() {
+      return this.clinicManagement.getClinicIds();
+    }
+  
+  // Returning the clinic manager
     public ClinicManagement getClinicManager() {
-        return clinicManager;
+        return this.clinicManagement;
     }
 
 //    public ClientBooking getClientBooker() {
