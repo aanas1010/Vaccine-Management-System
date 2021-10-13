@@ -10,6 +10,11 @@ public class Clinic{
         this.supply = new VaccineSupply();
     }
 
+    public Clinic(int id, VaccineSupply supply) {
+        this.clinicId = id;
+        this.supply = supply;
+    }
+
     // Return the batchList from the clinic's vaccine supply
     public ArrayList<VaccineBatch> getSupply(){
         return this.supply.getBatchList();
