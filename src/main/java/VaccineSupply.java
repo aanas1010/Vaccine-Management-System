@@ -6,7 +6,6 @@ public class VaccineSupply {
 
     public VaccineSupply(){}
 
-
     public VaccineSupply(ArrayList<VaccineBatch> batchList){
         this.batchList = batchList;
     }

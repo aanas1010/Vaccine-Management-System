@@ -9,7 +9,18 @@ public class VaccineManagementSystem {
     }
 
     public ArrayList<Clinic> getClinics() {
-        return clinicManagement.getClinics();
+        return this.clinicManagement.getClinics();
     }
-    public ArrayList<Integer> getClinicIds() {return clinicManagement.getClinicIds();}
+    public ArrayList<Integer> getClinicIds() {
+      return this.clinicManagement.getClinicIds();
+    }
+  
+  // Returning the clinic manager
+    public ClinicManagement getClinicManager() {
+        return this.clinicManagement;
+    }
+
+//    public ClientBooking getClientBooker() {
+//        return clientBooker;
+//    }
 }
