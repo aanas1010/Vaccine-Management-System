@@ -11,20 +11,20 @@ public class AddBatchTest {
     VaccineBatch batch;
     VaccineBatch badBatch;
     Clinic clinic;
-    AddBatch expiredAdd;
-    AddBatch batchAdd;
+    BatchAdding expiredAdd;
+    BatchAdding batchAdd;
 
     @Before // Setting up before the tests
     public void setUp() throws Exception{
         batches = new ArrayList<VaccineBatch>();
         supply = new VaccineSupply(batches);
-        batch = new VaccineBatch("Phizer", 100,
+        batch = new VaccineBatch("Pfizer", 100,
                 LocalDate.of(2021, 10 , 30), 1234);
-        badBatch = new VaccineBatch("Phizer", 100,
+        badBatch = new VaccineBatch("Pfizer", 100,
                 LocalDate.of(2021, 10 , 10), 1234);
-        clinic = new Clinic(supply);
-        batchAdd = new AddBatch(clinic, batch);
-        expiredAdd = new AddBatch(clinic, badBatch);
+        clinic = new Clinic(1);
+        batchAdd = new BatchAdding(clinic, batch);
+        expiredAdd = new BatchAdding(clinic, badBatch);
     }
 
     @Test(timeout = 100) // Testing an expired batch of vaccine doses does not get added
