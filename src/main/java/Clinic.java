@@ -3,8 +3,6 @@ import java.util.ArrayList;
 public class Clinic{
     private int clinicId;
     private VaccineSupply supply;
-    private VaccinationLog PastVaccinations;
-
 
     // Constructor
     public Clinic(int id) {
