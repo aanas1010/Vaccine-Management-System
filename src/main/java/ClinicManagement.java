@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ClinicManagement {
+public class ClinicManagement implements ClinicManagerInterface {
     //List of clinics, looking to change this into a database
     private ArrayList<Clinic> clinics;
 
@@ -13,7 +13,7 @@ public class ClinicManagement {
 
     //Constructor for num clinics with IDs 0 to num-1
     public ClinicManagement(int num) {
-        ArrayList<Clinic> clinicsList = new ArrayList<Clinic>(num);
+        ArrayList<Clinic> clinicsList = new ArrayList<>(num);
         for(int i=0;i<num;i++) {
             //Create new clinic with ID i
             clinicsList.add(new Clinic(i));
@@ -24,7 +24,7 @@ public class ClinicManagement {
     //Return a list of the clinic IDs
     public ArrayList<Integer> getClinicIds() {
         int arraySize = clinics.size();
-        ArrayList<Integer> clinicNums = new ArrayList<Integer>(arraySize);
+        ArrayList<Integer> clinicNums = new ArrayList<>(arraySize);
         for (Clinic clinic : clinics) {
             //Call the getClinicId method for all clinics
             clinicNums.add(clinic.getClinicId());
@@ -42,17 +42,10 @@ public class ClinicManagement {
         return null;
     }
 
-
     // Call the addBatch function to add a vaccine batch to the selected clinic
     public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
         Clinic clinicById = getClinicById(clinicId);
         BatchAdding newBatch = new BatchAdding(clinicById, batchBrand, batchQuantity, batchExpiry, batchId);
         return newBatch.addBatch();
     }
-
-    public ArrayList<Clinic> getClinics() {
-        return clinics;
-    }
-
-    //public void setTimePeriod(Clinic clinic, LocalDateTime Start, LocalDateTime End){}
 }
