@@ -10,7 +10,7 @@ import static java.lang.Integer.parseInt;
 public class CommandLine {
     private static final String commandLinePrompt = "> ";
 
-    public static void main(String[] args) {
+    public void run() {
         //Create scanner for command line and initialize a new vms
         Scanner in = new Scanner(System.in);
         VaccineManagementSystem vms = new VaccineManagementSystem(10);
@@ -79,8 +79,7 @@ public class CommandLine {
     private static String getValue(Scanner in, String prompt) {
         System.out.println(prompt);
         System.out.print(commandLinePrompt);
-        String userInput = in.nextLine();
 
-        return userInput;
+        return in.nextLine();
     }
 }

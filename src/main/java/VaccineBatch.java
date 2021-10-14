@@ -43,4 +43,8 @@ public class VaccineBatch {
     }
 
     public LocalDate getExpiry(){return this.expiry;}
+
+    public int getQuantity() {return this.quantity;}
+
+    public int getReserve() {return this.reserve;}
 }
