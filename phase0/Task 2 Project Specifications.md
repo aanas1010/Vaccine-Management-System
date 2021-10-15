@@ -1,4 +1,6 @@
-# VACCINE MANAGEMENT SYSTEM:
+# Task 2: Specifications:
+
+## Vaccine Management System
 
 Key:
 * **Bold**: class
