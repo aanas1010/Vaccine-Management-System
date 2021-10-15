@@ -1,5 +1,10 @@
 import java.time.LocalDate;
 
+/**
+ * This is the Entity for a vaccine batch, which includes the
+ * brand, quantity, expiry, and other data relevant to a specific batch
+ */
+
 public class VaccineBatch {
     private String brand;
     private int quantity;
@@ -16,6 +21,7 @@ public class VaccineBatch {
         this.reserve = 0;
     }
 
+    // Overloaded constructor for testing
     public VaccineBatch(String brand, int quantity, LocalDate expiry, int id, int reserve){
         this.brand = brand;
         this.quantity = quantity;
@@ -24,27 +30,27 @@ public class VaccineBatch {
         this.reserve = reserve;
     }
 
-    // Check if a vaccine batch is expired
+    // Return whether the batch is expired
     public boolean isExpired(){
         LocalDate today = LocalDate.now();
         return (today.isAfter(this.expiry) || today.equals(this.expiry));
     }
-    // Return the brand of a vaccine batch
-    public String getBrand(){
-        return this.brand;
-    }
-    // Return the id of a vaccine batch
-    public int getId(){
-        return this.id;
-    }
+
     // Return the number of available vaccines in a batch
     public int getAvailable(){
         return this.quantity - this.reserve;
     }
 
-    public LocalDate getExpiry(){return this.expiry;}
+    // Getters
+    public String getBrand(){
+        return this.brand;
+    }
 
     public int getQuantity() {return this.quantity;}
+
+    public LocalDate getExpiry(){return this.expiry;}
+
+    public int getId(){return this.id;}
 
     public int getReserve() {return this.reserve;}
 }

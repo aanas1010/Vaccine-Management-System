@@ -5,8 +5,11 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-//Class for the User Interface using the command line
-//User can input commands and parameters
+/**
+ * This is the class for the Command Line UI
+ * User can input commands and parameters sequentially
+ */
+
 public class CommandLine {
     private static final String commandLinePrompt = "> ";
 
@@ -35,24 +38,23 @@ public class CommandLine {
 
         while(isRunning) {
             String userInput = getValue(in, "Commands: ADD_BATCH, QUIT");
-
             try {
                 switch (userInput) {
                     case "ADD_BATCH":
-
-                        // int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId
+                        // Ask for information for a new batch
 
                         String batchBrand = getValue(in, "Batch Brand:");
+                        int batchId = parseInt(getValue(in, "Batch ID:"));
                         int batchQuantity = parseInt(getValue(in, "Batch Quantity:"));
-
                         String batchExpiry = getValue(in, "Batch Expiry Date (DD/MM/YYYY):");
                         //convert String to LocalDate
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
                         LocalDate batchExpiryDate = LocalDate.parse(batchExpiry, formatter);
 
-                        int batchId = parseInt(getValue(in, "Batch ID:"));
-
+                        // Add the batch via the vms
                         boolean output = vms.addBatch(clinicId, batchBrand, batchQuantity, batchExpiryDate, batchId);
+
+                        // Output different message depending on result
                         if(output) {
                             System.out.println("Batch added successfully");
                         }else {
@@ -60,6 +62,8 @@ public class CommandLine {
                         }
                         break;
                     case "QUIT":
+                        // Quit the program
+
                         isRunning = false;
                         System.out.println("Quitting Program");
 
@@ -71,11 +75,10 @@ public class CommandLine {
             }
         }
 
-        String clinicID = in.nextLine();
-
-
         in.close();
     }
+
+    // Helper function for input and output to command line
     private static String getValue(Scanner in, String prompt) {
         System.out.println(prompt);
         System.out.print(commandLinePrompt);

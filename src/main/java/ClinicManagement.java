@@ -1,6 +1,12 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * This is the Use Case for adding batches.
+ * Every time the use case is needed, a new BatchAdding instance is created
+ * with the parameters of the batch
+ */
+
 public class ClinicManagement implements ClinicManagerInterface {
     //List of clinics, looking to change this into a database
     private ArrayList<Clinic> clinics;
@@ -19,6 +25,13 @@ public class ClinicManagement implements ClinicManagerInterface {
             clinicsList.add(new Clinic(i));
         }
         clinics = clinicsList;
+    }
+
+    // Call the addBatch function to add a vaccine batch to the selected clinic
+    public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
+        Clinic clinicById = getClinicById(clinicId);
+        BatchAdding newBatch = new BatchAdding(clinicById, batchBrand, batchQuantity, batchExpiry, batchId);
+        return newBatch.addBatch();
     }
 
     //Return a list of the clinic IDs
@@ -40,12 +53,5 @@ public class ClinicManagement implements ClinicManagerInterface {
             }
         }
         return null;
-    }
-
-    // Call the addBatch function to add a vaccine batch to the selected clinic
-    public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
-        Clinic clinicById = getClinicById(clinicId);
-        BatchAdding newBatch = new BatchAdding(clinicById, batchBrand, batchQuantity, batchExpiry, batchId);
-        return newBatch.addBatch();
     }
 }
