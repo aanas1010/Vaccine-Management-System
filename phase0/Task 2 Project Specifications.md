@@ -1,4 +1,4 @@
-# Task 2: Specifications:
+# Task 2: Specifications
 
 ## Vaccine Management System
 
