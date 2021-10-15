@@ -41,5 +41,5 @@ Since we decided on some sort of management system for our project domain, we we
 
 ## Project Phase 0 Weaknesses:
 
-Our Project Phase 0 weaknesses were that there were some major issues with communication with one of our team members, who we couldn’t get in contact with. One major question that we were struggling with during the design of the project was how exactly the database would slot into our CRC model and clean architecture diagram.
+Our Project Phase 0 weaknesses were that there were some major issues with communication with one of our team members, who we couldn’t get in contact with. One major question that we were struggling with during the design of the project was how exactly the database would slot into our CRC model and clean architecture diagram. Another question we were concerned about was which layers we may have needed abstraction, if any.
 
