@@ -38,11 +38,15 @@ public class VaccineSupply {
 
     // Return a string of the list of batches using the brand and id number
     @Override
-    public String toString () {
-        StringBuilder s = new StringBuilder("[");
+    public String toString() {
+        StringBuilder s = new StringBuilder("-----BATCHLIST-----: \n[");
         int l = this.batchList.size();
         for (VaccineBatch batch : this.batchList) {
-            s.append(batch.getBrand()).append("-").append(batch.getId()).append(", ");
+            s.append(batch.getBrand()).append("-").append(batch.getId())
+                    .append(": ").append(batch.getReserve()).append("/")
+                    .append(batch.getAvailable()).append(" RESERVED | EXP:")
+                    .append(batch.getExpiry());
+            s.append("\n");
         }
         s.append("]");
         return s.toString();
