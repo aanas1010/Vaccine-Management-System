@@ -1,3 +1,7 @@
+package drivers;
+
+import controllers.ManagementSystem;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -100,7 +104,7 @@ public class CommandLine {
     }
 
     private int getClinicId(Scanner in, ManagementSystem managementSystem) {
-        //Get the Clinic ID
+        //Get the entities.Clinic ID
         int clinicId = -1;
         while(clinicId == -1) {
             String userInput = getValue(in, "Please provide your Clinic ID");

@@ -1,3 +1,5 @@
+package entities;
+
 import java.util.ArrayList;
 /* TODO: specify the "Object" */
 public class VaccinationLog {

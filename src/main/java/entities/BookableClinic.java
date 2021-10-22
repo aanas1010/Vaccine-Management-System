@@ -1,4 +1,7 @@
-import java.awt.*;
+package entities;
+
+import entities.Appointment;
+
 import java.util.ArrayList;
 
 public class BookableClinic {

@@ -1,8 +1,11 @@
-import java.time.LocalDate;
+package clinic_management;
+
+import entities.ServiceLocation;
+import entities.VaccineBatch;
 
 /**
  * This is the Use Case for adding batches.
- * Every time the use case is needed, a new BatchAdding instance is created
+ * Every time the use case is needed, a new clinic_management.BatchAdding instance is created
  * with the parameters of the batch
  */
 
@@ -11,9 +14,9 @@ public class BatchAdding {
     private VaccineBatch batch;
 
 //    // Constructor
-//    public BatchAdding(ServiceLocation clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
+//    public clinic_management.BatchAdding(entities.ServiceLocation clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
 //        this.clinic = clinic;
-//        this.batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
+//        this.batch = new entities.VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
 //    }
 
     //Constructor
