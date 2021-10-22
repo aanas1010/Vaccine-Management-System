@@ -11,14 +11,15 @@ import static java.lang.Integer.parseInt;
 
 public class CommandLine {
     private static final String commandLinePrompt = "> ";
-    private ManagementSystem managementSystem;
+    private final ManagementSystem managementSystem;
     public enum Commands {
         ADD_BATCH,
         QUIT;
 
-        public static boolean contains(String test) {
+        // Return whether s is a valid element of Commands
+        public static boolean contains(String s) {
             for (Commands c : Commands.values()) {
-                if (c.name().equals(test)) {
+                if (c.name().equals(s)) {
                     return true;
                 }
             }
@@ -47,15 +48,12 @@ public class CommandLine {
         while(isRunning) {
             String userInput = getValue(in, "Commands: ADD_BATCH, QUIT");
 
-            if(!Commands.contains(userInput)) {
-                System.out.println("'" + userInput + "' is an invalid command");
-                continue;
-            }
+            if (isValidCommand(userInput)){continue;}
 
             try {
                 switch (Commands.valueOf(userInput)) {
                     case ADD_BATCH:
-                        AddBatch(in, managementSystem, clinicId);
+                        addBatch(in, managementSystem, clinicId);
                         break;
                     case QUIT:
                         // Quit the program
@@ -69,11 +67,18 @@ public class CommandLine {
                 e.printStackTrace();
             }
         }
-
         in.close();
     }
 
-    private void AddBatch(Scanner in, ManagementSystem managementSystem, int clinicId) {
+    private boolean isValidCommand(String userInput) {
+        if(!Commands.contains(userInput)) {
+            System.out.println("'" + userInput + "' is an invalid command");
+            return true;
+        }
+        return false;
+    }
+
+    private void addBatch(Scanner in, ManagementSystem managementSystem, int clinicId) {
         // Ask for information for a new batch
         String batchBrand = getValue(in, "Batch Brand:");
         int batchId = parseInt(getValue(in, "Batch ID:"));
