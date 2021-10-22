@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * that communicates with the use case interfaces
  */
 
-public class VaccineManagementSystem {
+public class VaccineManagementSystem implements ManagementSystem {
     private final ClinicManagerInterface clinicManagement;
 
     // Constructor
