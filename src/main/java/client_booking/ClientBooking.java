@@ -6,7 +6,7 @@ package client_booking;
  * with the parameters of the appointment
  */
 
-public class ClientBooking {
+public class ClientBooking implements ClientBookingInterface{
 
     public ClientBooking(){
 
