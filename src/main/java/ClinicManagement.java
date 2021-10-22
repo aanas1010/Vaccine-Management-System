@@ -30,7 +30,8 @@ public class ClinicManagement implements ClinicManagerInterface {
     // Call the addBatch function to add a vaccine batch to the selected clinic
     public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
         ServiceLocation clinicById = getClinicById(clinicId);
-        BatchAdding newBatch = new BatchAdding(clinicById, batchBrand, batchQuantity, batchExpiry, batchId);
+        VaccineBatch batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
+        BatchAdding newBatch = new BatchAdding(clinicById, batch);
         return newBatch.addBatch();
     }
 

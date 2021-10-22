@@ -10,13 +10,13 @@ public class BatchAdding {
     private ServiceLocation clinic;
     private VaccineBatch batch;
 
-    // Constructor
-    public BatchAdding(ServiceLocation clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
-        this.clinic = clinic;
-        this.batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
-    }
+//    // Constructor
+//    public BatchAdding(ServiceLocation clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
+//        this.clinic = clinic;
+//        this.batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
+//    }
 
-    //Overloaded constructor for testing
+    //Constructor
     public BatchAdding(ServiceLocation clinic, VaccineBatch batch){
         this.clinic = clinic;
         this.batch = batch;
