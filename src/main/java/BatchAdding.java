@@ -7,17 +7,17 @@ import java.time.LocalDate;
  */
 
 public class BatchAdding {
-    private Clinic clinic;
+    private ServiceLocation clinic;
     private VaccineBatch batch;
 
     // Constructor
-    public BatchAdding(Clinic clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
+    public BatchAdding(ServiceLocation clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
         this.clinic = clinic;
         this.batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
     }
 
     //Overloaded constructor for testing
-    public BatchAdding(Clinic clinic, VaccineBatch batch){
+    public BatchAdding(ServiceLocation clinic, VaccineBatch batch){
         this.clinic = clinic;
         this.batch = batch;
     }

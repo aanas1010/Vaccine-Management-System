@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -12,58 +11,54 @@ import static java.lang.Integer.parseInt;
 
 public class CommandLine {
     private static final String commandLinePrompt = "> ";
+    private ManagementSystem managementSystem;
+    public enum Commands {
+        ADD_BATCH,
+        QUIT;
+
+        public static boolean contains(String test) {
+            for (Commands c : Commands.values()) {
+                if (c.name().equals(test)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    // Constructor accepts a management system
+    public CommandLine(ManagementSystem system) {
+        this.managementSystem = system;
+    }
 
     public void run() {
-        //Create scanner for command line and initialize a new vms
+        //Create scanner for command line
         Scanner in = new Scanner(System.in);
-        VaccineManagementSystem vms = new VaccineManagementSystem(10);
 
-        //Get the Clinic ID
-        int clinicId = -1;
-        while(clinicId == -1) {
-            String userInput = getValue(in, "Please provide your Clinic ID");
-
-            if(vms.getClinicIds().contains(parseInt(userInput))) {
-                //If ID is valid, set clinicId and exit loop
-                clinicId = parseInt(userInput);
-            }else {
-                //If ID is invalid, error message
-                System.out.println("That Clinic ID is invalid");
-            }
-        }
+        //Get the clinic ID from the user
+        int clinicId = getClinicId(in, managementSystem);
 
         //Ask what the user would like to do
-        System.out.println("You are now managing Clinic #" + clinicId);
-        boolean isRunning = true;
+        runCommands(in, managementSystem, clinicId);
+    }
 
+    private void runCommands(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        boolean isRunning = true;
         while(isRunning) {
             String userInput = getValue(in, "Commands: ADD_BATCH, QUIT");
+
+            if(!Commands.contains(userInput)) {
+                System.out.println("'" + userInput + "' is an invalid command");
+                continue;
+            }
+
             try {
-                switch (userInput) {
-                    case "ADD_BATCH":
-                        // Ask for information for a new batch
-
-                        String batchBrand = getValue(in, "Batch Brand:");
-                        int batchId = parseInt(getValue(in, "Batch ID:"));
-                        int batchQuantity = parseInt(getValue(in, "Batch Quantity:"));
-                        String batchExpiry = getValue(in, "Batch Expiry Date (DD/MM/YYYY):");
-                        //convert String to LocalDate
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-                        LocalDate batchExpiryDate = LocalDate.parse(batchExpiry, formatter);
-
-                        // Add the batch via the vms
-                        boolean output = vms.addBatch(clinicId, batchBrand, batchQuantity, batchExpiryDate, batchId);
-
-                        // Output different message depending on result
-                        if(output) {
-                            System.out.println("Batch added successfully");
-                        }else {
-                            System.out.println("Batch was not added");
-                        }
+                switch (Commands.valueOf(userInput)) {
+                    case ADD_BATCH:
+                        AddBatch(in, managementSystem, clinicId);
                         break;
-                    case "QUIT":
+                    case QUIT:
                         // Quit the program
-
                         isRunning = false;
                         System.out.println("Quitting Program");
 
@@ -71,11 +66,50 @@ public class CommandLine {
                 }
             }
             catch(Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
 
         in.close();
+    }
+
+    private void AddBatch(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for a new batch
+        String batchBrand = getValue(in, "Batch Brand:");
+        int batchId = parseInt(getValue(in, "Batch ID:"));
+        int batchQuantity = parseInt(getValue(in, "Batch Quantity:"));
+        String batchExpiry = getValue(in, "Batch Expiry Date (DD/MM/YYYY):");
+        //convert String to LocalDate
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate batchExpiryDate = LocalDate.parse(batchExpiry, formatter);
+
+        // Add the batch via the managementSystem
+        boolean output = managementSystem.addBatch(clinicId, batchBrand, batchQuantity, batchExpiryDate, batchId);
+
+        // Output different message depending on result
+        if(output) {
+            System.out.println("Batch added successfully");
+        }else {
+            System.out.println("Batch was not added");
+        }
+    }
+
+    private int getClinicId(Scanner in, ManagementSystem managementSystem) {
+        //Get the Clinic ID
+        int clinicId = -1;
+        while(clinicId == -1) {
+            String userInput = getValue(in, "Please provide your Clinic ID");
+
+            if(managementSystem.getClinicIds().contains(parseInt(userInput))) {
+                //If ID is valid, set clinicId and exit loop
+                clinicId = parseInt(userInput);
+            }else {
+                //If ID is invalid, error message
+                System.out.println("That Clinic ID is invalid");
+            }
+        }
+        System.out.println("You are now managing Clinic #" + clinicId);
+        return clinicId;
     }
 
     // Helper function for input and output to command line

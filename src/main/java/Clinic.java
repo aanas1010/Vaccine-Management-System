@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Clinics have a unique integer ClinicId which is used to identify the clinic
  */
 
-public class Clinic{
+public class Clinic implements ServiceLocation {
     private int clinicId;
     private VaccineSupply supply;
 
