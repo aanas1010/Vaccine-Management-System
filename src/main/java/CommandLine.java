@@ -48,7 +48,7 @@ public class CommandLine {
         while(isRunning) {
             String userInput = getValue(in, "Commands: ADD_BATCH, QUIT");
 
-            if (isValidCommand(userInput)){continue;}
+            if (isInvalidCommand(userInput)){continue;}
 
             try {
                 switch (Commands.valueOf(userInput)) {
@@ -70,7 +70,7 @@ public class CommandLine {
         in.close();
     }
 
-    private boolean isValidCommand(String userInput) {
+    private boolean isInvalidCommand(String userInput) {
         if(!Commands.contains(userInput)) {
             System.out.println("'" + userInput + "' is an invalid command");
             return true;
