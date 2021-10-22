@@ -1,3 +1,5 @@
+package entities;
+
 public class Client {
 
     private final String name;

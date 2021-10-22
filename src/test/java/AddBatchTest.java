@@ -1,3 +1,7 @@
+import clinic_management.BatchAdding;
+import entities.Clinic;
+import entities.VaccineBatch;
+import entities.VaccineSupply;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -17,7 +21,7 @@ public class AddBatchTest {
     @Before // Setting up before the tests
     public void setUp() throws Exception{
         batch = new VaccineBatch("Pfizer", 100,
-                LocalDate.of(2021, 10 , 30), 1234);
+                LocalDate.of(2099, 10 , 30), 1234);
         badBatch = new VaccineBatch("Pfizer", 100,
                 LocalDate.of(2021, 10 , 10), 1234);
         clinic = new Clinic(1);

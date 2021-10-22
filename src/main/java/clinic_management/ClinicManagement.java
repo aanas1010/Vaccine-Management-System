@@ -1,9 +1,15 @@
+package clinic_management;
+
+import entities.Clinic;
+import entities.ServiceLocation;
+import entities.VaccineBatch;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
  * This is the Use Case for adding batches.
- * Every time the use case is needed, a new BatchAdding instance is created
+ * Every time the use case is needed, a new clinic_management.BatchAdding instance is created
  * with the parameters of the batch
  */
 
