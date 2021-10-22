@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Clinic{
+public class Clinic implements ServiceLocation {
     private int clinicId;
     private VaccineSupply supply;
 
