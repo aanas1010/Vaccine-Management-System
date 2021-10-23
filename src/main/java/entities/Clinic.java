@@ -26,13 +26,20 @@ public class Clinic implements ServiceLocation {
         this.shifts = new HashMap<LocalDate, Integer>();
     }
 
-    // Overloaded Constructor for testing
+    // Overloaded Constructors for testing
     public Clinic(int id, VaccineSupply supply, VaccinationLog vaccinationLog, ArrayList<TimePeriod> timePeriods, HashMap<LocalDate, Integer> shifts) {
         this.clinicId = id;
         this.supply = supply;
         this.log = vaccinationLog;
         this.timePeriods = timePeriods;
         this.shifts = shifts;
+    }
+    public Clinic(int id, VaccineSupply supply) {
+        this.clinicId = id;
+        this.supply = supply;
+        this.log = new VaccinationLog();
+        this.timePeriods = new ArrayList<>();
+        this.shifts = new HashMap<LocalDate, Integer>();
     }
 
     // Log a past vaccination (NON-APPOINTMENT)
