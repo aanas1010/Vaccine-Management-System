@@ -8,20 +8,29 @@ import java.time.LocalDate;
  */
 
 public class Appointment {
+    int appointmentId;
     Client client;
-    LocalDate datetime;
+    TimePeriod timePeriod;
     String vaccineBrand;
 
-    public Appointment(Client client, LocalDate datetime, String vaccineBrand){
+    public Appointment(Client client, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
-        this.datetime = datetime;
+        this.timePeriod = timePeriod;
         this.vaccineBrand = vaccineBrand;
+        this.appointmentId = id;
     }
 
-    //getters
+    // Return whether this appointment's time has already occured
+    public boolean appointmentTimePassed() {
+        return timePeriod.getDateTime().isBefore(LocalDate.now());
+    }
+
+    // Getters
+    public int getAppointmentId() {return appointmentId; }
+
     public Client getClient() { return client; }
 
-    public Object getDaytime() { return datetime; }
+    public TimePeriod getTimePeriod() { return timePeriod; }
 
     public String getVaccineBrand() { return vaccineBrand;}
 }

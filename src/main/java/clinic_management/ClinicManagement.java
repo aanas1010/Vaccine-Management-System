@@ -47,7 +47,7 @@ public class ClinicManagement implements ClinicManagerInterface {
         ArrayList<Integer> clinicNums = new ArrayList<>(arraySize);
         for (ServiceLocation clinic : clinics) {
             //Call the getClinicId method for all clinics
-            clinicNums.add(clinic.getClinicId());
+            clinicNums.add(clinic.getServiceLocationId());
         }
         return clinicNums;
     }
@@ -55,7 +55,7 @@ public class ClinicManagement implements ClinicManagerInterface {
     private ServiceLocation getClinicById(int clinicId) {
         for (ServiceLocation clinic : clinics) {
             //Call the getClinicId method for all clinics
-            if(clinic.getClinicId() == clinicId) {
+            if(clinic.getServiceLocationId() == clinicId) {
                 return clinic;
             }
         }

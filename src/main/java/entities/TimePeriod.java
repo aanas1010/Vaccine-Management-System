@@ -1,38 +1,40 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.ArrayList;
 
-/* TODO: Change 'Object' to whatever is appropriate here*/
+/**
+ * This is the TimePeriod entity that represents a time of day for a specific date.
+ * A TimePeriod has a dateTime and keeps track of how many available slots there are
+ * and booked slots in the case of BookableClinics
+ */
+
 public class TimePeriod {
+    LocalDate dateTime;
+    int availableSlots;
+    int bookedSlots;
 
-    Object daytime;
-    List<Object> availabilities;
-    List<Object> bookedSlots;
-
-    public TimePeriod(){
-        this.daytime = new Object();
-        this.availabilities = new ArrayList();
-        this.bookedSlots = new ArrayList();
+    public TimePeriod(LocalDate dateTime, int availableSlots){
+        this.dateTime = dateTime;
+        this.availableSlots = availableSlots;
+        this.bookedSlots = 0;
     }
 
-    public void addAvailability(Object availableSpot){
-        this.availabilities.add(availableSpot);
+    // Try to remove 1 from available slots and add 1 to bookedSlots.
+    // Return whether it was added
+    public boolean findAndReserveSlot(){
+        // If there are no slots, return false
+        if(this.getAvailableSlots() == 0) {return false;}
+
+        availableSlots -= 1;
+        bookedSlots += 1;
+        return true;
     }
 
-    /*
-    TODO: improve following method
-     */
-    public boolean removeAvailability(Object unavailableSpot){
-        if(this.availabilities.contains(unavailableSpot)){
-            this.availabilities.remove(unavailableSpot);
-            return true;
-        }
-        else
-            return  false;
+    // Getters
+    public int getAvailableSlots() {
+        return availableSlots;
     }
 
-    public List<Object> getAvailabilities() {
-        return availabilities;
-    }
+    public LocalDate getDateTime() {return dateTime;}
 }

@@ -1,7 +1,11 @@
 package entities;
 
-public class Client {
+/**
+ * This is the Client entity which consists of a person's data
+ * from an external data source.
+ */
 
+public class Client {
     private final String name;
     private final String healthCareNumber;
     private Boolean hasAppointment;
@@ -12,11 +16,12 @@ public class Client {
         this.hasAppointment = false; //look over later!!!
     }
 
+    public void approveAppointment() {this.hasAppointment = true;}
+
+    // Getters
     public String getName() {return name;}
 
     public String getHealthCareNumber() {return healthCareNumber;}
 
     public Boolean getHasAppointment() {return hasAppointment;}
-
-    public void approveAppointment() {this.hasAppointment = true;}
 }
