@@ -52,6 +52,28 @@ public class Clinic implements ServiceLocation {
         shifts.put(date, num);
     }
 
+    public boolean containsShift(LocalDate date){return this.shifts.containsKey(date);}
+
+    public boolean checkShifts(LocalDate date){
+        if (this.shifts.containsKey(date)){
+            return this.shifts.get(date) > 0;
+        }
+        return false;
+    }
+
+    public boolean checkTimePeriod(LocalDate date){
+        for (TimePeriod timePeriod: this.timePeriods){
+            if (timePeriod.getDateTime() == date){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addTimePeriod(TimePeriod timePeriod){
+        this.timePeriods.add(timePeriod);
+    }
+
     // Getters
     public int getServiceLocationId() {
         return this.clinicId;
