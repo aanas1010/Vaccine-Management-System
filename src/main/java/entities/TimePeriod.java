@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -10,11 +11,12 @@ import java.util.List;
  */
 
 public class TimePeriod {
-    LocalDate dateTime;
+    LocalDateTime dateTime;
     int availableSlots;
     int bookedSlots;
 
-    public TimePeriod(LocalDate dateTime, int availableSlots){
+    // Constructor
+    public TimePeriod(LocalDateTime dateTime, int availableSlots){
         this.dateTime = dateTime;
         this.availableSlots = availableSlots;
         this.bookedSlots = 0;
@@ -36,5 +38,5 @@ public class TimePeriod {
         return availableSlots;
     }
 
-    public LocalDate getDateTime() {return dateTime;}
+    public LocalDateTime getDateTime() {return dateTime;}
 }

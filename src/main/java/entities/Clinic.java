@@ -2,6 +2,7 @@ package entities;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,7 +15,7 @@ public class Clinic implements ServiceLocation {
     private int clinicId;
     private VaccineSupply supply;
     protected VaccinationLog log;
-    private ArrayList<TimePeriod> timePeriods;
+    private HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
     private HashMap<LocalDate, Integer> shifts;
 
     // Basic constructor
@@ -22,12 +23,12 @@ public class Clinic implements ServiceLocation {
         this.clinicId = id;
         this.supply = new VaccineSupply();
         this.log = new VaccinationLog();
-        this.timePeriods = new ArrayList<>();
+        this.timePeriods = new HashMap<LocalDate, ArrayList<TimePeriod>>();
         this.shifts = new HashMap<LocalDate, Integer>();
     }
 
     // Overloaded Constructors for testing
-    public Clinic(int id, VaccineSupply supply, VaccinationLog vaccinationLog, ArrayList<TimePeriod> timePeriods, HashMap<LocalDate, Integer> shifts) {
+    public Clinic(int id, VaccineSupply supply, VaccinationLog vaccinationLog, HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods, HashMap<LocalDate, Integer> shifts) {
         this.clinicId = id;
         this.supply = supply;
         this.log = vaccinationLog;
@@ -38,12 +39,12 @@ public class Clinic implements ServiceLocation {
         this.clinicId = id;
         this.supply = supply;
         this.log = new VaccinationLog();
-        this.timePeriods = new ArrayList<>();
+        this.timePeriods = new HashMap<LocalDate, ArrayList<TimePeriod>>();
         this.shifts = new HashMap<LocalDate, Integer>();
     }
 
     // Log a past vaccination (NON-APPOINTMENT)
-    public void logPastVaccinations(String vaccinationId, Client client, LocalDate dateTime, String vaccineBrand) {
+    public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {
         log.addToLog(vaccinationId, client, dateTime, vaccineBrand);
     }
 
@@ -52,26 +53,40 @@ public class Clinic implements ServiceLocation {
         shifts.put(date, num);
     }
 
+    // Checking if a date has a number of shifts
     public boolean containsShift(LocalDate date){return this.shifts.containsKey(date);}
 
-    public boolean checkShifts(LocalDate date){
+    // Checking if a date has more than 0 shifts on a day
+    public boolean shiftAvailable(LocalDate date){
         if (this.shifts.containsKey(date)){
             return this.shifts.get(date) > 0;
         }
         return false;
     }
 
-    public boolean checkTimePeriod(LocalDate date){
-        for (TimePeriod timePeriod: this.timePeriods){
-            if (timePeriod.getDateTime() == date){
-                return true;
+    // Checking if a time period is already stored in a clinic
+    public boolean checkTimePeriod(LocalDateTime dateTime, LocalDate date){
+        if (this.timePeriods.containsKey(date)){
+            ArrayList<TimePeriod> timePeriods = this.timePeriods.get(date);
+            for (TimePeriod timePeriod: timePeriods){
+                if (timePeriod.getDateTime() == dateTime){
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    public void addTimePeriod(TimePeriod timePeriod){
-        this.timePeriods.add(timePeriod);
+    // Adding a time period to a certain date
+    public void addTimePeriod(TimePeriod timePeriod, LocalDate date){
+        if (this.timePeriods.containsKey(date)){
+            this.timePeriods.get(date).add(timePeriod);
+        }
+        else{
+            ArrayList<TimePeriod> newTime = new ArrayList<TimePeriod>();
+            newTime.add(timePeriod);
+            this.timePeriods.put(date, newTime);
+        }
     }
 
     // Getters
@@ -88,14 +103,16 @@ public class Clinic implements ServiceLocation {
 
     public int getShiftForDate(LocalDate date) {return shifts.get(date);}
 
-    public ArrayList<TimePeriod> getTimePeriods() {return timePeriods;}
-
-    public TimePeriod getTimePeriodByDate(LocalDate date) {
-        for(TimePeriod timePeriod: timePeriods) {
-            if(timePeriod.getDateTime().equals(date)) {
-                return timePeriod;
-            }
-        }
-        return null;
+    public ArrayList<TimePeriod> getTimePeriods(LocalDate date) {
+        return this.timePeriods.get(date);
     }
+
+//    public TimePeriod getTimePeriodByDate(LocalDate date) {
+//        for(TimePeriod timePeriod: timePeriods) {
+//            if(timePeriod.getDateTime().equals(date)) {
+//                return timePeriod;
+//            }
+//        }
+//        return null;
+//    }
 }

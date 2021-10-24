@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,7 @@ public class VaccinationLog {
     public void addToLog(Appointment a){
         int appointmentId = a.getAppointmentId();
         Client client = a.getClient();
-        LocalDate dateTime = a.getTimePeriod().getDateTime();
+        LocalDateTime dateTime = a.getTimePeriod().getDateTime();
         String vaccineBrand = a.getVaccineBrand();
 
         VaccinationRecord dataObj =
@@ -30,7 +31,7 @@ public class VaccinationLog {
     }
 
     // For non-appointments
-    public void addToLog(String vaccinationId, Client client, LocalDate dateTime, String vaccineBrand){
+    public void addToLog(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand){
         VaccinationRecord dataObj =
                 new VaccinationRecord("V" + vaccinationId, client, dateTime, vaccineBrand);
 
@@ -50,7 +51,7 @@ public class VaccinationLog {
     // Getters
     public Client getClientByVaccinationId(String id) {return getVaccinationRecord(id).getClient();}
 
-    public LocalDate getDateTimeByVaccinationId(String id) {return getVaccinationRecord(id).getDateTime();}
+    public LocalDateTime getDateTimeByVaccinationId(String id) {return getVaccinationRecord(id).getDateTime();}
 
     public String getVaccineBrandByVaccinationId(String id) {return getVaccinationRecord(id).getVaccineBrand();}
 
@@ -62,10 +63,10 @@ public class VaccinationLog {
         //vaccinationId is of the form "A123" for appointment-based vaccinations, or "V123" otherwise
         private final String vaccinationId;
         private final Client client;
-        private final LocalDate dateTime;
+        private final LocalDateTime dateTime;
         private final String vaccineBrand;
 
-        public VaccinationRecord(String vaccinationId, Client client, LocalDate dateTime, String vaccineBrand) {
+        public VaccinationRecord(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {
             this.vaccinationId = vaccinationId;
             this.client = client;
             this.dateTime = dateTime;
@@ -84,7 +85,7 @@ public class VaccinationLog {
             return vaccineBrand;
         }
 
-        public LocalDate getDateTime() {
+        public LocalDateTime getDateTime() {
             return dateTime;
         }
 
