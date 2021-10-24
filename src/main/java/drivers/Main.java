@@ -2,7 +2,6 @@ package drivers;
 
 import controllers.ManagementSystem;
 import controllers.VaccineManagementSystem;
-import drivers.CommandLine;
 
 public class Main {
     public static void main(String[] args) {
