@@ -1,6 +1,7 @@
 package entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * This is the Appointment entity for each appointment instance,
@@ -22,7 +23,7 @@ public class Appointment {
 
     // Return whether this appointment's time has already occured
     public boolean appointmentTimePassed() {
-        return timePeriod.getDateTime().isBefore(LocalDate.now());
+        return timePeriod.getDateTime().isBefore(LocalDateTime.now());
     }
 
     // Getters

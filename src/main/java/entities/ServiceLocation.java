@@ -4,6 +4,7 @@ import entities.VaccineBatch;
 import entities.VaccineSupply;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 
 public interface ServiceLocation {
 
-    void logPastVaccinations(String vaccinationId, Client client, LocalDate dateTime, String vaccineBrand);
+    void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
 
     int getServiceLocationId();
 
