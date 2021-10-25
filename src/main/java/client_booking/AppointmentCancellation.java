@@ -7,4 +7,10 @@ public class AppointmentCancellation {
 
   }
 
+  /*
+    TODO: fill out deleteAppointment
+   */
+  public boolean deleteAppoinment()
+  {return false;}
+
 }
