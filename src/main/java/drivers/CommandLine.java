@@ -16,6 +16,12 @@ import static java.lang.Integer.parseInt;
 public class CommandLine {
     private static final String commandLinePrompt = "> ";
     private final ManagementSystem managementSystem;
+    public enum ParameterTypes {
+        NON_NEGATIVE_INT,
+        NON_PAST_DATE,
+        COMMAND,
+        FREE_TEXT
+    }
     public enum Commands {
         ADD_BATCH,
         QUIT;
@@ -47,12 +53,11 @@ public class CommandLine {
         runCommands(in, managementSystem, clinicId);
     }
 
+    // Determine which command to run
     private void runCommands(Scanner in, ManagementSystem managementSystem, int clinicId) {
         boolean isRunning = true;
         while(isRunning) {
-            String userInput = getValue(in, "Commands: ADD_BATCH, QUIT");
-
-            if (isInvalidCommand(userInput)){continue;}
+            String userInput = (String) getValue(in, "Commands: ADD_BATCH, QUIT", ParameterTypes.COMMAND);
 
             try {
                 switch (Commands.valueOf(userInput)) {
@@ -74,26 +79,32 @@ public class CommandLine {
         in.close();
     }
 
-    private boolean isInvalidCommand(String userInput) {
-        if(!Commands.contains(userInput)) {
-            System.out.println("'" + userInput + "' is an invalid command");
-            return true;
+    // Get the clinic ID
+    private int getClinicId(Scanner in, ManagementSystem managementSystem) {
+        while(true) {
+            int userInput = (Integer) getValue(in, "Please provide your Clinic ID", ParameterTypes.NON_NEGATIVE_INT);
+
+            if(managementSystem.getClinicIds().contains(userInput)) {
+                //If ID is valid, set clinicId and exit loop
+                System.out.println("You are now managing Clinic #" + userInput);
+                return userInput;
+            }else {
+                //If ID is invalid, error message
+                System.out.println("A clinic with that ID does not exist");
+            }
         }
-        return false;
     }
 
+    // Start addBatch workflow
     private void addBatch(Scanner in, ManagementSystem managementSystem, int clinicId) {
         // Ask for information for a new batch
-        String batchBrand = getValue(in, "Batch Brand:");
-        int batchId = parseInt(getValue(in, "Batch ID:"));
-        int batchQuantity = parseInt(getValue(in, "Batch Quantity:"));
-        String batchExpiry = getValue(in, "Batch Expiry Date (DD/MM/YYYY):");
-        //convert String to LocalDate
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        LocalDate batchExpiryDate = LocalDate.parse(batchExpiry, formatter);
+        String batchBrand = (String) getValue(in, "Batch Brand:", ParameterTypes.FREE_TEXT);
+        int batchId = (Integer) getValue(in, "Batch ID:", ParameterTypes.NON_NEGATIVE_INT);
+        int batchQuantity = (Integer) getValue(in, "Batch Quantity:", ParameterTypes.NON_NEGATIVE_INT);
+        LocalDate batchExpiry = (LocalDate) getValue(in, "Batch Expiry Date (DD/MM/YYYY):", ParameterTypes.NON_PAST_DATE);
 
         // Add the batch via the managementSystem
-        boolean output = managementSystem.addBatch(clinicId, batchBrand, batchQuantity, batchExpiryDate, batchId);
+        boolean output = managementSystem.addBatch(clinicId, batchBrand, batchQuantity, batchExpiry, batchId);
 
         // Output different message depending on result
         if(output) {
@@ -103,29 +114,64 @@ public class CommandLine {
         }
     }
 
-    private int getClinicId(Scanner in, ManagementSystem managementSystem) {
-        //Get the entities.Clinic ID
-        int clinicId = -1;
-        while(clinicId == -1) {
-            String userInput = getValue(in, "Please provide your Clinic ID");
+    // Helper function for input and output to command line
+    private static Object getValue(Scanner in, String prompt, ParameterTypes type) {
+        while(true) {
+            System.out.println(prompt);
+            System.out.print(commandLinePrompt);
 
-            if(managementSystem.getClinicIds().contains(parseInt(userInput))) {
-                //If ID is valid, set clinicId and exit loop
-                clinicId = parseInt(userInput);
+            String input = in.nextLine();
+
+            boolean hasValidValue;
+            Object formattedValue;
+            switch(type) {
+                case NON_NEGATIVE_INT:
+                    formattedValue = tryParseInt(input);
+                    hasValidValue = (Integer) formattedValue != -1;
+                    break;
+                case NON_PAST_DATE:
+                    formattedValue = isNonPastDate(input);
+                    hasValidValue = formattedValue != null;
+                    break;
+                case COMMAND:
+                    formattedValue = input;
+                    hasValidValue = Commands.contains(input);
+                    break;
+                default:
+                    formattedValue = input;
+                    hasValidValue = true;
+                    break;
+            }
+
+            if(hasValidValue) {
+                return formattedValue;
             }else {
-                //If ID is invalid, error message
-                System.out.println("That Clinic ID is invalid");
+                System.out.println("That value is invalid. Please try again");
             }
         }
-        System.out.println("You are now managing Clinic #" + clinicId);
-        return clinicId;
     }
 
-    // Helper function for input and output to command line
-    private static String getValue(Scanner in, String prompt) {
-        System.out.println(prompt);
-        System.out.print(commandLinePrompt);
+    // Return the parsed int if it is a valid non-negative integer
+    private static int tryParseInt(String value) {
+        try{
+            return Math.max(parseInt(value), -1);
+        }catch(Exception ex){
+            return -1;
+        }
+    }
 
-        return in.nextLine();
+    // Return the parsed date if it is a valid non-past date
+    private static LocalDate isNonPastDate(String value) {
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+            LocalDate dateObj = LocalDate.parse(value, formatter);
+            if(dateObj.isAfter(LocalDate.now())) {
+                return dateObj;
+            } else {
+                return null;
+            }
+        }catch(Exception ex){
+            return null;
+        }
     }
 }
