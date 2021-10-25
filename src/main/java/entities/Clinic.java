@@ -107,12 +107,5 @@ public class Clinic implements ServiceLocation {
         return this.timePeriods.get(date);
     }
 
-//    public TimePeriod getTimePeriodByDate(LocalDate date) {
-//        for(TimePeriod timePeriod: timePeriods) {
-//            if(timePeriod.getDateTime().equals(date)) {
-//                return timePeriod;
-//            }
-//        }
-//        return null;
-//    }
+    public VaccinationLog getVaccineLog() {return log;}
 }

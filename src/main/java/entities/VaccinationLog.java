@@ -49,7 +49,13 @@ public class VaccinationLog {
     }
 
     // Getters
-    public Client getClientByVaccinationId(String id) {return getVaccinationRecord(id).getClient();}
+    public Client getClientByVaccinationId(String id) {
+        try{
+            return getVaccinationRecord(id).getClient();
+        }catch(Exception ex) {
+            return null;
+        }
+    }
 
     public LocalDateTime getDateTimeByVaccinationId(String id) {return getVaccinationRecord(id).getDateTime();}
 
