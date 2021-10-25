@@ -1,6 +1,7 @@
 package entities;
 
 import java.lang.reflect.Array;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class Clinic implements ServiceLocation {
         shifts.put(date, num);
     }
 
+
     // Checking if a date has a number of shifts
     public boolean containsShift(LocalDate date){return this.shifts.containsKey(date);}
 
@@ -87,6 +89,10 @@ public class Clinic implements ServiceLocation {
             newTime.add(timePeriod);
             this.timePeriods.put(date, newTime);
         }
+    }
+
+    public void removeTimePeriod(LocalDateTime dateTime, LocalDate date){
+        this.timePeriods.get(date).removeIf(timePeriod -> timePeriod.getDateTime() == dateTime);
     }
 
     // Getters
