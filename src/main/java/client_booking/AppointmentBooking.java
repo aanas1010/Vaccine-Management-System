@@ -4,6 +4,8 @@ import entities.BookableServiceLocation;
 import entities.VaccineBatch;
 import entities.Client;
 import entities.TimePeriod;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 public class AppointmentBooking {
@@ -21,20 +23,21 @@ public class AppointmentBooking {
         this.appointmentId = id;
     }
 
-    boolean isAppoinmentAvailble()
-    {
-        return false;
+    public boolean isAppointmentAvailable(){
+        return ((Integer) this.clinic.getSupplyObj().getAvailableVaccines().get(this.vaccineBrand) > 0) &&
+                (this.timePeriod.getAvailableSlots() > 0);
     }
 
-    boolean createAppoinment()
-    {
-        if(isAppoinmentAvailble)
-        {
+    public boolean createAppointment() {
+        if(this.isAppointmentAvailable())
+        { //Add to list of appointments
+            //Remove from availability times
+            //Remove from supply
             return true;
         }
         else
         {
-            Sytem.out.println("appointment unavailble");
+            System.out.println("appointment unavailable");
             return false;
         }
     }
