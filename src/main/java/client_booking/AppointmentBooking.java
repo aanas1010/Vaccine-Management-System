@@ -1,9 +1,7 @@
 package client_booking;
 
-import entities.BookableServiceLocation;
-import entities.VaccineBatch;
-import entities.Client;
-import entities.TimePeriod;
+import entities.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -30,9 +28,11 @@ public class AppointmentBooking {
 
     public boolean createAppointment() {
         if(this.isAppointmentAvailable())
-        { //Add to list of appointments
-            //Remove from availability times
-            //Remove from supply
+        {
+            Appointment appointment = new Appointment(this.client, this.timePeriod, this.vaccineBrand, this.appointmentId);
+            this.clinic.addAppointment(appointment);
+            this.timePeriod.findAndReserveSlot();
+            this.clinic.getSupplyObj().removeDose();
             return true;
         }
         else
