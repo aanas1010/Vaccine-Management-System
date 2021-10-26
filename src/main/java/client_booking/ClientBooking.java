@@ -22,7 +22,7 @@ public class ClientBooking implements ClientBookingInterface{
                                       TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
         AppointmentBooking book = new AppointmentBooking(client, clinic, timePeriod, vaccineBrand, appointmentId);
-        return book.createAppoinment();
+        return book.createAppointment();
     }
 
     public boolean AppointmentCancellation(Client client, BookableServiceLocation clinic,

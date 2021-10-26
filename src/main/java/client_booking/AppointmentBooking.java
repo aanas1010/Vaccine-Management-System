@@ -5,7 +5,6 @@ import entities.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 public class AppointmentBooking {
     int appointmentId;
     Client client;
