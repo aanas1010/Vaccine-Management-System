@@ -1,39 +1,40 @@
 package client_booking;
 
 import entities.BookableServiceLocation;
+import entities.TimePeriod;
 import entities.VaccineBatch;
-import entiites.client;
+import entities.Client;
 
 
 public class AppointmentBooking {
     int appointmentId;
-    client client;
+    Client client;
     BookableServiceLocation clinic;
     TimePeriod timePeriod;
     String vaccineBrand;
     
     public AppointmentBooking(Object client, Object clinic, TimePeriod timePeriod, String vaccineBrand, int id){
-        this.client = client;
-        this.clinic = clinic;
+        this.client = (Client) client;
+        this.clinic = (BookableServiceLocation) clinic;
         this.timePeriod = timePeriod;
         this.vaccineBrand = vaccineBrand;
         this.appointmentId = id;
     }
 
-    boolean isAppoinmentAvailble()
+    public boolean isAppointmentAvailable()
     {
         return false;
     }
 
-    boolean createAppoinment()
+    public boolean createAppoinment()
     {
-        if(isAppoinmentAvailble)
+        if(isAppointmentAvailable())
         {
             return true;
         }
         else
         {
-            Sytem.out.println("appointment unavailble");
+            System.out.println("appointment unavailble");
             return false;
         }
     }
