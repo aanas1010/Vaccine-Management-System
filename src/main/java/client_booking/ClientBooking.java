@@ -28,15 +28,17 @@ public class ClientBooking implements ClientBookingInterface{
     public boolean AppointmentCancellation(Client client, BookableServiceLocation clinic,
                                            TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
-        AppointmentCancellation cancel = new AppointmentCancellation(client, clinic, timePeriod, vaccineBrand, appointmentId);
-        return cancel.deleteAppoinment();
+        //AppointmentCancellation cancel = new AppointmentCancellation(client, clinic, timePeriod, vaccineBrand, appointmentId);
+        //return cancel.deleteAppoinment();
+        return false;
     }
 
     public boolean AppointmentViewing(Client client, BookableServiceLocation clinic,
                                       TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
-        AppointmentViewing view = new AppointmentViewing(client, clinic, timePeriod, vaccineBrand, appointmentId);
-        return view.AppointmentDetails();
+        //AppointmentViewing view = new AppointmentViewing(client, clinic, timePeriod, vaccineBrand, appointmentId);
+        //return view.AppointmentDetails();
+        return false;
     }
 
 

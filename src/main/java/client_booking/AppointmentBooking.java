@@ -1,18 +1,16 @@
 package client_booking;
 
-import entities.BookableServiceLocation;
-import entities.VaccineBatch;
-import entiites.client;
+import entities.*;
 
 
 public class AppointmentBooking {
     int appointmentId;
-    client client;
+    Client client;
     BookableServiceLocation clinic;
     TimePeriod timePeriod;
     String vaccineBrand;
     
-    public AppointmentBooking(Object client, Object clinic, TimePeriod timePeriod, String vaccineBrand, int id){
+    public AppointmentBooking(Client client, BookableServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
         this.clinic = clinic;
         this.timePeriod = timePeriod;
@@ -27,13 +25,14 @@ public class AppointmentBooking {
 
     boolean createAppoinment()
     {
-        if(isAppoinmentAvailble)
+        //if(isAppoinmentAvailble)
+        if(true)
         {
             return true;
         }
         else
         {
-            Sytem.out.println("appointment unavailble");
+            System.out.println("appointment unavailble");
             return false;
         }
     }
