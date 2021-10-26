@@ -1,6 +1,7 @@
 package clinic_management;
 
 import entities.Clinic;
+import entities.ServiceLocation;
 import entities.TimePeriod;
 
 import java.time.LocalDate;
@@ -8,10 +9,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SetTimePeriod {
-    private Clinic clinic;
+    private ServiceLocation clinic;
 
     // Constructor
-    public SetTimePeriod(Clinic clinic){
+    public SetTimePeriod(ServiceLocation clinic){
         this.clinic = clinic;
     }
 
@@ -23,7 +24,7 @@ public class SetTimePeriod {
     // Adding a time period to a clinic if it is not already there
     public boolean addTimePeriod(LocalDateTime dateTime){
         if (this.clinic.shiftAvailable(dateTime.toLocalDate())
-                && !this.clinic.checkTimePeriod(dateTime, dateTime.toLocalDate())){
+                && !this.clinic.checkTimePeriod(dateTime)){
             int slots = this.clinic.getShiftForDate(dateTime.toLocalDate());
             this.clinic.addTimePeriod(new TimePeriod(dateTime, slots), dateTime.toLocalDate());
             return true;
@@ -33,11 +34,11 @@ public class SetTimePeriod {
 
     // Removing a time period from a clinic if there exists a time period at the specified date and time.
     public boolean removeTimePeriod(LocalDateTime dateTime){
-        if(!this.clinic.checkTimePeriod(dateTime, dateTime.toLocalDate())){
+        if(!this.clinic.checkTimePeriod(dateTime)){
             return false;
         }
         else{
-            this.clinic.removeTimePeriod(dateTime, dateTime.toLocalDate());
+            this.clinic.removeTimePeriod(dateTime);
             return true;
         }
     }
@@ -52,7 +53,7 @@ public class SetTimePeriod {
         }
         int counter = 0;
         for(LocalDateTime time: times){
-            if(!this.clinic.checkTimePeriod(time, time.toLocalDate())){
+            if(!this.clinic.checkTimePeriod(time)){
                 this.clinic.addTimePeriod(new TimePeriod(time,
                         this.clinic.getShiftForDate(time.toLocalDate())), time.toLocalDate());
                 counter += 1;
