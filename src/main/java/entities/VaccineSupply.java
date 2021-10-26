@@ -22,21 +22,20 @@ public class VaccineSupply {
     }
 
     // Return a hashmap that stores vaccine brand and the corresponding amount of vaccine
-    public HashMap getAvailableVaccines(){
-        HashMap<String, Integer> vaccines = new HashMap<String, Integer>();
+    public HashMap<String, Integer> getAvailableVaccines(){
+        HashMap<String, Integer> vaccines = new HashMap<>();
         // Get the total quantities of each vaccine brand and put in hashmap
         for (VaccineBatch batch : this.batchList) {
             // If the brand is already in the hashmap, add to the value
             if(vaccines.containsKey(batch.getBrand())){
-                vaccines.put(batch.getBrand(), (Integer) vaccines.get(batch.getBrand()) + batch.getAvailable());
+                vaccines.put(batch.getBrand(), vaccines.get(batch.getBrand()) + batch.getAvailable());
             }
             // If the brand is not already in the hashmap, add it
             else{
                 vaccines.put(batch.getBrand(), batch.getAvailable());
             }
         }
-        HashMap<String, Integer> vaccinesCopy = new HashMap<String, Integer>(vaccines);
-        return vaccinesCopy;
+        return new HashMap<>(vaccines);
     }
 
     // Return whether the batchList has any batches in it
@@ -47,7 +46,7 @@ public class VaccineSupply {
     // Return a string of the list of batches using the brand and id number
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder("--------BATCHLIST-------- \n[\n");
+        StringBuilder s = new StringBuilder("--------BATCH LIST-------- \n[\n");
         for (VaccineBatch batch : this.batchList) {
             s.append("  ").append(batch.getBrand()).append("-").append(batch.getId())
                     .append(": ").append(batch.getReserve()).append("/")
