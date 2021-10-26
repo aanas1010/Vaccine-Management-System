@@ -13,11 +13,11 @@ import java.util.HashMap;
  */
 
 public class Clinic implements ServiceLocation {
-    private int clinicId;
-    private VaccineSupply supply;
-    protected VaccinationLog log;
-    private HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
-    private HashMap<LocalDate, Integer> shifts;
+    private final int clinicId;
+    private final VaccineSupply supply;
+    protected final VaccinationLog log;
+    private final HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
+    private final HashMap<LocalDate, Integer> shifts;
 
     // Basic constructor
     public Clinic(int id) {

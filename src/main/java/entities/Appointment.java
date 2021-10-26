@@ -1,6 +1,5 @@
 package entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -21,7 +20,7 @@ public class Appointment {
         this.appointmentId = id;
     }
 
-    // Return whether this appointment's time has already occured
+    // Return whether this appointment's time has already occurred
     public boolean appointmentTimePassed() {
         return timePeriod.getDateTime().isBefore(LocalDateTime.now());
     }
