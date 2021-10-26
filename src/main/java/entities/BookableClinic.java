@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * BookableClinics have the added functionality of allowing appointment booking
  */
 
-public class BookableClinic extends Clinic {
+public class BookableClinic extends Clinic implements BookableServiceLocation{
     private final ArrayList<Appointment> appointments;
 
     // Basic constructor
