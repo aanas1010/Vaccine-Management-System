@@ -8,11 +8,11 @@ import java.time.LocalDate;
  */
 
 public class VaccineBatch {
-    private String brand;
-    private int quantity;
-    private LocalDate expiry;
-    private int id;
-    private int reserve;
+    private final String brand;
+    private final int quantity;
+    private final LocalDate expiry;
+    private final int id;
+    private int reserve = 0;
 
     // Constructor
     public VaccineBatch(String brand, int quantity, LocalDate expiry, int id){
