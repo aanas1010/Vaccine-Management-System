@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class SetTimePeriod {
-    private ServiceLocation clinic;
+    private final ServiceLocation clinic;
 
     // Constructor
     public SetTimePeriod(ServiceLocation clinic){

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AddBatchTest {
+public class BatchAddingTest {
     ArrayList<VaccineBatch> batches;
     VaccineSupply supply;
     VaccineBatch batch;
