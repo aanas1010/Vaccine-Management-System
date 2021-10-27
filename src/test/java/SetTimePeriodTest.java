@@ -78,17 +78,4 @@ public class SetTimePeriodTest {
         assertEquals(setTimePeriod.addMultipleTimePeriods(testDateTime,
                 testDateTime.plusMinutes(120), 30), 3);
     }
-
-//    @Test(timeout = 100)
-//    public void TestAddMultipleTimePeriodsResults(){
-//        setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
-//        setTimePeriod.addMultipleTimePeriods(testDateTime, testDateTime.plusMinutes(120), 30);
-//        ArrayList<TimePeriod> testList = new ArrayList<>();
-//        LocalDateTime iteratorTime = testDateTime;
-//        while(iteratorTime.isBefore(testDateTime.plusMinutes(120))) {
-//            testList.add(new TimePeriod(iteratorTime, 5));
-//            iteratorTime = iteratorTime.plusMinutes(30);
-//        }
-//        assertEquals(clinic.getTimePeriods(testDateTime.toLocalDate()), (testList));
-//    }
     }
