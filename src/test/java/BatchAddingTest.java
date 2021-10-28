@@ -1,7 +1,6 @@
 import clinic_management.BatchAdding;
 import entities.Clinic;
 import entities.VaccineBatch;
-import entities.VaccineSupply;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
