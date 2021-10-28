@@ -56,9 +56,22 @@ public class VaccinationLog {
         }
     }
 
-    public LocalDateTime getDateTimeByVaccinationId(String id) {return getVaccinationRecord(id).getDateTime();}
 
-    public String getVaccineBrandByVaccinationId(String id) {return getVaccinationRecord(id).getVaccineBrand();}
+    public LocalDateTime getDateTimeByVaccinationId(String id) {
+        try{
+            return getVaccinationRecord(id).getDateTime();
+        }catch(Exception ex) {
+            return null;
+        }
+    }
+
+    public String getVaccineBrandByVaccinationId(String id) {
+        try{
+            return getVaccinationRecord(id).getVaccineBrand();
+        }catch(Exception ex) {
+            return null;
+        }
+    }
 
 
 
