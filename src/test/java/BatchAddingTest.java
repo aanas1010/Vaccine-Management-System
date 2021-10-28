@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BatchAddingTest {
-    ArrayList<VaccineBatch> batches;
-    VaccineSupply supply;
     VaccineBatch batch;
     VaccineBatch badBatch;
     Clinic clinic;
