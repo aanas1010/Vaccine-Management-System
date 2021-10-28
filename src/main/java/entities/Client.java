@@ -13,7 +13,7 @@ public class Client {
     public Client(String name, String healthCareNumber){
         this.name = name;
         this.healthCareNumber = healthCareNumber;
-        this.hasAppointment = false; //look over later!!!
+        this.hasAppointment = false;
     }
 
     public void approveAppointment() {this.hasAppointment = true;}

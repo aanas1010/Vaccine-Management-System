@@ -1,7 +1,6 @@
 import clinic_management.BatchAdding;
 import entities.Clinic;
 import entities.VaccineBatch;
-import entities.VaccineSupply;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -9,9 +8,7 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class AddBatchTest {
-    ArrayList<VaccineBatch> batches;
-    VaccineSupply supply;
+public class BatchAddingTest {
     VaccineBatch batch;
     VaccineBatch badBatch;
     Clinic clinic;
