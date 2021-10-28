@@ -1,15 +1,10 @@
 import clinic_management.SetTimePeriod;
 import entities.Clinic;
-import entities.TimePeriod;
-import entities.VaccineBatch;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAmount;
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -37,7 +32,6 @@ public class SetTimePeriodTest {
     public void TestAddTimePeriodTrue(){
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
         assertTrue(setTimePeriod.addTimePeriod(testDateTime));
-        //assert(clinic.getTimePeriods(testDateTime.toLocalDate()).contains(new TimePeriod(testDateTime, 5)));
     }
 
     @Test(timeout = 100) // Testing a time period is not added

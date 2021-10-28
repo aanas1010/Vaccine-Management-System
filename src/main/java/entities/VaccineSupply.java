@@ -13,12 +13,19 @@ public class VaccineSupply {
 
     // Constructor
     public VaccineSupply(){
-        this.batchList = new ArrayList<>();
+        this.batchList = new ArrayList<VaccineBatch>();
     }
 
     // Overloaded Constructor for testing
     public VaccineSupply(ArrayList<VaccineBatch> batchList){
         this.batchList = batchList;
+    }
+
+    // Another overloaded constructor since junit is fucking stupid
+    public VaccineSupply(VaccineBatch batch1, VaccineBatch batch2){
+        this.batchList = new ArrayList<>();
+        this.batchList.add(batch1);
+        this.batchList.add(batch2);
     }
 
     // Return a hashmap that stores vaccine brand and the corresponding amount of vaccine
