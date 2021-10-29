@@ -3,6 +3,7 @@ import org.junit.*;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,13 @@ public class VaccineBatchTest {
         badBatch = new VaccineBatch("Moderna", 69,
                 LocalDate.of(2021, 10 , 10), 1234);
     }
+
+    @Test(timeout = 100) // Testing that a vaccine batch is expired
+    public void testSetVaccineBatchReserve(){
+        batch.setReserve(25);
+        assertEquals(batch.getReserve(), 25);
+    }
+
     @Test(timeout = 100) // Testing that a vaccine batch is not expired
     public void testVaccineBatchNotExpired(){
         assertFalse(batch.isExpired());
@@ -28,5 +36,7 @@ public class VaccineBatchTest {
     public void testVaccineBatchExpired(){
         assertTrue(badBatch.isExpired());
     }
+
+
 
 }
