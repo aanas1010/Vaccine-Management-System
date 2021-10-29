@@ -30,5 +30,5 @@ public class VaccineManagementSystem implements ManagementSystem {
         return this.clinicManagement.getClinicIds();
     }
 
-    public String getSupplyByClinic(int clinicId) {return this.clinicManagement.getSupplyByClinic(clinicId);}
+    public String getSupplyByClinic(int clinicId) {return this.clinicManagement.getSupplyStringByClinic(clinicId);}
 }
