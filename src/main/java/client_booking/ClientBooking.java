@@ -2,9 +2,7 @@ package client_booking;
 
 import entities.BookableServiceLocation;
 
-import entities.BookableServiceLocation;
 import entities.TimePeriod;
-import entities.VaccineBatch;
 import entities.Client;
 
 /**
@@ -28,17 +26,16 @@ public class ClientBooking implements ClientBookingInterface{
     public boolean AppointmentCancellation(Client client, BookableServiceLocation clinic,
                                            TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
-        //AppointmentCancellation cancel = new AppointmentCancellation(client, clinic, timePeriod, vaccineBrand, appointmentId);
-        //return cancel.deleteAppoinment();
-        return false;
+        AppointmentCancellation cancel = new AppointmentCancellation(client, clinic, timePeriod, vaccineBrand, appointmentId);
+        return cancel.deleteAppointment();
     }
 
-    public boolean AppointmentViewing(Client client, BookableServiceLocation clinic,
-                                      TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    public String AppointmentViewing(Client client, BookableServiceLocation clinic,
+                                     TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
-        //AppointmentViewing view = new AppointmentViewing(client, clinic, timePeriod, vaccineBrand, appointmentId);
-        //return view.AppointmentDetails();
-        return false;
+//        AppointmentViewing view = new AppointmentViewing(clinic, appointment);
+//        return view.appointmentDetails();
+        return "j";
     }
 
 

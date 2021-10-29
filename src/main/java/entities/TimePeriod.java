@@ -33,6 +33,13 @@ public class TimePeriod {
         return true;
     }
 
+    // Try to add 1 to available slots and remove 1 from bookedSlots. This is done because the Client cancelled
+    public void addAvailableSlot(){
+
+        availableSlots += 1;
+        bookedSlots -= 1;
+    }
+
     // Getters
     public int getAvailableSlots() {
         return availableSlots;

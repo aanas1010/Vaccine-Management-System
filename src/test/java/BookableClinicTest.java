@@ -10,6 +10,7 @@ public class BookableClinicTest {
     Client client;
     Appointment appointment;
     TimePeriod timePeriod;
+    VaccineBatch vaccineBatch;
 
     @Before // Setting up before the tests
     public void setUp() {
@@ -17,7 +18,8 @@ public class BookableClinicTest {
         client = new Client("Joe Mama", "4206969");
         timePeriod = new TimePeriod(LocalDateTime.now(), 50);
         clinic.addTimePeriod(timePeriod, LocalDate.now());
-        appointment = new Appointment(client, timePeriod, "Pfizer", 10);
+        vaccineBatch = new VaccineBatch("Pfizer", 5, LocalDate.ofYearDay(2021, 365), 1234, 4);
+        appointment = new Appointment(client, timePeriod, "Pfizer", 10, vaccineBatch);
     }
 
     @Test(timeout = 100) // Testing adding appointments
@@ -31,7 +33,9 @@ public class BookableClinicTest {
         clinic.addAppointment(appointment);
         assertTrue(clinic.removeAppointment(appointment));
         assertNull(clinic.getAppointmentRecord(10));
+        assertEquals(vaccineBatch.getReserve(), 3);
     }
+
     @Test(timeout = 100) // Testing removing appointments by its ID
     public void TestRemoveAppointmentById() {
         clinic.addAppointment(appointment);

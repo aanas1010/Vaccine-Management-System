@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * BookableClinics have the added functionality of allowing appointment booking
  */
 
-public class BookableClinic extends Clinic implements BookableServiceLocation{
+public class BookableClinic extends Clinic implements BookableServiceLocation, ServiceLocation{
     private final ArrayList<Appointment> appointments;
 
     // Basic constructor
@@ -49,6 +49,7 @@ public class BookableClinic extends Clinic implements BookableServiceLocation{
     // Try to remove an appointment from the list. Return whether successful
     public boolean removeAppointment(Appointment ap) {
         if(appointments.contains(ap)) {
+            ap.clientVaccineBatch.changeReserve(-1); // This adds 1 to the quantity
             appointments.remove(ap);
             return true;
         }else {
