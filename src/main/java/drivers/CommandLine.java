@@ -1,12 +1,8 @@
 package drivers;
 
 import controllers.ManagementSystem;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-
-import static java.lang.Integer.parseInt;
 
 /**
  * This is the class for the Command Line UI
@@ -14,28 +10,8 @@ import static java.lang.Integer.parseInt;
  */
 
 public class CommandLine {
-    private static final String commandLinePrompt = "> ";
+    protected static final String commandLinePrompt = "> ";
     private final ManagementSystem managementSystem;
-    public enum ParameterTypes {
-        NON_NEGATIVE_INT,
-        NON_PAST_DATE,
-        COMMAND,
-        FREE_TEXT
-    }
-    public enum Commands {
-        ADD_BATCH,
-        QUIT;
-
-        // Return whether s is a valid element of Commands
-        public static boolean contains(String s) {
-            for (Commands c : Commands.values()) {
-                if (c.name().equals(s)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
 
     // Constructor accepts a management system
     public CommandLine(ManagementSystem system) {
@@ -57,10 +33,10 @@ public class CommandLine {
     private void runCommands(Scanner in, ManagementSystem managementSystem, int clinicId) {
         boolean isRunning = true;
         while(isRunning) {
-            String userInput = (String) getValue(in, "Commands: ADD_BATCH, QUIT", ParameterTypes.COMMAND);
+            String userInput = (String) DataValidation.getValue(in, "Commands: ADD_BATCH, QUIT", DataValidation.ParameterTypes.COMMAND);
 
             try {
-                switch (Commands.valueOf(userInput)) {
+                switch (DataValidation.Commands.valueOf(userInput)) {
                     case ADD_BATCH:
                         addBatch(in, managementSystem, clinicId);
                         break;
@@ -82,7 +58,7 @@ public class CommandLine {
     // Get the clinic ID
     private int getClinicId(Scanner in, ManagementSystem managementSystem) {
         while(true) {
-            int userInput = (Integer) getValue(in, "Please provide your Clinic ID", ParameterTypes.NON_NEGATIVE_INT);
+            int userInput = (Integer) DataValidation.getValue(in, "Please provide your Clinic ID", DataValidation.ParameterTypes.NON_NEGATIVE_INT);
 
             if(managementSystem.getClinicIds().contains(userInput)) {
                 //If ID is valid, set clinicId and exit loop
@@ -98,10 +74,10 @@ public class CommandLine {
     // Start addBatch workflow
     private void addBatch(Scanner in, ManagementSystem managementSystem, int clinicId) {
         // Ask for information for a new batch
-        String batchBrand = (String) getValue(in, "Batch Brand:", ParameterTypes.FREE_TEXT);
-        int batchId = (Integer) getValue(in, "Batch ID:", ParameterTypes.NON_NEGATIVE_INT);
-        int batchQuantity = (Integer) getValue(in, "Batch Quantity:", ParameterTypes.NON_NEGATIVE_INT);
-        LocalDate batchExpiry = (LocalDate) getValue(in, "Batch Expiry Date (DD/MM/YYYY):", ParameterTypes.NON_PAST_DATE);
+        String batchBrand = (String) DataValidation.getValue(in, "Batch Brand:", DataValidation.ParameterTypes.FREE_TEXT);
+        int batchId = (Integer) DataValidation.getValue(in, "Batch ID:", DataValidation.ParameterTypes.NON_NEGATIVE_INT);
+        int batchQuantity = (Integer) DataValidation.getValue(in, "Batch Quantity:", DataValidation.ParameterTypes.NON_NEGATIVE_INT);
+        LocalDate batchExpiry = (LocalDate) DataValidation.getValue(in, "Batch Expiry Date (DD/MM/YYYY):", DataValidation.ParameterTypes.NON_PAST_DATE);
 
         // Add the batch via the managementSystem
         boolean output = managementSystem.addBatch(clinicId, batchBrand, batchQuantity, batchExpiry, batchId);
@@ -110,68 +86,9 @@ public class CommandLine {
         if(output) {
             System.out.println("Batch added successfully");
         }else {
-            System.out.println("Batch was not added");
+            System.out.println("Batch could not be added");
         }
     }
 
-    // Helper function for input and output to command line
-    private static Object getValue(Scanner in, String prompt, ParameterTypes type) {
-        while(true) {
-            System.out.println(prompt);
-            System.out.print(commandLinePrompt);
 
-            String input = in.nextLine();
-
-            boolean hasValidValue;
-            Object formattedValue;
-            switch(type) {
-                case NON_NEGATIVE_INT:
-                    formattedValue = tryParseInt(input);
-                    hasValidValue = (Integer) formattedValue != -1;
-                    break;
-                case NON_PAST_DATE:
-                    formattedValue = isNonPastDate(input);
-                    hasValidValue = formattedValue != null;
-                    break;
-                case COMMAND:
-                    formattedValue = input;
-                    hasValidValue = Commands.contains(input);
-                    break;
-                default:
-                    formattedValue = input;
-                    hasValidValue = true;
-                    break;
-            }
-
-            if(hasValidValue) {
-                return formattedValue;
-            }else {
-                System.out.println("That value is invalid. Please try again");
-            }
-        }
-    }
-
-    // Return the parsed int if it is a valid non-negative integer
-    private static int tryParseInt(String value) {
-        try{
-            return Math.max(parseInt(value), -1);
-        }catch(Exception ex){
-            return -1;
-        }
-    }
-
-    // Return the parsed date if it is a valid non-past date
-    private static LocalDate isNonPastDate(String value) {
-        try{
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-            LocalDate dateObj = LocalDate.parse(value, formatter);
-            if(dateObj.isAfter(LocalDate.now())) {
-                return dateObj;
-            } else {
-                return null;
-            }
-        }catch(Exception ex){
-            return null;
-        }
-    }
 }
