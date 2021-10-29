@@ -14,4 +14,6 @@ public interface ClinicManagerInterface {
 
     boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId);
 
+    String getSupplyByClinic(int clinicId);
+
 }

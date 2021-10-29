@@ -29,4 +29,6 @@ public class VaccineManagementSystem implements ManagementSystem {
     public ArrayList<Integer> getClinicIds() {
         return this.clinicManagement.getClinicIds();
     }
+
+    public String getSupplyByClinic(int clinicId) {return this.clinicManagement.getSupplyByClinic(clinicId);}
 }

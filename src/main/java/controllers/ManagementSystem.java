@@ -13,4 +13,6 @@ public interface ManagementSystem {
     boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId);
 
     ArrayList<Integer> getClinicIds();
+
+    String getSupplyByClinic(int clinicId);
 }

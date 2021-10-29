@@ -33,7 +33,6 @@ public class BatchAdding {
         }
         else{
             this.clinic.getSupply().add(batch);
-            System.out.println(this.clinic.getSupplyObj().toString());
             return true;
         }
     }

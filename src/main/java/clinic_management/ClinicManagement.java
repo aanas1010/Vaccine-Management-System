@@ -6,6 +6,7 @@ import entities.VaccineBatch;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * This is the Use Case for adding batches.
@@ -60,5 +61,14 @@ public class ClinicManagement implements ClinicManagerInterface {
             }
         }
         return null;
+    }
+
+    public String getSupplyByClinic(int clinicId) {
+        ServiceLocation clinic = getClinicById(clinicId);
+        if(clinic != null) {
+            return Objects.requireNonNull(getClinicById(clinicId)).getSupplyObj().toString();
+        }else {
+            return "";
+        }
     }
 }

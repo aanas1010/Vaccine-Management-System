@@ -85,6 +85,7 @@ public class CommandLine {
         // Output different message depending on result
         if(output) {
             System.out.println("Batch added successfully");
+            System.out.println(managementSystem.getSupplyByClinic(clinicId));
         }else {
             System.out.println("Batch could not be added");
         }
