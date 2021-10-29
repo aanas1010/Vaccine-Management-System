@@ -1,7 +1,10 @@
 package drivers;
 
 import controllers.ManagementSystem;
+
+import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -32,19 +35,38 @@ public class CommandLine {
     // Determine which command to run
     private void runCommands(Scanner in, ManagementSystem managementSystem, int clinicId) {
         boolean isRunning = true;
+
+        StringBuilder s = new StringBuilder("Commands: ");
+        for(DataValidation.Commands command : DataValidation.Commands.values()) {
+            s.append(command.toString()).append(", ");
+        }
+
+        String commandListString = s.substring(0, s.toString().length() - 2);
+
         while(isRunning) {
-            String userInput = (String) DataValidation.getValue(in, "Commands: ADD_BATCH, QUIT", DataValidation.ParameterTypes.COMMAND);
+            String userInput = (String) DataValidation.getValue(in, commandListString, DataValidation.ParameterTypes.COMMAND);
 
             try {
                 switch (DataValidation.Commands.valueOf(userInput)) {
                     case ADD_BATCH:
                         addBatch(in, managementSystem, clinicId);
                         break;
+                    case SET_EMPLOYEES:
+                        setEmployees(in, managementSystem, clinicId);
+                        break;
+                    case ADD_TIME_PERIOD:
+                        addTimePeriod(in, managementSystem, clinicId);
+                        break;
+                    case REMOVE_TIME_PERIOD:
+                        removeTimePeriod(in, managementSystem, clinicId);
+                        break;
+                    case ADD_TIME_PERIODS:
+                        addTimePeriods(in, managementSystem, clinicId);
+                        break;
                     case QUIT:
                         // Quit the program
                         isRunning = false;
                         System.out.println("Quitting Program");
-
                         break;
                 }
             }
@@ -84,10 +106,71 @@ public class CommandLine {
 
         // Output different message depending on result
         if(output) {
-            System.out.println("Batch added successfully");
+            System.out.println("Successfully added the batch");
             System.out.println(managementSystem.getSupplyByClinic(clinicId));
         }else {
-            System.out.println("Batch could not be added");
+            System.out.println("Could not add the batch");
+        }
+    }
+
+    // Start setEmployees workflow
+    private void setEmployees(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for employee setting
+        LocalDate date = (LocalDate) DataValidation.getValue(in, "Date (DD/MM/YYYY):", DataValidation.ParameterTypes.NON_PAST_DATE);
+        int employees = (Integer) DataValidation.getValue(in, "Number of Employees for this date:", DataValidation.ParameterTypes.NON_NEGATIVE_INT);
+
+        // Set employees through the managementSystem
+        boolean output = managementSystem.setEmployees(clinicId, date, employees);
+
+        if(output) {
+            System.out.println("Successfully changed number of employees for that date");
+        }else {
+            System.out.println("Could not change the number of employees for that date");
+        }
+    }
+
+    // Start the addTimePeriod workflow
+    private void addTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for adding a new time period
+        LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in, "Date and Time (24 hour time, DD/MM/YYYY HH:MM):", DataValidation.ParameterTypes.NON_PAST_DATETIME);
+        // Add the time period through the managementSystem
+        boolean output = managementSystem.addTimePeriod(clinicId, dateTime);
+
+        if(output) {
+            System.out.println("Successfully added the time period");
+        }else {
+            System.out.println("Could not add the time period");
+        }
+    }
+
+    // Start the addTimePeriod workflow
+    private void addTimePeriods(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for adding a new time period
+        LocalDateTime start = (LocalDateTime) DataValidation.getValue(in, "Start Date and Time (24 hour time, DD/MM/YYYY HH:MM):", DataValidation.ParameterTypes.NON_PAST_DATETIME);
+        LocalDateTime end = (LocalDateTime) DataValidation.getValue(in, "End Date and Time (24 hour time, DD/MM/YYYY HH:MM):", DataValidation.ParameterTypes.NON_PAST_DATETIME);
+        int interval = (Integer) DataValidation.getValue(in, "Length of each time period (minutes)", DataValidation.ParameterTypes.POSITIVE_INT);
+
+        // Add the time period through the managementSystem
+        int output = managementSystem.addMultipleTimePeriods(clinicId, start, end, interval);
+
+        if(output > 0) {
+            System.out.println("Successfully added the time periods");
+        }else {
+            System.out.println("Could not add the time periods");
+        }
+    }
+
+    // Start the removeTimePeriod workflow
+    private void removeTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for which time period to remove
+        LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in, "Date and Time (24 hour time, DD/MM/YYYY HH:MM):", DataValidation.ParameterTypes.NON_PAST_DATETIME);
+        // Try to remove the time period through the managementSystem
+        boolean output = managementSystem.removeTimePeriod(clinicId, dateTime);
+
+        if(output) {
+            System.out.println("Successfully removed the time period");
+        }else {
+            System.out.println("No time period exists for the specified time");
         }
     }
 

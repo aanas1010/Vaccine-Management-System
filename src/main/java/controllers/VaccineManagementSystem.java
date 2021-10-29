@@ -4,6 +4,7 @@ import clinic_management.ClinicManagement;
 import clinic_management.ClinicManagerInterface;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,23 @@ public class VaccineManagementSystem implements ManagementSystem {
     public VaccineManagementSystem(int num) {
         this.clinicManagement = new ClinicManagement(num);
     }
+
+    public boolean setEmployees(int clinicId, LocalDate date, int employees) {
+        return clinicManagement.setEmployees(clinicId, date, employees);
+    }
+
+    public boolean addTimePeriod(int clinicId, LocalDateTime dateTime) {
+        return clinicManagement.addTimePeriod(clinicId, dateTime);
+    }
+
+    public boolean removeTimePeriod(int clinicId, LocalDateTime dateTime){
+        return clinicManagement.removeTimePeriod(clinicId, dateTime);
+    }
+
+    public int addMultipleTimePeriods(int clinicId, LocalDateTime start, LocalDateTime end, int interval) {
+        return clinicManagement.addMultipleTimePeriods(clinicId, start, end, interval);
+    }
+
 
     // Add a batch to the specified clinic given the parameters
     // Returns whether the batch was added

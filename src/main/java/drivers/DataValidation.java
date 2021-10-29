@@ -1,6 +1,7 @@
 package drivers;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -14,12 +15,18 @@ import static java.lang.Integer.parseInt;
 public class DataValidation {
     protected enum ParameterTypes {
         NON_NEGATIVE_INT,
+        POSITIVE_INT,
         NON_PAST_DATE,
         COMMAND,
-        FREE_TEXT
+        FREE_TEXT,
+        NON_PAST_DATETIME
     }
     protected enum Commands {
         ADD_BATCH,
+        SET_EMPLOYEES,
+        ADD_TIME_PERIOD,
+        REMOVE_TIME_PERIOD,
+        ADD_TIME_PERIODS,
         QUIT;
 
         // Return whether s is a valid element of Commands
@@ -48,8 +55,16 @@ public class DataValidation {
                     formattedValue = tryParseInt(input);
                     hasValidValue = (Integer) formattedValue != -1;
                     break;
+                case POSITIVE_INT:
+                    formattedValue = tryParseInt(input);
+                    hasValidValue = (Integer) formattedValue > 0;
+                    break;
                 case NON_PAST_DATE:
                     formattedValue = isNonPastDate(input);
+                    hasValidValue = formattedValue != null;
+                    break;
+                case NON_PAST_DATETIME:
+                    formattedValue = isNonPastDateTime(input);
                     hasValidValue = formattedValue != null;
                     break;
                 case COMMAND:
@@ -85,6 +100,21 @@ public class DataValidation {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
             LocalDate dateObj = LocalDate.parse(value, formatter);
             if(dateObj.isAfter(LocalDate.now())) {
+                return dateObj;
+            } else {
+                return null;
+            }
+        }catch(Exception ex){
+            return null;
+        }
+    }
+
+    // Return the parsed datetime if it is a valid non-past datetime
+    private static LocalDateTime isNonPastDateTime(String value) {
+        try{
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
+            LocalDateTime dateObj = LocalDateTime.parse(value, formatter);
+            if(dateObj.isAfter(LocalDateTime.now())) {
                 return dateObj;
             } else {
                 return null;
