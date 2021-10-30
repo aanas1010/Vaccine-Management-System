@@ -5,7 +5,9 @@ import entities.ServiceLocation;
 import entities.VaccineBatch;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * This is the Use Case for adding batches.
@@ -15,8 +17,7 @@ import java.util.ArrayList;
 
 public class ClinicManagement implements ClinicManagerInterface {
     //List of clinics, looking to change this into a database
-    private ArrayList<ServiceLocation> clinics;
-
+    private final ArrayList<ServiceLocation> clinics;
 
     //Constructor for a list of clinics
     public ClinicManagement(ArrayList<ServiceLocation> clinics){
@@ -33,6 +34,15 @@ public class ClinicManagement implements ClinicManagerInterface {
         clinics = clinicsList;
     }
 
+    /** ADDING CLINICS */
+
+    // Add a basic clinic
+    public void addClinic(int clinicId) {
+        clinics.add(new Clinic(clinicId));
+    }
+
+    /** ADDING BATCHES */
+
     // Call the addBatch function to add a vaccine batch to the selected clinic
     public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
         ServiceLocation clinicById = getClinicById(clinicId);
@@ -40,6 +50,31 @@ public class ClinicManagement implements ClinicManagerInterface {
         BatchAdding newBatch = new BatchAdding(clinicById, batch);
         return newBatch.addBatch();
     }
+
+    /** TIME PERIOD */
+
+    public boolean setEmployees(int clinicId, LocalDate date, int employees) {
+        return createSetTimePeriod(clinicId).setEmployees(date, employees);
+    }
+
+    public boolean addTimePeriod(int clinicId, LocalDateTime dateTime) {
+        return createSetTimePeriod(clinicId).addTimePeriod(dateTime);
+    }
+
+    public boolean removeTimePeriod(int clinicId, LocalDateTime dateTime){
+        return createSetTimePeriod(clinicId).removeTimePeriod(dateTime);
+    }
+
+    public int addMultipleTimePeriods(int clinicId, LocalDateTime start, LocalDateTime end, int interval) {
+        return createSetTimePeriod(clinicId).addMultipleTimePeriods(start, end, interval);
+    }
+
+    private SetTimePeriod createSetTimePeriod(int clinicId) {
+        ServiceLocation clinic = getClinicById(clinicId);
+        return new SetTimePeriod(clinic);
+    }
+
+    /** GETTERS */
 
     //Return a list of the clinic IDs
     public ArrayList<Integer> getClinicIds() {
@@ -60,5 +95,14 @@ public class ClinicManagement implements ClinicManagerInterface {
             }
         }
         return null;
+    }
+
+    public String getSupplyStringByClinic(int clinicId) {
+        ServiceLocation clinic = getClinicById(clinicId);
+        if(clinic != null) {
+            return Objects.requireNonNull(getClinicById(clinicId)).getSupplyObj().toString();
+        }else {
+            return "";
+        }
     }
 }
