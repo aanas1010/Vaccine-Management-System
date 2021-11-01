@@ -29,6 +29,8 @@ public interface ServiceLocation {
 
     boolean shiftAvailable(LocalDate date);
 
+    boolean containsShift(LocalDate date);
+
     boolean checkTimePeriod(LocalDateTime dateTime);
 
     ArrayList<VaccineBatch> getSupply();
