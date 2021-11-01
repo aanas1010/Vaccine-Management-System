@@ -51,10 +51,10 @@ public class AppointmentViewingTest {
         appointmentBooking2.assignVaccineDose();
         appointmentBooking2.createAppointment();
 
-        appointmentCancellation2 = new AppointmentCancellation(22, clinic);
+        // appointmentCancellation2 = new AppointmentCancellation(22, clinic);
         // appointmentCancellation2.deleteAppointment();
 
-        // appointmentViewing1 = new AppointmentViewing(11, clinic);
+        appointmentViewing1 = new AppointmentViewing(11, clinic);
         // appointmentViewing2 = new AppointmentViewing(22, clinic);
     }
 
