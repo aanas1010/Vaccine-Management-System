@@ -1,40 +1,31 @@
 import client_booking.AppointmentBooking;
-// import client_booking.AppointmentBookingBackUp;
-import client_booking.AppointmentCancellation;
-import client_booking.AppointmentViewing;
-import clinic_management.BatchAdding;
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AppointmentBookingTest {
     BookableClinic clinic;
-    AppointmentViewing appointmentViewing1;
-    AppointmentViewing appointmentViewing2;
+    BookableClinic clinic2;
     AppointmentBooking appointmentBooking1;
     AppointmentBooking appointmentBooking2;
-    //AppointmentCancellation appointmentCancellation1;
-    AppointmentCancellation appointmentCancellation2;
-    BatchAdding batchAdd;
-    Appointment appointment1;
-    Appointment appointment2;
     TimePeriod timePeriod;
+    VaccineBatch batch;
+    VaccineBatch expiredBatch;
 
     @Before // Setting up before the tests
     public void setUp() throws Exception{
-        Client client1 = new Client("client1", "qwertyuiop");
-        // Client client2 = new Client("client2", "asdfghjkl");
-
         timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
 
-        VaccineBatch batch = new VaccineBatch("Pfizer", 100,
-                LocalDate.of(2099, 10 , 30), 1234);
+    // Setting up the first client
+        Client client1 = new Client("client1", "qwertyuiop");
+
+        batch = new VaccineBatch("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234);
 
         ArrayList<VaccineBatch> newList = new ArrayList<>();
         newList.add(batch);
@@ -45,30 +36,37 @@ public class AppointmentBookingTest {
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
-        appointmentBooking1.assignVaccineDose();
-        appointmentBooking1.createAppointment();
 
-        //  = new AppointmentBooking(client2, clinic, timePeriod, "Pfizer", 22);
+    // Setting up the second client
+        Client client2 = new Client("client2", "asdfghjkl");
 
-        // appointmentCancellation2 = new AppointmentCancellation(client1, clinic, timePeriod, 22);
+        expiredBatch = new VaccineBatch("Pfizer", 100, LocalDate.of(2020, 10 , 30), 1234);
 
-        // appointmentViewing1 = new AppointmentViewing(clinic, 11);
-        // appointmentViewing2 = new AppointmentViewing(clinic, 22);
+        ArrayList<VaccineBatch> newList2 = new ArrayList<>();
+        newList2.add(expiredBatch);
+        VaccineSupply supply2 = new VaccineSupply(newList2);
+
+        clinic2 = new BookableClinic(1, supply2);
+        clinic2.setShift(LocalDate.of(2021, 11, 14), 20);
+        clinic2.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+
+        appointmentBooking2 = new AppointmentBooking(client2, clinic2, timePeriod, "Pfizer", 11);
     }
 
     @Test(timeout = 100) // Testing that the selected timeslot is available
     public void TestAssignVaccineDose() {
-        assertTrue(timePeriod.getAvailableSlots() > 0);
+        VaccineBatch assignedDose = appointmentBooking1.assignVaccineDose();
+        assertEquals(batch, assignedDose);
     }
 
     @Test(timeout = 100) // Testing that the selected timeslot is available
     public void TestAssignExpiredVaccineDose() {
-        assertTrue(timePeriod.getAvailableSlots() > 0);
+        assertNull(appointmentBooking2.assignVaccineDose());
     }
 
     @Test(timeout = 100) // Testing that the selected timeslot is available
     public void TestCreateAppointment() {
-        assertTrue(timePeriod.getAvailableSlots() > 0);
+        assertTrue(appointmentBooking1.createAppointment());
     }
 
 }
