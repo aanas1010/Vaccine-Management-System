@@ -23,10 +23,9 @@ public class ClientBooking implements ClientBookingInterface{
         return book.createAppointment();
     }
 
-    public boolean AppointmentCancellation(Client client, BookableServiceLocation clinic,
-                                           TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    public boolean AppointmentCancellation(int appointmentId, BookableServiceLocation clinic)
     {
-        AppointmentCancellation cancel = new AppointmentCancellation(client, clinic, timePeriod, vaccineBrand, appointmentId);
+        AppointmentCancellation cancel = new AppointmentCancellation(appointmentID, clinic);
         return cancel.deleteAppointment();
     }
 
