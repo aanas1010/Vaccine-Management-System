@@ -4,6 +4,7 @@ import entities.BookableServiceLocation;
 
 import entities.TimePeriod;
 import entities.Client;
+import entities.Appointment;
 
 /**
  * This is the Use Case for Client Booking.
@@ -23,20 +24,14 @@ public class ClientBooking implements ClientBookingInterface{
         return book.createAppointment();
     }
 
-    public boolean AppointmentCancellation(Client client, BookableServiceLocation clinic,
-                                           TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    public boolean AppointmentCancellation(int appointmentId, BookableServiceLocation clinic)
     {
-        AppointmentCancellation cancel = new AppointmentCancellation(client, clinic, timePeriod, vaccineBrand, appointmentId);
+        AppointmentCancellation cancel = new AppointmentCancellation(appointmentId, clinic);
         return cancel.deleteAppointment();
     }
 
-    public String AppointmentViewing(Client client, BookableServiceLocation clinic,
-                                     TimePeriod timePeriod, String vaccineBrand, int appointmentId)
-    {
-//        AppointmentViewing view = new AppointmentViewing(clinic, appointment);
-//        return view.appointmentDetails();
-        return "j";
+    public String AppointmentViewing(int appointmentId, BookableServiceLocation clinic) {
+        AppointmentViewing view = new AppointmentViewing(appointmentId, clinic);
+        return view.appointmentDetails();
     }
-
-
 }

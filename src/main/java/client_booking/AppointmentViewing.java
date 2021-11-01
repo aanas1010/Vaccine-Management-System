@@ -13,10 +13,10 @@ public class AppointmentViewing {
     private final Appointment appointment;
     private final BookableServiceLocation clinic;
 
-    public AppointmentViewing(BookableServiceLocation clinic, Appointment appointment)
+    public AppointmentViewing(int appointment, BookableServiceLocation clinic)
     {
-        this.appointment = appointment;
         this.clinic = clinic;
+        this.appointment = clinic.getAppointmentRecord(appointment);
     }
 
     /*
