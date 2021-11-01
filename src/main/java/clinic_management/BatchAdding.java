@@ -10,8 +10,8 @@ import entities.VaccineBatch;
  */
 
 public class BatchAdding {
-    private ServiceLocation clinic;
-    private VaccineBatch batch;
+    private final ServiceLocation clinic;
+    private final VaccineBatch batch;
 
 //    // Constructor
 //    public clinic_management.BatchAdding(entities.ServiceLocation clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
@@ -33,7 +33,6 @@ public class BatchAdding {
         }
         else{
             this.clinic.getSupply().add(batch);
-            System.out.println(this.clinic.getSupplyObj().toString());
             return true;
         }
     }

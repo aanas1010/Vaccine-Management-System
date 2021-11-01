@@ -13,7 +13,7 @@ public class VaccineSupply {
 
     // Constructor
     public VaccineSupply(){
-        this.batchList = new ArrayList<VaccineBatch>();
+        this.batchList = new ArrayList<>();
     }
 
     // Overloaded Constructor for testing
@@ -21,12 +21,6 @@ public class VaccineSupply {
         this.batchList = batchList;
     }
 
-    // Another overloaded constructor since junit is fucking stupid
-    public VaccineSupply(VaccineBatch batch1, VaccineBatch batch2){
-        this.batchList = new ArrayList<>();
-        this.batchList.add(batch1);
-        this.batchList.add(batch2);
-    }
 
     // Return a hashmap that stores vaccine brand and the corresponding amount of vaccine
     public HashMap<String, Integer> getAvailableVaccines(){
@@ -53,15 +47,15 @@ public class VaccineSupply {
     // Return a string of the list of batches using the brand and id number
     @Override
     public String toString() {
-        StringBuilder s = new StringBuilder("--------BATCH LIST-------- \n[\n");
+        StringBuilder s = new StringBuilder("----------------BATCH LIST---------------- \n");
         for (VaccineBatch batch : this.batchList) {
-            s.append("  ").append(batch.getBrand()).append("-").append(batch.getId())
+            s.append(batch.getBrand()).append("-").append(batch.getId())
                     .append(": ").append(batch.getReserve()).append("/")
                     .append(batch.getAvailable()).append(" RESERVED | EXP:")
                     .append(batch.getExpiry());
             s.append("\n");
         }
-        s.append("]");
+        s.append("------------------------------------------");
         return s.toString();
     }
 

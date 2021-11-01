@@ -17,8 +17,13 @@ public class SetTimePeriod {
     }
 
     // Setting the number of shifts for a certain time
-    public void setEmployees(LocalDate date, int employees) {
-        this.clinic.setShift(date, employees);
+    public boolean setEmployees(LocalDate date, int employees) {
+        try{
+            this.clinic.setShift(date, employees);
+            return true;
+        } catch(Exception ex) {
+            return false;
+        }
     }
 
     // Adding a time period to a clinic if it is not already there
@@ -46,7 +51,7 @@ public class SetTimePeriod {
     /* Adding multiple time periods from a starting time until the end based on
        interval inputted in the form of minutes */
     public int addMultipleTimePeriods(LocalDateTime start, LocalDateTime end, int interval){
-        ArrayList<LocalDateTime> times = new ArrayList<LocalDateTime>();
+        ArrayList<LocalDateTime> times = new ArrayList<>();
         while (start.isBefore(end)){
             times.add(start);
             start = start.plusMinutes(interval);

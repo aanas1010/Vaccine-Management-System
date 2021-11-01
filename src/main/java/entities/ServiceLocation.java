@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * This is the ServiceLocation interface which supports methods for
  * Reading and writing vaccine and appointment details
  */
-
+// Add comments
 public interface ServiceLocation {
 
     void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
@@ -28,6 +28,8 @@ public interface ServiceLocation {
     int getShiftForDate(LocalDate date);
 
     boolean shiftAvailable(LocalDate date);
+
+    boolean containsShift(LocalDate date);
 
     boolean checkTimePeriod(LocalDateTime dateTime);
 

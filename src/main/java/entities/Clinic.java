@@ -36,6 +36,7 @@ public class Clinic implements ServiceLocation {
         this.timePeriods = timePeriods;
         this.shifts = shifts;
     }
+    // Overloaded constructor
     public Clinic(int id, VaccineSupply supply) {
         this.clinicId = id;
         this.supply = supply;

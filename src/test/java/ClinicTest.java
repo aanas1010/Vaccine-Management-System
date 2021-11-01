@@ -31,12 +31,12 @@ public class ClinicTest {
     @Test(timeout = 100) // Testing logging a past vaccination
     public void TestShift() {
         LocalDate date = LocalDate.now();
-        int numofShifts = 20;
+        int numOfShapes = 20;
 
-        clinic.setShift(date, numofShifts);
+        clinic.setShift(date, numOfShapes);
 
         assertTrue(clinic.containsShift(date));
         assertTrue(clinic.shiftAvailable(date));
-        assertEquals(clinic.getShiftForDate(date), numofShifts);
+        assertEquals(clinic.getShiftForDate(date), numOfShapes);
     }
 }
