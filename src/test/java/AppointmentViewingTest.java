@@ -51,7 +51,7 @@ public class AppointmentViewingTest {
         appointmentBooking2.assignVaccineDose();
         appointmentBooking2.createAppointment();
 
-        appointmentCancellation2 = new AppointmentCancellation(22, 1)
+        appointmentCancellation2 = new AppointmentCancellation(22, 1);
         appointmentCancellation2.deleteAppointment();
 
         appointmentViewing1 = new AppointmentViewing(11, clinic);
