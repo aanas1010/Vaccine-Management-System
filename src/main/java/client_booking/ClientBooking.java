@@ -30,12 +30,11 @@ public class ClientBooking implements ClientBookingInterface{
         return cancel.deleteAppointment();
     }
 
-    public String AppointmentViewing(Client client, BookableServiceLocation clinic,
-                                     TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    public String AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
     {
-//        AppointmentViewing view = new AppointmentViewing(clinic, appointment);
+//        AppointmentViewing view = new AppointmentViewing(appointmentID, clinic);
 //        return view.appointmentDetails();
-        return "j";
+        return "empty on AppointmentViewing-ClientBooking";
     }
 
 

@@ -12,6 +12,5 @@ public interface ClientBookingInterface {
     boolean AppointmentCancellation(Client client, BookableServiceLocation clinic,
                                     TimePeriod timePeriod, String vaccineBrand, int appointmentId);
 
-    String AppointmentViewing(Client client, BookableServiceLocation clinic, TimePeriod timePeriod,
-                              String vaccineBrand, int appointmentId);
+    public String AppointmentViewing(int appointmentID, BookableServiceLocation clinic);
 }
