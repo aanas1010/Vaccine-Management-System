@@ -15,8 +15,8 @@ public class AppointmentViewing {
 
     public AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
     {
-        this.clinic = new BookableClinic(clinicID);
-        this.appointment = clinic;
+        this.clinic = clinic;
+        this.appointment = clinic.getAppointmentRecord(appointmentID);
     }
 
     /*
