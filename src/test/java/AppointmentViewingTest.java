@@ -54,8 +54,8 @@ public class AppointmentViewingTest {
         appointmentCancellation2 = new AppointmentCancellation(22, 1)
         appointmentCancellation2.deleteAppointment();
 
-        appointmentViewing1 = new AppointmentViewing(11, 1);
-        appointmentViewing2 = new AppointmentViewing(22, 1);
+        appointmentViewing1 = new AppointmentViewing(11, clinic);
+        appointmentViewing2 = new AppointmentViewing(22, clinic);
     }
 
     @Test(timeout = 100) // Testing that the selected timeslot is available
