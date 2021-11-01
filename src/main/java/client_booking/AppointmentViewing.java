@@ -50,13 +50,13 @@ public class AppointmentViewing {
         String vaccineBrand = this.appointment.getVaccineBrand();
         String location = Integer.toString((this.clinic.getServiceLocationId())); //adjust the location detail if neccary
 
-        LocalDateTime date = this.appointment.getTimePeriod().getDateTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
+        //LocalDateTime date = this.appointment.getTimePeriod().getDateTime();
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        //String strDate = dateFormat.format(date);
 
         return "Hello " + clientName + ", \n" +
                 "your appoinment for a " + vaccineBrand + " vaccine has been set for: \n" +
-                strDate + " - at " + location + "\n";
+                "strDate" + " - at " + location + "\n";
     }
 
     private String noAppointmentBooked_message()

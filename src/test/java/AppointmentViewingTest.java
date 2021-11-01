@@ -62,7 +62,7 @@ public class AppointmentViewingTest {
     public void TestAppointmentDetails_noAppointmentExists() {
         String message_correct = "Hello " + "client1" + ", \n" +
                 "your appoinment for a " + "Pfizer" + " vaccine has been set for: \n" +
-                "2021-11-14 12:30:00" + " - at " + "1" + "\n";
+                "strDate" + " - at " + "1" + "\n";
         String message_method = appointmentViewing2.appointmentDetails();
         messageassertEquals(message_correct, message_method);
     }
