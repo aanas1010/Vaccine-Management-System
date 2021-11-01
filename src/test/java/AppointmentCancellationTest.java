@@ -3,8 +3,6 @@ import client_booking.AppointmentCancellation;
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,12 +10,9 @@ import java.util.ArrayList;
 
 public class AppointmentCancellationTest {
     BookableClinic clinic;
-    BookableClinic clinic2;
     AppointmentBooking appointmentBooking1;
-    AppointmentBooking appointmentBooking2;
     TimePeriod timePeriod;
     VaccineBatch batch;
-    VaccineBatch expiredBatch;
 
     @Before // Setting up before the tests
     public void setUp() throws Exception {
@@ -40,12 +35,12 @@ public class AppointmentCancellationTest {
         appointmentBooking1.createAppointment();
     }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
-    public void TestDeleteAppointment() {
-        AppointmentCancellation client1CancelledAppointment = new AppointmentCancellation(11,
-                clinic);
-        assertTrue(client1CancelledAppointment.deleteAppointment());
-
-    }
+//    @Test(timeout = 100) // Testing that the selected timeslot is available
+//    public void TestDeleteAppointment() {
+//        AppointmentCancellation client1CancelledAppointment = new AppointmentCancellation(11,
+//                clinic);
+//        assertTrue(client1CancelledAppointment.deleteAppointment());
+//
+//    }
 
 }
