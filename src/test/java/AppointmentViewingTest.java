@@ -58,14 +58,14 @@ public class AppointmentViewingTest {
         // appointmentViewing2 = new AppointmentViewing(22, clinic);
     }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
-    public void TestAppointmentDetails_noAppointmentExists() {
-        String message_correct = "Hello " + "client1" + ", \n" +
-                "your appoinment for a " + "Pfizer" + " vaccine has been set for: \n" +
-                "strDate" + " - at " + "1" + "\n";
-        String message_method = appointmentViewing2.appointmentDetails();
-        messageassertEquals(message_correct, message_method);
-    }
+    // @Test(timeout = 100) // Testing that the selected timeslot is available
+    // public void TestAppointmentDetails_noAppointmentExists() {
+    //     String message_correct = "Hello " + "client1" + ", \n" +
+    //             "your appoinment for a " + "Pfizer" + " vaccine has been set for: \n" +
+    //             "strDate" + " - at " + "1" + "\n";
+    //     String message_method = appointmentViewing2.appointmentDetails();
+    //     messageassertEquals(message_correct, message_method);
+    // }
 
     // @Test(timeout = 100) // Testing that the selected timeslot is available
     // public void TestAppointmentDetails_appointmentExists() {
