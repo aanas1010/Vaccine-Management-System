@@ -1,31 +1,36 @@
-package clinic_management;
+package controllers;
 
+import client_booking.AppointmentBooking;
+import client_booking.AppointmentCancellation;
+import clinic_management.BatchAdding;
+import clinic_management.SetTimePeriod;
 import entities.Clinic;
 import entities.ServiceLocation;
 import entities.VaccineBatch;
+import entities.BookableServiceLocation;
+import entities.TimePeriod;
+import entities.Client;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
-/**
- * This is the Use Case for adding batches.
- * Every time the use case is needed, a new clinic_management.BatchAdding instance is created
- * with the parameters of the batch
- */
 
-public class ClinicManagement implements ClinicManagerInterface {
+/**
+ * This is the Use Case manager that stores the clinics and manages the other use cases
+ */
+public class UseCaseManager implements UseCaseManagerInterface {
     //List of clinics, looking to change this into a database
     private final ArrayList<ServiceLocation> clinics;
 
     //Constructor for a list of clinics
-    public ClinicManagement(ArrayList<ServiceLocation> clinics){
+    public UseCaseManager(ArrayList<ServiceLocation> clinics){
         this.clinics = clinics;
     }
 
     //Constructor for num clinics with IDs 0 to num-1
-    public ClinicManagement(int num) {
+    public UseCaseManager(int num) {
         ArrayList<ServiceLocation> clinicsList = new ArrayList<>(num);
         for(int i=0;i<num;i++) {
             //Create new clinic with ID i
@@ -104,5 +109,27 @@ public class ClinicManagement implements ClinicManagerInterface {
         }else {
             return "";
         }
+    }
+
+    public boolean AppointmentBooking(Client client, BookableServiceLocation clinic,
+                                      TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    {
+        AppointmentBooking book = new AppointmentBooking(client, clinic, timePeriod, vaccineBrand, appointmentId);
+        return book.createAppointment();
+    }
+
+    public boolean AppointmentCancellation(Client client, BookableServiceLocation clinic,
+                                           TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    {
+        AppointmentCancellation cancel = new AppointmentCancellation(client, clinic, timePeriod, vaccineBrand, appointmentId);
+        return cancel.deleteAppointment();
+    }
+
+    public String AppointmentViewing(Client client, BookableServiceLocation clinic,
+                                     TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    {
+//        AppointmentViewing view = new AppointmentViewing(clinic, appointment);
+//        return view.appointmentDetails();
+        return "j";
     }
 }
