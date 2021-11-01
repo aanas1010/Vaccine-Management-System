@@ -43,13 +43,13 @@ public class AppointmentViewingTest {
         clinic.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
-        // appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
-        // appointmentBooking1.assignVaccineDose();
-        // appointmentBooking1.createAppointment();
+        appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
+        appointmentBooking1.assignVaccineDose();
+        appointmentBooking1.createAppointment();
 
-        // appointmentBooking2 = new AppointmentBooking(client2, clinic, timePeriod, "Pfizer", 22);
-        // appointmentBooking2.assignVaccineDose();
-        // appointmentBooking2.createAppointment();
+        appointmentBooking2 = new AppointmentBooking(client2, clinic, timePeriod, "Pfizer", 22);
+        appointmentBooking2.assignVaccineDose();
+        appointmentBooking2.createAppointment();
 
         // appointmentCancellation2 = new AppointmentCancellation(22, 1);
         // appointmentCancellation2.deleteAppointment();
