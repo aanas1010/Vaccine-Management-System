@@ -56,7 +56,7 @@ public class VaccinationLog {
         }
     }
 
-
+    // Return the dateTime based on the vaccination id
     public LocalDateTime getDateTimeByVaccinationId(String id) {
         try{
             return getVaccinationRecord(id).getDateTime();
@@ -65,6 +65,7 @@ public class VaccinationLog {
         }
     }
 
+    // Return the vaccine brand based on the vaccination id
     public String getVaccineBrandByVaccinationId(String id) {
         try{
             return getVaccinationRecord(id).getVaccineBrand();
@@ -72,10 +73,7 @@ public class VaccinationLog {
             return null;
         }
     }
-
-
-
-
+    
     // VaccinationRecord inner class for storing info for a specific vaccination
     private class VaccinationRecord {
         //vaccinationId is of the form "A123" for appointment-based vaccinations, or "V123" otherwise
