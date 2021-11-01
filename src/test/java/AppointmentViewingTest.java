@@ -27,29 +27,29 @@ public class AppointmentViewingTest {
     TimePeriod timePeriod;
         @Before // Setting up before the tests
     public void setUp() throws Exception{
-        Client client1 = new Client("client1", "healthCareNumber1");
-        Client client2 = new Client("client2", "healthCareNumber2");
+        // Client client1 = new Client("client1", "healthCareNumber1");
+        // Client client2 = new Client("client2", "healthCareNumber2");
 
-        timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
+        // timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
 
-        VaccineBatch batch = new VaccineBatch("Pfizer", 100,
-                LocalDate.of(2099, 10 , 30), 1234);
+        // VaccineBatch batch = new VaccineBatch("Pfizer", 100,
+        //         LocalDate.of(2099, 10 , 30), 1234);
 
-        ArrayList<VaccineBatch> newList = new ArrayList<>();
-        newList.add(batch);
-        VaccineSupply supply = new VaccineSupply(newList);
+        // ArrayList<VaccineBatch> newList = new ArrayList<>();
+        // newList.add(batch);
+        // VaccineSupply supply = new VaccineSupply(newList);
 
-        clinic = new BookableClinic(1, supply);
-        clinic.setShift(LocalDate.of(2021, 11, 14), 20);
-        clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        // clinic = new BookableClinic(1, supply);
+        // clinic.setShift(LocalDate.of(2021, 11, 14), 20);
+        // clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
-        appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
-        appointmentBooking1.assignVaccineDose();
-        appointmentBooking1.createAppointment();
+        // appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
+        // appointmentBooking1.assignVaccineDose();
+        // appointmentBooking1.createAppointment();
 
-        appointmentBooking2 = new AppointmentBooking(client2, clinic, timePeriod, "Pfizer", 22);
-        appointmentBooking2.assignVaccineDose();
-        appointmentBooking2.createAppointment();
+        // appointmentBooking2 = new AppointmentBooking(client2, clinic, timePeriod, "Pfizer", 22);
+        // appointmentBooking2.assignVaccineDose();
+        // appointmentBooking2.createAppointment();
 
         // appointmentCancellation2 = new AppointmentCancellation(22, 1);
         // appointmentCancellation2.deleteAppointment();
