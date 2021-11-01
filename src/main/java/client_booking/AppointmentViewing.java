@@ -13,7 +13,7 @@ public class AppointmentViewing {
     private final Appointment appointment;
     private final BookableServiceLocation clinic;
 
-    public AppointmentViewing(String appointmentID, String clinicID)
+    public AppointmentViewing(int appointmentID, int clinicID)
     {
         this.clinic = new BookableClinic(clinicID);
         this.appointment = clinic.getAppointmentRecord(appointmentID);
