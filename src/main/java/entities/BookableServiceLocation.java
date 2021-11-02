@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * This is the BookableServiceLocation interface which supports methods for the BookableClinic class.
  */
-public interface BookableServiceLocation {
+public interface BookableServiceLocation extends ServiceLocation {
 
     boolean addAppointment(Appointment ap);
 

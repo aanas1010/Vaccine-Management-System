@@ -27,7 +27,6 @@ public class TimePeriod {
     public boolean findAndReserveSlot(){
         // If there are no slots, return false
         if(this.getAvailableSlots() == 0) {return false;}
-
         availableSlots -= 1;
         bookedSlots += 1;
         return true;

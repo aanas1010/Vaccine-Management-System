@@ -17,7 +17,7 @@ public class AppointmentCancellationTest {
     @Before // Setting up before the tests
     public void setUp() throws Exception {
         timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
-        // Setting up the first client
+
         Client client1 = new Client("client1", "qwertyuiop");
 
         batch = new VaccineBatch("Pfizer", 100, LocalDate.of(2099, 10, 30), 1234);
@@ -35,12 +35,12 @@ public class AppointmentCancellationTest {
         appointmentBooking1.createAppointment();
     }
 
-//    @Test(timeout = 100) // Testing that the selected timeslot is available
-//    public void TestDeleteAppointment() {
-//        AppointmentCancellation client1CancelledAppointment = new AppointmentCancellation(11,
-//                clinic);
-//        assertTrue(client1CancelledAppointment.deleteAppointment());
-//
-//    }
+    @Test(timeout = 100) // Testing that the selected timeslot is available
+    public void TestDeleteAppointment() {
+        AppointmentCancellation client1CancelledAppointment = new AppointmentCancellation(11,
+                clinic);
+        assertTrue(client1CancelledAppointment.deleteAppointment());
+
+    }
 
 }

@@ -22,7 +22,7 @@ public class AppointmentBookingTest {
     public void setUp() throws Exception{
         timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
 
-    // Setting up the first client
+        // Setting up the first client
         Client client1 = new Client("client1", "qwertyuiop");
 
         batch = new VaccineBatch("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234);
@@ -37,7 +37,7 @@ public class AppointmentBookingTest {
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
 
-    // Setting up the second client
+        // Setting up the second client
         Client client2 = new Client("client2", "asdfghjkl");
 
         expiredBatch = new VaccineBatch("Pfizer", 100, LocalDate.of(2020, 10 , 30), 1234);
@@ -53,18 +53,18 @@ public class AppointmentBookingTest {
         appointmentBooking2 = new AppointmentBooking(client2, clinic2, timePeriod, "Pfizer", 11);
     }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
+    @Test(timeout = 100) // Testing that the correct vaccine batch has been assigned
     public void TestAssignVaccineDose() {
         VaccineBatch assignedDose = appointmentBooking1.assignVaccineDose();
         assertEquals(batch, assignedDose);
     }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
+    @Test(timeout = 100) // Testing that an expired vaccine dose isn't assigned
     public void TestAssignExpiredVaccineDose() {
         assertNull(appointmentBooking2.assignVaccineDose());
     }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
+    @Test(timeout = 100) // Testing that an appointment has indeed been created
     public void TestCreateAppointment() {
         assertTrue(appointmentBooking1.createAppointment());
     }

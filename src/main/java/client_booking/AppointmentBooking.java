@@ -53,6 +53,7 @@ public class AppointmentBooking {
     public boolean createAppointment() {
         if(this.isTimeslotAvailable() && this.assignVaccineDose() != null) {
             Appointment appointment = new Appointment(this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
+            this.client.approveAppointment();
             this.clinic.addAppointment(appointment);
             this.timePeriod.findAndReserveSlot();
             return true;
