@@ -106,9 +106,11 @@ public class VaccinationLog {
         }
 
         @Override
-        public String toString() {
-            return vaccinationId + ": " + vaccineBrand + ", administered " +
-                    dateTime.toString() + " to " + client.getName();
+        public String toString(){
+            return "----------------VACCINATION #" + vaccinationId + "----------------" +
+                    "\nCLIENT: " + client.getName() +
+                    "\nTIME: " + dateTime.toString() +
+                    "\nBRAND: " + vaccineBrand;
         }
     }
 }
