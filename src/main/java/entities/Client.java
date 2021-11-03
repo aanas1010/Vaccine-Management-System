@@ -18,6 +18,9 @@ public class Client {
 
     public void approveAppointment() {this.hasAppointment = true;}
 
+    public void disapproveAppointment() {this.hasAppointment = false;}
+
+
     // Getters
     public String getName() {return name;}
 
