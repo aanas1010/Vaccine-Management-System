@@ -13,10 +13,10 @@ public class AppointmentViewing {
     private final Appointment appointment;
     private final BookableServiceLocation clinic;
 
-    public AppointmentViewing(int appointment, BookableServiceLocation clinic)
+    public AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
     {
         this.clinic = clinic;
-        this.appointment = clinic.getAppointmentRecord(appointment);
+        this.appointment = clinic.getAppointmentRecord(appointmentID);
     }
 
     /*
@@ -50,13 +50,13 @@ public class AppointmentViewing {
         String vaccineBrand = this.appointment.getVaccineBrand();
         String location = Integer.toString((this.clinic.getServiceLocationId())); //adjust the location detail if neccary
 
-        LocalDateTime date = this.appointment.getTimePeriod().getDateTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
+        //LocalDateTime date = this.appointment.getTimePeriod().getDateTime();
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        //String strDate = dateFormat.format(date);
 
         return "Hello " + clientName + ", \n" +
                 "your appoinment for a " + vaccineBrand + " vaccine has been set for: \n" +
-                strDate + " - at " + location + "\n";
+                "strDate" + " - at " + location + "\n";
     }
 
     private String noAppointmentBooked_message()
