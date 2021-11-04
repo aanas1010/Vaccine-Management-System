@@ -3,12 +3,15 @@ import client_booking.AppointmentCancellation;
 import client_booking.AppointmentViewing;
 import entities.*;
 import org.junit.*;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+//test cases for the appointmentViewing class
 public class AppointmentViewingTest {
     BookableClinic clinic;
 
@@ -71,58 +74,46 @@ public class AppointmentViewingTest {
         appointmentViewing5 = new AppointmentViewing(55, clinic);
     }
 
-     @Test(timeout = 100) // Testing that the selected timeslot is available
+     @Test(timeout = 100) // Testing the use case an appointment is booked and active
      public void TestAppointmentDetails_appointmentExists() {
-         String message_correct = "Hello " + "client1" + ", \n" +
-                 "your appoinment for a " + "Pfizer" + " vaccine has been set for: \n" +
-                 "strDate" + " - at " + "1" + "\n";
+         String message_correct = "----------------APPOINTMENT #" + "11" + "----------------" +
+                 "\nCLIENT: " + "client1" +
+                 "\nTIME: " + "2021-11-14T12:30" +
+                 "\nBRAND: " + "Pfizer" +
+                 "\nBATCH: " + "1234";
          String message_method = appointmentViewing1.appointmentDetails();
 
          assertEquals(message_correct, message_method);
      }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
-    public void TestAppointmentDetails_appointmentCanceled() {
-        String message_correct = "Hello, \n" +
-                "you do not have any appointment currently booked.";
-        String message_method = appointmentViewing2.appointmentDetails();
+    @Test(timeout = 100) // Testing the use case a booked appointment was canceled
+    public void TestAppointmentDetails_appointmentCanceled() {assertNull(appointmentViewing2.appointmentDetails());}
 
-        assertEquals(message_correct, message_method);
-    }
-
-     @Test(timeout = 100) // Testing that the selected timeslot is available
+     @Test(timeout = 100) // Testing the use case a booked appointment has passed
      public void TestAppointmentDetails_appointmentPassed_wasBooked() {
-         String message_correct = "Hello " + "client3" + ", \n " +
-                 "your appoinment for a " + "Pfizer" + " vaccine at: \n" +
-                 "strDate" + " - " + "1" + "\n" +
-                 "has passed. \n" +
-                 "Thank you for using our services";
+         String message_correct = "----------------VACCINATION #" + "A33" + "----------------" +
+                 "\nCLIENT: " + "client3" +
+                 "\nTIME: " + "2021-11-14T12:30" +
+                 "\nBRAND: " + "Pfizer";
          String message_method = appointmentViewing3.appointmentDetails();
 
          assertEquals(message_correct, message_method);
      }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
+    @Test(timeout = 100) // Testing the use case an appointment never existed
+    public void TestAppointmentDetails_appointmentNeverExisted() {assertNull(appointmentViewing4.appointmentDetails());}
+
+
+    @Test(timeout = 100) // Testing the use case a walk in appointment has passed
     public void TestAppointmentDetails_appointmentPassed_wasNotBooked() {
-        String message_correct = "Hello " + "client5" + ", \n " +
-                "your appoinment for a " + "Pfizer" + " vaccine at: \n" +
-                "strDate" + " - " + "1" + "\n" +
-                "has passed. \n" +
-                "Thank you for using our services";
-        int extra = 5;
+        String message_correct = "----------------VACCINATION #" + "V55" + "----------------" +
+                "\nCLIENT: " + "client5" +
+                "\nTIME: " + "2021-11-14T12:30" +
+                "\nBRAND: " + "Pfizer";
         String message_method = appointmentViewing5.appointmentDetails();
-
         assertEquals(message_correct, message_method);
     }
 
-    @Test(timeout = 100) // Testing that the selected timeslot is available
-    public void TestAppointmentDetails_appointmentNeverExisted() {
-        String message_correct = "Hello, \n" +
-                "you do not have any appointment currently booked.";
-        String message_method = appointmentViewing4.appointmentDetails();
-
-        assertEquals(message_correct, message_method);
-    }
 
 
 }

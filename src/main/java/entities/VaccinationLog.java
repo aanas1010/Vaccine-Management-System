@@ -73,6 +73,12 @@ public class VaccinationLog {
             return null;
         }
     }
+
+    // Return the vaccine toString based on the vaccination id
+    public String getRecordString (String id) {
+        try{return getVaccinationRecord(id).toString();}
+        catch(Exception ex) {return null;}
+    }
     
     // VaccinationRecord inner class for storing info for a specific vaccination
     private class VaccinationRecord {
