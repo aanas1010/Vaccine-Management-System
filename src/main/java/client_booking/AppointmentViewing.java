@@ -37,10 +37,10 @@ public class AppointmentViewing {
             return appointmentBooked_message(this.clinic.getAppointmentRecord(appointmentID));
 
         else
-            if(this.clinic.getVaccineLog().getVaccinationRecord("A" + String.valueOf(appointmentID)) != null) //booked passed_appointment
-                return appointmentPassed_message("A" + String.valueOf(appointmentID));
-            else if(this.clinic.getVaccineLog().getVaccinationRecord("V" + String.valueOf(appointmentID)) != null) //walk-in passed_appointment
-                return appointmentPassed_message("V" + String.valueOf(appointmentID));
+            if(this.clinic.getVaccineLog().getVaccinationRecord("A" + appointmentID) != null) //booked passed_appointment
+                return appointmentPassed_message("A" + appointmentID);
+            else if(this.clinic.getVaccineLog().getVaccinationRecord("V" + appointmentID) != null) //walk-in passed_appointment
+                return appointmentPassed_message("V" + appointmentID);
             else
                 return noAppointmentBooked_message();
     }
