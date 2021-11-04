@@ -3,67 +3,56 @@ package client_booking;
 import entities.Appointment;
 import entities.BookableServiceLocation;
 
-import java.net.SocketOption;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-
+//user case class for viewing a specific appointment
 public class AppointmentViewing {
 
-    private final Appointment appointment;
+    /*
+        clinic: the clinic where the appointment happened
+        appointmentID: the id of an appointment
+
+     ps. when it is in the log it has a prefix A for booked appointments
+     and prefix V when walk-in appointment.
+     */
+
+    private final int appointmentID;
     private final BookableServiceLocation clinic;
 
-    public AppointmentViewing(int appointment, BookableServiceLocation clinic)
+    public AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
     {
         this.clinic = clinic;
-        this.appointment = clinic.getAppointmentRecord(appointment);
+        this.appointmentID = appointmentID;
     }
 
     /*
-  TODO: fill out AppointmentDetails
- */
-    /*
-    produces a message:
-    "Hello [client name],
-     your appoinment for a [brand] vaccine has been set for:
-     [date] - at  [location]"
+    return a string of the details about the appointment
 
-     or
-
-     "Hello [client name],
-     you do not have any appointment currently booked."
+    produces athe following message if:
+    appointment exists and hasn't passed - toString from appointment
+    appointment was logged and passed    - toString from vaccinationLog
+    appointment never existed            - null
      */
-
     public String appointmentDetails()
     {
-        if (this.appointment.getClient().getHasAppointment())
-            return appointmentBooked_message();
+        if(this.clinic.getAppointmentRecord(appointmentID) != null) //booked active_appointment
+            return appointmentBooked_message(this.clinic.getAppointmentRecord(appointmentID));
+
         else
-            return noAppointmentBooked_message();
+            if(this.clinic.getVaccineLog().getVaccinationRecord("A" + appointmentID) != null) //booked passed_appointment
+                return appointmentPassed_message("A" + appointmentID);
+            else if(this.clinic.getVaccineLog().getVaccinationRecord("V" + appointmentID) != null) //walk-in passed_appointment
+                return appointmentPassed_message("V" + appointmentID);
+            else
+                return noAppointmentBooked_message();
     }
 
     // message methods
-    private String appointmentBooked_message()
-    {
 
-        String clientName = this.appointment.getClient().getName();
-        String vaccineBrand = this.appointment.getVaccineBrand();
-        String location = Integer.toString((this.clinic.getServiceLocationId())); //adjust the location detail if neccary
+    //when appointment exists and active
+    private String appointmentBooked_message(Appointment appointment) {return appointment.toString();}
 
-        LocalDateTime date = this.appointment.getTimePeriod().getDateTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
+    //when appointment has passed
+    private String appointmentPassed_message(String appointmentID_str) {return this.clinic.getVaccineLog().getRecordString(appointmentID_str);}
 
-        return "Hello " + clientName + ", \n" +
-                "your appoinment for a " + vaccineBrand + " vaccine has been set for: \n" +
-                strDate + " - at " + location + "\n";
-    }
-
-    private String noAppointmentBooked_message()
-    {
-        String clientName = this.appointment.getClient().getName();
-
-        return "Hello " + clientName + ", \n" +
-                "you do not have any appointment currently booked.";
-    }
+    //when appointment never existed
+    private String noAppointmentBooked_message() {return null;}
 }
