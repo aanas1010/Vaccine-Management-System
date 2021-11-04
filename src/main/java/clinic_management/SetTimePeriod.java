@@ -1,12 +1,17 @@
 package clinic_management;
 
-import entities.Clinic;
 import entities.ServiceLocation;
 import entities.TimePeriod;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+/**
+ * This is the Use Case for setting time periods and shifts.
+ * Every time the use case is needed, a new SetTimePeriod instance is created
+ * with the only parameter being clinic
+ */
 
 public class SetTimePeriod {
     private final ServiceLocation clinic;

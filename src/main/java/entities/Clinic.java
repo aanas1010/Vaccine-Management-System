@@ -24,8 +24,8 @@ public class Clinic implements ServiceLocation {
         this.clinicId = id;
         this.supply = new VaccineSupply();
         this.log = new VaccinationLog();
-        this.timePeriods = new HashMap<LocalDate, ArrayList<TimePeriod>>();
-        this.shifts = new HashMap<LocalDate, Integer>();
+        this.timePeriods = new HashMap<>();
+        this.shifts = new HashMap<>();
     }
 
     // Overloaded Constructors for testing
@@ -41,8 +41,13 @@ public class Clinic implements ServiceLocation {
         this.clinicId = id;
         this.supply = supply;
         this.log = new VaccinationLog();
-        this.timePeriods = new HashMap<LocalDate, ArrayList<TimePeriod>>();
-        this.shifts = new HashMap<LocalDate, Integer>();
+        this.timePeriods = new HashMap<>();
+        this.shifts = new HashMap<>();
+    }
+
+    // Add a batch to the VaccineSupply
+    public void addBatch(VaccineBatch batch) {
+        this.getSupply().add(batch);
     }
 
     // Log a past vaccination (NON-APPOINTMENT)
@@ -90,7 +95,7 @@ public class Clinic implements ServiceLocation {
             this.timePeriods.get(date).add(timePeriod);
         }
         else{
-            ArrayList<TimePeriod> newTime = new ArrayList<TimePeriod>();
+            ArrayList<TimePeriod> newTime = new ArrayList<>();
             newTime.add(timePeriod);
             this.timePeriods.put(date, newTime);
         }
