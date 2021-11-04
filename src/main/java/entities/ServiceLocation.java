@@ -33,6 +33,8 @@ public interface ServiceLocation {
 
     boolean checkTimePeriod(LocalDateTime dateTime);
 
+
+
     ArrayList<VaccineBatch> getSupply();
 
     VaccineSupply getSupplyObj();

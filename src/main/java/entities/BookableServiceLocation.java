@@ -29,6 +29,7 @@ public interface BookableServiceLocation extends ServiceLocation {
     void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
 
     int getServiceLocationId();
+    public VaccinationLog getVaccineLog();
 
     ArrayList<VaccineBatch> getSupply();
 
