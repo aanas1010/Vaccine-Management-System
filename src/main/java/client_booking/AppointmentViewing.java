@@ -1,7 +1,6 @@
 package client_booking;
 
 import entities.Appointment;
-import entities.BookableClinic;
 import entities.ServiceLocation;
 
 //user case class for viewing a specific appointment

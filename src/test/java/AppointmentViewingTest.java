@@ -72,7 +72,7 @@ public class AppointmentViewingTest {
 //        clinic.getSupply();
         clinic.removeAppointmentById(33);
 
-        clinic.logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
+        clinicWalkIn.logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
 
         appointmentViewing1 = new AppointmentViewing(11, clinic);
         appointmentViewing2 = new AppointmentViewing(22, clinic);
