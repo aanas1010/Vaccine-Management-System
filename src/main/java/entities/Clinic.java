@@ -128,4 +128,5 @@ public class Clinic implements ServiceLocation {
     }
 
     public VaccinationLog getVaccineLog() {return log;}
+
 }
