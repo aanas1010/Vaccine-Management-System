@@ -27,7 +27,10 @@ public class DataValidation {
         ADD_TIME_PERIOD,
         REMOVE_TIME_PERIOD,
         ADD_TIME_PERIODS,
-        QUIT;
+        QUIT,
+        BOOK_APPOINTMENT,
+        CANCEL_APPOINTMENT,
+        VIEW_APPOINTMENT;
 
         // Return whether s is a valid element of Commands
         public static boolean contains(String s) {

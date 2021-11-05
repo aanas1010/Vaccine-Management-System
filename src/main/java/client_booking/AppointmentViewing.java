@@ -33,11 +33,11 @@ public class AppointmentViewing {
 
     produces the following message if:
     appointment exists and hasn't passed - toString from appointment
-    appointment was logged and passed    - toString from vaccinationLog
     appointment never existed            - null
      */
     public String appointmentDetails()
     {
+
         if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) { //booked active_appointment
             return getBookedAppointmentString(((BookableClinic) this.clinic).getAppointmentRecord(appointmentID));
 

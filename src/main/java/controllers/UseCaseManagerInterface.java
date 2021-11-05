@@ -23,11 +23,11 @@ public interface UseCaseManagerInterface {
 
     String getSupplyStringByClinic(int clinicId);
 
-    boolean AppointmentBooking(Client client, ServiceLocation clinic, TimePeriod timePeriod,
-                               String vaccineBrand, int appointmentId);
+    boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+                            LocalDateTime appointmentTime, String vaccineBrand, int appointmentId);
 
-    boolean AppointmentCancellation(int appointmentId, ServiceLocation clinic);
+    boolean cancelAppointment(int clinicId, int appointmentId);
 
-    String AppointmentViewing(Client client, ServiceLocation clinic, TimePeriod timePeriod,
-                              String vaccineBrand, int appointmentId);
+    String viewAppointment(int clinicId, int appointmentId);
+
 }

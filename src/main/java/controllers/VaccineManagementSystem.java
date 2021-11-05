@@ -1,5 +1,9 @@
 package controllers;
 
+import entities.BookableClinic;
+import entities.Client;
+import entities.TimePeriod;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,6 +37,19 @@ public class VaccineManagementSystem implements ManagementSystem {
         return useCaseManagerInterface.addMultipleTimePeriods(clinicId, start, end, interval);
     }
 
+    public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+                                   LocalDateTime appointmentTime, String vaccineBrand, int appointmentId){
+        return useCaseManagerInterface.bookAppointment(clinicId, clientName, healthCareNumber,
+                appointmentTime, vaccineBrand, appointmentId);
+    }
+
+    public boolean cancelAppointment(int clinicId, int appointmentId) {
+        return useCaseManagerInterface.cancelAppointment(clinicId, appointmentId);
+    }
+
+    public String viewAppointment(int clinicId, int appointmentId){
+        return useCaseManagerInterface.viewAppointment(clinicId, appointmentId);
+    }
 
     // Add a batch to the specified clinic given the parameters
     // Returns whether the batch was added

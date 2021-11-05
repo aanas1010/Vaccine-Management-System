@@ -13,19 +13,16 @@ import java.util.ArrayList;
 
 //test cases for the appointmentViewing class
 public class AppointmentViewingTest {
-    ServiceLocation clinic; //bookable clinic
+    ClinicDecorator clinic; //bookable clinic
     ServiceLocation clinicWalkIn; // walk in clinic
 
 
     AppointmentViewing appointmentViewing1; //appointment booked                  (view)
     AppointmentViewing appointmentViewing2; //appointment cancelled               (view)
-    AppointmentViewing appointmentViewing3; //appointment passed-booked           (view)
     AppointmentViewing appointmentViewing4; //appointment never existed           (view)
-    AppointmentViewing appointmentViewing5; //appointment passed-not_booked       (view)
 
     AppointmentBooking appointmentBooking1; //appointment booked                  (book)
     AppointmentBooking appointmentBooking2; //appointment cancelled               (book)
-    AppointmentBooking appointmentBooking3; //appointment passed                  (book)
 
     AppointmentCancellation appointmentCancellation2; //appointment cancelled     (cancel)
 
@@ -34,8 +31,6 @@ public class AppointmentViewingTest {
     public void setUp() throws Exception{
         Client client1 = new Client("client1", "healthCareNumber1"); //appointment booked
         Client client2 = new Client("client2", "healthCareNumber2"); //appointment cancelled
-        Client client3 = new Client("client3", "healthCareNumber3"); //appointment passed-booked
-        Client client5 = new Client("client5", "healthCareNumber5"); //appointment passed-notBooked
 
         timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
 
@@ -65,20 +60,11 @@ public class AppointmentViewingTest {
         appointmentCancellation2 = new AppointmentCancellation(22, clinic);
         appointmentCancellation2.deleteAppointment();
 
-        appointmentBooking3 = new AppointmentBooking(client3, clinic, timePeriod, "Pfizer", 33);
-        appointmentBooking3.assignVaccineDose();
-        appointmentBooking3.createAppointment();
-        ((BookableClinic)clinic).logPastVaccinations(((BookableClinic)clinic).getAppointmentRecord(33));
-//        clinic.getSupply();
-        ((BookableClinic)clinic).removeAppointmentById(33);
 
-        clinicWalkIn.logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
+        appointmentViewing1 = new AppointmentViewing(11, clinic);
+        appointmentViewing2 = new AppointmentViewing(22, clinic);
+        appointmentViewing4 = new AppointmentViewing(44, clinic);
 
-        appointmentViewing1 = new AppointmentViewing(11, (ClinicDecorator) clinic);
-        appointmentViewing2 = new AppointmentViewing(22, (ClinicDecorator) clinic);
-        appointmentViewing3 = new AppointmentViewing(33, (ClinicDecorator) clinic);
-        appointmentViewing4 = new AppointmentViewing(44, (ClinicDecorator) clinic);
-        appointmentViewing5 = new AppointmentViewing(55, (ClinicDecorator) clinicWalkIn);
     }
 
      @Test(timeout = 100) // Testing the use case an appointment is booked and active

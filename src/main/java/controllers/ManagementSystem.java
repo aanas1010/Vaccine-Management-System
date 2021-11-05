@@ -1,5 +1,9 @@
 package controllers;
 
+import entities.BookableClinic;
+import entities.Client;
+import entities.TimePeriod;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,4 +28,11 @@ public interface ManagementSystem {
     ArrayList<Integer> getClinicIds();
 
     String getSupplyByClinic(int clinicId);
+
+    boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+                                   LocalDateTime appointmentTime, String vaccineBrand, int appointmentId);
+
+    boolean cancelAppointment(int clinicId, int appointmentId);
+
+    String viewAppointment(int clinicId, int appointmentId);
 }

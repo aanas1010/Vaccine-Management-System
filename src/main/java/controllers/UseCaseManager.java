@@ -2,13 +2,10 @@ package controllers;
 
 import client_booking.AppointmentBooking;
 import client_booking.AppointmentCancellation;
+import client_booking.AppointmentViewing;
 import clinic_management.BatchAdding;
 import clinic_management.SetTimePeriod;
-import entities.Clinic;
-import entities.ServiceLocation;
-import entities.VaccineBatch;
-import entities.TimePeriod;
-import entities.Client;
+import entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -65,6 +62,33 @@ public class UseCaseManager implements UseCaseManagerInterface {
         BatchAdding newBatch = new BatchAdding(clinicById, batch);
         return newBatch.addBatch();
     }
+
+    /** BOOKING APPOINTMENTS */
+    public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+                                   LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) {
+        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
+        Client client = new Client(clientName, healthCareNumber);
+        TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
+        AppointmentBooking appointmentBooking = new AppointmentBooking(client, clinic, timePeriod,
+                vaccineBrand, appointmentId);
+        return appointmentBooking.createAppointment();
+    }
+
+    /** CANCELLING APPOINTMENTS */
+    public boolean cancelAppointment(int clinicId, int appointmentId) {
+        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
+        AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic);
+
+        return appointmentCancellation.deleteAppointment();
+    }
+
+    /** VIEWING APPOINTMENTS */
+    public String viewAppointment(int clinicId, int appointmentId){
+        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
+            AppointmentViewing appointmentViewing = new AppointmentViewing(appointmentId, clinic);
+
+            return appointmentViewing.appointmentDetails();
+        }
 
     /** TIME PERIOD */
 
