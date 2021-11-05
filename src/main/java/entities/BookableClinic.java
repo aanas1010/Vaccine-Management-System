@@ -63,9 +63,9 @@ public class BookableClinic extends ClinicDecorator{
     }
 
 
-    //option if we choose not to use casting for clinics:
+    // //option if we choose not to use casting for clinics:
 
-    //empty method declaration to satisfy inheritance
-    @Override
-    public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {}
+    // //empty method declaration to satisfy inheritance
+    // @Override
+    // public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {}
 }
