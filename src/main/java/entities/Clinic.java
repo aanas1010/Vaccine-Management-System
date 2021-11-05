@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * This is the main Clinic entity which stores the clinic's vaccine supply
+ * This is the core Clinic entity which stores the clinic's vaccine supply
  * Clinics have a unique integer ClinicId which is used to identify the clinic
  */
 
 public class Clinic implements ServiceLocation {
     private final int clinicId;
     private final VaccineSupply supply;
-    protected final VaccinationLog log;
+    private final VaccinationLog log;
     private final HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
     private final HashMap<LocalDate, Integer> shifts;
 

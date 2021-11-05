@@ -1,5 +1,4 @@
-import entities.Client;
-import entities.Clinic;
+import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -7,22 +6,26 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ClinicTest {
-    Clinic clinic;
+    ServiceLocation clinic;
+    ServiceLocation clinicWalkIn;
+    ServiceLocation clinicBookingOpt;
     Client client;
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinic = new Clinic(1);
+        clinicWalkIn = new WalkInClinic(new Clinic(1));
+        clinicBookingOpt = new BookableClinic(new Clinic(2));
+        clinic = new Clinic(3);
         client = new Client("Barack Obama", "1776");
 
     }
 
     @Test(timeout = 100) // Testing logging a past vaccination
     public void TestLogPastVaccinations() {
-        clinic.logPastVaccinations("10", client, LocalDateTime.now(), "Pfizer");
+        ((WalkInClinic)clinicWalkIn).logPastVaccinations("10", client, LocalDateTime.now(), "Pfizer");
 
-        String name = clinic.getVaccineLog().getClientByVaccinationId("V10").getName();
-        String healthCareNumber = clinic.getVaccineLog().getClientByVaccinationId("V10").getHealthCareNumber();
+        String name = ((WalkInClinic)clinicWalkIn).getVaccineLog().getClientByVaccinationId("V10").getName();
+        String healthCareNumber = ((WalkInClinic)clinicWalkIn).getVaccineLog().getClientByVaccinationId("V10").getHealthCareNumber();
 
         assertEquals(name, client.getName());
         assertEquals(healthCareNumber, client.getHealthCareNumber());

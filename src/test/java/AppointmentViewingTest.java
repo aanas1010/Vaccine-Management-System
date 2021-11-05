@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 //test cases for the appointmentViewing class
 public class AppointmentViewingTest {
-    BookableClinic clinic;
+    ServiceLocation clinic; //bookable clinic
+    ServiceLocation clinicWalkIn; // walk in clinic
+
 
     AppointmentViewing appointmentViewing1; //appointment booked                  (view)
     AppointmentViewing appointmentViewing2; //appointment cancelled               (view)
@@ -44,9 +46,13 @@ public class AppointmentViewingTest {
         newList.add(batch);
         VaccineSupply supply = new VaccineSupply(newList);
 
-        clinic = new BookableClinic(1, supply);
+        clinic = new BookableClinic(new Clinic(1, supply));
         clinic.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+
+        clinicWalkIn = new WalkInClinic(new Clinic(1, supply));
+        clinicWalkIn.setShift(LocalDate.of(2021, 11, 14), 20);
+        clinicWalkIn.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
         appointmentBooking1.assignVaccineDose();
@@ -62,16 +68,17 @@ public class AppointmentViewingTest {
         appointmentBooking3 = new AppointmentBooking(client3, clinic, timePeriod, "Pfizer", 33);
         appointmentBooking3.assignVaccineDose();
         appointmentBooking3.createAppointment();
-        clinic.logPastVaccinations(this.clinic.getAppointmentRecord(33));
-        clinic.removeAppointmentById(33);
+        ((BookableClinic)clinic).logPastVaccinations(((BookableClinic)clinic).getAppointmentRecord(33));
+//        clinic.getSupply();
+        ((BookableClinic)clinic).removeAppointmentById(33);
 
-        clinic.logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
+        clinicWalkIn.logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
 
-        appointmentViewing1 = new AppointmentViewing(11, clinic);
-        appointmentViewing2 = new AppointmentViewing(22, clinic);
-        appointmentViewing3 = new AppointmentViewing(33, clinic);
-        appointmentViewing4 = new AppointmentViewing(44, clinic);
-        appointmentViewing5 = new AppointmentViewing(55, clinic);
+        appointmentViewing1 = new AppointmentViewing(11, (ClinicDecorator) clinic);
+        appointmentViewing2 = new AppointmentViewing(22, (ClinicDecorator) clinic);
+        appointmentViewing3 = new AppointmentViewing(33, (ClinicDecorator) clinic);
+        appointmentViewing4 = new AppointmentViewing(44, (ClinicDecorator) clinic);
+        appointmentViewing5 = new AppointmentViewing(55, (ClinicDecorator) clinicWalkIn);
     }
 
      @Test(timeout = 100) // Testing the use case an appointment is booked and active
@@ -89,31 +96,6 @@ public class AppointmentViewingTest {
     @Test(timeout = 100) // Testing the use case a booked appointment was canceled
     public void TestAppointmentDetails_appointmentCanceled() {assertNull(appointmentViewing2.appointmentDetails());}
 
-     @Test(timeout = 100) // Testing the use case a booked appointment has passed
-     public void TestAppointmentDetails_appointmentPassed_wasBooked() {
-         String message_correct = "----------------VACCINATION #" + "A33" + "----------------" +
-                 "\nCLIENT: " + "client3" +
-                 "\nTIME: " + "2021-11-14T12:30" +
-                 "\nBRAND: " + "Pfizer";
-         String message_method = appointmentViewing3.appointmentDetails();
-
-         assertEquals(message_correct, message_method);
-     }
-
     @Test(timeout = 100) // Testing the use case an appointment never existed
     public void TestAppointmentDetails_appointmentNeverExisted() {assertNull(appointmentViewing4.appointmentDetails());}
-
-
-    @Test(timeout = 100) // Testing the use case a walk in appointment has passed
-    public void TestAppointmentDetails_appointmentPassed_wasNotBooked() {
-        String message_correct = "----------------VACCINATION #" + "V55" + "----------------" +
-                "\nCLIENT: " + "client5" +
-                "\nTIME: " + "2021-11-14T12:30" +
-                "\nBRAND: " + "Pfizer";
-        String message_method = appointmentViewing5.appointmentDetails();
-        assertEquals(message_correct, message_method);
-    }
-
-
-
 }

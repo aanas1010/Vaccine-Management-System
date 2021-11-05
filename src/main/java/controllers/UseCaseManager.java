@@ -7,7 +7,6 @@ import clinic_management.SetTimePeriod;
 import entities.Clinic;
 import entities.ServiceLocation;
 import entities.VaccineBatch;
-import entities.BookableServiceLocation;
 import entities.TimePeriod;
 import entities.Client;
 
@@ -122,20 +121,20 @@ public class UseCaseManager implements UseCaseManagerInterface {
         }
     }
 
-    public boolean AppointmentBooking(Client client, BookableServiceLocation clinic,
+    public boolean AppointmentBooking(Client client, ServiceLocation clinic,
                                       TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
         AppointmentBooking book = new AppointmentBooking(client, clinic, timePeriod, vaccineBrand, appointmentId);
         return book.createAppointment();
     }
 
-    public boolean AppointmentCancellation(int appointmentId, BookableServiceLocation clinic)
+    public boolean AppointmentCancellation(int appointmentId, ServiceLocation clinic)
     {
         AppointmentCancellation cancel = new AppointmentCancellation(appointmentId, clinic);
         return cancel.deleteAppointment();
     }
 
-    public String AppointmentViewing(Client client, BookableServiceLocation clinic,
+    public String AppointmentViewing(Client client, ServiceLocation clinic,
                                      TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
 //        AppointmentViewing view = new AppointmentViewing(clinic, appointment);

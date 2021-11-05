@@ -1,8 +1,6 @@
 package client_booking;
 
-import entities.Appointment;
-import entities.BookableServiceLocation;
-import entities.VaccinationLog;
+import entities.*;
 
 /**
  * This is the Use Case for viewing appointments.
@@ -21,10 +19,10 @@ public class AppointmentViewing {
      */
 
     private final int appointmentID;
-    private final BookableServiceLocation clinic;
+    private final ServiceLocation clinic;
 
     // Constructor
-    public AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
+    public AppointmentViewing(int appointmentID, ClinicDecorator clinic)
     {
         this.clinic = clinic;
         this.appointmentID = appointmentID;
@@ -40,20 +38,11 @@ public class AppointmentViewing {
      */
     public String appointmentDetails()
     {
-        if(this.clinic.getAppointmentRecord(appointmentID) != null) //booked active_appointment
-            return getBookedAppointmentString(this.clinic.getAppointmentRecord(appointmentID));
+        if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) { //booked active_appointment
+            return getBookedAppointmentString(((BookableClinic) this.clinic).getAppointmentRecord(appointmentID));
 
-        else
-            if(this.clinic.getVaccineLog().getVaccinationRecord(
-                    VaccinationLog.appointmentBasedPrefix + appointmentID) != null) //booked passed_appointment
-                return getPassedAppointmentString(
-                        VaccinationLog.appointmentBasedPrefix + appointmentID);
-            else if(this.clinic.getVaccineLog().getVaccinationRecord(
-                    VaccinationLog.nonAppointmentBasedPrefix + appointmentID) != null) //walk-in passed_appointment
-                return getPassedAppointmentString(
-                        VaccinationLog.nonAppointmentBasedPrefix + appointmentID);
-            else
-                return null;
+        }
+        return null;
     }
 
     // message methods
@@ -62,10 +51,4 @@ public class AppointmentViewing {
     private String getBookedAppointmentString(Appointment appointment) {
         return appointment.toString();
     }
-
-    //when appointment has passed
-    private String getPassedAppointmentString(String appointmentID_str) {
-        return this.clinic.getVaccineLog().getRecordString(appointmentID_str);
-    }
-
 }
