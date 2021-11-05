@@ -56,6 +56,25 @@ public class UseCaseManager implements UseCaseManagerInterface {
         return newBatch.addBatch();
     }
 
+    /** BOOKING APPOINTMENTS */
+    public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+                                   LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) {
+        BookableServiceLocation clinic = (BookableServiceLocation) getClinicById(clinicId);
+        Client client = new Client(clientName, healthCareNumber);
+        TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
+        AppointmentBooking appointmentBooking = new AppointmentBooking(client, clinic, timePeriod,
+                vaccineBrand, appointmentId);
+        return appointmentBooking.createAppointment();
+    }
+
+    /** CANCELLING APPOINTMENTS */
+    public boolean cancelAppointment(int clinicId, int appointmentId) {
+        BookableServiceLocation clinic = (BookableServiceLocation) getClinicById(clinicId);
+        AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic);
+
+        return appointmentCancellation.deleteAppointment();
+    }
+
     /** TIME PERIOD */
 
     public boolean setEmployees(int clinicId, LocalDate date, int employees) {

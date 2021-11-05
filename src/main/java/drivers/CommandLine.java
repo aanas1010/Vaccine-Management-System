@@ -1,6 +1,8 @@
 package drivers;
 
 import controllers.ManagementSystem;
+import entities.Client;
+import entities.TimePeriod;
 
 import java.sql.SQLOutput;
 import java.time.LocalDate;
@@ -68,6 +70,13 @@ public class CommandLine {
                         isRunning = false;
                         System.out.println("Quitting Program");
                         break;
+                    case BOOK_APPOINTMENT:
+                        bookAppointment(in, managementSystem, clinicId);
+                        break;
+                    case CANCEL_APPOINTMENT:
+                        cancelAppointment(in, managementSystem, clinicId);
+                        break;
+
                 }
             }
             catch(Exception e) {
@@ -173,6 +182,44 @@ public class CommandLine {
             System.out.println("No time period exists for the specified time");
         }
     }
+
+    // Start the bookAppointment workflow
+    private void bookAppointment(Scanner in, ManagementSystem managementSystem, int clinicId){
+        // Ask for information for booking an appointment
+        String clientName = (String) DataValidation.getValue(in, "Full Name:", DataValidation.ParameterTypes.FREE_TEXT);
+        String healthCareNumber = (String) DataValidation.getValue(in, "Health Care Number:", DataValidation.ParameterTypes.FREE_TEXT);
+
+        LocalDateTime appointmentTime = (LocalDateTime) DataValidation.getValue(in, "Appointment Date and Time (24 hour time, DD/MM/YYYY HH:MM):", DataValidation.ParameterTypes.NON_PAST_DATETIME);
+
+        String vaccineBrand = (String) DataValidation.getValue(in, "Which Vaccine would you like:", DataValidation.ParameterTypes.FREE_TEXT);
+        int appointmentId = (Integer) DataValidation.getValue(in, "Enter an Appointment ID:", DataValidation.ParameterTypes.POSITIVE_INT);
+
+        // Try to book the appointment
+        boolean output = managementSystem.bookAppointment(clinicId, clientName, healthCareNumber,
+                appointmentTime, vaccineBrand, appointmentId);
+
+        if(output) {
+            System.out.println("Your appointment has been booked");
+        }else {
+            System.out.println("Can not book appointment");
+        }
+    }
+
+    // Start the cancelAppointment workflow
+    private void cancelAppointment(Scanner in, ManagementSystem managementSystem, int clinicId){
+        // Ask for information for canceling an appointment
+        int appointmentId = (Integer) DataValidation.getValue(in, "Enter your Appointment ID:", DataValidation.ParameterTypes.POSITIVE_INT);
+
+        // Try to cancel the appointment
+        boolean output = managementSystem.cancelAppointment(clinicId, appointmentId);
+
+        if(output) {
+            System.out.println("Your appointment has been cancelled");
+        }else {
+            System.out.println("Can not cancel appointment");
+        }
+    }
+
 
 
 }
