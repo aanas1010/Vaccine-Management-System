@@ -33,8 +33,8 @@ public class AppointmentViewing {
      */
     public String appointmentDetails()
     {
-        if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) //booked active_appointment
-            return appointmentBooked_message(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID));
+        if(this.clinic.getAppointmentRecord(appointmentID) != null) //booked active_appointment
+            return appointmentBooked_message(this.clinic.getAppointmentRecord(appointmentID));
 
         else
             return noAppointmentBooked_message();
