@@ -50,9 +50,22 @@ public class Clinic implements ServiceLocation {
         this.getSupply().add(batch);
     }
 
+    public boolean supplyContainsBatchId(int id) {
+        for(VaccineBatch batch : this.getSupply()) {
+            if(batch.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Log a past vaccination (NON-APPOINTMENT)
     public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {
         log.addToLog(vaccinationId, client, dateTime, vaccineBrand);
+    }
+
+    public boolean logContainsId(String id) {
+        return log.containsId(id);
     }
 
 

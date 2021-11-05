@@ -2,6 +2,7 @@ package client_booking;
 
 import entities.Appointment;
 import entities.BookableServiceLocation;
+import entities.VaccinationLog;
 
 /**
  * This is the Use Case for viewing appointments.
@@ -43,10 +44,14 @@ public class AppointmentViewing {
             return getBookedAppointmentString(this.clinic.getAppointmentRecord(appointmentID));
 
         else
-            if(this.clinic.getVaccineLog().getVaccinationRecord("A" + appointmentID) != null) //booked passed_appointment
-                return getPassedAppointmentString("A" + appointmentID);
-            else if(this.clinic.getVaccineLog().getVaccinationRecord("V" + appointmentID) != null) //walk-in passed_appointment
-                return getPassedAppointmentString("V" + appointmentID);
+            if(this.clinic.getVaccineLog().getVaccinationRecord(
+                    VaccinationLog.appointmentBasedPrefix + appointmentID) != null) //booked passed_appointment
+                return getPassedAppointmentString(
+                        VaccinationLog.appointmentBasedPrefix + appointmentID);
+            else if(this.clinic.getVaccineLog().getVaccinationRecord(
+                    VaccinationLog.nonAppointmentBasedPrefix + appointmentID) != null) //walk-in passed_appointment
+                return getPassedAppointmentString(
+                        VaccinationLog.nonAppointmentBasedPrefix + appointmentID);
             else
                 return null;
     }
