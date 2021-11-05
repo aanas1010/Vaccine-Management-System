@@ -1,26 +1,21 @@
 package entities;
 
-import entities.Appointment;
-import java.time.LocalDate;
 import java.util.ArrayList;
+
+import java.time.LocalDateTime;
 
 /**
  * This is the main BookableClinic entity which extends Clinic
  * BookableClinics have the added functionality of allowing appointment booking
  */
 
-public class BookableClinic extends Clinic implements BookableServiceLocation, ServiceLocation{
+public class BookableClinic extends ClinicDecorator{
     private final ArrayList<Appointment> appointments;
 
     // Basic constructor
-    public BookableClinic(int id) {
-        super(id);
-        this.appointments = new ArrayList<>();
-    }
-
-    // Overloaded Constructor for testing
-    public BookableClinic(int id, VaccineSupply supply) {
-        super(id, supply);
+    public BookableClinic(ServiceLocation decoratedClinic)
+    {
+        super(decoratedClinic);
         this.appointments = new ArrayList<>();
     }
 
@@ -64,7 +59,13 @@ public class BookableClinic extends Clinic implements BookableServiceLocation, S
 
     // Log a past vaccination (WITH APPOINTMENT)
     public void logPastVaccinations(Appointment appointment) {
-        log.addToLog(appointment);
+        decoratedClinic.getVaccineLog().addToLog(appointment);
     }
 
+
+    //option if we choose not to use casting for clinics:
+
+    //empty method declaration to satisfy inheritance
+    @Override
+    public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {}
 }

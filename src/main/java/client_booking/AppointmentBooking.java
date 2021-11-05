@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class AppointmentBooking {
     Client client;
-    BookableServiceLocation clinic;
+    ServiceLocation clinic;
     TimePeriod timePeriod;
     String vaccineBrand;
     int appointmentId;
 
 
-    public AppointmentBooking(Client client, BookableServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
+    public AppointmentBooking(Client client, ServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
         this.clinic = clinic;
         this.timePeriod = timePeriod;

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class BookableClinicTest {
-    BookableClinic clinic;
+    ServiceLocation clinic;
     Client client;
     Appointment appointment;
     TimePeriod timePeriod;
@@ -14,7 +14,7 @@ public class BookableClinicTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinic = new BookableClinic(1);
+        clinic = new BookableClinic(new Clinic((1)));
         client = new Client("Joe Mama", "4206969");
         timePeriod = new TimePeriod(LocalDateTime.now(), 50);
         clinic.addTimePeriod(timePeriod, LocalDate.now());

@@ -1,9 +1,5 @@
 package entities;
 
-import entities.VaccineBatch;
-import entities.VaccineSupply;
-
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,8 +10,6 @@ import java.util.ArrayList;
  */
 // Add comments
 public interface ServiceLocation {
-
-    void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
 
     void setShift(LocalDate date, int num);
 
@@ -34,12 +28,33 @@ public interface ServiceLocation {
     boolean checkTimePeriod(LocalDateTime dateTime);
 
 
+    ArrayList<TimePeriod> getTimePeriods(LocalDate date);
+
+   VaccinationLog getVaccineLog();
+
 
     ArrayList<VaccineBatch> getSupply();
 
     VaccineSupply getSupplyObj();
 
 
+    //option if we choose not to use casting for clinics:
 
-    //  checkTimePeriod getShiftForDate
+    // methods from the decoration classes
+
+    //BookableClinic
+
+    boolean addAppointment(Appointment ap);
+
+    Appointment getAppointmentRecord(int id);
+
+    boolean removeAppointment(Appointment ap);
+
+    boolean removeAppointmentById(int id);
+
+    void logPastVaccinations(Appointment appointmentRecord);
+
+    //WalkInClinic
+    void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
+
 }

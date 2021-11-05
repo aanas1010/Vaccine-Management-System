@@ -1,7 +1,8 @@
 package client_booking;
 
 import entities.Appointment;
-import entities.BookableServiceLocation;
+import entities.BookableClinic;
+import entities.ServiceLocation;
 
 //user case class for viewing a specific appointment
 public class AppointmentViewing {
@@ -15,9 +16,9 @@ public class AppointmentViewing {
      */
 
     private final int appointmentID;
-    private final BookableServiceLocation clinic;
+    private final ServiceLocation clinic;
 
-    public AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
+    public AppointmentViewing(int appointmentID, ServiceLocation clinic)
     {
         this.clinic = clinic;
         this.appointmentID = appointmentID;
@@ -39,7 +40,7 @@ public class AppointmentViewing {
         else
             if(this.clinic.getVaccineLog().getVaccinationRecord("A" + appointmentID) != null) //booked passed_appointment
                 return appointmentPassed_message("A" + appointmentID);
-            else if(this.clinic.getVaccineLog().getVaccinationRecord("V" + appointmentID) != null) //walk-in passed_appointment
+            else if(clinic.getVaccineLog().getVaccinationRecord("V" + appointmentID) != null) //walk-in passed_appointment
                 return appointmentPassed_message("V" + appointmentID);
             else
                 return noAppointmentBooked_message();

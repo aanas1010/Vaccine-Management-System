@@ -1,5 +1,4 @@
-import entities.Client;
-import entities.Clinic;
+import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
@@ -7,7 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ClinicTest {
-    Clinic clinic;
+    ServiceLocation clinic;
     Client client;
 
     @Before // Setting up before the tests

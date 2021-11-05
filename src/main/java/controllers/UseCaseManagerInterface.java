@@ -1,6 +1,6 @@
 package controllers;
 
-import entities.BookableServiceLocation;
+import entities.ServiceLocation;
 import entities.Client;
 import entities.TimePeriod;
 
@@ -23,11 +23,11 @@ public interface UseCaseManagerInterface {
 
     String getSupplyStringByClinic(int clinicId);
 
-    boolean AppointmentBooking(Client client, BookableServiceLocation clinic, TimePeriod timePeriod,
+    boolean AppointmentBooking(Client client, ServiceLocation clinic, TimePeriod timePeriod,
                                String vaccineBrand, int appointmentId);
 
-    boolean AppointmentCancellation(int appointmentId, BookableServiceLocation clinic);
+    boolean AppointmentCancellation(int appointmentId, ServiceLocation clinic);
 
-    String AppointmentViewing(Client client, BookableServiceLocation clinic, TimePeriod timePeriod,
+    String AppointmentViewing(Client client, ServiceLocation clinic, TimePeriod timePeriod,
                               String vaccineBrand, int appointmentId);
 }

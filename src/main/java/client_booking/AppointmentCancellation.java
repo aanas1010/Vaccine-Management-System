@@ -6,9 +6,9 @@ import entities.*;
 public class AppointmentCancellation {
 
     int appointmentId;
-    BookableServiceLocation clinic;
+    ServiceLocation clinic;
 
-    public AppointmentCancellation(int appointmentId, BookableServiceLocation clinic){
+    public AppointmentCancellation(int appointmentId, ServiceLocation clinic){
         this.appointmentId = appointmentId;
         this.clinic = clinic;
     }
