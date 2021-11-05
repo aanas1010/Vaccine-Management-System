@@ -15,6 +15,18 @@ public abstract class ClinicDecorator implements ServiceLocation{
     }
 
 //     implementing methods of the interface
+
+    @Override
+    public boolean supplyContainsBatchId(int id) {return decoratedClinic.supplyContainsBatchId(id);}
+
+    @Override
+    public void addBatch(VaccineBatch batch){decoratedClinic.addBatch(batch);}
+
+    @Override
+    public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand){
+        decoratedClinic.logPastVaccinations(vaccinationId, client, dateTime, vaccineBrand);
+    }
+
     @Override
     public void setShift(LocalDate date, int num){
         decoratedClinic.setShift(date, num);

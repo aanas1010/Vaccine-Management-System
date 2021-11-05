@@ -1,8 +1,6 @@
 package client_booking;
 
-import entities.Appointment;
-import entities.BookableClinic;
-import entities.ServiceLocation;
+import entities.*;
 
 /**
  * This is the Use Case for viewing appointments.
@@ -24,7 +22,7 @@ public class AppointmentViewing {
     private final ServiceLocation clinic;
 
     // Constructor
-    public AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
+    public AppointmentViewing(int appointmentID, ClinicDecorator clinic)
     {
         this.clinic = clinic;
         this.appointmentID = appointmentID;
@@ -40,11 +38,11 @@ public class AppointmentViewing {
      */
     public String appointmentDetails()
     {
-        if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) //booked active_appointment
-            return appointmentBooked_message(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID));
+        if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) { //booked active_appointment
+            return getBookedAppointmentString(((BookableClinic) this.clinic).getAppointmentRecord(appointmentID));
 
-        else
-            return noAppointmentBooked_message();
+        }
+        return null;
     }
 
     // message methods
@@ -53,10 +51,4 @@ public class AppointmentViewing {
     private String getBookedAppointmentString(Appointment appointment) {
         return appointment.toString();
     }
-
-    //when appointment has passed
-    private String getPassedAppointmentString(String appointmentID_str) {
-        return this.clinic.getVaccineLog().getRecordString(appointmentID_str);
-    }
-
 }

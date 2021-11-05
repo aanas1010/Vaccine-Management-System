@@ -36,7 +36,7 @@ public class AppointmentBooking {
     // Return the VaccineBatch in question
     public VaccineBatch assignVaccineDose() {
         if (this.isTimeslotAvailable() && !this.client.getHasAppointment()) {
-            ArrayList<VaccineBatch> batchList = ((BookableClinic)this.clinic).getSupplyObj().getBatchList();
+            ArrayList<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
             VaccineBatch earliestExpiringVaccine = null;
             LocalDate earliestDate = null;
             for (VaccineBatch batch : batchList) {
@@ -59,7 +59,7 @@ public class AppointmentBooking {
 
     // Check if the appointment ID is unique
     private boolean hasUniqueId() {
-        return !clinic.getAppointmentIds().contains(appointmentId);
+        return !((BookableClinic) clinic).getAppointmentIds().contains(appointmentId);
     }
 
     // Create an appointment for this client in the Clinic's system

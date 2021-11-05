@@ -47,12 +47,12 @@ public class AppointmentViewingTest {
         VaccineSupply supply = new VaccineSupply(newList);
 
         clinic = new BookableClinic(new Clinic(1, supply));
-        ((BookableClinic)clinic).setShift(LocalDate.of(2021, 11, 14), 20);
-        ((BookableClinic)clinic).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        clinic.setShift(LocalDate.of(2021, 11, 14), 20);
+        clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         clinicWalkIn = new WalkInClinic(new Clinic(1, supply));
-        ((WalkInClinic)clinicWalkIn).setShift(LocalDate.of(2021, 11, 14), 20);
-        ((WalkInClinic)clinicWalkIn).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        clinicWalkIn.setShift(LocalDate.of(2021, 11, 14), 20);
+        clinicWalkIn.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
         appointmentBooking1.assignVaccineDose();
@@ -72,13 +72,13 @@ public class AppointmentViewingTest {
 //        clinic.getSupply();
         ((BookableClinic)clinic).removeAppointmentById(33);
 
-        ((WalkInClinic)clinicWalkIn).logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
+        clinicWalkIn.logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
 
-        appointmentViewing1 = new AppointmentViewing(11, clinic);
-        appointmentViewing2 = new AppointmentViewing(22, clinic);
-        appointmentViewing3 = new AppointmentViewing(33, clinic);
-        appointmentViewing4 = new AppointmentViewing(44, clinic);
-        appointmentViewing5 = new AppointmentViewing(55, clinicWalkIn);
+        appointmentViewing1 = new AppointmentViewing(11, (ClinicDecorator) clinic);
+        appointmentViewing2 = new AppointmentViewing(22, (ClinicDecorator) clinic);
+        appointmentViewing3 = new AppointmentViewing(33, (ClinicDecorator) clinic);
+        appointmentViewing4 = new AppointmentViewing(44, (ClinicDecorator) clinic);
+        appointmentViewing5 = new AppointmentViewing(55, (ClinicDecorator) clinicWalkIn);
     }
 
      @Test(timeout = 100) // Testing the use case an appointment is booked and active
