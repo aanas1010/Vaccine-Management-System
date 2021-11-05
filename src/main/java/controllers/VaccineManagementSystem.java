@@ -47,6 +47,10 @@ public class VaccineManagementSystem implements ManagementSystem {
         return useCaseManagerInterface.cancelAppointment(clinicId, appointmentId);
     }
 
+    public String viewAppointment(int clinicId, int appointmentId){
+        return useCaseManagerInterface.viewAppointment(clinicId, appointmentId);
+    }
+
     // Add a batch to the specified clinic given the parameters
     // Returns whether the batch was added
     public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){

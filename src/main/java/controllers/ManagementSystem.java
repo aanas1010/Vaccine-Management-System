@@ -33,4 +33,6 @@ public interface ManagementSystem {
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId);
 
     boolean cancelAppointment(int clinicId, int appointmentId);
+
+    String viewAppointment(int clinicId, int appointmentId);
 }

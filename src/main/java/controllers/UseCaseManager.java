@@ -2,6 +2,7 @@ package controllers;
 
 import client_booking.AppointmentBooking;
 import client_booking.AppointmentCancellation;
+import client_booking.AppointmentViewing;
 import clinic_management.BatchAdding;
 import clinic_management.SetTimePeriod;
 import entities.Clinic;
@@ -74,6 +75,14 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
         return appointmentCancellation.deleteAppointment();
     }
+
+    /** VIEWING APPOINTMENTS */
+    public String viewAppointment(int clinicId, int appointmentId){
+            BookableServiceLocation clinic = (BookableServiceLocation) getClinicById(clinicId);
+            AppointmentViewing appointmentViewing = new AppointmentViewing(appointmentId, clinic);
+
+            return appointmentViewing.appointmentDetails();
+        }
 
     /** TIME PERIOD */
 

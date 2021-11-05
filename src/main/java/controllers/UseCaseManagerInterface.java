@@ -28,6 +28,5 @@ public interface UseCaseManagerInterface {
 
     boolean cancelAppointment(int clinicId, int appointmentId);
 
-    String AppointmentViewing(Client client, BookableServiceLocation clinic, TimePeriod timePeriod,
-                              String vaccineBrand, int appointmentId);
+    String viewAppointment(int clinicId, int appointmentId);
 }

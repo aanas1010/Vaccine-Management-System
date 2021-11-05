@@ -7,6 +7,7 @@ import entities.TimePeriod;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -75,6 +76,9 @@ public class CommandLine {
                         break;
                     case CANCEL_APPOINTMENT:
                         cancelAppointment(in, managementSystem, clinicId);
+                        break;
+                    case VIEW_APPOINTMENT:
+                        viewAppointment(in, managementSystem, clinicId);
                         break;
 
                 }
@@ -218,6 +222,17 @@ public class CommandLine {
         }else {
             System.out.println("Can not cancel appointment");
         }
+    }
+
+    // Start the viewAppointment workflow
+    private void viewAppointment(Scanner in, ManagementSystem managementSystem, int clinicId){
+        // Ask for information for viewing an appointment
+        int appointmentId = (Integer) DataValidation.getValue(in, "Enter your Appointment ID:", DataValidation.ParameterTypes.POSITIVE_INT);
+
+        // Try to view the appointment
+        String output = managementSystem.viewAppointment(clinicId, appointmentId);
+
+        System.out.println(Objects.requireNonNullElse(output, "You don't have an appointment booked"));
     }
 
 
