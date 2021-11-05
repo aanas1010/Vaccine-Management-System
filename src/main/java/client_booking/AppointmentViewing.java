@@ -1,6 +1,7 @@
 package client_booking;
 
 import entities.Appointment;
+import entities.BookableClinic;
 import entities.ServiceLocation;
 
 //user case class for viewing a specific appointment
@@ -33,8 +34,8 @@ public class AppointmentViewing {
      */
     public String appointmentDetails()
     {
-        if(this.clinic.getAppointmentRecord(appointmentID) != null) //booked active_appointment
-            return appointmentBooked_message(this.clinic.getAppointmentRecord(appointmentID));
+        if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) //booked active_appointment
+            return appointmentBooked_message(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID));
 
         else
             return noAppointmentBooked_message();
