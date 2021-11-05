@@ -1,6 +1,6 @@
 package controllers;
 
-import entities.BookableServiceLocation;
+import entities.BookableClinic;
 import entities.Client;
 import entities.TimePeriod;
 

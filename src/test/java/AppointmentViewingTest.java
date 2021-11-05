@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 //test cases for the appointmentViewing class
 public class AppointmentViewingTest {
-    ServiceLocation clinic; //bookable clinic
+    ClinicDecorator clinic; //bookable clinic
     ServiceLocation clinicWalkIn; // walk in clinic
 
 

@@ -5,11 +5,7 @@ import client_booking.AppointmentCancellation;
 import client_booking.AppointmentViewing;
 import clinic_management.BatchAdding;
 import clinic_management.SetTimePeriod;
-import entities.Clinic;
-import entities.ServiceLocation;
-import entities.VaccineBatch;
-import entities.TimePeriod;
-import entities.Client;
+import entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -70,7 +66,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     /** BOOKING APPOINTMENTS */
     public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) {
-        BookableServiceLocation clinic = (BookableServiceLocation) getClinicById(clinicId);
+        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
         Client client = new Client(clientName, healthCareNumber);
         TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
         AppointmentBooking appointmentBooking = new AppointmentBooking(client, clinic, timePeriod,
@@ -80,7 +76,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** CANCELLING APPOINTMENTS */
     public boolean cancelAppointment(int clinicId, int appointmentId) {
-        BookableServiceLocation clinic = (BookableServiceLocation) getClinicById(clinicId);
+        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
         AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic);
 
         return appointmentCancellation.deleteAppointment();
@@ -88,7 +84,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** VIEWING APPOINTMENTS */
     public String viewAppointment(int clinicId, int appointmentId){
-            BookableServiceLocation clinic = (BookableServiceLocation) getClinicById(clinicId);
+        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
             AppointmentViewing appointmentViewing = new AppointmentViewing(appointmentId, clinic);
 
             return appointmentViewing.appointmentDetails();
