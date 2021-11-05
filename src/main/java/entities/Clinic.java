@@ -80,7 +80,7 @@ public class Clinic implements ServiceLocation {
         if (this.timePeriods.containsKey(dateTime.toLocalDate())){
             ArrayList<TimePeriod> timePeriods = this.timePeriods.get(dateTime.toLocalDate());
             for (TimePeriod timePeriod: timePeriods){
-                if (timePeriod.getDateTime() == dateTime){
+                if (timePeriod.getDateTime().equals(dateTime)){
                     return true;
                 }
             }
