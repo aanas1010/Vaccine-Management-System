@@ -11,20 +11,20 @@ import entities.*;
 public class AppointmentCancellation {
 
     int appointmentId;
-    BookableServiceLocation clinic;
+    ServiceLocation clinic;
 
     // Constructor
-    public AppointmentCancellation(int appointmentId, BookableServiceLocation clinic){
+    public AppointmentCancellation(int appointmentId, ServiceLocation clinic){
         this.appointmentId = appointmentId;
         this.clinic = clinic;
     }
 
     // Delete the appointment. Return true if successful
     public boolean deleteAppointment(){
-        Appointment appointment = clinic.getAppointmentRecord(this.appointmentId);
+        Appointment appointment = ((BookableClinic)clinic).getAppointmentRecord(this.appointmentId);
         if (appointment.getClient().getHasAppointment()) {
             appointment.getClient().disapproveAppointment();
-            clinic.removeAppointmentById(this.appointmentId);
+            ((BookableClinic)clinic).removeAppointmentById(this.appointmentId);
             appointment.getTimePeriod().addAvailableSlot();
             return true;
         }

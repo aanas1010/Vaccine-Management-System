@@ -14,14 +14,13 @@ import java.util.ArrayList;
 
 public class AppointmentBooking {
     Client client;
-    BookableServiceLocation clinic;
+    ServiceLocation clinic;
     TimePeriod timePeriod;
     String vaccineBrand;
     int appointmentId;
 
-    // Constructor
-    public AppointmentBooking(
-            Client client, BookableServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
+
+    public AppointmentBooking(Client client, ServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
         this.clinic = clinic;
         this.timePeriod = timePeriod;
@@ -30,7 +29,7 @@ public class AppointmentBooking {
     }
 
     // Return whether there is an opening for the specified time period
-    public boolean isTimeslotAvailable(){return this.timePeriod.getAvailableSlots() > 0;}
+    private boolean isTimeslotAvailable(){return this.timePeriod.getAvailableSlots() > 0;}
 
     // Reserve a vaccine dose for this client IF there is a timeslot available
     // AND this person doesn't already have an appointment
@@ -58,14 +57,18 @@ public class AppointmentBooking {
         return null;
     }
 
+    // Check if the appointment ID is unique
+    private boolean hasUniqueId() {
+        return !((BookableClinic) clinic).getAppointmentIds().contains(appointmentId);
+    }
 
     // Create an appointment for this client in the Clinic's system
     public boolean createAppointment() {
-        if(this.isTimeslotAvailable() && this.assignVaccineDose() != null) {
+        if(this.isTimeslotAvailable() && this.assignVaccineDose() != null && this.hasUniqueId()) {
             Appointment appointment = new Appointment(
                     this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
             this.client.approveAppointment();
-            this.clinic.addAppointment(appointment);
+            ((BookableClinic)this.clinic).addAppointment(appointment);
             this.timePeriod.findAndReserveSlot();
             return true;
         }else{
@@ -73,5 +76,4 @@ public class AppointmentBooking {
             return false;
         }
     }
-
 }

@@ -1,6 +1,6 @@
 package controllers;
 
-import entities.BookableServiceLocation;
+import entities.ServiceLocation;
 import entities.Client;
 import entities.TimePeriod;
 
@@ -29,4 +29,5 @@ public interface UseCaseManagerInterface {
     boolean cancelAppointment(int clinicId, int appointmentId);
 
     String viewAppointment(int clinicId, int appointmentId);
+
 }

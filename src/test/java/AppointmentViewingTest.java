@@ -13,7 +13,9 @@ import java.util.ArrayList;
 
 //test cases for the appointmentViewing class
 public class AppointmentViewingTest {
-    BookableClinic clinic;
+    ServiceLocation clinic; //bookable clinic
+    ServiceLocation clinicWalkIn; // walk in clinic
+
 
     AppointmentViewing appointmentViewing1; //appointment booked                  (view)
     AppointmentViewing appointmentViewing2; //appointment cancelled               (view)
@@ -39,9 +41,13 @@ public class AppointmentViewingTest {
         newList.add(batch);
         VaccineSupply supply = new VaccineSupply(newList);
 
-        clinic = new BookableClinic(1, supply);
+        clinic = new BookableClinic(new Clinic(1, supply));
         clinic.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+
+        clinicWalkIn = new WalkInClinic(new Clinic(1, supply));
+        clinicWalkIn.setShift(LocalDate.of(2021, 11, 14), 20);
+        clinicWalkIn.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
         appointmentBooking1.assignVaccineDose();
@@ -54,9 +60,11 @@ public class AppointmentViewingTest {
         appointmentCancellation2 = new AppointmentCancellation(22, clinic);
         appointmentCancellation2.deleteAppointment();
 
+
         appointmentViewing1 = new AppointmentViewing(11, clinic);
         appointmentViewing2 = new AppointmentViewing(22, clinic);
         appointmentViewing4 = new AppointmentViewing(44, clinic);
+
     }
 
      @Test(timeout = 100) // Testing the use case an appointment is booked and active
@@ -76,5 +84,4 @@ public class AppointmentViewingTest {
 
     @Test(timeout = 100) // Testing the use case an appointment never existed
     public void TestAppointmentDetails_appointmentNeverExisted() {assertNull(appointmentViewing4.appointmentDetails());}
-
 }

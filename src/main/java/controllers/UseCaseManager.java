@@ -8,7 +8,6 @@ import clinic_management.SetTimePeriod;
 import entities.Clinic;
 import entities.ServiceLocation;
 import entities.VaccineBatch;
-import entities.BookableServiceLocation;
 import entities.TimePeriod;
 import entities.Client;
 
@@ -32,19 +31,30 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     //Constructor for num clinics with IDs 0 to num-1
     public UseCaseManager(int num) {
-        ArrayList<ServiceLocation> clinicsList = new ArrayList<>(num);
+        clinics = new ArrayList<>();
+
         for(int i=0;i<num;i++) {
             //Create new clinic with ID i
-            clinicsList.add(new Clinic(i));
+            addClinic(i);
         }
-        clinics = clinicsList;
     }
 
     /** ADDING CLINICS */
 
-    // Add a basic clinic
+    // Add a basic clinic. Return whether the clinic could be added
     public void addClinic(int clinicId) {
+        if(containsClinicWithId(clinicId)) {return;}
+
         clinics.add(new Clinic(clinicId));
+    }
+
+    private boolean containsClinicWithId(int clinicId) {
+        for(ServiceLocation location : clinics) {
+            if(location.getServiceLocationId() == clinicId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** ADDING BATCHES */
@@ -139,20 +149,20 @@ public class UseCaseManager implements UseCaseManagerInterface {
         }
     }
 
-    public boolean AppointmentBooking(Client client, BookableServiceLocation clinic,
+    public boolean AppointmentBooking(Client client, ServiceLocation clinic,
                                       TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
         AppointmentBooking book = new AppointmentBooking(client, clinic, timePeriod, vaccineBrand, appointmentId);
         return book.createAppointment();
     }
 
-    public boolean AppointmentCancellation(int appointmentId, BookableServiceLocation clinic)
+    public boolean AppointmentCancellation(int appointmentId, ServiceLocation clinic)
     {
         AppointmentCancellation cancel = new AppointmentCancellation(appointmentId, clinic);
         return cancel.deleteAppointment();
     }
 
-    public String AppointmentViewing(Client client, BookableServiceLocation clinic,
+    public String AppointmentViewing(Client client, ServiceLocation clinic,
                                      TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
 //        AppointmentViewing view = new AppointmentViewing(clinic, appointment);

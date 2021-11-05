@@ -10,8 +10,10 @@ import java.util.ArrayList;
  */
 
 public class VaccinationLog {
-    private final ArrayList<VaccinationRecord> log;
+    public final static String appointmentBasedPrefix = "A";
+    public final static String nonAppointmentBasedPrefix = "V";
 
+    private final ArrayList<VaccinationRecord> log;
     public VaccinationLog() {
         this.log = new ArrayList<>();
     }
@@ -24,7 +26,7 @@ public class VaccinationLog {
         String vaccineBrand = a.getVaccineBrand();
 
         VaccinationRecord dataObj =
-                new VaccinationRecord("A" + appointmentId, client, dateTime, vaccineBrand);
+                new VaccinationRecord(appointmentBasedPrefix + appointmentId, client, dateTime, vaccineBrand);
 
         log.add(dataObj);
     }
@@ -32,7 +34,7 @@ public class VaccinationLog {
     // For non-appointments
     public void addToLog(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand){
         VaccinationRecord dataObj =
-                new VaccinationRecord("V" + vaccinationId, client, dateTime, vaccineBrand);
+                new VaccinationRecord(nonAppointmentBasedPrefix + vaccinationId, client, dateTime, vaccineBrand);
 
         log.add(dataObj);
     }
@@ -78,6 +80,15 @@ public class VaccinationLog {
     public String getRecordString (String id) {
         try{return getVaccinationRecord(id).toString();}
         catch(Exception ex) {return null;}
+    }
+
+    public boolean containsId(String id) {
+        for(VaccinationRecord record : log) {
+            if(record.getVaccinationId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
     
     // VaccinationRecord inner class for storing info for a specific vaccination

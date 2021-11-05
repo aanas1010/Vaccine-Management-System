@@ -4,23 +4,20 @@ import entities.Appointment;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import java.time.LocalDateTime;
+
 /**
  * This is the main BookableClinic entity which extends Clinic
  * BookableClinics have the added functionality of allowing appointment booking
  */
 
-public class BookableClinic extends Clinic implements BookableServiceLocation, ServiceLocation{
+public class BookableClinic extends ClinicDecorator{
     private final ArrayList<Appointment> appointments;
 
     // Basic constructor
-    public BookableClinic(int id) {
-        super(id);
-        this.appointments = new ArrayList<>();
-    }
-
-    // Overloaded Constructor for testing
-    public BookableClinic(int id, VaccineSupply supply) {
-        super(id, supply);
+    public BookableClinic(ServiceLocation decoratedClinic)
+    {
+        super(decoratedClinic);
         this.appointments = new ArrayList<>();
     }
 
@@ -64,7 +61,14 @@ public class BookableClinic extends Clinic implements BookableServiceLocation, S
 
     // Log a past vaccination (WITH APPOINTMENT)
     public void logPastVaccinations(Appointment appointment) {
-        log.addToLog(appointment);
+        decoratedClinic.getVaccineLog().addToLog(appointment);
     }
 
+    public ArrayList<Integer> getAppointmentIds() {
+        ArrayList<Integer> appointmentIds = new ArrayList<>();
+        for(Appointment ap : appointments) {
+            appointmentIds.add(ap.getAppointmentId());
+        }
+        return appointmentIds;
+    }
 }
