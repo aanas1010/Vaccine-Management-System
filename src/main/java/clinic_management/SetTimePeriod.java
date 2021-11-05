@@ -70,15 +70,4 @@ public class SetTimePeriod {
         return counter;
     }
 
-    public static void main(String[] args) {
-        LocalDateTime dateTime = LocalDateTime.of(2021, 12, 12, 12, 00);
-        Clinic clinic = new Clinic(1);
-        SetTimePeriod setTimePeriod = new SetTimePeriod(clinic);
-        setTimePeriod.setEmployees(dateTime.toLocalDate(), 5);
-        System.out.println(setTimePeriod.addTimePeriod(dateTime));
-        System.out.println(setTimePeriod.addTimePeriod(dateTime));
-        System.out.println(clinic.checkTimePeriod(dateTime));
-        setTimePeriod.removeTimePeriod(dateTime);
-        System.out.println(clinic.checkTimePeriod(dateTime));
-    }
 }
