@@ -22,10 +22,10 @@ public class ClinicTest {
 
     @Test(timeout = 100) // Testing logging a past vaccination
     public void TestLogPastVaccinations() {
-        clinicWalkIn.logPastVaccinations("10", client, LocalDateTime.now(), "Pfizer");
+        ((WalkInClinic)clinicWalkIn).logPastVaccinations("10", client, LocalDateTime.now(), "Pfizer");
 
-        String name = clinicWalkIn.getVaccineLog().getClientByVaccinationId("V10").getName();
-        String healthCareNumber = clinicWalkIn.getVaccineLog().getClientByVaccinationId("V10").getHealthCareNumber();
+        String name = ((WalkInClinic)clinicWalkIn).getVaccineLog().getClientByVaccinationId("V10").getName();
+        String healthCareNumber = ((WalkInClinic)clinicWalkIn).getVaccineLog().getClientByVaccinationId("V10").getHealthCareNumber();
 
         assertEquals(name, client.getName());
         assertEquals(healthCareNumber, client.getHealthCareNumber());

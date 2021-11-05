@@ -27,7 +27,7 @@ public class AppointmentBooking {
     //Reserve a vaccine dose for this client IF there is a timeslot available AND this person doesn't already have an appointment
     public VaccineBatch assignVaccineDose() {
         if (this.isTimeslotAvailable() && !this.client.getHasAppointment()) {
-            ArrayList<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
+            ArrayList<VaccineBatch> batchList = ((BookableClinic)this.clinic).getSupplyObj().getBatchList();
             VaccineBatch earliestExpiringVaccine = null;
             LocalDate earliestDate = null;
             for (VaccineBatch batch : batchList) {
@@ -54,7 +54,7 @@ public class AppointmentBooking {
         if(this.isTimeslotAvailable() && this.assignVaccineDose() != null) {
             Appointment appointment = new Appointment(this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
             this.client.approveAppointment();
-            this.clinic.addAppointment(appointment);
+            ((BookableClinic)this.clinic).addAppointment(appointment);
             this.timePeriod.findAndReserveSlot();
             return true;
         }else{

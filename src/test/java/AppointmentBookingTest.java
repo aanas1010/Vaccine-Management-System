@@ -32,8 +32,8 @@ public class AppointmentBookingTest {
         VaccineSupply supply = new VaccineSupply(newList);
 
         clinic = new BookableClinic(new Clinic(1, supply));
-        clinic.setShift(LocalDate.of(2021, 11, 14), 20);
-        clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        ((BookableClinic)clinic).setShift(LocalDate.of(2021, 11, 14), 20);
+        ((BookableClinic)clinic).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
 
@@ -47,8 +47,8 @@ public class AppointmentBookingTest {
         VaccineSupply supply2 = new VaccineSupply(newList2);
 
         clinic2 = new BookableClinic((new Clinic(1, supply2)));
-        clinic2.setShift(LocalDate.of(2021, 11, 14), 20);
-        clinic2.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        ((BookableClinic)clinic2).setShift(LocalDate.of(2021, 11, 14), 20);
+        ((BookableClinic)clinic2).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking2 = new AppointmentBooking(client2, clinic2, timePeriod, "Pfizer", 11);
     }

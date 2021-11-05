@@ -17,21 +17,21 @@ public class WalkInClinic extends ClinicDecorator{
     }
 
 
-    //option if we choose not to use casting for clinics:
+    // //option if we choose not to use casting for clinics:
 
-    //empty method declaration to satisfy inheritance
-    @Override
-    public boolean addAppointment(Appointment ap) {return false;}
+    // //empty method declaration to satisfy inheritance
+    // @Override
+    // public boolean addAppointment(Appointment ap) {return false;}
 
-    @Override
-    public Appointment getAppointmentRecord(int id) {return null;}
+    // @Override
+    // public Appointment getAppointmentRecord(int id) {return null;}
 
-    @Override
-    public boolean removeAppointment(Appointment ap) {return false;}
+    // @Override
+    // public boolean removeAppointment(Appointment ap) {return false;}
 
-    @Override
-    public boolean removeAppointmentById(int id) {return false;}
+    // @Override
+    // public boolean removeAppointmentById(int id) {return false;}
 
-    @Override
-    public void logPastVaccinations(Appointment appointmentRecord) {}
+    // @Override
+    // public void logPastVaccinations(Appointment appointmentRecord) {}
 }

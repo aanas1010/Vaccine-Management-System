@@ -118,29 +118,29 @@ public class Clinic implements ServiceLocation {
     public VaccinationLog getVaccineLog() {return log;}
 
 
-    //option if we choose not to use casting for clinics:
+    // //option if we choose not to use casting for clinics:
 
-    //decorator methods
+    // //decorator methods
 
-    //BookableClinic
+    // //BookableClinic
 
-    @Override
-    public boolean addAppointment(Appointment ap) {return false;}
+    // @Override
+    // public boolean addAppointment(Appointment ap) {return false;}
 
-    @Override
-    public Appointment getAppointmentRecord(int id) {return null;}
+    // @Override
+    // public Appointment getAppointmentRecord(int id) {return null;}
 
-    @Override
-    public boolean removeAppointment(Appointment ap) {return false;}
+    // @Override
+    // public boolean removeAppointment(Appointment ap) {return false;}
 
-    @Override
-    public boolean removeAppointmentById(int id) {return false;}
+    // @Override
+    // public boolean removeAppointmentById(int id) {return false;}
 
-    @Override
-    public void logPastVaccinations(Appointment appointmentRecord) {}
+    // @Override
+    // public void logPastVaccinations(Appointment appointmentRecord) {}
 
-    //WalkInClinic
+    // //WalkInClinic
 
-    @Override
-    public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {}
+    // @Override
+    // public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {}
 }

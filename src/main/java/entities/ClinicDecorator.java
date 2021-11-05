@@ -76,27 +76,27 @@ public abstract class ClinicDecorator implements ServiceLocation{
     }
 
 
-    //option if we choose not to use casting for clinics:
+    // //option if we choose not to use casting for clinics:
 
-    //decorator methods
+    // //decorator methods
 
-    //BookableClinic
-    @Override
-    public abstract boolean addAppointment(Appointment ap);
+    // //BookableClinic
+    // @Override
+    // public abstract boolean addAppointment(Appointment ap);
 
-    @Override
-    public abstract Appointment getAppointmentRecord(int id);
+    // @Override
+    // public abstract Appointment getAppointmentRecord(int id);
 
-    @Override
-    public abstract boolean removeAppointment(Appointment ap);
+    // @Override
+    // public abstract boolean removeAppointment(Appointment ap);
 
-    @Override
-    public abstract boolean removeAppointmentById(int id);
+    // @Override
+    // public abstract boolean removeAppointmentById(int id);
 
-    @Override
-    public abstract void logPastVaccinations(Appointment appointmentRecord);
+    // @Override
+    // public abstract void logPastVaccinations(Appointment appointmentRecord);
 
-    //WalkInClinic
-    @Override
-    public abstract void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
+    // //WalkInClinic
+    // @Override
+    // public abstract void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
 }

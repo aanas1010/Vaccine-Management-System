@@ -14,10 +14,10 @@ public class AppointmentCancellation {
     }
 
     public boolean deleteAppointment(){
-        Appointment appointment = clinic.getAppointmentRecord(this.appointmentId);
+        Appointment appointment = ((BookableClinic)clinic).getAppointmentRecord(this.appointmentId);
         if (appointment.getClient().getHasAppointment()) {
             appointment.getClient().disapproveAppointment();
-            clinic.removeAppointmentById(this.appointmentId);
+            ((BookableClinic)clinic).removeAppointmentById(this.appointmentId);
             appointment.getTimePeriod().addAvailableSlot();
             return true;
         }

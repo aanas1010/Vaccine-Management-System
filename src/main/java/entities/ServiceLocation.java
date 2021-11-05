@@ -40,21 +40,21 @@ public interface ServiceLocation {
 
     //option if we choose not to use casting for clinics:
 
-    // methods from the decoration classes
+    // // methods from the decoration classes
 
-    //BookableClinic
+    // //BookableClinic
 
-    boolean addAppointment(Appointment ap);
+    // boolean addAppointment(Appointment ap);
 
-    Appointment getAppointmentRecord(int id);
+    // Appointment getAppointmentRecord(int id);
 
-    boolean removeAppointment(Appointment ap);
+    // boolean removeAppointment(Appointment ap);
 
-    boolean removeAppointmentById(int id);
+    // boolean removeAppointmentById(int id);
 
-    void logPastVaccinations(Appointment appointmentRecord);
+    // void logPastVaccinations(Appointment appointmentRecord);
 
-    //WalkInClinic
-    void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
+    // //WalkInClinic
+    // void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
 
 }

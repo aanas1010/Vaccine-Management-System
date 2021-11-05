@@ -27,8 +27,8 @@ public class AppointmentCancellationTest {
         VaccineSupply supply = new VaccineSupply(newList);
 
         clinic = new BookableClinic(new Clinic(1, supply));
-        clinic.setShift(LocalDate.of(2021, 11, 14), 20);
-        clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        ((BookableClinic)clinic).setShift(LocalDate.of(2021, 11, 14), 20);
+        ((BookableClinic)clinic).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
 

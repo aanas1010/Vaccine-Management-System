@@ -47,12 +47,12 @@ public class AppointmentViewingTest {
         VaccineSupply supply = new VaccineSupply(newList);
 
         clinic = new BookableClinic(new Clinic(1, supply));
-        clinic.setShift(LocalDate.of(2021, 11, 14), 20);
-        clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        ((BookableClinic)clinic).setShift(LocalDate.of(2021, 11, 14), 20);
+        ((BookableClinic)clinic).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         clinicWalkIn = new WalkInClinic(new Clinic(1, supply));
-        clinicWalkIn.setShift(LocalDate.of(2021, 11, 14), 20);
-        clinicWalkIn.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        ((WalkInClinic)clinicWalkIn).setShift(LocalDate.of(2021, 11, 14), 20);
+        ((WalkInClinic)clinicWalkIn).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
         appointmentBooking1.assignVaccineDose();
@@ -68,11 +68,11 @@ public class AppointmentViewingTest {
         appointmentBooking3 = new AppointmentBooking(client3, clinic, timePeriod, "Pfizer", 33);
         appointmentBooking3.assignVaccineDose();
         appointmentBooking3.createAppointment();
-        clinic.logPastVaccinations(clinic.getAppointmentRecord(33));
+        ((BookableClinic)clinic).logPastVaccinations(((BookableClinic)clinic).getAppointmentRecord(33));
 //        clinic.getSupply();
-        clinic.removeAppointmentById(33);
+        ((BookableClinic)clinic).removeAppointmentById(33);
 
-        clinicWalkIn.logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
+        ((WalkInClinic)clinicWalkIn).logPastVaccinations("55", client5, timePeriod.getDateTime(), "Pfizer");
 
         appointmentViewing1 = new AppointmentViewing(11, clinic);
         appointmentViewing2 = new AppointmentViewing(22, clinic);

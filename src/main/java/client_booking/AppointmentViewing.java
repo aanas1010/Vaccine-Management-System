@@ -33,25 +33,17 @@ public class AppointmentViewing {
      */
     public String appointmentDetails()
     {
-        if(this.clinic.getAppointmentRecord(appointmentID) != null) //booked active_appointment
-            return appointmentBooked_message(this.clinic.getAppointmentRecord(appointmentID));
+        if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) //booked active_appointment
+            return appointmentBooked_message(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID));
 
         else
-            if(this.clinic.getVaccineLog().getVaccinationRecord("A" + appointmentID) != null) //booked passed_appointment
-                return appointmentPassed_message("A" + appointmentID);
-            else if(clinic.getVaccineLog().getVaccinationRecord("V" + appointmentID) != null) //walk-in passed_appointment
-                return appointmentPassed_message("V" + appointmentID);
-            else
-                return noAppointmentBooked_message();
+            return noAppointmentBooked_message();
     }
 
     // message methods
 
     //when appointment exists and active
     private String appointmentBooked_message(Appointment appointment) {return appointment.toString();}
-
-    //when appointment has passed
-    private String appointmentPassed_message(String appointmentID_str) {return this.clinic.getVaccineLog().getRecordString(appointmentID_str);}
 
     //when appointment never existed
     private String noAppointmentBooked_message() {return null;}
