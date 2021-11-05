@@ -27,6 +27,15 @@ public class Appointment {
         return timePeriod.getDateTime().isBefore(LocalDateTime.now());
     }
 
+    @Override
+    public String toString(){
+        return "----------------APPOINTMENT #" + appointmentId + "----------------" +
+                "\nCLIENT: " + client.getName() +
+                "\nTIME: " + timePeriod.getDateTime() +
+                "\nBRAND: " + vaccineBrand +
+                "\nBATCH: " + clientVaccineBatch.getId();
+    }
+
     // Getters
     public int getAppointmentId() {return appointmentId; }
 

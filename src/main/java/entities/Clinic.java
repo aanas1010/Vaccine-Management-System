@@ -24,8 +24,8 @@ public class Clinic implements ServiceLocation {
         this.clinicId = id;
         this.supply = new VaccineSupply();
         this.log = new VaccinationLog();
-        this.timePeriods = new HashMap<LocalDate, ArrayList<TimePeriod>>();
-        this.shifts = new HashMap<LocalDate, Integer>();
+        this.timePeriods = new HashMap<>();
+        this.shifts = new HashMap<>();
     }
 
     // Overloaded Constructors for testing
@@ -41,8 +41,13 @@ public class Clinic implements ServiceLocation {
         this.clinicId = id;
         this.supply = supply;
         this.log = new VaccinationLog();
-        this.timePeriods = new HashMap<LocalDate, ArrayList<TimePeriod>>();
-        this.shifts = new HashMap<LocalDate, Integer>();
+        this.timePeriods = new HashMap<>();
+        this.shifts = new HashMap<>();
+    }
+
+    // Add a batch to the VaccineSupply
+    public void addBatch(VaccineBatch batch) {
+        this.getSupply().add(batch);
     }
 
     // Log a past vaccination (NON-APPOINTMENT)
@@ -75,7 +80,7 @@ public class Clinic implements ServiceLocation {
         if (this.timePeriods.containsKey(dateTime.toLocalDate())){
             ArrayList<TimePeriod> timePeriods = this.timePeriods.get(dateTime.toLocalDate());
             for (TimePeriod timePeriod: timePeriods){
-                if (timePeriod.getDateTime() == dateTime){
+                if (timePeriod.getDateTime().equals(dateTime)){
                     return true;
                 }
             }
@@ -90,7 +95,7 @@ public class Clinic implements ServiceLocation {
             this.timePeriods.get(date).add(timePeriod);
         }
         else{
-            ArrayList<TimePeriod> newTime = new ArrayList<TimePeriod>();
+            ArrayList<TimePeriod> newTime = new ArrayList<>();
             newTime.add(timePeriod);
             this.timePeriods.put(date, newTime);
         }
@@ -100,7 +105,7 @@ public class Clinic implements ServiceLocation {
     @Override
     public void removeTimePeriod(LocalDateTime dateTime){
         this.timePeriods.get(dateTime.toLocalDate()).removeIf(timePeriod ->
-                timePeriod.getDateTime() == dateTime);
+                timePeriod.getDateTime().equals(dateTime));
     }
 
     // Getters
@@ -123,4 +128,5 @@ public class Clinic implements ServiceLocation {
     }
 
     public VaccinationLog getVaccineLog() {return log;}
+
 }

@@ -5,6 +5,13 @@ import entities.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * This is the Use Case for booking appointments.
+ * Every time the use case is needed, a new AppointmentBooking instance is created
+ * with parameters being the client, clinic, time period, and vaccination brand requested,
+ * along with a specified ID
+ */
+
 public class AppointmentBooking {
     Client client;
     BookableServiceLocation clinic;
@@ -12,8 +19,9 @@ public class AppointmentBooking {
     String vaccineBrand;
     int appointmentId;
 
-
-    public AppointmentBooking(Client client, BookableServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
+    // Constructor
+    public AppointmentBooking(
+            Client client, BookableServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
         this.clinic = clinic;
         this.timePeriod = timePeriod;
@@ -21,10 +29,12 @@ public class AppointmentBooking {
         this.appointmentId = id;
     }
 
-    //Check if there is an opening for the specified time period
+    // Return whether there is an opening for the specified time period
     public boolean isTimeslotAvailable(){return this.timePeriod.getAvailableSlots() > 0;}
 
-    //Reserve a vaccine dose for this client IF there is a timeslot available AND this person doesn't already have an appointment
+    // Reserve a vaccine dose for this client IF there is a timeslot available
+    // AND this person doesn't already have an appointment
+    // Return the VaccineBatch in question
     public VaccineBatch assignVaccineDose() {
         if (this.isTimeslotAvailable() && !this.client.getHasAppointment()) {
             ArrayList<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
@@ -52,13 +62,14 @@ public class AppointmentBooking {
     // Create an appointment for this client in the Clinic's system
     public boolean createAppointment() {
         if(this.isTimeslotAvailable() && this.assignVaccineDose() != null) {
-            Appointment appointment = new Appointment(this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
+            Appointment appointment = new Appointment(
+                    this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
             this.client.approveAppointment();
             this.clinic.addAppointment(appointment);
             this.timePeriod.findAndReserveSlot();
             return true;
         }else{
-            System.out.println("appointment unavailable");
+            // Appointment cannot be created
             return false;
         }
     }
