@@ -15,6 +15,8 @@ import java.util.ArrayList;
 // Add comments
 public interface ServiceLocation {
 
+    boolean supplyContainsBatchId(int id);
+
     void addBatch(VaccineBatch batch);
 
     void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);

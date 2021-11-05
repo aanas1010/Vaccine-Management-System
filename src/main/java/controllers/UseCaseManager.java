@@ -31,19 +31,30 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     //Constructor for num clinics with IDs 0 to num-1
     public UseCaseManager(int num) {
-        ArrayList<ServiceLocation> clinicsList = new ArrayList<>(num);
+        clinics = new ArrayList<>();
+
         for(int i=0;i<num;i++) {
             //Create new clinic with ID i
-            clinicsList.add(new Clinic(i));
+            addClinic(i);
         }
-        clinics = clinicsList;
     }
 
     /** ADDING CLINICS */
 
-    // Add a basic clinic
+    // Add a basic clinic. Return whether the clinic could be added
     public void addClinic(int clinicId) {
+        if(containsClinicWithId(clinicId)) {return;}
+
         clinics.add(new Clinic(clinicId));
+    }
+
+    private boolean containsClinicWithId(int clinicId) {
+        for(ServiceLocation location : clinics) {
+            if(location.getServiceLocationId() == clinicId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** ADDING BATCHES */

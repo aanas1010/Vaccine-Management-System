@@ -67,4 +67,11 @@ public class BookableClinic extends Clinic implements BookableServiceLocation, S
         log.addToLog(appointment);
     }
 
+    public ArrayList<Integer> getAppointmentIds() {
+        ArrayList<Integer> appointmentIds = new ArrayList<>();
+        for(Appointment ap : appointments) {
+            appointmentIds.add(ap.getAppointmentId());
+        }
+        return appointmentIds;
+    }
 }
