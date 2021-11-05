@@ -105,7 +105,7 @@ public class Clinic implements ServiceLocation {
     @Override
     public void removeTimePeriod(LocalDateTime dateTime){
         this.timePeriods.get(dateTime.toLocalDate()).removeIf(timePeriod ->
-                timePeriod.getDateTime() == dateTime);
+                timePeriod.getDateTime().equals(dateTime));
     }
 
     // Getters
