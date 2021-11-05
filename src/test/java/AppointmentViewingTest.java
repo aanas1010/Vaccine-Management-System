@@ -96,31 +96,6 @@ public class AppointmentViewingTest {
     @Test(timeout = 100) // Testing the use case a booked appointment was canceled
     public void TestAppointmentDetails_appointmentCanceled() {assertNull(appointmentViewing2.appointmentDetails());}
 
-     @Test(timeout = 100) // Testing the use case a booked appointment has passed
-     public void TestAppointmentDetails_appointmentPassed_wasBooked() {
-         String message_correct = "----------------VACCINATION #" + "A33" + "----------------" +
-                 "\nCLIENT: " + "client3" +
-                 "\nTIME: " + "2021-11-14T12:30" +
-                 "\nBRAND: " + "Pfizer";
-         String message_method = appointmentViewing3.appointmentDetails();
-
-         assertEquals(message_correct, message_method);
-     }
-
     @Test(timeout = 100) // Testing the use case an appointment never existed
     public void TestAppointmentDetails_appointmentNeverExisted() {assertNull(appointmentViewing4.appointmentDetails());}
-
-
-    @Test(timeout = 100) // Testing the use case a walk in appointment has passed
-    public void TestAppointmentDetails_appointmentPassed_wasNotBooked() {
-        String message_correct = "----------------VACCINATION #" + "V55" + "----------------" +
-                "\nCLIENT: " + "client5" +
-                "\nTIME: " + "2021-11-14T12:30" +
-                "\nBRAND: " + "Pfizer";
-        String message_method = appointmentViewing5.appointmentDetails();
-        assertEquals(message_correct, message_method);
-    }
-
-
-
 }
