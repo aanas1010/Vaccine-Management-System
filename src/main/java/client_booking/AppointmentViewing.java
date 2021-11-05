@@ -34,21 +34,13 @@ public class AppointmentViewing {
 
     produces the following message if:
     appointment exists and hasn't passed - toString from appointment
-    appointment was logged and passed    - toString from vaccinationLog
     appointment never existed            - null
      */
     public String appointmentDetails()
     {
         if(this.clinic.getAppointmentRecord(appointmentID) != null) //booked active_appointment
             return getBookedAppointmentString(this.clinic.getAppointmentRecord(appointmentID));
-
-        else
-            if(this.clinic.getVaccineLog().getVaccinationRecord("A" + appointmentID) != null) //booked passed_appointment
-                return getPassedAppointmentString("A" + appointmentID);
-            else if(this.clinic.getVaccineLog().getVaccinationRecord("V" + appointmentID) != null) //walk-in passed_appointment
-                return getPassedAppointmentString("V" + appointmentID);
-            else
-                return null;
+        return null;
     }
 
     // message methods
@@ -56,11 +48,6 @@ public class AppointmentViewing {
     //when appointment exists and active
     private String getBookedAppointmentString(Appointment appointment) {
         return appointment.toString();
-    }
-
-    //when appointment has passed
-    private String getPassedAppointmentString(String appointmentID_str) {
-        return this.clinic.getVaccineLog().getRecordString(appointmentID_str);
     }
 
 }

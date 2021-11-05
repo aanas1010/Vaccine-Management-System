@@ -44,6 +44,4 @@ public class Appointment {
     public TimePeriod getTimePeriod() { return timePeriod; }
 
     public String getVaccineBrand() { return vaccineBrand;}
-
-    public VaccineBatch getClientVaccineBatch(){return clientVaccineBatch;}
 }
