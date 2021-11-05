@@ -4,7 +4,12 @@ import entities.Appointment;
 import entities.BookableClinic;
 import entities.ServiceLocation;
 
-//user case class for viewing a specific appointment
+/**
+ * This is the Use Case for viewing appointments.
+ * Every time the use case is needed, a new AppointmentViewing instance is created
+ * with the only parameters being the clinic and appointment ID
+ */
+
 public class AppointmentViewing {
 
     /*
@@ -18,16 +23,17 @@ public class AppointmentViewing {
     private final int appointmentID;
     private final ServiceLocation clinic;
 
-    public AppointmentViewing(int appointmentID, ServiceLocation clinic)
+    // Constructor
+    public AppointmentViewing(int appointmentID, BookableServiceLocation clinic)
     {
         this.clinic = clinic;
         this.appointmentID = appointmentID;
     }
 
     /*
-    return a string of the details about the appointment
+    Return a string of the details about the appointment
 
-    produces athe following message if:
+    produces the following message if:
     appointment exists and hasn't passed - toString from appointment
     appointment was logged and passed    - toString from vaccinationLog
     appointment never existed            - null
@@ -44,8 +50,13 @@ public class AppointmentViewing {
     // message methods
 
     //when appointment exists and active
-    private String appointmentBooked_message(Appointment appointment) {return appointment.toString();}
+    private String getBookedAppointmentString(Appointment appointment) {
+        return appointment.toString();
+    }
 
-    //when appointment never existed
-    private String noAppointmentBooked_message() {return null;}
+    //when appointment has passed
+    private String getPassedAppointmentString(String appointmentID_str) {
+        return this.clinic.getVaccineLog().getRecordString(appointmentID_str);
+    }
+
 }

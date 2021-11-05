@@ -1,12 +1,17 @@
 package clinic_management;
 
-import entities.Clinic;
 import entities.ServiceLocation;
 import entities.TimePeriod;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+/**
+ * This is the Use Case for setting time periods and shifts.
+ * Every time the use case is needed, a new SetTimePeriod instance is created
+ * with the only parameter being clinic
+ */
 
 public class SetTimePeriod {
     private final ServiceLocation clinic;
@@ -39,18 +44,21 @@ public class SetTimePeriod {
 
     // Removing a time period from a clinic if there exists a time period at the specified date and time.
     public boolean removeTimePeriod(LocalDateTime dateTime){
-        if(!this.clinic.checkTimePeriod(dateTime)){
-            return false;
-        }
-        else{
+        if(this.clinic.checkTimePeriod(dateTime)){
             this.clinic.removeTimePeriod(dateTime);
             return true;
+        }
+        else{
+            return false;
         }
     }
 
     /* Adding multiple time periods from a starting time until the end based on
        interval inputted in the form of minutes */
     public int addMultipleTimePeriods(LocalDateTime start, LocalDateTime end, int interval){
+        if(!start.toLocalDate().equals(end.toLocalDate()) || interval <= 0){
+            return 0;
+        }
         ArrayList<LocalDateTime> times = new ArrayList<>();
         while (start.isBefore(end)){
             times.add(start);
@@ -66,4 +74,5 @@ public class SetTimePeriod {
         }
         return counter;
     }
+
 }

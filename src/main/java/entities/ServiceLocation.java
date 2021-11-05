@@ -1,5 +1,9 @@
 package entities;
 
+import entities.VaccineBatch;
+import entities.VaccineSupply;
+
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,6 +14,12 @@ import java.util.ArrayList;
  */
 // Add comments
 public interface ServiceLocation {
+
+    boolean supplyContainsBatchId(int id);
+
+    void addBatch(VaccineBatch batch);
+
+    void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
 
     void setShift(LocalDate date, int num);
 

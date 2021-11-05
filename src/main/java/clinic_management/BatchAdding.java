@@ -13,13 +13,7 @@ public class BatchAdding {
     private final ServiceLocation clinic;
     private final VaccineBatch batch;
 
-//    // Constructor
-//    public clinic_management.BatchAdding(entities.ServiceLocation clinic, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
-//        this.clinic = clinic;
-//        this.batch = new entities.VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
-//    }
-
-    //Constructor
+    // Constructor
     public BatchAdding(ServiceLocation clinic, VaccineBatch batch){
         this.clinic = clinic;
         this.batch = batch;
@@ -28,11 +22,11 @@ public class BatchAdding {
     // Adding a vaccine batch to the supply of a clinic if it is not expired
     // Return whether the batch is added
     public boolean addBatch(){
-        if (batch.isExpired()){
+        if (batch.isExpired() && !this.clinic.supplyContainsBatchId(batch.getId())){
             return false;
         }
         else{
-            this.clinic.getSupply().add(batch);
+            this.clinic.addBatch(batch);
             return true;
         }
     }

@@ -1,5 +1,7 @@
 package entities;
 
+import entities.Appointment;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.time.LocalDateTime;
@@ -62,10 +64,11 @@ public class BookableClinic extends ClinicDecorator{
         decoratedClinic.getVaccineLog().addToLog(appointment);
     }
 
-
-    // //option if we choose not to use casting for clinics:
-
-    // //empty method declaration to satisfy inheritance
-    // @Override
-    // public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {}
+    public ArrayList<Integer> getAppointmentIds() {
+        ArrayList<Integer> appointmentIds = new ArrayList<>();
+        for(Appointment ap : appointments) {
+            appointmentIds.add(ap.getAppointmentId());
+        }
+        return appointmentIds;
+    }
 }
