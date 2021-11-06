@@ -66,7 +66,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     /** BOOKING APPOINTMENTS */
     public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) {
-        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
+        ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         Client client = new Client(clientName, healthCareNumber);
         TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
         AppointmentBooking appointmentBooking = new AppointmentBooking(client, clinic, timePeriod,
@@ -76,7 +76,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** CANCELLING APPOINTMENTS */
     public boolean cancelAppointment(int clinicId, int appointmentId) {
-        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
+        ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic);
 
         return appointmentCancellation.deleteAppointment();
@@ -84,11 +84,11 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** VIEWING APPOINTMENTS */
     public String viewAppointment(int clinicId, int appointmentId){
-        BookableClinic clinic = (BookableClinic) getClinicById(clinicId);
-            AppointmentViewing appointmentViewing = new AppointmentViewing(appointmentId, clinic);
+        ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
+        AppointmentViewing appointmentViewing = new AppointmentViewing(appointmentId, clinic);
 
-            return appointmentViewing.appointmentDetails();
-        }
+        return appointmentViewing.appointmentDetails();
+    }
 
     /** TIME PERIOD */
 
@@ -143,24 +143,5 @@ public class UseCaseManager implements UseCaseManagerInterface {
         }else {
             return "";
         }
-    }
-
-    public boolean AppointmentBooking(Client client, ClinicDecorator clinic,
-                                      TimePeriod timePeriod, String vaccineBrand, int appointmentId)
-    {
-        AppointmentBooking book = new AppointmentBooking(client, clinic, timePeriod, vaccineBrand, appointmentId);
-        return book.createAppointment();
-    }
-
-    public boolean AppointmentCancellation(int appointmentId, ClinicDecorator clinic)
-    {
-        AppointmentCancellation cancel = new AppointmentCancellation(appointmentId, clinic);
-        return cancel.deleteAppointment();
-    }
-
-    public String AppointmentViewing(int appointmentId, ClinicDecorator clinic)
-    {
-        AppointmentViewing view = new AppointmentViewing(appointmentId, clinic);
-        return view.appointmentDetails();
     }
 }
