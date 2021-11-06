@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * This is the ServiceLocation interface which supports methods for
  * Reading and writing vaccine and appointment details
  */
-// Add comments
+
 public interface ServiceLocation {
 
     boolean supplyContainsBatchId(int id);

@@ -19,7 +19,7 @@ public class AppointmentViewing {
      */
 
     private final int appointmentID;
-    private final ServiceLocation clinic;
+    private final ClinicDecorator clinic;
 
     // Constructor
     public AppointmentViewing(int appointmentID, ClinicDecorator clinic)
@@ -38,8 +38,8 @@ public class AppointmentViewing {
     public String appointmentDetails()
     {
 
-        if(((BookableClinic)this.clinic).getAppointmentRecord(appointmentID) != null) { //booked active_appointment
-            return getBookedAppointmentString(((BookableClinic) this.clinic).getAppointmentRecord(appointmentID));
+        if(this.clinic.getAppointmentRecord(appointmentID) != null) { //booked active_appointment
+            return getBookedAppointmentString(this.clinic.getAppointmentRecord(appointmentID));
 
         }
         return null;

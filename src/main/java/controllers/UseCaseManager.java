@@ -145,24 +145,22 @@ public class UseCaseManager implements UseCaseManagerInterface {
         }
     }
 
-    public boolean AppointmentBooking(Client client, ServiceLocation clinic,
+    public boolean AppointmentBooking(Client client, ClinicDecorator clinic,
                                       TimePeriod timePeriod, String vaccineBrand, int appointmentId)
     {
         AppointmentBooking book = new AppointmentBooking(client, clinic, timePeriod, vaccineBrand, appointmentId);
         return book.createAppointment();
     }
 
-    public boolean AppointmentCancellation(int appointmentId, ServiceLocation clinic)
+    public boolean AppointmentCancellation(int appointmentId, ClinicDecorator clinic)
     {
         AppointmentCancellation cancel = new AppointmentCancellation(appointmentId, clinic);
         return cancel.deleteAppointment();
     }
 
-    public String AppointmentViewing(Client client, ServiceLocation clinic,
-                                     TimePeriod timePeriod, String vaccineBrand, int appointmentId)
+    public String AppointmentViewing(int appointmentId, ClinicDecorator clinic)
     {
-//        AppointmentViewing view = new AppointmentViewing(clinic, appointment);
-//        return view.appointmentDetails();
-        return "j";
+        AppointmentViewing view = new AppointmentViewing(appointmentId, clinic);
+        return view.appointmentDetails();
     }
 }

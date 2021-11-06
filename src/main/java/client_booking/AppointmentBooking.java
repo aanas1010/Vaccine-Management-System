@@ -14,13 +14,13 @@ import java.util.ArrayList;
 
 public class AppointmentBooking {
     Client client;
-    ServiceLocation clinic;
+    ClinicDecorator clinic;
     TimePeriod timePeriod;
     String vaccineBrand;
     int appointmentId;
 
 
-    public AppointmentBooking(Client client, ServiceLocation clinic, TimePeriod timePeriod, String vaccineBrand, int id){
+    public AppointmentBooking(Client client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
         this.clinic = clinic;
         this.timePeriod = timePeriod;
@@ -59,7 +59,7 @@ public class AppointmentBooking {
 
     // Check if the appointment ID is unique
     private boolean hasUniqueId() {
-        return !((BookableClinic) clinic).getAppointmentIds().contains(appointmentId);
+        return !clinic.getAppointmentIds().contains(appointmentId);
     }
 
     // Create an appointment for this client in the Clinic's system
@@ -68,7 +68,7 @@ public class AppointmentBooking {
             Appointment appointment = new Appointment(
                     this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
             this.client.approveAppointment();
-            ((BookableClinic)this.clinic).addAppointment(appointment);
+            this.clinic.addAppointment(appointment);
             this.timePeriod.findAndReserveSlot();
             return true;
         }else{
