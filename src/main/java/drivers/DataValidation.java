@@ -3,6 +3,7 @@ package drivers;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -17,29 +18,65 @@ public class DataValidation {
         NON_NEGATIVE_INT,
         POSITIVE_INT,
         NON_PAST_DATE,
-        COMMAND,
         FREE_TEXT,
-        NON_PAST_DATETIME
+        NON_PAST_DATETIME,
+        COMMAND_CORE,
+        COMMAND_BOOKABLE
     }
-    protected enum Commands {
+
+    protected enum CoreCommands {
         ADD_BATCH,
         SET_EMPLOYEES,
         ADD_TIME_PERIOD,
         REMOVE_TIME_PERIOD,
         ADD_TIME_PERIODS,
-        QUIT,
-        BOOK_APPOINTMENT,
-        CANCEL_APPOINTMENT,
-        VIEW_APPOINTMENT;
+        QUIT;
 
-        // Return whether s is a valid element of Commands
+        // Return whether s is a valid element of CoreCommands
         public static boolean contains(String s) {
-            for (Commands c : Commands.values()) {
+            for (CoreCommands c : CoreCommands.values()) {
                 if (c.name().equals(s)) {
                     return true;
                 }
             }
             return false;
+
+        }
+    }
+
+    protected enum BookableCommands {
+        BOOK_APPOINTMENT,
+        CANCEL_APPOINTMENT,
+        VIEW_APPOINTMENT;
+
+        // Return whether s is a valid element of BookableCommands
+        public static boolean contains(String s) {
+            for (CoreCommands c : CoreCommands.values()) {
+                if (c.name().equals(s)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+
+    // Return the value given by the command line if it is a valid value in the list of parameter types
+    protected static Enum<?> getCommand(Scanner in, String prompt, ArrayList<Enum<?>> types) {
+        while(true) {
+            System.out.println(prompt);
+            System.out.print(CommandLine.commandLinePrompt);
+
+            String input = in.nextLine();
+
+            for(Enum<?> type : types) {
+                if(type.toString().equals(input)) {
+                    return type;
+                }
+            }
+
+            System.out.println("That command is invalid. Please try again");
+
         }
     }
 
@@ -70,9 +107,13 @@ public class DataValidation {
                     formattedValue = isNonPastDateTime(input);
                     hasValidValue = formattedValue != null;
                     break;
-                case COMMAND:
-                    formattedValue = input;
-                    hasValidValue = Commands.contains(input);
+                case COMMAND_CORE:
+                    formattedValue = DataValidation.CoreCommands.valueOf(input);
+                    hasValidValue = CoreCommands.contains(input);
+                    break;
+                case COMMAND_BOOKABLE:
+                    formattedValue = DataValidation.BookableCommands.valueOf(input);
+                    hasValidValue = BookableCommands.contains(input);
                     break;
                 default:
                     formattedValue = input;

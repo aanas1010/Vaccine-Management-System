@@ -30,8 +30,12 @@ public class UseCaseManager implements UseCaseManagerInterface {
         clinics = new ArrayList<>();
 
         for(int i=0;i<num;i++) {
-            //Create new clinic with ID i
-            addClinic(i);
+            // Testing: odd numbered clinics are bookable
+            if(i % 2 == 0) {
+                addClinic(i);
+            }else {
+                addBookableClinic(i);
+            }
         }
     }
 
@@ -42,6 +46,12 @@ public class UseCaseManager implements UseCaseManagerInterface {
         if(containsClinicWithId(clinicId)) {return;}
 
         clinics.add(new Clinic(clinicId));
+    }
+
+    public void addBookableClinic(int clinicId) {
+        if(containsClinicWithId(clinicId)) {return;}
+
+        clinics.add(new BookableClinic(new Clinic(clinicId)));
     }
 
     private boolean containsClinicWithId(int clinicId) {
@@ -122,6 +132,19 @@ public class UseCaseManager implements UseCaseManagerInterface {
         for (ServiceLocation clinic : clinics) {
             //Call the getClinicId method for all clinics
             clinicNums.add(clinic.getServiceLocationId());
+        }
+        return clinicNums;
+    }
+
+    //Return a list of the bookable clinic IDs
+    public ArrayList<Integer> getBookableClinicIds() {
+        int arraySize = clinics.size();
+        ArrayList<Integer> clinicNums = new ArrayList<>(arraySize);
+        for (ServiceLocation clinic : clinics) {
+            if(clinic instanceof ClinicDecorator) {
+                //Call the getClinicId method for all clinics
+                clinicNums.add(clinic.getServiceLocationId());
+            }
         }
         return clinicNums;
     }

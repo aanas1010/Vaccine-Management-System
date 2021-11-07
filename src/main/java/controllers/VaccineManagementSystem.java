@@ -62,5 +62,9 @@ public class VaccineManagementSystem implements ManagementSystem {
         return this.useCaseManagerInterface.getClinicIds();
     }
 
+    public ArrayList<Integer> getBookableClinicIds() {return this.useCaseManagerInterface.getBookableClinicIds();}
+
+
+
     public String getSupplyByClinic(int clinicId) {return this.useCaseManagerInterface.getSupplyStringByClinic(clinicId);}
 }

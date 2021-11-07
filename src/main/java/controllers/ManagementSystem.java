@@ -27,6 +27,8 @@ public interface ManagementSystem {
 
     ArrayList<Integer> getClinicIds();
 
+    ArrayList<Integer> getBookableClinicIds();
+
     String getSupplyByClinic(int clinicId);
 
     boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
