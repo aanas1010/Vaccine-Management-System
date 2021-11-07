@@ -51,7 +51,7 @@ public class DataValidation {
 
         // Return whether s is a valid element of BookableCommands
         public static boolean contains(String s) {
-            for (CoreCommands c : CoreCommands.values()) {
+            for (BookableCommands c : BookableCommands.values()) {
                 if (c.name().equals(s)) {
                     return true;
                 }
