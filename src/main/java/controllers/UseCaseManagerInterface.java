@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public interface UseCaseManagerInterface {
     ArrayList<Integer> getClinicIds();
 
+    ArrayList<Integer> getBookableClinicIds();
+
     boolean setEmployees(int clinicId, LocalDate date, int employees);
 
     boolean addTimePeriod(int clinicId, LocalDateTime dateTime);

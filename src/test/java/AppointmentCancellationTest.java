@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class AppointmentCancellationTest {
-    ServiceLocation clinic;
+    ClinicDecorator clinic;
     AppointmentBooking appointmentBooking1;
     TimePeriod timePeriod;
     VaccineBatch batch;
@@ -27,8 +27,8 @@ public class AppointmentCancellationTest {
         VaccineSupply supply = new VaccineSupply(newList);
 
         clinic = new BookableClinic(new Clinic(1, supply));
-        ((BookableClinic)clinic).setShift(LocalDate.of(2021, 11, 14), 20);
-        ((BookableClinic)clinic).addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
+        clinic.setShift(LocalDate.of(2021, 11, 14), 20);
+        clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
 

@@ -14,8 +14,6 @@ import java.util.ArrayList;
 //test cases for the appointmentViewing class
 public class AppointmentViewingTest {
     ClinicDecorator clinic; //bookable clinic
-    ServiceLocation clinicWalkIn; // walk in clinic
-
 
     AppointmentViewing appointmentViewing1; //appointment booked                  (view)
     AppointmentViewing appointmentViewing2; //appointment cancelled               (view)
@@ -44,10 +42,6 @@ public class AppointmentViewingTest {
         clinic = new BookableClinic(new Clinic(1, supply));
         clinic.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
-
-        clinicWalkIn = new WalkInClinic(new Clinic(1, supply));
-        clinicWalkIn.setShift(LocalDate.of(2021, 11, 14), 20);
-        clinicWalkIn.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
         appointmentBooking1 = new AppointmentBooking(client1, clinic, timePeriod, "Pfizer", 11);
         appointmentBooking1.assignVaccineDose();

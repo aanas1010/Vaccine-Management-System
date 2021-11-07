@@ -13,7 +13,7 @@ public class ClinicTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinicWalkIn = new WalkInClinic(new Clinic(1));
+        clinicWalkIn = new Clinic(1);
         clinicBookingOpt = new BookableClinic(new Clinic(2));
         clinic = new Clinic(3);
         client = new Client("Barack Obama", "1776");
@@ -22,10 +22,10 @@ public class ClinicTest {
 
     @Test(timeout = 100) // Testing logging a past vaccination
     public void TestLogPastVaccinations() {
-        ((WalkInClinic)clinicWalkIn).logPastVaccinations("10", client, LocalDateTime.now(), "Pfizer");
+        clinicWalkIn.logPastVaccinations("10", client, LocalDateTime.now(), "Pfizer");
 
-        String name = ((WalkInClinic)clinicWalkIn).getVaccineLog().getClientByVaccinationId("V10").getName();
-        String healthCareNumber = ((WalkInClinic)clinicWalkIn).getVaccineLog().getClientByVaccinationId("V10").getHealthCareNumber();
+        String name = clinicWalkIn.getVaccineLog().getClientByVaccinationId("V10").getName();
+        String healthCareNumber = clinicWalkIn.getVaccineLog().getClientByVaccinationId("V10").getHealthCareNumber();
 
         assertEquals(name, client.getName());
         assertEquals(healthCareNumber, client.getHealthCareNumber());
