@@ -1,9 +1,5 @@
 package controllers;
 
-import entities.BookableClinic;
-import entities.Client;
-import entities.TimePeriod;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

@@ -1,10 +1,7 @@
 package controllers;
 
-import client_booking.AppointmentBooking;
-import client_booking.AppointmentCancellation;
-import client_booking.AppointmentViewing;
-import clinic_management.BatchAdding;
-import clinic_management.SetTimePeriod;
+import client_booking.*;
+import clinic_management.*;
 import entities.*;
 
 import java.time.LocalDate;
@@ -25,33 +22,24 @@ public class UseCaseManager implements UseCaseManagerInterface {
         this.clinics = clinics;
     }
 
-    //Constructor for num clinics with IDs 0 to num-1
-    public UseCaseManager(int num) {
-        clinics = new ArrayList<>();
-
-        for(int i=0;i<num;i++) {
-            // Testing: odd numbered clinics are bookable
-            if(i % 2 == 0) {
-                addClinic(i);
-            }else {
-                addBookableClinic(i);
-            }
-        }
+    //Constructor with empty list of service locations
+    public UseCaseManager(){
+        this.clinics = new ArrayList<>();
     }
 
     /** ADDING CLINICS */
 
     // Add a basic clinic. Return whether the clinic could be added
-    public void addClinic(int clinicId) {
+    public void addClinic(int clinicId, String location) {
         if(containsClinicWithId(clinicId)) {return;}
 
-        clinics.add(new Clinic(clinicId));
+        clinics.add(new Clinic(clinicId, location));
     }
 
-    public void addBookableClinic(int clinicId) {
+    public void addBookableClinic(int clinicId, String location) {
         if(containsClinicWithId(clinicId)) {return;}
 
-        clinics.add(new BookableClinic(new Clinic(clinicId)));
+        clinics.add(new BookableClinic(new Clinic(clinicId, location)));
     }
 
     private boolean containsClinicWithId(int clinicId) {

@@ -1,9 +1,5 @@
 package controllers;
 
-import entities.ServiceLocation;
-import entities.Client;
-import entities.TimePeriod;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,6 +8,10 @@ public interface UseCaseManagerInterface {
     ArrayList<Integer> getClinicIds();
 
     ArrayList<Integer> getBookableClinicIds();
+
+    void addClinic(int clinicId, String location);
+
+    void addBookableClinic(int clinicId, String location);
 
     boolean setEmployees(int clinicId, LocalDate date, int employees);
 

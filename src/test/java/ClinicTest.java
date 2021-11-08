@@ -13,9 +13,9 @@ public class ClinicTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinicWalkIn = new Clinic(1);
-        clinicBookingOpt = new BookableClinic(new Clinic(2));
-        clinic = new Clinic(3);
+        clinicWalkIn = new Clinic(1, "Shoppers Drug Mart - 279 Yonge Street");
+        clinicBookingOpt = new BookableClinic(new Clinic(2, "Rexall - 63 Wellesley Street East"));
+        clinic = new Clinic(3, "Walmart - 900 Dufferin Street");
         client = new Client("Barack Obama", "1776");
 
     }
