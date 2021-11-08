@@ -30,16 +30,6 @@ public class Clinic implements ServiceLocation {
         this.location = location;
     }
 
-    // Overloaded Constructor that only takes in the clinic's location
-    public Clinic(String location) {
-        this.clinicId = 0;
-        this.supply = new VaccineSupply();
-        this.log = new VaccinationLog();
-        this.timePeriods = new HashMap<>();
-        this.shifts = new HashMap<>();
-        this.location = location;
-    }
-
     // Overloaded Constructors for testing
     public Clinic(int id, VaccineSupply supply, VaccinationLog vaccinationLog, HashMap<LocalDate,
             ArrayList<TimePeriod>> timePeriods, HashMap<LocalDate, Integer> shifts, String location) {

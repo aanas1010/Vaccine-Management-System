@@ -1,10 +1,7 @@
 package controllers;
 
-import client_booking.AppointmentBooking;
-import client_booking.AppointmentCancellation;
-import client_booking.AppointmentViewing;
-import clinic_management.BatchAdding;
-import clinic_management.SetTimePeriod;
+import client_booking.*;
+import clinic_management.*;
 import entities.*;
 
 import java.time.LocalDate;
@@ -21,22 +18,13 @@ public class UseCaseManager implements UseCaseManagerInterface {
     private final ArrayList<ServiceLocation> clinics;
 
     //Constructor for a list of clinics
-    public UseCaseManager(ArrayList<ServiceLocation> clinics){this.clinics = clinics;}
+    public UseCaseManager(ArrayList<ServiceLocation> clinics){
+        this.clinics = clinics;
+    }
 
-    //Constructor for num clinics with IDs 0 to num-1
-    public UseCaseManager(int num, ArrayList<Clinic> listOfClinics) {
-        clinics = new ArrayList<>();
-
-        for(int i=0;i<num;i++) {
-            for (Clinic clinic : listOfClinics) {
-                // Testing: odd numbered clinics are bookable
-                if (i % 2 == 0) {
-                    addClinic(i, clinic.getLocation());
-                } else {
-                    addBookableClinic(i, clinic.getLocation());
-                }
-            }
-        }
+    //Constructor with empty list of service locations
+    public UseCaseManager(){
+        this.clinics = new ArrayList<>();
     }
 
     /** ADDING CLINICS */
