@@ -1,6 +1,7 @@
 package drivers;
 
 import controllers.ManagementSystem;
+import entities.Clinic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -12,7 +12,7 @@ public class VaccineBatch {
     private final int quantity;
     private final LocalDate expiry;
     private final int id;
-    private int reserve = 0;
+    private int reserve;
 
     // Constructor
     public VaccineBatch(String brand, int quantity, LocalDate expiry, int id){

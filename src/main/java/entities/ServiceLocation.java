@@ -40,7 +40,9 @@ public interface ServiceLocation {
 
     ArrayList<TimePeriod> getTimePeriods(LocalDate date);
 
-   VaccinationLog getVaccineLog();
+    VaccinationLog getVaccineLog();
+
+    String getLocation();
 
 
     ArrayList<VaccineBatch> getSupply();

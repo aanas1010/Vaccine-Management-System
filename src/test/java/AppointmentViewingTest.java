@@ -17,7 +17,7 @@ public class AppointmentViewingTest {
 
     AppointmentViewing appointmentViewing1; //appointment booked                  (view)
     AppointmentViewing appointmentViewing2; //appointment cancelled               (view)
-    AppointmentViewing appointmentViewing4; //appointment never existed           (view)
+    AppointmentViewing appointmentViewing3; //appointment never existed           (view)
 
     AppointmentBooking appointmentBooking1; //appointment booked                  (book)
     AppointmentBooking appointmentBooking2; //appointment cancelled               (book)
@@ -39,7 +39,7 @@ public class AppointmentViewingTest {
         newList.add(batch);
         VaccineSupply supply = new VaccineSupply(newList);
 
-        clinic = new BookableClinic(new Clinic(1, supply));
+        clinic = new BookableClinic(new Clinic(1, supply, "Shoppers Drug Mart - 279 Yonge Street"));
         clinic.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
@@ -57,7 +57,7 @@ public class AppointmentViewingTest {
 
         appointmentViewing1 = new AppointmentViewing(11, clinic);
         appointmentViewing2 = new AppointmentViewing(22, clinic);
-        appointmentViewing4 = new AppointmentViewing(44, clinic);
+        appointmentViewing3 = new AppointmentViewing(44, clinic);
 
     }
 
@@ -77,5 +77,5 @@ public class AppointmentViewingTest {
     public void TestAppointmentDetails_appointmentCanceled() {assertNull(appointmentViewing2.appointmentDetails());}
 
     @Test(timeout = 100) // Testing the use case an appointment never existed
-    public void TestAppointmentDetails_appointmentNeverExisted() {assertNull(appointmentViewing4.appointmentDetails());}
+    public void TestAppointmentDetails_appointmentNeverExisted() {assertNull(appointmentViewing3.appointmentDetails());}
 }

@@ -21,20 +21,20 @@ public class UseCaseManager implements UseCaseManagerInterface {
     private final ArrayList<ServiceLocation> clinics;
 
     //Constructor for a list of clinics
-    public UseCaseManager(ArrayList<ServiceLocation> clinics){
-        this.clinics = clinics;
-    }
+    public UseCaseManager(ArrayList<ServiceLocation> clinics){this.clinics = clinics;}
 
     //Constructor for num clinics with IDs 0 to num-1
-    public UseCaseManager(int num) {
+    public UseCaseManager(int num, ArrayList<Clinic> listOfClinics) {
         clinics = new ArrayList<>();
 
         for(int i=0;i<num;i++) {
-            // Testing: odd numbered clinics are bookable
-            if(i % 2 == 0) {
-                addClinic(i);
-            }else {
-                addBookableClinic(i);
+            for (Clinic clinic : listOfClinics) {
+                // Testing: odd numbered clinics are bookable
+                if (i % 2 == 0) {
+                    addClinic(i, clinic.getLocation());
+                } else {
+                    addBookableClinic(i, clinic.getLocation());
+                }
             }
         }
     }
@@ -42,16 +42,16 @@ public class UseCaseManager implements UseCaseManagerInterface {
     /** ADDING CLINICS */
 
     // Add a basic clinic. Return whether the clinic could be added
-    public void addClinic(int clinicId) {
+    public void addClinic(int clinicId, String location) {
         if(containsClinicWithId(clinicId)) {return;}
 
-        clinics.add(new Clinic(clinicId));
+        clinics.add(new Clinic(clinicId, location));
     }
 
-    public void addBookableClinic(int clinicId) {
+    public void addBookableClinic(int clinicId, String location) {
         if(containsClinicWithId(clinicId)) {return;}
 
-        clinics.add(new BookableClinic(new Clinic(clinicId)));
+        clinics.add(new BookableClinic(new Clinic(clinicId, location)));
     }
 
     private boolean containsClinicWithId(int clinicId) {

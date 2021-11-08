@@ -15,7 +15,7 @@ public class TimePeriodTest {
     @Before // Setting up before the tests
     public void setUp() throws Exception {
         timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
-        timePeriodNoSlots = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 00), 0);
+        timePeriodNoSlots = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 0), 0);
     }
     @Test(timeout = 100) // Testing that a spot is not reserved for a time period
     public void testVaccineBatchNotExpired(){

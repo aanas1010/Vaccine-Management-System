@@ -2,6 +2,7 @@ package controllers;
 
 import entities.BookableClinic;
 import entities.Client;
+import entities.Clinic;
 import entities.TimePeriod;
 
 import java.time.LocalDate;
@@ -17,8 +18,8 @@ public class VaccineManagementSystem implements ManagementSystem {
     private final UseCaseManagerInterface useCaseManagerInterface;
 
     // Constructor
-    public VaccineManagementSystem(int num) {
-        this.useCaseManagerInterface = new UseCaseManager(num);
+    public VaccineManagementSystem(int num, ArrayList<Clinic> listOfClinics) {
+        this.useCaseManagerInterface = new UseCaseManager(num, listOfClinics);
     }
 
     public boolean setEmployees(int clinicId, LocalDate date, int employees) {

@@ -14,10 +14,10 @@ public class BookableClinicTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinic = new BookableClinic(new Clinic((1)));
+        clinic = new BookableClinic(new Clinic(1, "Shoppers Drug Mart - 279 Yonge Street"));
         client = new Client("Joe Mama", "4206969");
         timePeriod = new TimePeriod(LocalDateTime.now(), 50);
-        ((BookableClinic)clinic).addTimePeriod(timePeriod, LocalDate.now());
+        clinic.addTimePeriod(timePeriod, LocalDate.now());
         vaccineBatch = new VaccineBatch("Pfizer", 5, LocalDate.ofYearDay(2021, 365), 1234, 4);
         appointment = new Appointment(client, timePeriod, "Pfizer", 10, vaccineBatch);
     }

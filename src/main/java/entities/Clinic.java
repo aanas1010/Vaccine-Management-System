@@ -18,31 +18,46 @@ public class Clinic implements ServiceLocation {
     private final VaccinationLog log;
     private final HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
     private final HashMap<LocalDate, Integer> shifts;
+    private final String location;
 
     // Basic constructor
-    public Clinic(int id) {
+    public Clinic(int id, String location) {
         this.clinicId = id;
         this.supply = new VaccineSupply();
         this.log = new VaccinationLog();
         this.timePeriods = new HashMap<>();
         this.shifts = new HashMap<>();
+        this.location = location;
+    }
+
+    // Overloaded Constructor that only takes in the clinic's location
+    public Clinic(String location) {
+        this.clinicId = 0;
+        this.supply = new VaccineSupply();
+        this.log = new VaccinationLog();
+        this.timePeriods = new HashMap<>();
+        this.shifts = new HashMap<>();
+        this.location = location;
     }
 
     // Overloaded Constructors for testing
-    public Clinic(int id, VaccineSupply supply, VaccinationLog vaccinationLog, HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods, HashMap<LocalDate, Integer> shifts) {
+    public Clinic(int id, VaccineSupply supply, VaccinationLog vaccinationLog, HashMap<LocalDate,
+            ArrayList<TimePeriod>> timePeriods, HashMap<LocalDate, Integer> shifts, String location) {
         this.clinicId = id;
         this.supply = supply;
         this.log = vaccinationLog;
         this.timePeriods = timePeriods;
         this.shifts = shifts;
+        this.location = location;
     }
     // Overloaded constructor
-    public Clinic(int id, VaccineSupply supply) {
+    public Clinic(int id, VaccineSupply supply, String location) {
         this.clinicId = id;
         this.supply = supply;
         this.log = new VaccinationLog();
         this.timePeriods = new HashMap<>();
         this.shifts = new HashMap<>();
+        this.location = location;
     }
 
     // Add a batch to the VaccineSupply
@@ -141,5 +156,7 @@ public class Clinic implements ServiceLocation {
     }
 
     public VaccinationLog getVaccineLog() {return log;}
+
+    public String getLocation() {return location;}
 
 }

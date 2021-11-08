@@ -21,7 +21,7 @@ public class BatchAddingTest {
                 LocalDate.of(2099, 10 , 30), 1234);
         badBatch = new VaccineBatch("Pfizer", 100,
                 LocalDate.of(2021, 10 , 10), 1234);
-        clinic = new Clinic(1);
+        clinic = new Clinic(1, "Shoppers Drug Mart - 279 Yonge Street");
         batchAdd = new BatchAdding(clinic, batch);
         expiredAdd = new BatchAdding(clinic, badBatch);
     }
