@@ -127,6 +127,15 @@ public class Clinic implements ServiceLocation {
     }
 
     // Getters
+    public TimePeriod getTimePeriod(LocalDateTime dateTime){
+        for (TimePeriod timePeriod: getTimePeriods(dateTime.toLocalDate())){
+            if (timePeriod.getDateTime().equals(dateTime)){
+                return timePeriod;
+            }
+        }
+        return null;
+    }
+
     public int getServiceLocationId() {
         return this.clinicId;
     }

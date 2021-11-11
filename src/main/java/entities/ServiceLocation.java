@@ -37,6 +37,8 @@ public interface ServiceLocation {
 
     boolean checkTimePeriod(LocalDateTime dateTime);
 
+    TimePeriod getTimePeriod(LocalDateTime dateTime);
+
 
     ArrayList<TimePeriod> getTimePeriods(LocalDate date);
 
