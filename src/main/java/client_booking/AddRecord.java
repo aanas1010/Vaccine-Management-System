@@ -14,7 +14,7 @@ public class AddRecord {
     ClinicDecorator clinic;
 
     // Constructor
-    public AddRecord(int appointmentId, ClinicDecorator clinic){
+    public AddRecord(ClinicDecorator clinic){
         this.clinic = clinic;
     }
 

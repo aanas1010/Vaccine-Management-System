@@ -18,6 +18,8 @@ public class VaccinationLog {
         this.log = new ArrayList<>();
     }
 
+    public boolean isEmpty(){return this.log.isEmpty();}
+
     // For appointments
     public void addToLog(Appointment a){
         int appointmentId = a.getAppointmentId();
@@ -121,6 +123,7 @@ public class VaccinationLog {
         public LocalDateTime getDateTime() {
             return dateTime;
         }
+
 
         @Override
         public String toString(){
