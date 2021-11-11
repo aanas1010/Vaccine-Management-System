@@ -71,4 +71,14 @@ public class BookableClinic extends ClinicDecorator{
         }
         return appointmentIds;
     }
+
+    public ArrayList<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod){
+        ArrayList<Appointment> dateAppointments = new ArrayList<>();
+        for (Appointment appointment: appointments){
+            if (appointment.getTimePeriod().equals(timePeriod)){
+                dateAppointments.add(appointment);
+            }
+        }
+        return  dateAppointments;
+    }
 }

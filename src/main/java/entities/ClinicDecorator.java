@@ -74,6 +74,15 @@ public abstract class ClinicDecorator implements ServiceLocation{
         return this.decoratedClinic.getSupplyObj();
     }
 
+    public TimePeriod getTimePeriod(LocalDateTime dateTime){
+        for (TimePeriod timePeriod: getTimePeriods(dateTime.toLocalDate())){
+            if (timePeriod.getDateTime().equals(dateTime)){
+                return timePeriod;
+            }
+        }
+        return null;
+    }
+
 
     //option if we choose not to use casting for clinics:
 
@@ -91,5 +100,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
      public abstract void logPastVaccinations(Appointment appointmentRecord);
 
      public abstract ArrayList<Integer> getAppointmentIds();
+
+     public abstract ArrayList<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod);
 
 }
