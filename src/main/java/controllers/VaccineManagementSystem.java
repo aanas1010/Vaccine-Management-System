@@ -51,9 +51,9 @@ public class VaccineManagementSystem implements ManagementSystem {
     }
 
 
-    public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+    public boolean bookAppointment(int clinicId, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId){
-        return useCaseManagerInterface.bookAppointment(clinicId, clientName, healthCareNumber,
+        return useCaseManagerInterface.bookAppointment(clinicId, healthCareNumber,
                 appointmentTime, vaccineBrand, appointmentId);
     }
 

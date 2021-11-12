@@ -296,9 +296,6 @@ public class CommandLine {
     // Start the bookAppointment workflow
     private void bookAppointment(Scanner in, ManagementSystem managementSystem, int clinicId){
         // Ask for information for booking an appointment
-        String clientName = (String) DataValidation.getValue(in,
-                "Full Name:",
-                DataValidation.ParameterTypes.FREE_TEXT);
         String healthCareNumber = (String) DataValidation.getValue(in,
                 "Health Care Number:",
                 DataValidation.ParameterTypes.FREE_TEXT);
@@ -315,7 +312,7 @@ public class CommandLine {
                 DataValidation.ParameterTypes.POSITIVE_INT);
 
         // Try to book the appointment
-        boolean output = managementSystem.bookAppointment(clinicId, clientName, healthCareNumber,
+        boolean output = managementSystem.bookAppointment(clinicId, healthCareNumber,
                 appointmentTime, vaccineBrand, appointmentId);
 
         if(output) {

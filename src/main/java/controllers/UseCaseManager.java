@@ -91,7 +91,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     /** BOOKING APPOINTMENTS */
-    public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+    public boolean bookAppointment(int clinicId, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         User client = getClientByHCN(healthCareNumber);

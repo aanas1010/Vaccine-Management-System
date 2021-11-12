@@ -38,7 +38,7 @@ public interface UseCaseManagerInterface {
 
     boolean logByDate(int clinicId, LocalDate date);
 
-    boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+    boolean bookAppointment(int clinicId, String healthCareNumber,
                             LocalDateTime appointmentTime, String vaccineBrand, int appointmentId);
 
     boolean cancelAppointment(int clinicId, int appointmentId);
