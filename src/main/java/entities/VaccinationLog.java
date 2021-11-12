@@ -23,7 +23,7 @@ public class VaccinationLog {
     // For appointments
     public void addToLog(Appointment a){
         int appointmentId = a.getAppointmentId();
-        Client client = a.getClient();
+        User client = a.getClient();
         LocalDateTime dateTime = a.getTimePeriod().getDateTime();
         String vaccineBrand = a.getVaccineBrand();
 
@@ -34,7 +34,7 @@ public class VaccinationLog {
     }
 
     // For non-appointments
-    public void addToLog(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand){
+    public void addToLog(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand){
         VaccinationRecord dataObj =
                 new VaccinationRecord(nonAppointmentBasedPrefix + vaccinationId, client, dateTime, vaccineBrand);
 
@@ -52,7 +52,7 @@ public class VaccinationLog {
     }
 
     // Getters
-    public Client getClientByVaccinationId(String id) {
+    public User getClientByVaccinationId(String id) {
         try{
             return getVaccinationRecord(id).getClient();
         }catch(Exception ex) {
@@ -97,11 +97,11 @@ public class VaccinationLog {
     private class VaccinationRecord {
         //vaccinationId is of the form "A123" for appointment-based vaccinations, or "V123" otherwise
         private final String vaccinationId;
-        private final Client client;
+        private final User client;
         private final LocalDateTime dateTime;
         private final String vaccineBrand;
 
-        public VaccinationRecord(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {
+        public VaccinationRecord(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand) {
             this.vaccinationId = vaccinationId;
             this.client = client;
             this.dateTime = dateTime;
@@ -112,7 +112,7 @@ public class VaccinationLog {
             return vaccinationId;
         }
 
-        public Client getClient() {
+        public User getClient() {
             return client;
         }
 

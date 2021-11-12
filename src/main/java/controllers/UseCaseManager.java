@@ -16,15 +16,18 @@ import java.util.Objects;
 public class UseCaseManager implements UseCaseManagerInterface {
     //List of clinics, looking to change this into a database
     private final ArrayList<ServiceLocation> clinics;
+    private final ArrayList<User> clients;
 
     //Constructor for a list of clinics
-    public UseCaseManager(ArrayList<ServiceLocation> clinics){
+    public UseCaseManager(ArrayList<ServiceLocation> clinics, ArrayList<User> clients){
         this.clinics = clinics;
+        this.clients = clients;
     }
 
     //Constructor with empty list of service locations
     public UseCaseManager(){
         this.clinics = new ArrayList<>();
+        this.clients = new ArrayList<>();
     }
 
     /** ADDING CLINICS */
@@ -51,6 +54,32 @@ public class UseCaseManager implements UseCaseManagerInterface {
         return false;
     }
 
+    /** Adding Clients **/
+    // Add a basic clinic. Return whether the clinic could be added
+    public void addClient(String name, String healthCareNumber) {
+        if(containsClientWithHCN(healthCareNumber)) {return;}
+
+        clients.add(new Client(name, healthCareNumber));
+    }
+
+    private boolean containsClientWithHCN(String healthCardNumber) {
+        for(User client : clients) {
+            if(client.getHealthCareNumber().equals(healthCardNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private User getClientByHCN(String healthCardNumber) {
+        for(User client : clients) {
+            if(client.getHealthCareNumber().equals(healthCardNumber)) {
+                return client;
+            }
+        }
+        return null;
+    }
+
     /** ADDING BATCHES */
 
     // Call the addBatch function to add a vaccine batch to the selected clinic
@@ -62,10 +91,10 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     /** BOOKING APPOINTMENTS */
-    public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
+    public boolean bookAppointment(int clinicId, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
-        Client client = new Client(clientName, healthCareNumber);
+        User client = getClientByHCN(healthCareNumber);
         TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
         AppointmentBooking appointmentBooking = new AppointmentBooking(client, clinic, timePeriod,
                 vaccineBrand, appointmentId);
@@ -109,6 +138,28 @@ public class UseCaseManager implements UseCaseManagerInterface {
     private SetTimePeriod createSetTimePeriod(int clinicId) {
         ServiceLocation clinic = getClinicById(clinicId);
         return new SetTimePeriod(clinic);
+    }
+
+    /** RECORD ADDING **/
+
+    public boolean logAppointment(int clinicId, int appointmentId) {
+        ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
+        return new AddRecord(clinic).logAppointment(appointmentId);
+    }
+
+    public boolean logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand) {
+        ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
+        return new AddRecord(clinic).logWalkIn(vaccinationID, getClientByHCN(clientHCN), dateTime, brand);
+    }
+
+    public boolean logByDateTime(int clinicId, LocalDateTime dateTime) {
+        ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
+        return new AddRecord(clinic).logByDateTime(dateTime);
+    }
+
+    public boolean logByDate(int clinicId, LocalDate date) {
+        ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
+        return new AddRecord(clinic).logByDate(date);
     }
 
     /** GETTERS */

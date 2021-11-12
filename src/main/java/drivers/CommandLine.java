@@ -1,8 +1,8 @@
 package drivers;
 
 import controllers.ManagementSystem;
-import entities.Clinic;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -70,6 +70,14 @@ public class CommandLine {
                     cancelAppointment(in, managementSystem, clinicId);
                 } else if (DataValidation.BookableCommands.VIEW_APPOINTMENT.equals(userInput)) {
                     viewAppointment(in, managementSystem, clinicId);
+                } else if(DataValidation.BookableCommands.LOG_APPOINTMENT.equals(userInput)) {
+                    logAppointment(in, managementSystem, clinicId);
+                } else if(DataValidation.BookableCommands.LOG_WALK_IN.equals(userInput)) {
+                    logWalkIn(in, managementSystem, clinicId);
+                } else if(DataValidation.BookableCommands.LOG_BY_DATETIME.equals(userInput)) {
+                    logByDateTime(in, managementSystem, clinicId);
+                } else if(DataValidation.BookableCommands.LOG_BY_DATE.equals(userInput)) {
+                    logByDate(in, managementSystem, clinicId);
                 }
             }
             catch(Exception e) {
@@ -185,7 +193,7 @@ public class CommandLine {
                 "End Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
                 DataValidation.ParameterTypes.NON_PAST_DATETIME);
         int interval = (Integer) DataValidation.getValue(in,
-                "Length of each time period (minutes)",
+                "Length of each time period (minutes):",
                 DataValidation.ParameterTypes.POSITIVE_INT);
 
         // Add the time period through the managementSystem
@@ -197,6 +205,77 @@ public class CommandLine {
             System.out.println("Could not add the time periods");
         }
     }
+
+    // Start the logAppointment workflow
+    private void logAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for logging an appointment
+        int appointmentId = (Integer) DataValidation.getValue(in,
+                "Appointment ID:",
+                DataValidation.ParameterTypes.POSITIVE_INT);
+
+        // Try to log the appointment
+        boolean output = managementSystem.logAppointment(clinicId, appointmentId);
+
+        if(output) {
+            System.out.println("Your appointment has been logged");
+        }else {
+            System.out.println("Could not log the appointment");
+        }
+    }
+
+    private void logWalkIn(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for logging a walk-in
+        String vaccinationID = (String) DataValidation.getValue(in, "Vaccination ID:", DataValidation.ParameterTypes.FREE_TEXT);
+        String clientHCN = (String) DataValidation.getValue(in, "Client Health Card Number:", DataValidation.ParameterTypes.FREE_TEXT);
+        LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
+                "Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
+                DataValidation.ParameterTypes.NON_PAST_DATETIME);
+        String vaccineBrand = (String) DataValidation.getValue(in,
+                "Which Vaccine would you like:",
+                DataValidation.ParameterTypes.FREE_TEXT);
+
+        // Try to log the walk-in
+        boolean output = managementSystem.logWalkIn(clinicId, vaccinationID, clientHCN, dateTime, vaccineBrand);
+
+        if(output) {
+            System.out.println("The walk-in has been logged");
+        }else {
+            System.out.println("Could not log the walk-in");
+        }
+    }
+
+    private void logByDateTime(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for logging all appointments for a given dateTime
+        LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
+                "Date and Time to be logged (24 hour time, DD/MM/YYYY HH:MM):",
+                DataValidation.ParameterTypes.NON_PAST_DATETIME);
+
+        // Try to log the appointments
+        boolean output = managementSystem.logByDateTime(clinicId, dateTime);
+
+        if(output) {
+            System.out.println("The system has logged all appointments for this date and time");
+        }else {
+            System.out.println("Could not log appointments");
+        }
+    }
+
+    private void logByDate(Scanner in, ManagementSystem managementSystem, int clinicId) {
+        // Ask for information for logging all appointments for a given dateTime
+        LocalDate date = (LocalDate) DataValidation.getValue(in,
+                "Date to be logged (24 hour time, DD/MM/YYYY):",
+                DataValidation.ParameterTypes.NON_PAST_DATE);
+
+        // Try to log the appointments
+        boolean output = managementSystem.logByDate(clinicId, date);
+
+        if(output) {
+            System.out.println("The system has logged all appointments for this date");
+        }else {
+            System.out.println("Could not log appointments");
+        }
+    }
+
 
     // Start the removeTimePeriod workflow
     private void removeTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId) {
@@ -217,9 +296,6 @@ public class CommandLine {
     // Start the bookAppointment workflow
     private void bookAppointment(Scanner in, ManagementSystem managementSystem, int clinicId){
         // Ask for information for booking an appointment
-        String clientName = (String) DataValidation.getValue(in,
-                "Full Name:",
-                DataValidation.ParameterTypes.FREE_TEXT);
         String healthCareNumber = (String) DataValidation.getValue(in,
                 "Health Care Number:",
                 DataValidation.ParameterTypes.FREE_TEXT);
@@ -236,7 +312,7 @@ public class CommandLine {
                 DataValidation.ParameterTypes.POSITIVE_INT);
 
         // Try to book the appointment
-        boolean output = managementSystem.bookAppointment(clinicId, clientName, healthCareNumber,
+        boolean output = managementSystem.bookAppointment(clinicId, healthCareNumber,
                 appointmentTime, vaccineBrand, appointmentId);
 
         if(output) {

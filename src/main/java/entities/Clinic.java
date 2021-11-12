@@ -65,7 +65,7 @@ public class Clinic implements ServiceLocation {
     }
 
     // Log a past vaccination (NON-APPOINTMENT)
-    public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand) {
+    public void logPastVaccinations(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand) {
         log.addToLog(vaccinationId, client, dateTime, vaccineBrand);
     }
 

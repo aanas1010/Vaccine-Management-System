@@ -19,7 +19,7 @@ public interface ServiceLocation {
 
     void addBatch(VaccineBatch batch);
 
-    void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand);
+    void logPastVaccinations(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand);
 
     void setShift(LocalDate date, int num);
 
