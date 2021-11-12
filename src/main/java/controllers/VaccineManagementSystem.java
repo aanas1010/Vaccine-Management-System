@@ -34,6 +34,23 @@ public class VaccineManagementSystem implements ManagementSystem {
         return useCaseManagerInterface.addMultipleTimePeriods(clinicId, start, end, interval);
     }
 
+    public boolean logAppointment(int clinicId, int appointmentId) {
+        return useCaseManagerInterface.logAppointment(clinicId, appointmentId);
+    }
+
+    public boolean logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand){
+        return useCaseManagerInterface.logWalkIn(clinicId, vaccinationID, clientHCN, dateTime, brand);
+    }
+
+    public boolean logByDateTime(int clinicId, LocalDateTime dateTime){
+        return useCaseManagerInterface.logByDateTime(clinicId, dateTime);
+    }
+
+    public boolean logByDate(int clinicId, LocalDate date){
+        return useCaseManagerInterface.logByDate(clinicId, date);
+    }
+
+
     public boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId){
         return useCaseManagerInterface.bookAppointment(clinicId, clientName, healthCareNumber,

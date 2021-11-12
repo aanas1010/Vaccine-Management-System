@@ -1,9 +1,6 @@
 package drivers;
 
 import controllers.*;
-import entities.*;
-
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,6 +15,13 @@ public class Main {
         useCaseManager.addClinic(4, "Harbourfront Medicine Cabinet - 8 York Street");
         useCaseManager.addBookableClinic(5, "Loblaws - 10 Lower Jarvis Street");
         useCaseManager.addClinic(6, "Shoppers Drug Mart - 1473 Queen Street West");
+
+        // Create the clients
+        useCaseManager.addClient("Amy Ashcroft", "1111-111-111-AA");
+        useCaseManager.addClient("Bart Black", "2222-222-222-BB");
+        useCaseManager.addClient("Cameron Cooper", "3333-333-333-CC");
+        useCaseManager.addClient("Denis Dick", "4444-444-444-DD");
+        useCaseManager.addClient("Emily Edmonds", "5555-555-555-EE");
 
         // Create the management system given the useCaseManager
         ManagementSystem system = new VaccineManagementSystem(useCaseManager);

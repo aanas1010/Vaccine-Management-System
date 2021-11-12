@@ -47,7 +47,11 @@ public class DataValidation {
     protected enum BookableCommands {
         BOOK_APPOINTMENT,
         CANCEL_APPOINTMENT,
-        VIEW_APPOINTMENT;
+        VIEW_APPOINTMENT,
+        LOG_APPOINTMENT,
+        LOG_WALK_IN,
+        LOG_BY_DATETIME,
+        LOG_BY_DATE;
 
         // Return whether s is a valid element of BookableCommands
         public static boolean contains(String s) {

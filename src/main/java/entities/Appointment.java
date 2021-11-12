@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 
 public class Appointment {
     int appointmentId;
-    Client client;
+    User client;
     TimePeriod timePeriod;
     String vaccineBrand;
     VaccineBatch clientVaccineBatch;
 
-    public Appointment(Client client, TimePeriod timePeriod, String vaccineBrand, int id, VaccineBatch clientVaccineBatch){
+    public Appointment(User client, TimePeriod timePeriod, String vaccineBrand, int id, VaccineBatch clientVaccineBatch){
         this.client = client;
         this.timePeriod = timePeriod;
         this.vaccineBrand = vaccineBrand;
@@ -39,7 +39,7 @@ public class Appointment {
     // Getters
     public int getAppointmentId() {return appointmentId; }
 
-    public Client getClient() { return client; }
+    public User getClient() { return client; }
 
     public TimePeriod getTimePeriod() { return timePeriod; }
 

@@ -13,14 +13,14 @@ import java.util.ArrayList;
  */
 
 public class AppointmentBooking {
-    Client client;
+    User client;
     ClinicDecorator clinic;
     TimePeriod timePeriod;
     String vaccineBrand;
     int appointmentId;
 
 
-    public AppointmentBooking(Client client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id){
+    public AppointmentBooking(User client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
         this.clinic = clinic;
         this.timePeriod = timePeriod;

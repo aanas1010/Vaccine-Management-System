@@ -27,6 +27,14 @@ public interface ManagementSystem {
 
     String getSupplyByClinic(int clinicId);
 
+    boolean logAppointment(int clinicId, int appointmentId);
+
+    boolean logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand);
+
+    boolean logByDateTime(int clinicId, LocalDateTime dateTime);
+
+    boolean logByDate(int clinicId, LocalDate date);
+
     boolean bookAppointment(int clinicId, String clientName, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId);
 

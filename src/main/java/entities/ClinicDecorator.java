@@ -83,6 +83,10 @@ public abstract class ClinicDecorator implements ServiceLocation{
         return null;
     }
 
+    public void logPastVaccinations(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand) {
+        this.decoratedClinic.logPastVaccinations(vaccinationId, client, dateTime, vaccineBrand);
+    }
+
 
     //option if we choose not to use casting for clinics:
 

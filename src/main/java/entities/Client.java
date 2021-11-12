@@ -5,7 +5,7 @@ package entities;
  * from an external data source.
  */
 
-public class Client {
+public class Client implements User{
     private final String name;
     private final String healthCareNumber;
     private Boolean hasAppointment;

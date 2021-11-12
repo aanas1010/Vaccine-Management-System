@@ -1,9 +1,6 @@
 package client_booking;
 
-import entities.Appointment;
-import entities.Client;
-import entities.ClinicDecorator;
-import entities.TimePeriod;
+import entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +11,7 @@ public class AddRecord {
     ClinicDecorator clinic;
 
     // Constructor
-    public AddRecord(int appointmentId, ClinicDecorator clinic){
+    public AddRecord(ClinicDecorator clinic){
         this.clinic = clinic;
     }
 
@@ -32,8 +29,9 @@ public class AddRecord {
     }
 
     // Log a walk-in appointment given certain parameters
-    public void logWalkIn(String vaccinationID, Client client, LocalDateTime dateTime, String brand) {
+    public boolean logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) {
         clinic.logPastVaccinations(vaccinationID, client, dateTime, brand);
+        return true;
     }
 
     // Log all appointment on a certain date and time
