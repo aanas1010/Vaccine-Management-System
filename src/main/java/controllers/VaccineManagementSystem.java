@@ -18,15 +18,15 @@ public class VaccineManagementSystem implements ManagementSystem {
         this.useCaseManagerInterface = useCaseManager;
     }
 
-    public boolean setEmployees(int clinicId, LocalDate date, int employees) {
+    public String setEmployees(int clinicId, LocalDate date, int employees) {
         return useCaseManagerInterface.setEmployees(clinicId, date, employees);
     }
 
-    public boolean addTimePeriod(int clinicId, LocalDateTime dateTime) {
+    public String addTimePeriod(int clinicId, LocalDateTime dateTime) {
         return useCaseManagerInterface.addTimePeriod(clinicId, dateTime);
     }
 
-    public boolean removeTimePeriod(int clinicId, LocalDateTime dateTime){
+    public String removeTimePeriod(int clinicId, LocalDateTime dateTime){
         return useCaseManagerInterface.removeTimePeriod(clinicId, dateTime);
     }
 
@@ -34,30 +34,30 @@ public class VaccineManagementSystem implements ManagementSystem {
         return useCaseManagerInterface.addMultipleTimePeriods(clinicId, start, end, interval);
     }
 
-    public boolean logAppointment(int clinicId, int appointmentId) {
+    public String logAppointment(int clinicId, int appointmentId) {
         return useCaseManagerInterface.logAppointment(clinicId, appointmentId);
     }
 
-    public boolean logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand){
+    public String logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand){
         return useCaseManagerInterface.logWalkIn(clinicId, vaccinationID, clientHCN, dateTime, brand);
     }
 
-    public boolean logByDateTime(int clinicId, LocalDateTime dateTime){
+    public StringBuilder logByDateTime(int clinicId, LocalDateTime dateTime){
         return useCaseManagerInterface.logByDateTime(clinicId, dateTime);
     }
 
-    public boolean logByDate(int clinicId, LocalDate date){
+    public StringBuilder logByDate(int clinicId, LocalDate date){
         return useCaseManagerInterface.logByDate(clinicId, date);
     }
 
 
-    public boolean bookAppointment(int clinicId, String healthCareNumber,
+    public String bookAppointment(int clinicId, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId){
         return useCaseManagerInterface.bookAppointment(clinicId, healthCareNumber,
                 appointmentTime, vaccineBrand, appointmentId);
     }
 
-    public boolean cancelAppointment(int clinicId, int appointmentId) {
+    public String cancelAppointment(int clinicId, int appointmentId) {
         return useCaseManagerInterface.cancelAppointment(clinicId, appointmentId);
     }
 
@@ -67,7 +67,7 @@ public class VaccineManagementSystem implements ManagementSystem {
 
     // Add a batch to the specified clinic given the parameters
     // Returns whether the batch was added
-    public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
+    public String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
         return this.useCaseManagerInterface.addBatch(clinicId, batchBrand, batchQuantity, batchExpiry, batchId);
     }
 

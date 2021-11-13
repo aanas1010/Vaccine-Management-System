@@ -66,7 +66,7 @@ public class AppointmentBookingTest {
 
     @Test(timeout = 100) // Testing that an appointment has indeed been created
     public void TestCreateAppointment() {
-        assertTrue(appointmentBooking1.createAppointment());
+        assertNotNull(appointmentBooking1.createAppointment());
     }
 
 }

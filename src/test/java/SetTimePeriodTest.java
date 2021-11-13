@@ -31,12 +31,12 @@ public class SetTimePeriodTest {
     @Test(timeout = 100) // Testing a time period is added
     public void TestAddTimePeriodTrue(){
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
-        assertTrue(setTimePeriod.addTimePeriod(testDateTime));
+        assertNotNull(setTimePeriod.addTimePeriod(testDateTime));
     }
 
     @Test(timeout = 100) // Testing a time period is not added
     public void TestAddTimePeriodFalse(){
-        assertFalse(setTimePeriod.addTimePeriod(testDateTime));
+        assertNull(setTimePeriod.addTimePeriod(testDateTime));
     }
 
     @Test(timeout = 100) // Testing a time period is not added after it has already been added
@@ -56,7 +56,7 @@ public class SetTimePeriodTest {
 
     @Test(timeout = 100) // Testing that a time period is not removed when it does not exist
     public void TestRemoveTimePeriodFalse(){
-        assertFalse(setTimePeriod.removeTimePeriod(testDateTime));
+        assertNull(setTimePeriod.removeTimePeriod(testDateTime));
     }
 
     @Test(timeout = 100) // Testing the correct number of time period is added

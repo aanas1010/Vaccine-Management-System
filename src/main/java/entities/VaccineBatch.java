@@ -53,6 +53,16 @@ public class VaccineBatch {
         return this.quantity - this.reserve;
     }
 
+    // Return a string of the information of this batch
+    @Override
+    public String toString() {
+        return  "Batch ID: " + this.id +
+                "\nBrand: " + this.brand +
+                "\nExpiry: " + this.expiry +
+                "\nTotal Doses: " + this.quantity +
+                "\nDoses Reserved: " + this.reserve;
+    }
+
     // Getters
     public String getBrand(){
         return this.brand;

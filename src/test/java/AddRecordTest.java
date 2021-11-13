@@ -43,29 +43,29 @@ public class AddRecordTest {
 
     }
 
-    @Test(timeout = 100) // Testing that appointments can be logged by appointment ID
+    @Test(timeout = 150) // Testing that appointments can be logged by appointment ID
     public void TestLogAppointment() {
-        assertTrue(addRecord.logAppointment(1));
+        assertNotNull(addRecord.logAppointment(1));
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
         assertTrue(clinic.getVaccineLog().containsId("A1"));
     }
 
-    @Test(timeout = 100) // Testing that walk ins can be logged
+    @Test(timeout = 150) // Testing that walk ins can be logged
     public void TestLogWalkIn() {
         addRecord.logWalkIn("2", client1, dateTime, "Pfizer");
         assertTrue(clinic.getVaccineLog().containsId("V2"));
     }
 
-    @Test(timeout = 100) // Testing that all appointment on a certain date and time can be logged
+    @Test(timeout = 150) // Testing that all appointment on a certain date and time can be logged
     public void TestLogByDateTime() {
-        assertTrue(addRecord.logByDateTime(dateTime));
+        assertNotNull(addRecord.logByDateTime(dateTime));
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
         assertTrue(clinic.getVaccineLog().containsId("A1"));
     }
 
-    @Test(timeout = 100) // Testing that all appointments on a certain date can be logged
+    @Test(timeout = 150) // Testing that all appointments on a certain date can be logged
     public void TestLogByDate() {
-        assertTrue(addRecord.logByDate(dateTime.toLocalDate()));
+        assertNotNull(addRecord.logByDate(dateTime.toLocalDate()));
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
         assertTrue(clinic.getVaccineLog().containsId("A1"));
     }

@@ -136,11 +136,12 @@ public class CommandLine {
                 DataValidation.ParameterTypes.NON_PAST_DATE);
 
         // Add the batch via the managementSystem
-        boolean output = managementSystem.addBatch(clinicId, batchBrand, batchQuantity, batchExpiry, batchId);
+        String output = managementSystem.addBatch(clinicId, batchBrand, batchQuantity, batchExpiry, batchId);
 
         // Output different message depending on result
-        if(output) {
-            System.out.println("Successfully added the batch");
+        if(output != null) {
+            System.out.println("You just added the following batch: ");
+            System.out.println(output);
             System.out.println(managementSystem.getSupplyByClinic(clinicId));
         }else {
             System.out.println("Could not add the batch");
@@ -158,13 +159,10 @@ public class CommandLine {
                 DataValidation.ParameterTypes.NON_NEGATIVE_INT);
 
         // Set employees through the managementSystem
-        boolean output = managementSystem.setEmployees(clinicId, date, employees);
+        String output = managementSystem.setEmployees(clinicId, date, employees);
 
-        if(output) {
-            System.out.println("Successfully changed number of employees for that date");
-        }else {
-            System.out.println("Could not change the number of employees for that date");
-        }
+        System.out.println(Objects.requireNonNullElse(output,
+                "Could not change the number of employees for that date"));
     }
 
     // Start the addTimePeriod workflow
@@ -174,10 +172,11 @@ public class CommandLine {
                 "Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
                 DataValidation.ParameterTypes.NON_PAST_DATETIME);
         // Add the time period through the managementSystem
-        boolean output = managementSystem.addTimePeriod(clinicId, dateTime);
+        String output = managementSystem.addTimePeriod(clinicId, dateTime);
 
-        if(output) {
-            System.out.println("Successfully added the time period");
+        if(output != null) {
+            System.out.println("Successfully added the following time period: ");
+            System.out.println(output);
         }else {
             System.out.println("Could not add the time period");
         }
@@ -214,10 +213,11 @@ public class CommandLine {
                 DataValidation.ParameterTypes.POSITIVE_INT);
 
         // Try to log the appointment
-        boolean output = managementSystem.logAppointment(clinicId, appointmentId);
+        String output = managementSystem.logAppointment(clinicId, appointmentId);
 
-        if(output) {
-            System.out.println("Your appointment has been logged");
+        if(output != null) {
+            System.out.println("The following appointment has been logged:");
+            System.out.println(output);
         }else {
             System.out.println("Could not log the appointment");
         }
@@ -225,7 +225,7 @@ public class CommandLine {
 
     private void logWalkIn(Scanner in, ManagementSystem managementSystem, int clinicId) {
         // Ask for information for logging a walk-in
-        String vaccinationID = (String) DataValidation.getValue(in, "Vaccination ID:", DataValidation.ParameterTypes.FREE_TEXT);
+        String vaccinationID = (String) DataValidation.getValue(in, "Vaccination ID:", DataValidation.ParameterTypes.NON_NEGATIVE_INT);
         String clientHCN = (String) DataValidation.getValue(in, "Client Health Card Number:", DataValidation.ParameterTypes.FREE_TEXT);
         LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
                 "Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
@@ -235,10 +235,11 @@ public class CommandLine {
                 DataValidation.ParameterTypes.FREE_TEXT);
 
         // Try to log the walk-in
-        boolean output = managementSystem.logWalkIn(clinicId, vaccinationID, clientHCN, dateTime, vaccineBrand);
+        String output = managementSystem.logWalkIn(clinicId, vaccinationID, clientHCN, dateTime, vaccineBrand);
 
-        if(output) {
-            System.out.println("The walk-in has been logged");
+        if(output != null) {
+            System.out.println("The following walk-in has been logged:");
+            System.out.println(output);
         }else {
             System.out.println("Could not log the walk-in");
         }
@@ -251,14 +252,15 @@ public class CommandLine {
                 DataValidation.ParameterTypes.NON_PAST_DATETIME);
 
         // Try to log the appointments
-        boolean output = managementSystem.logByDateTime(clinicId, dateTime);
+        StringBuilder output = managementSystem.logByDateTime(clinicId, dateTime);
 
-        if(output) {
-            System.out.println("The system has logged all appointments for this date and time");
-        }else {
+        if (output != null) {
+            System.out.println("The system has logged all the following appointments for " + dateTime);
+            System.out.println(output);
+        } else
             System.out.println("Could not log appointments");
-        }
     }
+
 
     private void logByDate(Scanner in, ManagementSystem managementSystem, int clinicId) {
         // Ask for information for logging all appointments for a given dateTime
@@ -267,10 +269,11 @@ public class CommandLine {
                 DataValidation.ParameterTypes.NON_PAST_DATE);
 
         // Try to log the appointments
-        boolean output = managementSystem.logByDate(clinicId, date);
+        StringBuilder output = managementSystem.logByDate(clinicId, date);
 
-        if(output) {
+        if(output != null) {
             System.out.println("The system has logged all appointments for this date");
+            System.out.println(output);
         }else {
             System.out.println("Could not log appointments");
         }
@@ -284,10 +287,11 @@ public class CommandLine {
                 "Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
                 DataValidation.ParameterTypes.NON_PAST_DATETIME);
         // Try to remove the time period through the managementSystem
-        boolean output = managementSystem.removeTimePeriod(clinicId, dateTime);
+        String output = managementSystem.removeTimePeriod(clinicId, dateTime);
 
-        if(output) {
-            System.out.println("Successfully removed the time period");
+        if(output != null) {
+            System.out.println("Successfully removed the following time period: ");
+            System.out.println(output);
         }else {
             System.out.println("No time period exists for the specified time");
         }
@@ -312,11 +316,12 @@ public class CommandLine {
                 DataValidation.ParameterTypes.POSITIVE_INT);
 
         // Try to book the appointment
-        boolean output = managementSystem.bookAppointment(clinicId, healthCareNumber,
+        String output = managementSystem.bookAppointment(clinicId, healthCareNumber,
                 appointmentTime, vaccineBrand, appointmentId);
 
-        if(output) {
-            System.out.println("Your appointment has been booked");
+        if(output != null) {
+            System.out.println("The following appointment has been booked");
+            System.out.println(output);
         }else {
             System.out.println("Can not book appointment");
         }
@@ -330,10 +335,11 @@ public class CommandLine {
                 DataValidation.ParameterTypes.POSITIVE_INT);
 
         // Try to cancel the appointment
-        boolean output = managementSystem.cancelAppointment(clinicId, appointmentId);
+        String output = managementSystem.cancelAppointment(clinicId, appointmentId);
 
-        if(output) {
-            System.out.println("Your appointment has been cancelled");
+        if(output != null) {
+            System.out.println("The following appointment has been cancelled: ");
+            System.out.println(output);
         }else {
             System.out.println("Can not cancel appointment");
         }
