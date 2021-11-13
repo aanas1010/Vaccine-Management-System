@@ -16,52 +16,60 @@ public class AddRecord {
     }
 
     // Log a given appointment based on an appointment ID
-    public boolean logAppointment(int id){
+    public String logAppointment(int id){
         if (clinic.getAppointmentRecord(id) == null ||
                 !clinic.getAppointmentRecord(id).appointmentTimePassed()){
-            return false;
+            return null;
         }
         else{
             clinic.logPastVaccinations(clinic.getAppointmentRecord(id));
+            Appointment removedAppointment = clinic.getAppointmentRecord(id);
             clinic.removeAppointmentById(id);
-            return true;
+            return removedAppointment.toString();
         }
     }
 
     // Log a walk-in appointment given certain parameters
-    public boolean logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) {
+    public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) {
         clinic.logPastVaccinations(vaccinationID, client, dateTime, brand);
-        return true;
+        return clinic.getVaccineLog().getRecordString("V" + vaccinationID);
     }
 
     // Log all appointment on a certain date and time
-    public boolean logByDateTime(LocalDateTime dateTime){
+    public StringBuilder logByDateTime(LocalDateTime dateTime){
         if (dateTime.isAfter(LocalDateTime.now()) ||
                 clinic.getTimePeriod(dateTime) == null){
-            return false;
+            return null;
         }
         else{
             TimePeriod timePeriod = clinic.getTimePeriod(dateTime);
             ArrayList<Appointment> appointments = clinic.getAppointmentByTimePeriod(timePeriod);
+            ArrayList<String> appointmentsString = new ArrayList<>();
             for (Appointment appointment: appointments){
                 clinic.logPastVaccinations(appointment);
+                appointmentsString.add(appointment.toString());
                 clinic.removeAppointmentById(appointment.getAppointmentId());
             }
-            return true;
+            StringBuilder output = new StringBuilder();
+            for(String appointment : appointmentsString){
+                output.append(appointment);
+            }
+            return output;
         }
     }
 
     // Log all appointments on a given date
-    public boolean logByDate(LocalDate date){
+    public StringBuilder logByDate(LocalDate date){
         if (clinic.getTimePeriods(date) == null ||
                 clinic.getTimePeriods(date).equals(new ArrayList<TimePeriod>())){
-            return false;
+            return null;
         }
         else{
+            StringBuilder object = new StringBuilder();
             for (TimePeriod timePeriod : clinic.getTimePeriods(date)){
-                logByDateTime(timePeriod.getDateTime());
+                object.append(logByDateTime(timePeriod.getDateTime()));
             }
-            return true;
+            return object;
         }
     }
 }

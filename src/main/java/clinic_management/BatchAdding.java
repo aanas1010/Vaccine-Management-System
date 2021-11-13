@@ -21,13 +21,13 @@ public class BatchAdding {
 
     // Adding a vaccine batch to the supply of a clinic if it is not expired
     // Return whether the batch is added
-    public boolean addBatch(){
+    public String addBatch(){
         if (batch.isExpired() && !this.clinic.supplyContainsBatchId(batch.getId())){
-            return false;
+            return null;
         }
         else{
             this.clinic.addBatch(batch);
-            return true;
+            return batch.toString();
         }
     }
 

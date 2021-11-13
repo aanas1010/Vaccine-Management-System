@@ -22,34 +22,35 @@ public class SetTimePeriod {
     }
 
     // Setting the number of shifts for a certain time
-    public boolean setEmployees(LocalDate date, int employees) {
+    public String setEmployees(LocalDate date, int employees) {
         try{
             this.clinic.setShift(date, employees);
-            return true;
+            return "Set " + employees + " employees for " + date;
         } catch(Exception ex) {
-            return false;
+            return null;
         }
     }
 
     // Adding a time period to a clinic if it is not already there
-    public boolean addTimePeriod(LocalDateTime dateTime){
+    public String addTimePeriod(LocalDateTime dateTime){
         if (this.clinic.shiftAvailable(dateTime.toLocalDate())
                 && !this.clinic.checkTimePeriod(dateTime)){
             int slots = this.clinic.getShiftForDate(dateTime.toLocalDate());
-            this.clinic.addTimePeriod(new TimePeriod(dateTime, slots), dateTime.toLocalDate());
-            return true;
+            TimePeriod addedTimePeriod = new TimePeriod(dateTime, slots);
+            this.clinic.addTimePeriod(addedTimePeriod, dateTime.toLocalDate());
+            return addedTimePeriod.toString();
         }
-        return false;
+        return null;
     }
 
     // Removing a time period from a clinic if there exists a time period at the specified date and time.
-    public boolean removeTimePeriod(LocalDateTime dateTime){
+    public String removeTimePeriod(LocalDateTime dateTime){
         if(this.clinic.checkTimePeriod(dateTime)){
             this.clinic.removeTimePeriod(dateTime);
-            return true;
+            return "Time: " + dateTime;
         }
         else{
-            return false;
+            return null;
         }
     }
 

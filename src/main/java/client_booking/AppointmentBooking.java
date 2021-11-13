@@ -29,7 +29,14 @@ public class AppointmentBooking {
     }
 
     // Return whether there is an opening for the specified time period
-    private boolean isTimeslotAvailable(){return this.timePeriod.getAvailableSlots() > 0;}
+    private boolean isTimeslotAvailable(){
+        for(TimePeriod timePeriod: clinic.getTimePeriods(this.timePeriod.getDateTime().toLocalDate())) {
+            if (timePeriod.equals(this.timePeriod)) {
+                return timePeriod.getAvailableSlots() > 0;
+            }
+        }
+        return false;
+    }
 
     // Reserve a vaccine dose for this client IF there is a timeslot available
     // AND this person doesn't already have an appointment
@@ -63,17 +70,19 @@ public class AppointmentBooking {
     }
 
     // Create an appointment for this client in the Clinic's system
-    public boolean createAppointment() {
+    public String createAppointment() {
         if(this.isTimeslotAvailable() && this.assignVaccineDose() != null && this.hasUniqueId()) {
             Appointment appointment = new Appointment(
                     this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
             this.client.approveAppointment();
             this.clinic.addAppointment(appointment);
             this.timePeriod.findAndReserveSlot();
-            return true;
+            return appointment.toString();
         }else{
             // Appointment cannot be created
-            return false;
+            System.out.println("Timeslot available?" + this.isTimeslotAvailable());
+            System.out.println("Appointment has unique ID?" + this.hasUniqueId());
+            return null;
         }
     }
 }

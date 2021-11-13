@@ -27,22 +27,22 @@ public class BatchAddingTest {
     }
 
     @Test(timeout = 100) // Testing an expired batch of vaccine doses does not get added
-    public void TestExpiredBatch(){assertFalse(expiredAdd.addBatch());}
+    public void TestExpiredBatch(){assertNull(expiredAdd.addBatch());}
 
     @Test(timeout = 100) // Testing a valid batch of vaccine doses is added
-    public void TestAddBatch(){assertTrue(batchAdd.addBatch());}
+    public void TestAddBatch(){assertNotNull(batchAdd.addBatch());}
 
     @Test(timeout = 100) // Testing for correct list of vaccine batches after expired addition
     public void TestEmptyContents(){
         expiredAdd.addBatch();
-        ArrayList<VaccineBatch> testBatchList = new ArrayList<VaccineBatch>();
+        ArrayList<VaccineBatch> testBatchList = new ArrayList<>();
         assertEquals(testBatchList, clinic.getSupply());
     }
 
     @Test(timeout = 100) // Testing for correct list of vaccine batches after valid addition
     public void TestContents(){
         batchAdd.addBatch();
-        ArrayList<VaccineBatch> testBatchList = new ArrayList<VaccineBatch>();
+        ArrayList<VaccineBatch> testBatchList = new ArrayList<>();
         testBatchList.add(batch);
         assertEquals(testBatchList, clinic.getSupply());
     }

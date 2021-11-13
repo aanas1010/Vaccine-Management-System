@@ -20,15 +20,15 @@ public class AppointmentCancellation {
     }
 
     // Delete the appointment. Return true if successful
-    public boolean deleteAppointment(){
+    public String deleteAppointment(){
         Appointment appointment = clinic.getAppointmentRecord(this.appointmentId);
         if (appointment.getClient().getHasAppointment()) {
             appointment.getClient().disapproveAppointment();
             clinic.removeAppointmentById(this.appointmentId);
             appointment.getTimePeriod().addAvailableSlot();
-            return true;
+            return appointment.toString();
         }
-        return false;
+        return null;
     }
 
 

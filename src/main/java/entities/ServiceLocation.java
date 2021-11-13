@@ -1,9 +1,5 @@
 package entities;
 
-import entities.VaccineBatch;
-import entities.VaccineSupply;
-
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

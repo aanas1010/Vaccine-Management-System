@@ -83,7 +83,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     /** ADDING BATCHES */
 
     // Call the addBatch function to add a vaccine batch to the selected clinic
-    public boolean addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
+    public String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId){
         ServiceLocation clinicById = getClinicById(clinicId);
         VaccineBatch batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
         BatchAdding newBatch = new BatchAdding(clinicById, batch);
@@ -91,7 +91,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     /** BOOKING APPOINTMENTS */
-    public boolean bookAppointment(int clinicId, String healthCareNumber,
+    public String bookAppointment(int clinicId, String healthCareNumber,
                                    LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         User client = getClientByHCN(healthCareNumber);
@@ -102,7 +102,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     /** CANCELLING APPOINTMENTS */
-    public boolean cancelAppointment(int clinicId, int appointmentId) {
+    public String cancelAppointment(int clinicId, int appointmentId) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic);
 
@@ -119,15 +119,15 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** TIME PERIOD */
 
-    public boolean setEmployees(int clinicId, LocalDate date, int employees) {
+    public String setEmployees(int clinicId, LocalDate date, int employees) {
         return createSetTimePeriod(clinicId).setEmployees(date, employees);
     }
 
-    public boolean addTimePeriod(int clinicId, LocalDateTime dateTime) {
+    public String addTimePeriod(int clinicId, LocalDateTime dateTime) {
         return createSetTimePeriod(clinicId).addTimePeriod(dateTime);
     }
 
-    public boolean removeTimePeriod(int clinicId, LocalDateTime dateTime){
+    public String removeTimePeriod(int clinicId, LocalDateTime dateTime){
         return createSetTimePeriod(clinicId).removeTimePeriod(dateTime);
     }
 
@@ -142,22 +142,22 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** RECORD ADDING **/
 
-    public boolean logAppointment(int clinicId, int appointmentId) {
+    public String logAppointment(int clinicId, int appointmentId) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new AddRecord(clinic).logAppointment(appointmentId);
     }
 
-    public boolean logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand) {
+    public String logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new AddRecord(clinic).logWalkIn(vaccinationID, getClientByHCN(clientHCN), dateTime, brand);
     }
 
-    public boolean logByDateTime(int clinicId, LocalDateTime dateTime) {
+    public StringBuilder logByDateTime(int clinicId, LocalDateTime dateTime) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new AddRecord(clinic).logByDateTime(dateTime);
     }
 
-    public boolean logByDate(int clinicId, LocalDate date) {
+    public StringBuilder logByDate(int clinicId, LocalDate date) {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new AddRecord(clinic).logByDate(date);
     }

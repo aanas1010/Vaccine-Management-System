@@ -39,6 +39,14 @@ public class TimePeriod {
         bookedSlots -= 1;
     }
 
+    // Return a string of the information of this batch
+    @Override
+    public String toString() {
+        return  "Time: " + this.dateTime +
+                "\nTotal Timeslots: " + this.availableSlots +
+                "\nTimeslots Booked: " + this.bookedSlots;
+    }
+
     // Getters
     public int getAvailableSlots() {
         return availableSlots;
