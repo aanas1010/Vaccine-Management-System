@@ -31,9 +31,6 @@ public class AddRecord {
 
     // Log a walk-in appointment given certain parameters
     public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) {
-        clinic.logPastVaccinations(vaccinationID, client, dateTime, brand);
-        return clinic.getVaccineLog().getRecordString("V" + vaccinationID);
-    public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) {
         if (dateTime.isBefore(LocalDateTime.now())){
             clinic.logPastVaccinations(vaccinationID, client, dateTime, brand);
             return clinic.getVaccineLog().getRecordString("V" + vaccinationID);
