@@ -31,45 +31,71 @@ public class SetTimePeriodTest {
     @Test(timeout = 100) // Testing a time period is added
     public void TestAddTimePeriodTrue(){
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
-        assertNotNull(setTimePeriod.addTimePeriod(testDateTime));
+        try {
+            assertNotNull(setTimePeriod.addTimePeriod(testDateTime));
+        }catch(Exception e){
+            fail();
+        }
     }
 
     @Test(timeout = 100) // Testing a time period is not added
     public void TestAddTimePeriodFalse(){
-        assertNull(setTimePeriod.addTimePeriod(testDateTime));
+        try {
+            setTimePeriod.addTimePeriod(testDateTime);
+            fail();
+        }catch(Exception ignored){}
     }
 
     @Test(timeout = 100) // Testing a time period is not added after it has already been added
     public void TestAddTimePeriodNotAdded(){
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
-        setTimePeriod.addTimePeriod(testDateTime);
+        try{
+            setTimePeriod.addTimePeriod(testDateTime);
+        }catch(Exception e){
+            fail();
+        }
         assertTrue(clinic.checkTimePeriod(testDateTime));
     }
 
     @Test(timeout = 100) // Testing a time period is removed
     public void TestRemoveTimePeriodTrue(){
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
-        setTimePeriod.addTimePeriod(testDateTime);
-        setTimePeriod.removeTimePeriod(testDateTime);
+        try{
+            setTimePeriod.addTimePeriod(testDateTime);
+            setTimePeriod.removeTimePeriod(testDateTime);
+        }catch(Exception e) {
+            fail();
+        }
         assertFalse(clinic.checkTimePeriod(testDateTime));
     }
 
     @Test(timeout = 100) // Testing that a time period is not removed when it does not exist
     public void TestRemoveTimePeriodFalse(){
-        assertNull(setTimePeriod.removeTimePeriod(testDateTime));
+        try{
+            setTimePeriod.removeTimePeriod(testDateTime);
+            fail();
+        }catch(Exception ignored) {}
     }
 
     @Test(timeout = 100) // Testing the correct number of time period is added
     public void TestAddMultipleTimePeriods(){
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
-        assertEquals(setTimePeriod.addMultipleTimePeriods(testDateTime,
-                testDateTime.plusMinutes(120), 30), 4);
+        try {
+            assertEquals(setTimePeriod.addMultipleTimePeriods(testDateTime,
+                    testDateTime.plusMinutes(120), 30), 4);
+        }catch(Exception e) {
+            fail();
+        }
     }
     @Test(timeout = 100) // Testing the correct number of time period is added after a time period is added
     public void TestAddMultipleTimePeriodsSelected(){
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
-        setTimePeriod.addTimePeriod(testDateTime);
-        assertEquals(setTimePeriod.addMultipleTimePeriods(testDateTime,
-                testDateTime.plusMinutes(120), 30), 3);
+        try {
+            setTimePeriod.addTimePeriod(testDateTime);
+            assertEquals(setTimePeriod.addMultipleTimePeriods(testDateTime,
+                    testDateTime.plusMinutes(120), 30), 3);
+        } catch(Exception e) {
+            fail();
+        }
     }
-    }
+}

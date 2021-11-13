@@ -1,5 +1,6 @@
 package client_booking;
 
+import Constants.ExceptionConstants;
 import entities.*;
 
 /**
@@ -20,7 +21,7 @@ public class AppointmentCancellation {
     }
 
     // Delete the appointment. Return true if successful
-    public String deleteAppointment(){
+    public String deleteAppointment() throws Exception {
         Appointment appointment = clinic.getAppointmentRecord(this.appointmentId);
         if (appointment.getClient().getHasAppointment()) {
             appointment.getClient().disapproveAppointment();
@@ -28,7 +29,7 @@ public class AppointmentCancellation {
             appointment.getTimePeriod().addAvailableSlot();
             return appointment.toString();
         }
-        return null;
+        throw new Exception(ExceptionConstants.APPOINTMENT_DOES_NOT_EXIST);
     }
 
 

@@ -55,18 +55,29 @@ public class AppointmentBookingTest {
 
     @Test(timeout = 100) // Testing that the correct vaccine batch has been assigned
     public void TestAssignVaccineDose() {
-        VaccineBatch assignedDose = appointmentBooking1.assignVaccineDose();
-        assertEquals(batch, assignedDose);
+        try{
+            VaccineBatch assignedDose = appointmentBooking1.assignVaccineDose();
+            assertEquals(batch, assignedDose);
+        } catch(Exception e){
+            fail();
+        }
     }
 
     @Test(timeout = 100) // Testing that an expired vaccine dose isn't assigned
     public void TestAssignExpiredVaccineDose() {
-        assertNull(appointmentBooking2.assignVaccineDose());
+        try{
+            appointmentBooking2.assignVaccineDose();
+            fail();
+        } catch(Exception ignored){}
     }
 
     @Test(timeout = 100) // Testing that an appointment has indeed been created
     public void TestCreateAppointment() {
-        assertNotNull(appointmentBooking1.createAppointment());
+        try{
+            assertNotNull(appointmentBooking1.createAppointment());
+        } catch(Exception e){
+            fail();
+        }
     }
 
 }

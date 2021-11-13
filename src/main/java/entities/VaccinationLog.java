@@ -1,5 +1,7 @@
 package entities;
 
+import Constants.BookingConstants;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -10,9 +12,6 @@ import java.util.ArrayList;
  */
 
 public class VaccinationLog {
-    public final static String appointmentBasedPrefix = "A";
-    public final static String nonAppointmentBasedPrefix = "V";
-
     private final ArrayList<VaccinationRecord> log;
     public VaccinationLog() {
         this.log = new ArrayList<>();
@@ -28,7 +27,7 @@ public class VaccinationLog {
         String vaccineBrand = a.getVaccineBrand();
 
         VaccinationRecord dataObj =
-                new VaccinationRecord(appointmentBasedPrefix + appointmentId, client, dateTime, vaccineBrand);
+                new VaccinationRecord(BookingConstants.APPOINTMENT_BASED_PREFIX + appointmentId, client, dateTime, vaccineBrand);
 
         log.add(dataObj);
     }
@@ -36,7 +35,7 @@ public class VaccinationLog {
     // For non-appointments
     public void addToLog(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand){
         VaccinationRecord dataObj =
-                new VaccinationRecord(nonAppointmentBasedPrefix + vaccinationId, client, dateTime, vaccineBrand);
+                new VaccinationRecord(BookingConstants.NON_APPOINTMENT_BASED_PREFIX + vaccinationId, client, dateTime, vaccineBrand);
 
         log.add(dataObj);
     }
