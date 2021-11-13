@@ -1,5 +1,8 @@
 package drivers;
 
+import Constants.BookingConstants;
+import Constants.ExceptionConstants;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -69,7 +72,7 @@ public class DataValidation {
     protected static Enum<?> getCommand(Scanner in, String prompt, ArrayList<Enum<?>> types) {
         while(true) {
             System.out.println(prompt);
-            System.out.print(CommandLine.commandLinePrompt);
+            System.out.print(BookingConstants.COMMAND_LINE_PROMPT);
 
             String input = in.nextLine();
 
@@ -88,7 +91,7 @@ public class DataValidation {
     protected static Object getValue(Scanner in, String prompt, ParameterTypes type) {
         while(true) {
             System.out.println(prompt);
-            System.out.print(CommandLine.commandLinePrompt);
+            System.out.print(BookingConstants.COMMAND_LINE_PROMPT);
 
             String input = in.nextLine();
 
@@ -128,7 +131,7 @@ public class DataValidation {
             if(hasValidValue) {
                 return formattedValue;
             }else {
-                System.out.println("That value is invalid. Please try again");
+                System.out.println(ExceptionConstants.INVALID_PARAMETER);
             }
         }
     }

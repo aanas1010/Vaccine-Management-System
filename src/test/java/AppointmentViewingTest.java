@@ -4,12 +4,11 @@ import client_booking.AppointmentViewing;
 import entities.*;
 import org.junit.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 //test cases for the appointmentViewing class
 public class AppointmentViewingTest {
@@ -62,20 +61,34 @@ public class AppointmentViewingTest {
     }
 
      @Test(timeout = 100) // Testing the use case an appointment is booked and active
-     public void TestAppointmentDetails_appointmentExists() {
+     public void TestAppointmentDetails() {
          String message_correct = "----------------APPOINTMENT #" + "11" + "----------------" +
                  "\nCLIENT: " + "client1" +
                  "\nTIME: " + "2021-11-14T12:30" +
                  "\nBRAND: " + "Pfizer" +
                  "\nBATCH: " + "1234";
-         String message_method = appointmentViewing1.appointmentDetails();
 
-         assertEquals(message_correct, message_method);
+         try{
+             String message_method = appointmentViewing1.appointmentDetails();
+             assertEquals(message_correct, message_method);
+         }catch(Exception e) {
+             fail();
+         }
      }
 
     @Test(timeout = 100) // Testing the use case a booked appointment was canceled
-    public void TestAppointmentDetails_appointmentCanceled() {assertNull(appointmentViewing2.appointmentDetails());}
+    public void TestAppointmentDetailsCancelled() {
+        try{
+            appointmentViewing2.appointmentDetails();
+            fail();
+        }catch(Exception ignored) {}
+    }
 
     @Test(timeout = 100) // Testing the use case an appointment never existed
-    public void TestAppointmentDetails_appointmentNeverExisted() {assertNull(appointmentViewing3.appointmentDetails());}
+    public void TestAppointmentDetailsDoesNotExist() {
+        try{
+            appointmentViewing3.appointmentDetails();
+            fail();
+        }catch(Exception ignored) {}
+    }
 }

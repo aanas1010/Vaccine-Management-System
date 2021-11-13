@@ -1,5 +1,6 @@
 package clinic_management;
 
+import Constants.ExceptionConstants;
 import entities.ServiceLocation;
 import entities.VaccineBatch;
 
@@ -21,9 +22,11 @@ public class BatchAdding {
 
     // Adding a vaccine batch to the supply of a clinic if it is not expired
     // Return whether the batch is added
-    public String addBatch(){
-        if (batch.isExpired() && !this.clinic.supplyContainsBatchId(batch.getId())){
-            return null;
+    public String addBatch() throws Exception {
+        if (batch.isExpired()){
+            throw new Exception(ExceptionConstants.BATCH_EXPIRED);
+        }else if(this.clinic.supplyContainsBatchId(batch.getId())) {
+            throw new Exception(ExceptionConstants.BATCH_ID_ALREADY_EXISTS);
         }
         else{
             this.clinic.addBatch(batch);

@@ -1,5 +1,4 @@
-import client_booking.AddRecord;
-import client_booking.AppointmentBooking;
+import client_booking.RecordAdding;
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -8,11 +7,10 @@ import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class AddRecordTest {
     BookableClinic clinic;
-    AddRecord addRecord;
+    RecordAdding addRecord;
     TimePeriod timePeriod;
     VaccineBatch batch;
     Client client1;
@@ -39,33 +37,49 @@ public class AddRecordTest {
 
         clinic.addAppointment(appointment1);
 
-        addRecord = new AddRecord(clinic);
+        addRecord = new RecordAdding(clinic);
 
     }
 
     @Test(timeout = 150) // Testing that appointments can be logged by appointment ID
     public void TestLogAppointment() {
-        assertNotNull(addRecord.logAppointment(1));
+        try{
+            addRecord.logAppointment(1);
+        }catch(Exception e) {
+            fail();
+        }
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
         assertTrue(clinic.getVaccineLog().containsId("A1"));
     }
 
     @Test(timeout = 150) // Testing that walk ins can be logged
     public void TestLogWalkIn() {
-        addRecord.logWalkIn("2", client1, dateTime, "Pfizer");
+        try{
+            addRecord.logWalkIn("2", client1, dateTime, "Pfizer");
+        }catch(Exception e) {
+            fail();
+        }
         assertTrue(clinic.getVaccineLog().containsId("V2"));
     }
 
     @Test(timeout = 150) // Testing that all appointment on a certain date and time can be logged
     public void TestLogByDateTime() {
-        assertNotNull(addRecord.logByDateTime(dateTime));
+        try{
+            addRecord.logByDateTime(dateTime);
+        }catch(Exception e) {
+            fail();
+        }
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
         assertTrue(clinic.getVaccineLog().containsId("A1"));
     }
 
     @Test(timeout = 150) // Testing that all appointments on a certain date can be logged
     public void TestLogByDate() {
-        assertNotNull(addRecord.logByDate(dateTime.toLocalDate()));
+        try{
+            addRecord.logByDate(dateTime.toLocalDate());
+        }catch(Exception e) {
+            fail();
+        }
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
         assertTrue(clinic.getVaccineLog().containsId("A1"));
     }

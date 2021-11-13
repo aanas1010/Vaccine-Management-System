@@ -39,8 +39,11 @@ public class AppointmentCancellationTest {
     public void TestDeleteAppointment() {
         AppointmentCancellation client1CancelledAppointment = new AppointmentCancellation(11,
                 clinic);
-        assertNotNull(client1CancelledAppointment.deleteAppointment());
-
+        try{
+            assertNotNull(client1CancelledAppointment.deleteAppointment());
+        }catch(Exception e) {
+            fail();
+        }
     }
 
 }

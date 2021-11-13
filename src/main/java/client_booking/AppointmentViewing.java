@@ -1,6 +1,9 @@
 package client_booking;
 
+import Constants.ExceptionConstants;
 import entities.*;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * This is the Use Case for viewing appointments.
@@ -9,14 +12,6 @@ import entities.*;
  */
 
 public class AppointmentViewing {
-
-    /*
-        clinic: the clinic where the appointment happened
-        appointmentID: the id of an appointment
-
-     ps. when it is in the log it has a prefix A for booked appointments
-     and prefix V when walk-in appointment.
-     */
 
     private final int appointmentID;
     private final ClinicDecorator clinic;
@@ -28,27 +23,11 @@ public class AppointmentViewing {
         this.appointmentID = appointmentID;
     }
 
-    /*
-    Return a string of the details about the appointment
-
-    produces the following message if:
-    appointment exists and hasn't passed - toString from appointment
-    appointment never existed            - null
-     */
-    public String appointmentDetails()
-    {
-
+    public String appointmentDetails() throws Exception {
         if(this.clinic.getAppointmentRecord(appointmentID) != null) { //booked active_appointment
-            return getBookedAppointmentString(this.clinic.getAppointmentRecord(appointmentID));
+            return this.clinic.getAppointmentRecord(appointmentID).toString();
 
         }
-        return null;
-    }
-
-    // message methods
-
-    //when appointment exists and active
-    private String getBookedAppointmentString(Appointment appointment) {
-        return appointment.toString();
+        throw new Exception(ExceptionConstants.APPOINTMENT_DOES_NOT_EXIST);
     }
 }

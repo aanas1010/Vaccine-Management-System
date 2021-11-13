@@ -1,5 +1,6 @@
 package client_booking;
 
+import Constants.ExceptionConstants;
 import entities.*;
 
 import java.time.LocalDate;
@@ -41,27 +42,27 @@ public class AppointmentBooking {
     // Reserve a vaccine dose for this client IF there is a timeslot available
     // AND this person doesn't already have an appointment
     // Return the VaccineBatch in question
-    public VaccineBatch assignVaccineDose() {
-        if (this.isTimeslotAvailable() && !this.client.getHasAppointment()) {
-            ArrayList<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
-            VaccineBatch earliestExpiringVaccine = null;
-            LocalDate earliestDate = null;
-            for (VaccineBatch batch : batchList) {
-                if (batch.getBrand().equals(this.vaccineBrand) && !batch.isExpired() && batch.getAvailable() > 0) {
-                    if (earliestDate == null || batch.getExpiry().isBefore(earliestDate)) {
-                        earliestDate = batch.getExpiry();
-                        earliestExpiringVaccine = batch;
-                    }
+    public VaccineBatch assignVaccineDose() throws Exception {
+        if(this.client.getHasAppointment()) {
+            throw new Exception(ExceptionConstants.CLIENT_ALREADY_HAS_APPOINTMENT);
+        }
+
+        ArrayList<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
+        VaccineBatch earliestExpiringVaccine = null;
+        LocalDate earliestDate = null;
+        for (VaccineBatch batch : batchList) {
+            if (batch.getBrand().equals(this.vaccineBrand) && !batch.isExpired() && batch.getAvailable() > 0) {
+                if (earliestDate == null || batch.getExpiry().isBefore(earliestDate)) {
+                    earliestDate = batch.getExpiry();
+                    earliestExpiringVaccine = batch;
                 }
             }
-            if (earliestExpiringVaccine == null) {
-                System.out.println("Sorry, the chosen clinic does not have any " + this.vaccineBrand + " doses");
-                return null;
-            }
-            earliestExpiringVaccine.changeReserve(1);
-            return earliestExpiringVaccine;
         }
-        return null;
+        if (earliestExpiringVaccine == null) {
+            throw new Exception(ExceptionConstants.BRAND_DOES_NOT_EXIST);
+        }
+        earliestExpiringVaccine.changeReserve(1);
+        return earliestExpiringVaccine;
     }
 
     // Check if the appointment ID is unique
@@ -70,19 +71,21 @@ public class AppointmentBooking {
     }
 
     // Create an appointment for this client in the Clinic's system
-    public String createAppointment() {
-        if(this.isTimeslotAvailable() && this.assignVaccineDose() != null && this.hasUniqueId()) {
-            Appointment appointment = new Appointment(
-                    this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
-            this.client.approveAppointment();
-            this.clinic.addAppointment(appointment);
-            this.timePeriod.findAndReserveSlot();
-            return appointment.toString();
-        }else{
-            // Appointment cannot be created
-            System.out.println("Timeslot available?" + this.isTimeslotAvailable());
-            System.out.println("Appointment has unique ID?" + this.hasUniqueId());
-            return null;
+    public String createAppointment() throws Exception {
+        if(!this.isTimeslotAvailable()) {
+            throw new Exception(ExceptionConstants.TIME_SLOT_UNAVAILABLE);
         }
+        if(!this.hasUniqueId()) {
+            throw new Exception(ExceptionConstants.APPOINTMENT_ID_ALREADY_EXISTS);
+        }
+
+        this.assignVaccineDose();
+
+        Appointment appointment = new Appointment(
+                this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
+        this.client.approveAppointment();
+        this.clinic.addAppointment(appointment);
+        this.timePeriod.findAndReserveSlot();
+        return appointment.toString();
     }
 }
