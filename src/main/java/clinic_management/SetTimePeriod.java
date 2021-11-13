@@ -36,7 +36,7 @@ public class SetTimePeriod {
             TimePeriod addedTimePeriod = new TimePeriod(dateTime, slots);
             this.clinic.addTimePeriod(addedTimePeriod, dateTime.toLocalDate());
             return addedTimePeriod.toString();
-        }else if(this.clinic.shiftAvailable(dateTime.toLocalDate())) {
+        }else if(!this.clinic.shiftAvailable(dateTime.toLocalDate())) {
             throw new Exception(ExceptionConstants.NO_SHIFT_AVAILABLE);
         }else {
             throw new Exception(ExceptionConstants.TIME_PERIOD_ALREADY_EXISTS);
