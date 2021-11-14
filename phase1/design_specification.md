@@ -32,7 +32,7 @@ Interfaces in our program also allow us to add a layer of abstraction between th
 
 Thus, there are no strong dependencies between the different levels of architecture. In all cases, the abstraction layer allows us to decouple the system and subsequently follow the Open-Closed principle as well.
 
-## Clean Architecture (Markus)
+## Clean Architecture
 Our program heavily follows the four-layered clean architecture model by separating our classes into the following distinctions:
 1. Drivers, such as Command Line
 2. Controllers, such as Vaccine Management System
@@ -54,7 +54,7 @@ Let’s decompose this into the two main actions which are called. Let the n-th 
 
 As mentioned, dependency inversion is used extensively, thus preserving the clean architecture’s dependency requirement. In other words, the outer layers only depend on the inner layers and not the inverse, and each layer has interfaces that they implement for the outer layers to reference. This approach has the advantage of maintaining a clean, organized program and allowing for ease of collaboration. 
 
-## Design Patterns (Aabid and Diana) needs proof reading
+## Design Patterns
 In our program, we chose to implement the Decorator design pattern. We made an interface called ‘ServiceLocation’, which supports methods for reading and writing vaccine and appointment details.
 
 We have two classes, ‘Clinic’ - which acts as our ‘core-functionality’ and ‘ClinicDecorator’ - which acts as our ‘optional wrapper’ in the form of an abstract class, both which implement the ServiceLocation interface.
@@ -69,7 +69,7 @@ Therefore, allowing access to: ‘getTimePeriods()’ regardless of the clinic�
 
 For future implementation of the code, we could use this pattern to expand further the code to accommodate managers of other types of clinics, allowing better access to clients with different preferences.
 
-## Use of GitHub Features (Matt)
+## Use of GitHub Features
 For our project, we have been using many of the great features provided by GitHub to enhance the way we work as a group.
 * Creating branches and using pull requests
   * Each group member has their own branches they use to make changes
@@ -80,7 +80,7 @@ For our project, we have been using many of the great features provided by GitHu
     * Reworking the hierarchy of clinics and bookable clinics
     * Reworking the hierarchy of the use cases and their interaction with VaccineManagement
 
-## Code Style and Documentation (Matt)
+## Code Style and Documentation
 For this project we have been documenting all the code we are writing as well as reviewing the pull requests group members make and adjusting style errors
 * Comments
   * At the top of each class, we have a doc string that explains what the class is and a summary of what it contains (instance attributes).
@@ -94,7 +94,7 @@ For this project we have been documenting all the code we are writing as well as
     * Any errors in the code
     * Documentation and comments
     * Making sure methods and classes are implemented in a way that matches our design speciation/class diagram
-## Testing (Matt)
+## Testing 
 The goal of our project is to extensively test all the more complicated methods in our program. We will avoid testing for methods like getters, setters and simple boolean methods as these are simple in their implementation.
 * Testing Schematics
   * Entities
@@ -104,7 +104,7 @@ The goal of our project is to extensively test all the more complicated methods 
   * Database
     * Testing is implemented for storing and loading data from tables.
 
-## Refactoring (Matt)
+## Refactoring 
 So far we have implemented refactoring in many parts of our project, from renaming all the way to changing a design pattern.
 * Renaming
   * Make variable names clearer and easier to understand
@@ -120,7 +120,7 @@ So far we have implemented refactoring in many parts of our project, from renami
 
 
 
-## Code Organization (Aabid)
+## Code Organization
 Our code was organized in accordance with clean architecture, that is, each package in the ‘main’ file represents a layer of clean architecture, with the exception of the ‘Use Cases’ and ‘Drivers’ layers.
 
 Instead of isolating the ‘Use Cases’ layer, we decided to separate it into the two main functions of our program: client_booking - which contains the classes involved in the booking of appointments, and clinic_management- which contains the classes needed to manage the clinic. 
@@ -136,7 +136,7 @@ Furthermore, as was mentioned above, we have implemented the Decorator design pa
 
 Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for use cases as well.
 
-## Functionality (Aabid)
+## Functionality
 Can your program store state and load state? I.e. Can the state persist across runs of your program?
 For the most part, our program does what we mentioned in the Project Specification in Phase 0- We still accept both walk-in and booked appointments, appointments only take place if the correct vaccine is available (and not expired), and appointments are logged once they have been completed. However, there was one change made.
 
