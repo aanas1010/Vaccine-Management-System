@@ -1,4 +1,4 @@
-package controllers;
+package managers;
 
 import Constants.ManagementSystemException;
 
@@ -7,20 +7,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * This is the Interface that a management system may use.
- * Includes methods for calling sub-use cases
+ * This is the Interface that the Command Line uses.
+ * Includes methods for calling use cases
  */
 
-public interface UseCaseManagerInterface {
-    ArrayList<Integer> getClinicIds();
-
-    ArrayList<Integer> getBookableClinicIds();
-
-    void addClinic(int clinicId, String location) throws ManagementSystemException;
-
-    void addBookableClinic(int clinicId, String location) throws ManagementSystemException;
-
-    void addClient(String name, String healthCardNumber) throws ManagementSystemException;
+public interface ManagementSystem {
 
     String setEmployees(int clinicId, LocalDate date, int employees);
 
@@ -32,7 +23,11 @@ public interface UseCaseManagerInterface {
 
     String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId) throws ManagementSystemException;
 
-    String getSupplyStringByClinic(int clinicId);
+    ArrayList<Integer> getClinicIds();
+
+    ArrayList<Integer> getBookableClinicIds();
+
+    String getSupplyByClinic(int clinicId);
 
     String logAppointment(int clinicId, int appointmentId) throws ManagementSystemException;
 
@@ -43,10 +38,9 @@ public interface UseCaseManagerInterface {
     StringBuilder logByDate(int clinicId, LocalDate date) throws ManagementSystemException;
 
     String bookAppointment(int clinicId, String healthCareNumber,
-                            LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) throws ManagementSystemException;
+                                   LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) throws ManagementSystemException;
 
     String cancelAppointment(int clinicId, int appointmentId) throws ManagementSystemException;
 
     String viewAppointment(int clinicId, int appointmentId) throws ManagementSystemException;
-
 }
