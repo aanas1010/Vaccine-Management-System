@@ -69,6 +69,8 @@ Therefore, allowing access to: ‘getTimePeriods()’ regardless of the clinic�
 
 For future implementation of the code, we could use this pattern to expand further the code to accommodate managers of other types of clinics, allowing better access to clients with different preferences.
 
+![alt text](decorator.png "Decorator Design Pattern Diagram")
+
 ## Use of GitHub Features
 For our project, we have been using many of the great features provided by GitHub to enhance the way we work as a group.
 * Creating branches and using pull requests
