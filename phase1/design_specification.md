@@ -55,24 +55,30 @@ Let’s decompose this into the two main actions which are called. Let the n-th 
 As mentioned, dependency inversion is used extensively, thus preserving the clean architecture’s dependency requirement. In other words, the outer layers only depend on the inner layers and not the inverse, and each layer has interfaces that they implement for the outer layers to reference. This approach has the advantage of maintaining a clean, organized program and allowing for ease of collaboration. 
 
 ## Design Patterns (Aabid and Diana) needs proof reading
-In our program, we chose to implement the Decorator design pattern. We made an interface called ‘ServiceLocation’, which supports methods for reading and writing vaccine and appointment details. 
+In our program, we chose to implement the Decorator design pattern. We made an interface called ‘ServiceLocation’, which supports methods for reading and writing vaccine and appointment details.
+
 We have two classes, ‘Clinic’ - which acts as our ‘core-functionality’ and ‘ClinicDecorator’ - which acts as our ‘optional wrapper’ in the form of an abstract class, both which implement the ServiceLocation interface.
+
 Furthermore, the ‘ClinicDecorator’ class has one subclass describing ‘one option of decoration’: ‘BookableClinic’ - for a clinic that accepts clients with booked appointments. And although our program currently allows for only one choice of decoration, according to how the Decorator Pattern is structured, future development of our code allows for further additions of new decorations, to represent new types of Clinics.
+
 At this point we would like to note that what sets apart our core clinic from its decoration counterparts is that it is able to support staff and supply, but not appointment services - or in other words a clinic which would accept its clients without an explicit appointment booked through the system. Leaving these functionalities to the different decoration clinics.
+
 To elaborate with some examples within our code, the ‘ServiceLocation’ contains methods such as ‘getVaccineLog()’ -  which returns a list of all the previous vaccinations that have taken place - ‘getTimePeriods(...)’ - which returns the time period of a clinic at a given time - and ‘getPastVaccinations(...)’ - which logs a past vaccination event with a client, given the appropriate information. These three methods are then implemented in both ‘Clinic’, ‘ClinicDecorator’ and in turn in ‘BookableClinic’ as well - as it is a child of ‘ClinicDecorator’. However, while ‘getTimePeriods(...)’ simply gets implemented within the classes, ‘getVaccineLog()’ is overridden in ‘ClinicDecorator’, and ‘getPastVaccinations(...)’ is overloaded in ‘BookableClinic’. Along with a freshly written method within ‘BookableClinic’ called ‘addAppointment(...)’ - which adds an appointment to the system with the appropriate information.
+
 Therefore, allowing access to: ‘getTimePeriods()’ regardless of the clinic’s classification; ‘getVaccineLog(...)’ and ‘getPastVaccinations(...)’ where the inner details vary depending on the clinic type; and ‘‘addAppointment(...)’ if the clinic is classified as a specific type - within the code these methods would be called where we know the object clinic is of that specific decoration form.
+
 For future implementation of the code, we could use this pattern to expand further the code to accommodate managers of other types of clinics, allowing better access to clients with different preferences.
 
 ## Use of GitHub Features (Matt)
 For our project, we have been using many of the great features provided by GitHub to enhance the way we work as a group.
- Creating branches and using pull requests
-Each group member has their own branches they use to make changes
-Instead of committing to main, we push commits on branches and merge them into the project using pull requests
-Actions and Issues
-One member of our group has a Chromebook and cannot use IntelliJ when we meet up in person to work on the project. This means they make changes directly in GitHub and sometimes there are some errors in their commits. The actions tab on GitHub helps us review all the previous workflows and see what errors were made.
-So far our group has used the issues tab to bring up any issues we have with the design of our project. Some examples can be seen below.
-Reworking the hierarchy of clinics and bookable clinics
-Reworking the hierarchy of the use cases and their interaction with VaccineManagement
+* Creating branches and using pull requests
+ * Each group member has their own branches they use to make changes
+ * Instead of committing to main, we push commits on branches and merge them into the project using pull requests
+* Actions and Issues
+ * One member of our group has a Chromebook and cannot use IntelliJ when we meet up in person to work on the project. This means they make changes directly in GitHub and sometimes there are some errors in their commits. The actions tab on GitHub helps us review all the previous workflows and see what errors were made.
+ * So far our group has used the issues tab to bring up any issues we have with the design of our project. Some examples can be seen below.
+  * Reworking the hierarchy of clinics and bookable clinics
+  * Reworking the hierarchy of the use cases and their interaction with VaccineManagement
 
 ## Code Style and Documentation (Matt)
 Comments explaining methods
