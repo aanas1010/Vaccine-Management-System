@@ -137,7 +137,7 @@ Organizing our code using this package structure made it easy to abide by clean 
 
 Furthermore, as was mentioned above, we have implemented the Decorator design pattern. This way we have optimized the organization of the code involved with clinics, and their subtypes. When designing our code, we’ve been using the “camelCase” format for variables and method names and ‘PascalCase’ for class names. This distinguishing between variable names and method names makes things clearer when creating a new variable which we name the same thing as the object type.
 
-Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for use cases as well.
+Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for the database and use cases as well.
 
 ## Functionality
 For the most part, our program does what we mentioned in the Project Specification in Phase 0 - We still accept both walk-in and booked appointments, appointments only take place if the correct vaccine is available (and not expired), and appointments are logged once they have been completed. However, there was one change made.
