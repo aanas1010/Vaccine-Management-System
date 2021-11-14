@@ -72,13 +72,13 @@ For future implementation of the code, we could use this pattern to expand furth
 ## Use of GitHub Features (Matt)
 For our project, we have been using many of the great features provided by GitHub to enhance the way we work as a group.
 * Creating branches and using pull requests
- * Each group member has their own branches they use to make changes
- * Instead of committing to main, we push commits on branches and merge them into the project using pull requests
+  * Each group member has their own branches they use to make changes
+  * Instead of committing to main, we push commits on branches and merge them into the project using pull requests
 * Actions and Issues
- * One member of our group has a Chromebook and cannot use IntelliJ when we meet up in person to work on the project. This means they make changes directly in GitHub and sometimes there are some errors in their commits. The actions tab on GitHub helps us review all the previous workflows and see what errors were made.
- * So far our group has used the issues tab to bring up any issues we have with the design of our project. Some examples can be seen below.
-  * Reworking the hierarchy of clinics and bookable clinics
-  * Reworking the hierarchy of the use cases and their interaction with VaccineManagement
+  * One member of our group has a Chromebook and cannot use IntelliJ when we meet up in person to work on the project. This means they make changes directly in GitHub and sometimes there are some errors in their commits. The actions tab on GitHub helps us review all the previous workflows and see what errors were made.
+  * So far our group has used the issues tab to bring up any issues we have with the design of our project. Some examples can be seen below.
+    * Reworking the hierarchy of clinics and bookable clinics
+    * Reworking the hierarchy of the use cases and their interaction with VaccineManagement
 
 ## Code Style and Documentation (Matt)
 Comments explaining methods
