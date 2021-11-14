@@ -81,70 +81,62 @@ For our project, we have been using many of the great features provided by GitHu
     * Reworking the hierarchy of the use cases and their interaction with VaccineManagement
 
 ## Code Style and Documentation (Matt)
-Comments explaining methods
-Doc strings for class descriptions
-Following Intellj style warnings
-JavaDoc
-Reviewing Pull Requests
 For this project we have been documenting all the code we are writing as well as reviewing the pull requests group members make and adjusting style errors
-Comments
-At the top of each class, we have a doc string that explains what the class is and a summary of what it contains (instance attributes).
-For each method in a class, we have a one line comment that explains what the method does right above it. For more complicated methods, there are inline comments that explain more complex pieces of code. 
-Style Warnings
-We have been fixing the style warnings highlighted in IntelliJ as they come up after the feedback we got for Phase 0
-So far we have not used JavaDoc so far in our project
-Reviewing Pull Requests
-For phase 0 we did not really spend the time to properly review pull requests
-For phase 1 we have been properly reviewing pull request on the following criteria
-Any errors in the code
-Documentation and comments
-Making sure methods and classes are implemented in a way that matches our design speciation/class diagram
+* Comments
+  * At the top of each class, we have a doc string that explains what the class is and a summary of what it contains (instance attributes).
+  * For each method in a class, we have a one line comment that explains what the method does right above it. For more complicated methods, there are inline comments that explain more complex pieces of code. 
+* Style Warnings
+  * We have been fixing the style warnings highlighted in IntelliJ as they come up after the feedback we got for Phase 0
+  * So far we have not used JavaDoc so far in our project
+* Reviewing Pull Requests
+  * For phase 0 we did not really spend the time to properly review pull requests
+  * For phase 1 we have been properly reviewing pull request on the following criteria
+    * Any errors in the code
+    * Documentation and comments
+    * Making sure methods and classes are implemented in a way that matches our design speciation/class diagram
 ## Testing (Matt)
 The goal of our project is to extensively test all the more complicated methods in our program. We will avoid testing for methods like getters, setters and simple boolean methods as these are simple in their implementation.
-Testing Schematics
-Entities
-We have test files for the more complicated methods in the entities
-Use Cases
-Testing all methods in our use cases
-Database
-Testing is implemented for storing and loading data from tables.
+* Testing Schematics
+  * Entities
+    * We have test files for the more complicated methods in the entities
+  * Use Cases
+    * Testing all methods in our use cases
+  * Database
+    * Testing is implemented for storing and loading data from tables.
 
 ## Refactoring (Matt)
-Refactoring Command Line
-Refactoring Variables to make them easier to read
-Refactoring Methods from longer Methods
-Refactoring to implement the decorator design pattern
 So far we have implemented refactoring in many parts of our project, from renaming all the way to changing a design pattern.
-Refactoring
-Renaming
-Make variable names clearer and easier to understand
-Refactoring to make the interaction between classes clearer
-Refactoring Methods
-For some classes there was only one method  that used a getter, so sometimes a separate getter method was not created. To make the code clearer and more cohesive, we used the IntelliJ refactor method feature to create a new method. 
-Refactoring Command Line
-Originally, CommandLine was contained all in one class, but now it is split up into CommandLine and DataValidation, which stores the static methods and commands that CommandLine references.
-CommandLine was a code smell (Bloaters)
-With more time, CommandLine could be further cleaned by refactoring commonalities between use-case workflows into extracted functions which these use-case-specific functions call. As well, the large if-else block and the getValue function are most likely not implemented in a best-practice way and should be improved upon for phase 2.
-Refactoring to implement the decorator design
-We are changing our implementation of service location, clinic and bookable clinic to implement the decorator design pattern
+* Renaming
+  * Make variable names clearer and easier to understand
+  * Refactoring to make the interaction between classes clearer
+* Refactoring Methods
+  * For some classes there was only one method  that used a getter, so sometimes a separate getter method was not created. To make the code clearer and more cohesive, we used the IntelliJ refactor method feature to create a new method. 
+* Refactoring Command Line
+  * Originally, CommandLine was contained all in one class, but now it is split up into CommandLine and DataValidation, which stores the static methods and commands that CommandLine references.
+  * CommandLine was a code smell (Bloaters)
+  * With more time, CommandLine could be further cleaned by refactoring commonalities between use-case workflows into extracted functions which these use-case-specific functions call. As well, the large if-else block and the getValue function are most likely not implemented in a best-practice way and should be improved upon for phase 2.
+* Refactoring to implement the decorator design
+  * We are changing our implementation of service location, clinic and bookable clinic to implement the decorator design pattern
 
 
 
 ## Code Organization (Aabid)
-Is your code organized in a meaningful way? Is it easy to find things in your package structure?
-Tell us about how you decided to organize your code and why!
-Our code was organized in accordance with clean architecture, that is, each package in the ‘main’ file represents a layer of clean architecture, with the exception of the ‘Use Cases’ and ‘Drivers’ layers. 
+Our code was organized in accordance with clean architecture, that is, each package in the ‘main’ file represents a layer of clean architecture, with the exception of the ‘Use Cases’ and ‘Drivers’ layers.
+
 Instead of isolating the ‘Use Cases’ layer, we decided to separate it into the two main functions of our program: client_booking - which contains the classes involved in the booking of appointments, and clinic_management- which contains the classes needed to manage the clinic. 
+
 On the other hand, the ‘Drivers’ layer is where the CommandLine is created and where our Main class is located. For the time being, we have decided to separate the database from the ‘Drivers’ package until we have got it connected. 
+
 Our ‘Managers’ layer contains the interfaces and the management systems that manage the Use Cases (from layer below) and is used by the Command Line (in layer above).  
 As its name implies, the ‘Entities’ layer contains all the entities of this program.
+
 Organizing our code using this package structure made it easy to abide by clean architecture. It also made it easy to understand what part of the program collaborated with what (for instance, the Use Cases AppointmentBooking, AppointmentCancellation, and AppointmentViewing are all in the client_booking package. All three classes have to do with the client’s appointment. An example of the classes relying on each other is the fact that you can’t cancel an appointment that you haven’t booked, which requires AppointmentBooking and AppointmentCancellation).
+
 Furthermore, as was mentioned above, we have implemented the Decorator design pattern. This way we have optimized the organization of the code involved with clinics, and their subtypes. When designing our code, we’ve been using the “camelCase” format for variables and method names and ‘PascalCase’ for class names. This distinguishing between variable names and method names makes things clearer when creating a new variable which we name the same thing as the object type.
+
 Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for use cases as well.
+
 ## Functionality (Aabid)
-Does your program do what the specification says it should do?
-Demo your program's functionality to your TA or make a short video!
-Is the functionality sufficiently ambitious, given the size of your group?
 Can your program store state and load state? I.e. Can the state persist across runs of your program?
 For the most part, our program does what we mentioned in the Project Specification in Phase 0- We still accept both walk-in and booked appointments, appointments only take place if the correct vaccine is available (and not expired), and appointments are logged once they have been completed. However, there was one change made.
 
