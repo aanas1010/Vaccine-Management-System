@@ -128,7 +128,10 @@ Instead of isolating the ‘Use Cases’ layer, we decided to separate it into t
 On the other hand, the ‘Drivers’ layer is where the CommandLine is created and where our Main class is located. For the time being, we have decided to separate the database from the ‘Drivers’ package until we have got it connected. 
 
 Our ‘Managers’ layer contains the interfaces and the management systems that manage the Use Cases (from layer below) and is used by the Command Line (in layer above).  
+
 As its name implies, the ‘Entities’ layer contains all the entities of this program.
+
+Lastly, we have a package called ‘Constants’ which contains the constants related to the booking process, including entity-specific constants and driver constants, as well as a custom exception class that contains the constants for error messages thrown by the use cases.
 
 Organizing our code using this package structure made it easy to abide by clean architecture. It also made it easy to understand what part of the program collaborated with what (for instance, the Use Cases AppointmentBooking, AppointmentCancellation, and AppointmentViewing are all in the client_booking package. All three classes have to do with the client’s appointment. An example of the classes relying on each other is the fact that you can’t cancel an appointment that you haven’t booked, which requires AppointmentBooking and AppointmentCancellation).
 
@@ -137,8 +140,7 @@ Furthermore, as was mentioned above, we have implemented the Decorator design pa
 Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for use cases as well.
 
 ## Functionality
-Can your program store state and load state? I.e. Can the state persist across runs of your program?
-For the most part, our program does what we mentioned in the Project Specification in Phase 0- We still accept both walk-in and booked appointments, appointments only take place if the correct vaccine is available (and not expired), and appointments are logged once they have been completed. However, there was one change made.
+For the most part, our program does what we mentioned in the Project Specification in Phase 0 - We still accept both walk-in and booked appointments, appointments only take place if the correct vaccine is available (and not expired), and appointments are logged once they have been completed. However, there was one change made.
 
 Before, we assumed that our program would be accessed by the clinic manager as well as the client, who would be booking the appointment themselves. However, we are now working under the assumption that all the client’s actions take place through an external source, and that only the manager uses our program. The manager will get all the necessary client information from the external source, and the manager will input it into the management system. 
 
