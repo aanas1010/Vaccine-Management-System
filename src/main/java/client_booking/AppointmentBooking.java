@@ -32,7 +32,7 @@ public class AppointmentBooking {
     // Return whether there is an opening for the specified time period
     private boolean isTimeslotAvailable(){
         for(TimePeriod timePeriod: clinic.getTimePeriods(this.timePeriod.getDateTime().toLocalDate())) {
-            if (timePeriod.equals(this.timePeriod)) {
+            if (timePeriod.getDateTime().equals(this.timePeriod.getDateTime())) {
                 return timePeriod.getAvailableSlots() > 0;
             }
         }
