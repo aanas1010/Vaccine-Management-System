@@ -1,7 +1,7 @@
-Design Specification
-SOLID
+# Design Specification
+## SOLID
 Our program adheres to the SOLID design principles in the following ways:
-Single-Responsibility Principle
+### Single-Responsibility Principle
 Multiple actions are done at different times to manipulate entities, notably clinics, appointments, and vaccination supplies. Our program strategically divides up these responsibilities into 5 core use cases:
 Concerning all clinics:
 Adding a vaccine batch with an expiry, quantity, and brand to the clinic’s vaccine supply
@@ -12,17 +12,17 @@ Viewing an appointment’s details as a string by its appointment unique identif
 Cancelling an appointment by its appointment unique identifier
 
 Splitting up our use cases as such ensures that responsibilities are divided into appropriate classes, whereby a change in one does not interfere with the performance of another.
-Open-Closed Principle
+### Open-Closed Principle
 When dealing with appointment-based clinics, we decided to use the decorator design pattern to expand the functionality of clinics without modifying the core entity. Therefore our implementation is open to extension and closed to modification. In the future, if we wanted to add more decorators for added functionality to clinics, this would be very much possible.
 
 Given more time, an improvement to this principle could involve facilitating the adding of new use cases. This would likely involve creating another interface specific to the sub-use cases with a general method “run,” which would run the use case. This new design would then more easily allow additional use cases to be created by implementing this interface.
 
-Liskov Substitution Principle
+### Liskov Substitution Principle
 Our program does not make much use out of subclasses except for in the decorators, where an abstract decorator class is used. Since this abstract class cannot be instantiated on its own, Liskov’s substitution principle does not apply. Otherwise, there is no need to apply this principle in our program.
-Interface Segregation Principle
+### Interface Segregation Principle
 Interfaces are used throughout the program to enforce functionality, such as through the ManagementSystem and UseCaseManagerInterface interfaces. These enforce any management systems or use case managers to have the core functionalities of such a program, such as booking an appointment or adding a batch to a clinic, regardless of the underlying implementations of these features. 
 
-Dependency Injection Principle
+### Dependency Injection Principle
 Interfaces in our program also allow us to add a layer of abstraction between the low-level and high-level classes. Specifically:
 ManagementSystem interface between the command line and the management system implementations
 UseCaseManagerInterface interface between the management system implementations and the use cases
@@ -30,14 +30,14 @@ ServiceLocation interface between the use cases and the service location impleme
 ServiceLocationDecorator abstract class between the use cases and bookable clinics
 
 Thus, there are no strong dependencies between the different levels of architecture. In all cases, the abstraction layer allows us to decouple the system and subsequently follow the Open-Closed principle as well.
-Clean Architecture (Markus)
+
+## Clean Architecture (Markus)
 Our program heavily follows the four-layered clean architecture model by separating our classes into the following distinctions:
 Drivers, such as Command Line
 Controllers, such as Vaccine Management System
 Use Cases, such as Batch Adding, Time Period Adding, and Appointment Booking
 Entities, such as Clinics, Appointments, Time Periods, and Vaccine Batches
 
-TODO: ADD UPDATED CRC MODEL OR SOMETHING
 
 Take the following scenario walkthrough for example:
 
@@ -53,7 +53,8 @@ CommandLine (L1) calls the ManagementSystem (Interface)’s addBatch method. Thi
 
 
 As mentioned, dependency inversion is used extensively, thus preserving the clean architecture’s dependency requirement. In other words, the outer layers only depend on the inner layers and not the inverse, and each layer has interfaces that they implement for the outer layers to reference. This approach has the advantage of maintaining a clean, organized program and allowing for ease of collaboration. 
-Design Patterns (Aabid and Diana) needs proof reading
+
+## Design Patterns (Aabid and Diana) needs proof reading
 In our program, we chose to implement the Decorator design pattern. We made an interface called ‘ServiceLocation’, which supports methods for reading and writing vaccine and appointment details. 
 We have two classes, ‘Clinic’ - which acts as our ‘core-functionality’ and ‘ClinicDecorator’ - which acts as our ‘optional wrapper’ in the form of an abstract class, both which implement the ServiceLocation interface.
 Furthermore, the ‘ClinicDecorator’ class has one subclass describing ‘one option of decoration’: ‘BookableClinic’ - for a clinic that accepts clients with booked appointments. And although our program currently allows for only one choice of decoration, according to how the Decorator Pattern is structured, future development of our code allows for further additions of new decorations, to represent new types of Clinics.
@@ -61,7 +62,8 @@ At this point we would like to note that what sets apart our core clinic from it
 To elaborate with some examples within our code, the ‘ServiceLocation’ contains methods such as ‘getVaccineLog()’ -  which returns a list of all the previous vaccinations that have taken place - ‘getTimePeriods(...)’ - which returns the time period of a clinic at a given time - and ‘getPastVaccinations(...)’ - which logs a past vaccination event with a client, given the appropriate information. These three methods are then implemented in both ‘Clinic’, ‘ClinicDecorator’ and in turn in ‘BookableClinic’ as well - as it is a child of ‘ClinicDecorator’. However, while ‘getTimePeriods(...)’ simply gets implemented within the classes, ‘getVaccineLog()’ is overridden in ‘ClinicDecorator’, and ‘getPastVaccinations(...)’ is overloaded in ‘BookableClinic’. Along with a freshly written method within ‘BookableClinic’ called ‘addAppointment(...)’ - which adds an appointment to the system with the appropriate information.
 Therefore, allowing access to: ‘getTimePeriods()’ regardless of the clinic’s classification; ‘getVaccineLog(...)’ and ‘getPastVaccinations(...)’ where the inner details vary depending on the clinic type; and ‘‘addAppointment(...)’ if the clinic is classified as a specific type - within the code these methods would be called where we know the object clinic is of that specific decoration form.
 For future implementation of the code, we could use this pattern to expand further the code to accommodate managers of other types of clinics, allowing better access to clients with different preferences.
-Use of GitHub Features (Matt)
+
+## Use of GitHub Features (Matt)
 For our project, we have been using many of the great features provided by GitHub to enhance the way we work as a group.
  Creating branches and using pull requests
 Each group member has their own branches they use to make changes
@@ -71,7 +73,8 @@ One member of our group has a Chromebook and cannot use IntelliJ when we meet up
 So far our group has used the issues tab to bring up any issues we have with the design of our project. Some examples can be seen below.
 Reworking the hierarchy of clinics and bookable clinics
 Reworking the hierarchy of the use cases and their interaction with VaccineManagement
-Code Style and Documentation (Matt)
+
+## Code Style and Documentation (Matt)
 Comments explaining methods
 Doc strings for class descriptions
 Following Intellj style warnings
@@ -90,7 +93,7 @@ For phase 1 we have been properly reviewing pull request on the following criter
 Any errors in the code
 Documentation and comments
 Making sure methods and classes are implemented in a way that matches our design speciation/class diagram
-Testing (Matt)
+## Testing (Matt)
 The goal of our project is to extensively test all the more complicated methods in our program. We will avoid testing for methods like getters, setters and simple boolean methods as these are simple in their implementation.
 Testing Schematics
 Entities
@@ -99,7 +102,8 @@ Use Cases
 Testing all methods in our use cases
 Database
 Testing is implemented for storing and loading data from tables.
-Refactoring (Matt)
+
+## Refactoring (Matt)
 Refactoring Command Line
 Refactoring Variables to make them easier to read
 Refactoring Methods from longer Methods
@@ -120,7 +124,7 @@ We are changing our implementation of service location, clinic and bookable clin
 
 
 
-Code Organization (Aabid)
+## Code Organization (Aabid)
 Is your code organized in a meaningful way? Is it easy to find things in your package structure?
 Tell us about how you decided to organize your code and why!
 Our code was organized in accordance with clean architecture, that is, each package in the ‘main’ file represents a layer of clean architecture, with the exception of the ‘Use Cases’ and ‘Drivers’ layers. 
@@ -131,7 +135,7 @@ As its name implies, the ‘Entities’ layer contains all the entities of this 
 Organizing our code using this package structure made it easy to abide by clean architecture. It also made it easy to understand what part of the program collaborated with what (for instance, the Use Cases AppointmentBooking, AppointmentCancellation, and AppointmentViewing are all in the client_booking package. All three classes have to do with the client’s appointment. An example of the classes relying on each other is the fact that you can’t cancel an appointment that you haven’t booked, which requires AppointmentBooking and AppointmentCancellation).
 Furthermore, as was mentioned above, we have implemented the Decorator design pattern. This way we have optimized the organization of the code involved with clinics, and their subtypes. When designing our code, we’ve been using the “camelCase” format for variables and method names and ‘PascalCase’ for class names. This distinguishing between variable names and method names makes things clearer when creating a new variable which we name the same thing as the object type.
 Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for use cases as well.
-Functionality (Aabid)
+## Functionality (Aabid)
 Does your program do what the specification says it should do?
 Demo your program's functionality to your TA or make a short video!
 Is the functionality sufficiently ambitious, given the size of your group?
