@@ -68,8 +68,6 @@ public class VaccineBatch {
         return this.brand;
     }
 
-    public int getQuantity() {return this.quantity;}
-
     public LocalDate getExpiry(){return this.expiry;}
 
     public int getId(){return this.id;}

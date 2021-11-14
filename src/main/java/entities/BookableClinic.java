@@ -1,10 +1,7 @@
 package entities;
 
-import entities.Appointment;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import java.time.LocalDateTime;
 
 /**
  * This is the main BookableClinic entity which extends Clinic

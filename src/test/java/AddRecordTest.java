@@ -1,10 +1,8 @@
+import Constants.ManagementSystemException;
 import client_booking.RecordAdding;
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -45,7 +43,7 @@ public class AddRecordTest {
     public void TestLogAppointment() {
         try{
             addRecord.logAppointment(1);
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             fail();
         }
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
@@ -56,7 +54,7 @@ public class AddRecordTest {
     public void TestLogWalkIn() {
         try{
             addRecord.logWalkIn("2", client1, dateTime, "Pfizer");
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             fail();
         }
         assertTrue(clinic.getVaccineLog().containsId("V2"));
@@ -66,7 +64,7 @@ public class AddRecordTest {
     public void TestLogByDateTime() {
         try{
             addRecord.logByDateTime(dateTime);
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             fail();
         }
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());
@@ -77,7 +75,7 @@ public class AddRecordTest {
     public void TestLogByDate() {
         try{
             addRecord.logByDate(dateTime.toLocalDate());
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             fail();
         }
         assertTrue(clinic.getAppointmentByTimePeriod(timePeriod).isEmpty());

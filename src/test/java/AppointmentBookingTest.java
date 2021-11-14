@@ -1,9 +1,9 @@
+import Constants.ManagementSystemException;
 import client_booking.AppointmentBooking;
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -58,7 +58,7 @@ public class AppointmentBookingTest {
         try{
             VaccineBatch assignedDose = appointmentBooking1.assignVaccineDose();
             assertEquals(batch, assignedDose);
-        } catch(Exception e){
+        } catch(ManagementSystemException e){
             fail();
         }
     }
@@ -68,14 +68,14 @@ public class AppointmentBookingTest {
         try{
             appointmentBooking2.assignVaccineDose();
             fail();
-        } catch(Exception ignored){}
+        } catch(ManagementSystemException ignored){}
     }
 
     @Test(timeout = 100) // Testing that an appointment has indeed been created
     public void TestCreateAppointment() {
         try{
             assertNotNull(appointmentBooking1.createAppointment());
-        } catch(Exception e){
+        } catch(ManagementSystemException e){
             fail();
         }
     }

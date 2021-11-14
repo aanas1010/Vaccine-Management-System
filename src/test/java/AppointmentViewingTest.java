@@ -1,3 +1,4 @@
+import Constants.ManagementSystemException;
 import client_booking.AppointmentBooking;
 import client_booking.AppointmentCancellation;
 import client_booking.AppointmentViewing;
@@ -71,7 +72,7 @@ public class AppointmentViewingTest {
          try{
              String message_method = appointmentViewing1.appointmentDetails();
              assertEquals(message_correct, message_method);
-         }catch(Exception e) {
+         }catch(ManagementSystemException e) {
              fail();
          }
      }
@@ -81,7 +82,7 @@ public class AppointmentViewingTest {
         try{
             appointmentViewing2.appointmentDetails();
             fail();
-        }catch(Exception ignored) {}
+        }catch(ManagementSystemException ignored) {}
     }
 
     @Test(timeout = 100) // Testing the use case an appointment never existed
@@ -89,6 +90,6 @@ public class AppointmentViewingTest {
         try{
             appointmentViewing3.appointmentDetails();
             fail();
-        }catch(Exception ignored) {}
+        }catch(ManagementSystemException ignored) {}
     }
 }

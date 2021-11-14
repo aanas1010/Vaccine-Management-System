@@ -1,3 +1,4 @@
+import Constants.ManagementSystemException;
 import clinic_management.BatchAdding;
 import entities.Clinic;
 import entities.VaccineBatch;
@@ -31,14 +32,14 @@ public class BatchAddingTest {
         try{
             expiredAdd.addBatch();
             fail();
-        }catch(Exception ignored){}
+        }catch(ManagementSystemException ignored){}
     }
 
     @Test(timeout = 100) // Testing a valid batch of vaccine doses is added
     public void TestAddBatch(){
         try{
             assertNotNull(batchAdd.addBatch());
-        } catch(Exception e) {
+        } catch(ManagementSystemException e) {
             fail();
         }
     }
@@ -48,7 +49,7 @@ public class BatchAddingTest {
         try{
             expiredAdd.addBatch();
             fail();
-        } catch(Exception ignored) {}
+        } catch(ManagementSystemException ignored) {}
         ArrayList<VaccineBatch> testBatchList = new ArrayList<>();
         assertEquals(testBatchList, clinic.getSupply());
     }
@@ -57,7 +58,7 @@ public class BatchAddingTest {
     public void TestContents(){
         try{
             batchAdd.addBatch();
-        } catch(Exception e) {
+        } catch(ManagementSystemException e) {
             fail();
         }
         ArrayList<VaccineBatch> testBatchList = new ArrayList<>();

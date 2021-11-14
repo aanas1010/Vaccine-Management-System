@@ -26,7 +26,7 @@ public class VaccineSupplyTest {
     }
     @Test(timeout = 100) // Testing that get available vaccines returns the proper brand and amount
     public void testGetAvailableVaccines(){
-        HashMap<String, Integer> mapVaccines = new HashMap<String, Integer>();
+        HashMap<String, Integer> mapVaccines = new HashMap<>();
         mapVaccines.put("Pfizer", 100);
         mapVaccines.put("Moderna", 69);
         assertEquals(supply.getAvailableVaccines(), mapVaccines);

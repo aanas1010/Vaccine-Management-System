@@ -67,10 +67,6 @@ public class Clinic implements ServiceLocation {
         log.addToLog(vaccinationId, client, dateTime, vaccineBrand);
     }
 
-    public boolean logContainsId(String id) {
-        return log.containsId(id);
-    }
-
 
     // Set the number of shifts for a date
     @Override

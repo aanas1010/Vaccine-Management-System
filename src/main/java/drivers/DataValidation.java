@@ -1,7 +1,7 @@
 package drivers;
 
 import Constants.BookingConstants;
-import Constants.ExceptionConstants;
+import Constants.ManagementSystemException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -131,7 +131,7 @@ public class DataValidation {
             if(hasValidValue) {
                 return formattedValue;
             }else {
-                System.out.println(ExceptionConstants.INVALID_PARAMETER);
+                System.out.println(ManagementSystemException.INVALID_PARAMETER);
             }
         }
     }

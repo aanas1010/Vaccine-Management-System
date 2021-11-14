@@ -39,11 +39,6 @@ public class VaccineSupply {
         return new HashMap<>(vaccines);
     }
 
-    // Return whether the batchList has any batches in it
-    public boolean isEmpty(){
-        return this.batchList.isEmpty();
-    }
-
     // Return a string of the list of batches using the brand and id number
     @Override
     public String toString() {

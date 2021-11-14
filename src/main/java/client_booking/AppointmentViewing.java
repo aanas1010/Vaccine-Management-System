@@ -1,9 +1,7 @@
 package client_booking;
 
-import Constants.ExceptionConstants;
+import Constants.ManagementSystemException;
 import entities.*;
-
-import java.util.concurrent.ExecutionException;
 
 /**
  * This is the Use Case for viewing appointments.
@@ -23,11 +21,11 @@ public class AppointmentViewing {
         this.appointmentID = appointmentID;
     }
 
-    public String appointmentDetails() throws Exception {
+    public String appointmentDetails() throws ManagementSystemException {
         if(this.clinic.getAppointmentRecord(appointmentID) != null) { //booked active_appointment
             return this.clinic.getAppointmentRecord(appointmentID).toString();
 
         }
-        throw new Exception(ExceptionConstants.APPOINTMENT_DOES_NOT_EXIST);
+        throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_DOES_NOT_EXIST);
     }
 }

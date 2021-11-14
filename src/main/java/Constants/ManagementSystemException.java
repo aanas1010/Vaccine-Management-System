@@ -1,10 +1,12 @@
 package Constants;
 
 /**
- * These are the constants for error messages primarily thrown by the use cases
- */
+* This is a custom exception thrown by the system to indicate an error in the management system
+* */
 
-public class ExceptionConstants {
+public class ManagementSystemException extends Exception {
+
+    //These are the constants for error messages primarily thrown by the use cases
     public final static String INVALID_PARAMETER = "That value is invalid. Please try again";
     public final static String HCN_ALREADY_EXISTS = "A client already exists with the given Health Card Number";
     public final static String HCN_DOES_NOT_EXIST = "No client exists with the provided Health Card Number";
@@ -27,4 +29,6 @@ public class ExceptionConstants {
     public final static String CLIENT_ALREADY_HAS_APPOINTMENT = "Could not book the appointment because this client already has an appointment";
     public final static String BRAND_DOES_NOT_EXIST = "This clinic does not have any batches for the provided vaccine brand";
 
+    public ManagementSystemException() {}
+    public ManagementSystemException(String message) {super(message);}
 }

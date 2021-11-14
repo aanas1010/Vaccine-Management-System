@@ -1,6 +1,6 @@
 package client_booking;
 
-import Constants.ExceptionConstants;
+import Constants.ManagementSystemException;
 import entities.*;
 
 import java.time.LocalDate;
@@ -42,9 +42,9 @@ public class AppointmentBooking {
     // Reserve a vaccine dose for this client IF there is a timeslot available
     // AND this person doesn't already have an appointment
     // Return the VaccineBatch in question
-    public VaccineBatch assignVaccineDose() throws Exception {
+    public VaccineBatch assignVaccineDose() throws ManagementSystemException {
         if(this.client.getHasAppointment()) {
-            throw new Exception(ExceptionConstants.CLIENT_ALREADY_HAS_APPOINTMENT);
+            throw new ManagementSystemException(ManagementSystemException.CLIENT_ALREADY_HAS_APPOINTMENT);
         }
 
         ArrayList<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
@@ -59,7 +59,7 @@ public class AppointmentBooking {
             }
         }
         if (earliestExpiringVaccine == null) {
-            throw new Exception(ExceptionConstants.BRAND_DOES_NOT_EXIST);
+            throw new ManagementSystemException(ManagementSystemException.BRAND_DOES_NOT_EXIST);
         }
         earliestExpiringVaccine.changeReserve(1);
         return earliestExpiringVaccine;
@@ -71,12 +71,12 @@ public class AppointmentBooking {
     }
 
     // Create an appointment for this client in the Clinic's system
-    public String createAppointment() throws Exception {
+    public String createAppointment() throws ManagementSystemException {
         if(!this.isTimeslotAvailable()) {
-            throw new Exception(ExceptionConstants.TIME_SLOT_UNAVAILABLE);
+            throw new ManagementSystemException(ManagementSystemException.TIME_SLOT_UNAVAILABLE);
         }
         if(!this.hasUniqueId()) {
-            throw new Exception(ExceptionConstants.APPOINTMENT_ID_ALREADY_EXISTS);
+            throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_ID_ALREADY_EXISTS);
         }
 
         this.assignVaccineDose();

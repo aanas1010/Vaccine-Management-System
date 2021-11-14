@@ -1,3 +1,4 @@
+import Constants.ManagementSystemException;
 import client_booking.AppointmentBooking;
 import client_booking.AppointmentCancellation;
 import entities.*;
@@ -41,7 +42,7 @@ public class AppointmentCancellationTest {
                 clinic);
         try{
             assertNotNull(client1CancelledAppointment.deleteAppointment());
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             fail();
         }
     }

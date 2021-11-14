@@ -1,7 +1,7 @@
 package client_booking;
 
 import Constants.BookingConstants;
-import Constants.ExceptionConstants;
+import Constants.ManagementSystemException;
 import entities.*;
 
 import java.time.LocalDate;
@@ -24,12 +24,12 @@ public class RecordAdding {
     }
 
     // Log a given appointment based on an appointment ID
-    public String logAppointment(int id) throws Exception {
+    public String logAppointment(int id) throws ManagementSystemException {
         if(clinic.getAppointmentRecord(id) == null) {
-            throw new Exception(ExceptionConstants.APPOINTMENT_DOES_NOT_EXIST);
+            throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_DOES_NOT_EXIST);
         }
         if(!clinic.getAppointmentRecord(id).appointmentTimePassed()) {
-            throw new Exception(ExceptionConstants.APPOINTMENT_NOT_PASSED);
+            throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_NOT_PASSED);
         }
 
         clinic.logPastVaccinations(clinic.getAppointmentRecord(id));
@@ -39,24 +39,24 @@ public class RecordAdding {
     }
 
     // Log a walk-in appointment given certain parameters
-    public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) throws Exception {
+    public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) throws ManagementSystemException {
         if (dateTime.isBefore(LocalDateTime.now())){
             clinic.logPastVaccinations(vaccinationID, client, dateTime, brand);
             return clinic.getVaccineLog().getRecordString(BookingConstants.NON_APPOINTMENT_BASED_PREFIX + vaccinationID);
         }
         else{
-            throw new Exception(ExceptionConstants.TIME_NOT_PASSED);
+            throw new ManagementSystemException(ManagementSystemException.TIME_NOT_PASSED);
         }
     }
 
     // Log all appointment on a certain date and time
-    public StringBuilder logByDateTime(LocalDateTime dateTime) throws Exception {
+    public StringBuilder logByDateTime(LocalDateTime dateTime) throws ManagementSystemException {
         if(dateTime.isAfter(LocalDateTime.now())) {
-            throw new Exception(ExceptionConstants.TIME_NOT_PASSED);
+            throw new ManagementSystemException(ManagementSystemException.TIME_NOT_PASSED);
         }
 
         if(clinic.getTimePeriod(dateTime) == null) {
-            throw new Exception(ExceptionConstants.CLINIC_DOES_NOT_HAVE_TIMESLOT);
+            throw new ManagementSystemException(ManagementSystemException.CLINIC_DOES_NOT_HAVE_TIMESLOT);
         }
 
         else{
@@ -77,10 +77,10 @@ public class RecordAdding {
     }
 
     // Log all appointments on a given date
-    public StringBuilder logByDate(LocalDate date) throws Exception {
+    public StringBuilder logByDate(LocalDate date) throws ManagementSystemException {
         if (clinic.getTimePeriods(date) == null ||
                 clinic.getTimePeriods(date).equals(new ArrayList<TimePeriod>())){
-            throw new Exception(ExceptionConstants.CLINIC_DOES_NOT_HAVE_TIMESLOT);
+            throw new ManagementSystemException(ManagementSystemException.CLINIC_DOES_NOT_HAVE_TIMESLOT);
         }
 
         else{
