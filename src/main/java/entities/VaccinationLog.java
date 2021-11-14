@@ -17,8 +17,6 @@ public class VaccinationLog {
         this.log = new ArrayList<>();
     }
 
-    public boolean isEmpty(){return this.log.isEmpty();}
-
     // For appointments
     public void addToLog(Appointment a){
         int appointmentId = a.getAppointmentId();
@@ -93,7 +91,7 @@ public class VaccinationLog {
     }
     
     // VaccinationRecord inner class for storing info for a specific vaccination
-    private class VaccinationRecord {
+    private static class VaccinationRecord {
         //vaccinationId is of the form "A123" for appointment-based vaccinations, or "V123" otherwise
         private final String vaccinationId;
         private final User client;

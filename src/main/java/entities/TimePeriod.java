@@ -1,8 +1,6 @@
 package entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * This is the TimePeriod entity that represents a time of day for a specific date.

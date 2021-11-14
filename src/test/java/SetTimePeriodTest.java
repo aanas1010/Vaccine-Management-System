@@ -1,3 +1,4 @@
+import Constants.ManagementSystemException;
 import clinic_management.SetTimePeriod;
 import entities.Clinic;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class SetTimePeriodTest {
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
         try {
             assertNotNull(setTimePeriod.addTimePeriod(testDateTime));
-        }catch(Exception e){
+        }catch(ManagementSystemException e){
             fail();
         }
     }
@@ -43,7 +44,7 @@ public class SetTimePeriodTest {
         try {
             setTimePeriod.addTimePeriod(testDateTime);
             fail();
-        }catch(Exception ignored){}
+        }catch(ManagementSystemException ignored){}
     }
 
     @Test(timeout = 100) // Testing a time period is not added after it has already been added
@@ -51,7 +52,7 @@ public class SetTimePeriodTest {
         setTimePeriod.setEmployees(testDateTime.toLocalDate(), 5);
         try{
             setTimePeriod.addTimePeriod(testDateTime);
-        }catch(Exception e){
+        }catch(ManagementSystemException e){
             fail();
         }
         assertTrue(clinic.checkTimePeriod(testDateTime));
@@ -63,7 +64,7 @@ public class SetTimePeriodTest {
         try{
             setTimePeriod.addTimePeriod(testDateTime);
             setTimePeriod.removeTimePeriod(testDateTime);
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             fail();
         }
         assertFalse(clinic.checkTimePeriod(testDateTime));
@@ -74,7 +75,7 @@ public class SetTimePeriodTest {
         try{
             setTimePeriod.removeTimePeriod(testDateTime);
             fail();
-        }catch(Exception ignored) {}
+        }catch(ManagementSystemException ignored) {}
     }
 
     @Test(timeout = 100) // Testing the correct number of time period is added
@@ -83,7 +84,7 @@ public class SetTimePeriodTest {
         try {
             assertEquals(setTimePeriod.addMultipleTimePeriods(testDateTime,
                     testDateTime.plusMinutes(120), 30), 4);
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             fail();
         }
     }
@@ -94,7 +95,7 @@ public class SetTimePeriodTest {
             setTimePeriod.addTimePeriod(testDateTime);
             assertEquals(setTimePeriod.addMultipleTimePeriods(testDateTime,
                     testDateTime.plusMinutes(120), 30), 3);
-        } catch(Exception e) {
+        } catch(ManagementSystemException e) {
             fail();
         }
     }

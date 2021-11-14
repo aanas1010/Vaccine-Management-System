@@ -1,6 +1,7 @@
 package drivers;
 
-import controllers.*;
+import Constants.ManagementSystemException;
+import managers.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,7 +24,7 @@ public class Main {
             useCaseManager.addClient("Cameron Cooper", "3333-333-333-CC");
             useCaseManager.addClient("Denis Dick", "4444-444-444-DD");
             useCaseManager.addClient("Emily Edmonds", "5555-555-555-EE");
-        }catch(Exception e) {
+        }catch(ManagementSystemException e) {
             System.out.println(e.getMessage());
         }
 

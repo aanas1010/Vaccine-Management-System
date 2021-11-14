@@ -1,8 +1,8 @@
 package drivers;
 
-import controllers.ManagementSystem;
+import Constants.ManagementSystemException;
+import managers.ManagementSystem;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class CommandLine {
                     logByDate(in, managementSystem, clinicId);
                 }
             }
-            catch(Exception e) {
+            catch(ManagementSystemException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -123,7 +123,7 @@ public class CommandLine {
     }
 
     // Start addBatch workflow
-    private void addBatch(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void addBatch(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for a new batch
         String batchBrand = (String) DataValidation.getValue(in,
                 "Batch Brand:",
@@ -169,7 +169,7 @@ public class CommandLine {
     }
 
     // Start the addTimePeriod workflow
-    private void addTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void addTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for adding a new time period
         LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
                 "Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
@@ -186,7 +186,7 @@ public class CommandLine {
     }
 
     // Start the addTimePeriod workflow
-    private void addTimePeriods(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void addTimePeriods(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for adding a new time period
         LocalDateTime start = (LocalDateTime) DataValidation.getValue(in,
                 "Start Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
@@ -209,7 +209,7 @@ public class CommandLine {
     }
 
     // Start the logAppointment workflow
-    private void logAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void logAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for logging an appointment
         int appointmentId = (Integer) DataValidation.getValue(in,
                 "Appointment ID:",
@@ -226,7 +226,7 @@ public class CommandLine {
         }
     }
 
-    private void logWalkIn(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void logWalkIn(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for logging a walk-in
         String vaccinationID = (String) DataValidation.getValue(in, "Vaccination ID:", DataValidation.ParameterTypes.NON_NEGATIVE_INT);
         String clientHCN = (String) DataValidation.getValue(in, "Client Health Card Number:", DataValidation.ParameterTypes.FREE_TEXT);
@@ -248,7 +248,7 @@ public class CommandLine {
         }
     }
 
-    private void logByDateTime(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void logByDateTime(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for logging all appointments for a given dateTime
         LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
                 "Date and Time to be logged (24 hour time, DD/MM/YYYY HH:MM):",
@@ -265,7 +265,7 @@ public class CommandLine {
     }
 
 
-    private void logByDate(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void logByDate(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for logging all appointments for a given dateTime
         LocalDate date = (LocalDate) DataValidation.getValue(in,
                 "Date to be logged (24 hour time, DD/MM/YYYY):",
@@ -284,7 +284,7 @@ public class CommandLine {
 
 
     // Start the removeTimePeriod workflow
-    private void removeTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void removeTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for which time period to remove
         LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
                 "Date and Time (24 hour time, DD/MM/YYYY HH:MM):",
@@ -301,7 +301,7 @@ public class CommandLine {
     }
 
     // Start the bookAppointment workflow
-    private void bookAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void bookAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for booking an appointment
         String healthCareNumber = (String) DataValidation.getValue(in,
                 "Health Care Number:",
@@ -331,7 +331,7 @@ public class CommandLine {
     }
 
     // Start the cancelAppointment workflow
-    private void cancelAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void cancelAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for canceling an appointment
         int appointmentId = (Integer) DataValidation.getValue(in,
                 "Enter your Appointment ID:",
@@ -349,7 +349,7 @@ public class CommandLine {
     }
 
     // Start the viewAppointment workflow
-    private void viewAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws Exception {
+    private void viewAppointment(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
         // Ask for information for viewing an appointment
         int appointmentId = (Integer) DataValidation.getValue(in,
                 "Enter your Appointment ID:",

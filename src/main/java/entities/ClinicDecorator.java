@@ -20,10 +20,6 @@ public abstract class ClinicDecorator implements ServiceLocation{
 
     public void addBatch(VaccineBatch batch){decoratedClinic.addBatch(batch);}
 
-    public void logPastVaccinations(String vaccinationId, Client client, LocalDateTime dateTime, String vaccineBrand){
-        decoratedClinic.logPastVaccinations(vaccinationId, client, dateTime, vaccineBrand);
-    }
-
     public void setShift(LocalDate date, int num){
         decoratedClinic.setShift(date, num);
     }

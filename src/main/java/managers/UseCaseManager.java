@@ -1,6 +1,6 @@
-package controllers;
+package managers;
 
-import Constants.ExceptionConstants;
+import Constants.ManagementSystemException;
 import client_booking.*;
 import clinic_management.*;
 import entities.*;
@@ -20,12 +20,6 @@ public class UseCaseManager implements UseCaseManagerInterface {
     private final ArrayList<ServiceLocation> clinics;
     private final ArrayList<User> clients;
 
-    //Constructor for a list of clinics
-    public UseCaseManager(ArrayList<ServiceLocation> clinics, ArrayList<User> clients){
-        this.clinics = clinics;
-        this.clients = clients;
-    }
-
     //Constructor with empty list of service locations
     public UseCaseManager(){
         this.clinics = new ArrayList<>();
@@ -35,17 +29,17 @@ public class UseCaseManager implements UseCaseManagerInterface {
     /** ADDING CLINICS */
 
     // Add a basic clinic. Return whether the clinic could be added
-    public void addClinic(int clinicId, String location) throws Exception {
+    public void addClinic(int clinicId, String location) throws ManagementSystemException {
         if(containsClinicWithId(clinicId)) {
-            throw new Exception(ExceptionConstants.CLINIC_ID_ALREADY_EXISTS);
+            throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
         clinics.add(new Clinic(clinicId, location));
     }
 
-    public void addBookableClinic(int clinicId, String location) throws Exception {
+    public void addBookableClinic(int clinicId, String location) throws ManagementSystemException {
         if(containsClinicWithId(clinicId)) {
-            throw new Exception(ExceptionConstants.CLINIC_ID_ALREADY_EXISTS);
+            throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
         clinics.add(new BookableClinic(new Clinic(clinicId, location)));
@@ -62,9 +56,9 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** Adding Clients **/
     // Add a basic clinic. Return whether the clinic could be added
-    public void addClient(String name, String healthCareNumber) throws Exception {
+    public void addClient(String name, String healthCareNumber) throws ManagementSystemException {
         if(containsClientWithHCN(healthCareNumber)) {
-            throw new Exception(ExceptionConstants.HCN_ALREADY_EXISTS);
+            throw new ManagementSystemException(ManagementSystemException.HCN_ALREADY_EXISTS);
         }
 
         clients.add(new Client(name, healthCareNumber));
@@ -79,19 +73,19 @@ public class UseCaseManager implements UseCaseManagerInterface {
         return false;
     }
 
-    private User getClientByHCN(String healthCardNumber) throws Exception {
+    private User getClientByHCN(String healthCardNumber) throws ManagementSystemException {
         for(User client : clients) {
             if(client.getHealthCareNumber().equals(healthCardNumber)) {
                 return client;
             }
         }
-        throw new Exception(ExceptionConstants.HCN_DOES_NOT_EXIST);
+        throw new ManagementSystemException(ManagementSystemException.HCN_DOES_NOT_EXIST);
     }
 
     /** ADDING BATCHES */
 
     // Call the addBatch function to add a vaccine batch to the selected clinic
-    public String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId) throws Exception {
+    public String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId) throws ManagementSystemException {
         ServiceLocation clinicById = getClinicById(clinicId);
         VaccineBatch batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
         BatchAdding newBatch = new BatchAdding(clinicById, batch);
@@ -100,7 +94,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** BOOKING APPOINTMENTS */
     public String bookAppointment(int clinicId, String healthCareNumber,
-                                   LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) throws Exception {
+                                   LocalDateTime appointmentTime, String vaccineBrand, int appointmentId) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         User client = getClientByHCN(healthCareNumber);
         TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
@@ -110,7 +104,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     /** CANCELLING APPOINTMENTS */
-    public String cancelAppointment(int clinicId, int appointmentId) throws Exception {
+    public String cancelAppointment(int clinicId, int appointmentId) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic);
 
@@ -118,7 +112,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     /** VIEWING APPOINTMENTS */
-    public String viewAppointment(int clinicId, int appointmentId) throws Exception {
+    public String viewAppointment(int clinicId, int appointmentId) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         AppointmentViewing appointmentViewing = new AppointmentViewing(appointmentId, clinic);
 
@@ -131,15 +125,15 @@ public class UseCaseManager implements UseCaseManagerInterface {
         return createSetTimePeriod(clinicId).setEmployees(date, employees);
     }
 
-    public String addTimePeriod(int clinicId, LocalDateTime dateTime) throws Exception {
+    public String addTimePeriod(int clinicId, LocalDateTime dateTime) throws ManagementSystemException {
         return createSetTimePeriod(clinicId).addTimePeriod(dateTime);
     }
 
-    public String removeTimePeriod(int clinicId, LocalDateTime dateTime) throws Exception {
+    public String removeTimePeriod(int clinicId, LocalDateTime dateTime) throws ManagementSystemException {
         return createSetTimePeriod(clinicId).removeTimePeriod(dateTime);
     }
 
-    public int addMultipleTimePeriods(int clinicId, LocalDateTime start, LocalDateTime end, int interval) throws Exception {
+    public int addMultipleTimePeriods(int clinicId, LocalDateTime start, LocalDateTime end, int interval) throws ManagementSystemException {
         return createSetTimePeriod(clinicId).addMultipleTimePeriods(start, end, interval);
     }
 
@@ -150,22 +144,22 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /** RECORD ADDING **/
 
-    public String logAppointment(int clinicId, int appointmentId) throws Exception {
+    public String logAppointment(int clinicId, int appointmentId) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new RecordAdding(clinic).logAppointment(appointmentId);
     }
 
-    public String logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand) throws Exception {
+    public String logWalkIn(int clinicId, String vaccinationID, String clientHCN, LocalDateTime dateTime, String brand) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new RecordAdding(clinic).logWalkIn(vaccinationID, getClientByHCN(clientHCN), dateTime, brand);
     }
 
-    public StringBuilder logByDateTime(int clinicId, LocalDateTime dateTime) throws Exception {
+    public StringBuilder logByDateTime(int clinicId, LocalDateTime dateTime) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new RecordAdding(clinic).logByDateTime(dateTime);
     }
 
-    public StringBuilder logByDate(int clinicId, LocalDate date) throws Exception {
+    public StringBuilder logByDate(int clinicId, LocalDate date) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
         return new RecordAdding(clinic).logByDate(date);
     }
