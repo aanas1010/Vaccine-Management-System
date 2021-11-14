@@ -84,10 +84,6 @@ public abstract class ClinicDecorator implements ServiceLocation{
     }
 
 
-    //option if we choose not to use casting for clinics:
-
-     //decorator methods
-
      //BookableClinic
      public abstract boolean addAppointment(Appointment ap);
 

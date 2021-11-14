@@ -1,4 +1,4 @@
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import clinic_management.SetTimePeriod;
 import entities.Clinic;
 import org.junit.Before;

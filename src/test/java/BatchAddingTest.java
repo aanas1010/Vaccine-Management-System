@@ -1,4 +1,4 @@
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import clinic_management.BatchAdding;
 import entities.Clinic;
 import entities.VaccineBatch;

@@ -1,6 +1,6 @@
 package managers;
 
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

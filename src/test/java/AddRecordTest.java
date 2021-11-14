@@ -1,4 +1,4 @@
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import client_booking.RecordAdding;
 import entities.*;
 import org.junit.*;

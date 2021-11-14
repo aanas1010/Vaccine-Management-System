@@ -1,7 +1,7 @@
 package drivers;
 
-import Constants.BookingConstants;
-import Constants.ManagementSystemException;
+import constants.BookingConstants;
+import constants.ManagementSystemException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +17,7 @@ import static java.lang.Integer.parseInt;
  */
 
 public class DataValidation {
+    // Parameter types accepted by the command line
     protected enum ParameterTypes {
         NON_NEGATIVE_INT,
         POSITIVE_INT,
@@ -27,6 +28,7 @@ public class DataValidation {
         COMMAND_BOOKABLE
     }
 
+    // Types of commands which must all have a contains method
     protected enum CoreCommands {
         ADD_BATCH,
         SET_EMPLOYEES,

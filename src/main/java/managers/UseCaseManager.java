@@ -1,6 +1,6 @@
 package managers;
 
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import client_booking.*;
 import clinic_management.*;
 import entities.*;

@@ -1,6 +1,6 @@
 package clinic_management;
 
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import entities.ServiceLocation;
 import entities.TimePeriod;
 
@@ -56,7 +56,8 @@ public class SetTimePeriod {
 
     /* Adding multiple time periods from a starting time until the end based on
        interval inputted in the form of minutes */
-    public int addMultipleTimePeriods(LocalDateTime start, LocalDateTime end, int interval) throws ManagementSystemException {
+    public int addMultipleTimePeriods(LocalDateTime start, LocalDateTime end, int interval)
+            throws ManagementSystemException {
         if(!start.toLocalDate().equals(end.toLocalDate()) || interval <= 0){
             throw new ManagementSystemException(ManagementSystemException.INVALID_RANGE_OR_INTERVAL);
         }

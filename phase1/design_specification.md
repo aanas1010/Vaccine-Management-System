@@ -133,7 +133,7 @@ Our ‘Managers’ layer contains the interfaces and the management systems that
 
 As its name implies, the ‘Entities’ layer contains all the entities of this program.
 
-Lastly, we have a package called ‘Constants’ which contains the constants related to the booking process, including entity-specific constants and driver constants, as well as a custom exception class that contains the constants for error messages thrown by the use cases.
+Lastly, we have a package called ‘constants’ which contains the constants related to the booking process, including entity-specific constants and driver constants, as well as a custom exception class that contains the constants for error messages thrown by the use cases.
 
 Organizing our code using this package structure made it easy to abide by clean architecture. It also made it easy to understand what part of the program collaborated with what (for instance, the Use Cases AppointmentBooking, AppointmentCancellation, and AppointmentViewing are all in the client_booking package. All three classes have to do with the client’s appointment. An example of the classes relying on each other is the fact that you can’t cancel an appointment that you haven’t booked, which requires AppointmentBooking and AppointmentCancellation).
 

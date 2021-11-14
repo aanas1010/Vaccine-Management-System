@@ -1,6 +1,6 @@
 package clinic_management;
 
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import entities.ServiceLocation;
 import entities.VaccineBatch;
 

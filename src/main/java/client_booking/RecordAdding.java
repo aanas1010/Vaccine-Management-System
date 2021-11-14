@@ -1,7 +1,7 @@
 package client_booking;
 
-import Constants.BookingConstants;
-import Constants.ManagementSystemException;
+import constants.BookingConstants;
+import constants.ManagementSystemException;
 import entities.*;
 
 import java.time.LocalDate;
@@ -39,10 +39,12 @@ public class RecordAdding {
     }
 
     // Log a walk-in appointment given certain parameters
-    public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand) throws ManagementSystemException {
+    public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand)
+            throws ManagementSystemException {
         if (dateTime.isBefore(LocalDateTime.now())){
             clinic.logPastVaccinations(vaccinationID, client, dateTime, brand);
-            return clinic.getVaccineLog().getRecordString(BookingConstants.NON_APPOINTMENT_BASED_PREFIX + vaccinationID);
+            return clinic.getVaccineLog().getRecordString(
+                    BookingConstants.NON_APPOINTMENT_BASED_PREFIX + vaccinationID);
         }
         else{
             throw new ManagementSystemException(ManagementSystemException.TIME_NOT_PASSED);

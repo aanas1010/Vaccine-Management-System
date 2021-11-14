@@ -1,4 +1,4 @@
-package Constants;
+package constants;
 
 /**
  * These are the constants related to the booking process, including entity-specific

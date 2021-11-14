@@ -130,6 +130,7 @@ public class Clinic implements ServiceLocation {
         return null;
     }
 
+
     public int getServiceLocationId() {
         return this.clinicId;
     }

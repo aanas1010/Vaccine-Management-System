@@ -1,6 +1,6 @@
 package client_booking;
 
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import entities.*;
 
 /**

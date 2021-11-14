@@ -1,6 +1,6 @@
 package drivers;
 
-import Constants.ManagementSystemException;
+import constants.ManagementSystemException;
 import managers.*;
 
 public class Main {
@@ -9,8 +9,8 @@ public class Main {
         // Create the useCaseManager that stores the service locations
         UseCaseManagerInterface useCaseManager = new UseCaseManager();
 
-        // Create the clinics
         try {
+            // Create the clinics
             useCaseManager.addBookableClinic(1, "Shoppers Drug Mart - 279 Yonge Street");
             useCaseManager.addClinic(2, "Pharmasave - 4218 Lawrence Avenue East");
             useCaseManager.addBookableClinic(3, "Walmart - 900 Dufferin Street");
@@ -32,7 +32,7 @@ public class Main {
         ManagementSystem system = new VaccineManagementSystem(useCaseManager);
         CommandLine UI = new CommandLine(system);
 
-        //Run
+        //Run the system
         UI.run();
     }
 }

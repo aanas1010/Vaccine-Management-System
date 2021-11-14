@@ -1,6 +1,6 @@
 package entities;
 
-import Constants.BookingConstants;
+import constants.BookingConstants;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
