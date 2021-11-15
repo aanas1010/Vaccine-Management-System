@@ -17,7 +17,7 @@ public class ManagementSystemException extends Exception {
             "Could not add the batch because a batch already exists with the provided ID";
     public final static String BATCH_EXPIRED = "Could not add the batch because it is expired";
     public final static String NO_SHIFT_AVAILABLE =
-            "Could not add the time period because no shift has been set for the given time";
+            "Could not add the time period because no employees have been set for the given date";
     public final static String TIME_PERIOD_ALREADY_EXISTS =
             "Could not add the time period because a time period already exists for the given time";
     public final static String TIME_PERIOD_DOES_NOT_EXIST =

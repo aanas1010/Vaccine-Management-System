@@ -79,8 +79,6 @@ public class AppointmentBooking {
             throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_ID_ALREADY_EXISTS);
         }
 
-        this.assignVaccineDose();
-
         Appointment appointment = new Appointment(
                 this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose());
         this.client.approveAppointment();
