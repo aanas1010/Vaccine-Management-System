@@ -10,6 +10,7 @@ Multiple actions are done at different times to manipulate entities, notably cli
   * Booking an appointment for the given client based off of the clinic, vaccine brand, and time period specified
   * Viewing an appointment’s details as a string by its appointment unique identifier provided by the user
   * Cancelling an appointment by its appointment unique identifier
+  * Adding an appointment to a clinic's vaccination log by either a provided appointment ID or a provided date to log multiple
 
 Splitting up our use cases as such ensures that responsibilities are divided into appropriate classes, whereby a change in one does not interfere with the performance of another.
 ### Open-Closed Principle
