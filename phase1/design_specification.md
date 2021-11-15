@@ -2,7 +2,7 @@
 ## SOLID
 Our program adheres to the SOLID design principles in the following ways:
 ### Single-Responsibility Principle
-Multiple actions are done at different times to manipulate entities, notably clinics, appointments, and vaccination supplies. Our program strategically divides up these responsibilities into 5 core use cases:
+Multiple actions are done at different times to manipulate entities, notably clinics, appointments, and vaccination supplies. Our program strategically divides up these responsibilities into 6 core use cases:
 * Concerning all clinics:
   * Adding a vaccine batch with an expiry, quantity, and brand to the clinic’s vaccine supply
   * Setting a clinic’s number of employees for a date and setting the number of time slots for desired time slot of the day
