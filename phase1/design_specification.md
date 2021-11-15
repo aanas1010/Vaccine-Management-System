@@ -107,7 +107,7 @@ The goal of our project is to extensively test all the more complicated methods 
     * Testing is implemented for storing and loading data from tables.
 
 ## Refactoring 
-So far we have implemented refactoring in many parts of our project, from renaming all the way to changing a design pattern.
+So far we have implemented refactoring in many parts of our project, from renaming all the way to implementing a design pattern.
 * Renaming
   * Make variable names clearer and easier to understand
   * Refactoring to make the interaction between classes clearer
@@ -118,7 +118,7 @@ So far we have implemented refactoring in many parts of our project, from renami
   * CommandLine was a code smell (Bloaters)
   * With more time, CommandLine could be further cleaned by refactoring commonalities between use-case workflows into extracted functions which these use-case-specific functions call. As well, the large if-else block and the getValue function are most likely not implemented in a best-practice way and should be improved upon for phase 2.
 * Refactoring to implement the decorator design
-  * We are changing our implementation of service location, clinic and bookable clinic to implement the decorator design pattern
+  * We changed our implementation of service location, clinic and bookable clinic by using the decorator design pattern (see above).
 
 
 
