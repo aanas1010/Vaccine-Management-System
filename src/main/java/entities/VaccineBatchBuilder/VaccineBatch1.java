@@ -1,8 +1,9 @@
 package entities.VaccineBatchBuilder;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class VaccineBatch1 implements Vaccine{
+public class VaccineBatch1{
 
     private String brand;
     private int quantity;
@@ -10,29 +11,13 @@ public class VaccineBatch1 implements Vaccine{
     private int id;
     private int reserve;
 
-    @Override
-    public void setBrand(String brand){
-        this.brand = brand;
-    }
+    private VaccineBatch1(UserBuilder builder){
+        this.brand = builder.brand;
+        this.id = builder.id;
+        this.expiry = builder.expiry;
+        this.quantity = builder.quantity;
+        this.reserve = builder.reserve;
 
-    @Override
-    public void setQuantity(int quantity){
-        this.quantity = quantity;
-    }
-
-    @Override
-    public void setExpiry(LocalDate expiry){
-        this.expiry = expiry;
-    }
-
-    @Override
-    public void setId(int id){
-        this.id = id;
-    }
-
-    @Override
-    public void setReserved(int reserved){
-        this.reserve = reserved;
     }
 
     // Return whether the batch is expired
@@ -76,5 +61,36 @@ public class VaccineBatch1 implements Vaccine{
     public int getId(){return this.id;}
 
     public int getReserve() {return this.reserve;}
+
+    public static  class UserBuilder{
+        private final String brand;
+        private final int quantity;
+        private final LocalDate expiry;
+        private final int id;
+        private int reserve;
+
+        public UserBuilder(String brand, int quantity, LocalDate expiry, int id) {
+            this.brand = brand;
+            this.quantity = quantity;
+            this.expiry = expiry;
+            this.id = id;
+            this.reserve = 0;
+        }
+
+        public void setReserved(int reserved){
+            this.reserve = reserved;
+        }
+
+        public VaccineBatch1 build(){
+            VaccineBatch1 batch = new VaccineBatch1(this);
+            validateBatch(batch);
+            return batch;
+        }
+        private void validateBatch(VaccineBatch1 batch){
+            assert(this.expiry.isAfter(LocalDate.now()));
+            assert(Objects.equals(this.brand, "Pfizer") || Objects.equals(this.brand, "Moderna"));
+        }
+    }
 }
+
 
