@@ -18,10 +18,10 @@ public class BatchAddingTest {
 
     @Before // Setting up before the tests
     public void setUp() throws Exception{
-        batch = new VaccineBatch("Pfizer", 100,
-                LocalDate.of(2099, 10 , 30), 1234);
-        badBatch = new VaccineBatch("Pfizer", 100,
-                LocalDate.of(2021, 10 , 10), 1234);
+        batch = new VaccineBatch.BatchBuilder("Pfizer", 100,
+                LocalDate.of(2099, 10 , 30), 1234).build();
+        badBatch = new VaccineBatch.BatchBuilder("Pfizer", 100,
+                LocalDate.of(2021, 10 , 10), 1234).build();
         clinic = new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").build();
         batchAdd = new BatchAdding(clinic, batch);
         expiredAdd = new BatchAdding(clinic, badBatch);

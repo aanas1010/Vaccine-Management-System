@@ -19,7 +19,7 @@ public class AddRecordTest {
     public void setUp() throws Exception{
         dateTime = LocalDateTime.of(2020, 11, 14, 12, 30);
         timePeriod = new TimePeriod(dateTime, 5);
-        batch = new VaccineBatch("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234);
+        batch = new VaccineBatch.BatchBuilder("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234).build();
 
 
         // Setting up the clients

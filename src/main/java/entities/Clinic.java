@@ -152,7 +152,7 @@ public class Clinic implements ServiceLocation {
             this.location = location;
         }
 
-        public ClinicBuilder supply (VaccineSupply supply){
+        public ClinicBuilder Supply (VaccineSupply supply){
             this.supply = supply;
             return this;
         }
