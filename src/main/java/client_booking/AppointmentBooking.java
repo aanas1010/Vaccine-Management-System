@@ -6,12 +6,7 @@ import entities.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- * This is the Use Case for booking appointments.
- * Every time the use case is needed, a new AppointmentBooking instance is created
- * with parameters being the client, clinic, time period, and vaccination brand requested,
- * along with a specified ID
- */
+
 
 public class AppointmentBooking {
     User client;
@@ -52,7 +47,7 @@ public class AppointmentBooking {
 
     /** Reserve a vaccine dose for this client IF there is a timeslot available
      * AND this person doesn't already have an appointment.
-     * @return the VaccineBatch in question
+     * @return true if the vaccine batch in question assigned successfully; false otherwise.
      * @throws ManagementSystemException throws if the client has an appointment
      */
     public VaccineBatch assignVaccineDose() throws ManagementSystemException {
