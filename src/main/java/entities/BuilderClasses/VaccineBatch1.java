@@ -1,4 +1,4 @@
-package entities.VaccineBatchBuilder;
+package entities.BuilderClasses;
 
 import java.time.LocalDate;
 import java.util.Objects;

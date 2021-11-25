@@ -28,7 +28,7 @@ public class AddRecordTest {
         // Setting up appointments
         Appointment appointment1 = new Appointment(client1, timePeriod, "Pfizer", 1, batch);
 
-        Clinic clinic1 = new Clinic(1, "Toronto");
+        Clinic clinic1 = new Clinic.ClinicBuilder(1, "Toronto").build();
         clinic = new BookableClinic(clinic1);
         clinic.setShift(dateTime.toLocalDate(), 5);
         clinic.addTimePeriod(timePeriod, dateTime.toLocalDate());

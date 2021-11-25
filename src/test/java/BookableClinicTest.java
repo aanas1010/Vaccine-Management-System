@@ -14,7 +14,7 @@ public class BookableClinicTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinic = new BookableClinic(new Clinic(1, "Shoppers Drug Mart - 279 Yonge Street"));
+        clinic = new BookableClinic(new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").build());
         client = new Client("Joe Mama", "4206969");
         timePeriod = new TimePeriod(LocalDateTime.now(), 50);
         clinic.addTimePeriod(timePeriod, LocalDate.now());

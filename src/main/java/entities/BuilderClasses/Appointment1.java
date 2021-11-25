@@ -1,12 +1,10 @@
-package entities.VaccineBatchBuilder;
+package entities.BuilderClasses;
 
 import entities.TimePeriod;
 import entities.User;
 import entities.VaccineBatch;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * This is the Appointment entity for each appointment instance,

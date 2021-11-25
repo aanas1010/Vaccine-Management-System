@@ -4,6 +4,7 @@ import constants.ManagementSystemException;
 import client_booking.*;
 import clinic_management.*;
 import entities.*;
+import entities.Clinic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,7 +35,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
-        clinics.add(new Clinic(clinicId, location));
+        clinics.add(new Clinic.ClinicBuilder(clinicId, location).build());
     }
 
     public void addBookableClinic(int clinicId, String location) throws ManagementSystemException {
@@ -42,7 +43,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
-        clinics.add(new BookableClinic(new Clinic(clinicId, location)));
+        clinics.add(new BookableClinic(new Clinic.ClinicBuilder(clinicId, location).build()));
     }
 
     private boolean containsClinicWithId(int clinicId) {
