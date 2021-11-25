@@ -5,13 +5,13 @@ import java.util.Objects;
 
 public class VaccineBatch1{
 
-    private String brand;
-    private int quantity;
-    private LocalDate expiry;
-    private int id;
+    private final String brand;
+    private final int quantity;
+    private final LocalDate expiry;
+    private final int id;
     private int reserve;
 
-    private VaccineBatch1(UserBuilder builder){
+    private VaccineBatch1(BatchBuilder builder){
         this.brand = builder.brand;
         this.id = builder.id;
         this.expiry = builder.expiry;
@@ -62,14 +62,14 @@ public class VaccineBatch1{
 
     public int getReserve() {return this.reserve;}
 
-    public static  class UserBuilder{
+    public static  class BatchBuilder {
         private final String brand;
         private final int quantity;
         private final LocalDate expiry;
         private final int id;
         private int reserve;
 
-        public UserBuilder(String brand, int quantity, LocalDate expiry, int id) {
+        public BatchBuilder(String brand, int quantity, LocalDate expiry, int id) {
             this.brand = brand;
             this.quantity = quantity;
             this.expiry = expiry;
