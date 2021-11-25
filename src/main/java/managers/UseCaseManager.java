@@ -88,7 +88,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     // Call the addBatch function to add a vaccine batch to the selected clinic
     public String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId) throws ManagementSystemException {
         ServiceLocation clinicById = getClinicById(clinicId);
-        VaccineBatch batch = new VaccineBatch(batchBrand, batchQuantity, batchExpiry, batchId);
+        VaccineBatch batch = new VaccineBatch.BatchBuilder(batchBrand, batchQuantity, batchExpiry, batchId).build();
         BatchAdding newBatch = new BatchAdding(clinicById, batch);
        return newBatch.addBatch();
     }
