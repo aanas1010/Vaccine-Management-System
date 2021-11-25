@@ -84,13 +84,13 @@ public class VaccineBatch{
 
         public VaccineBatch build(){
             VaccineBatch batch = new VaccineBatch(this);
-            validateBatch(batch);
+//            validateBatch(batch);
             return batch;
         }
-        private void validateBatch(VaccineBatch batch){
-            assert(this.expiry.isAfter(LocalDate.now()));
-            assert(Objects.equals(this.brand, "Pfizer") || Objects.equals(this.brand, "Moderna"));
-        }
+//        private void validateBatch(VaccineBatch batch){
+//            assert(this.expiry.isAfter(LocalDate.now()));
+//            assert(Objects.equals(this.brand, "Pfizer") || Objects.equals(this.brand, "Moderna"));
+//        }
     }
 }
 
