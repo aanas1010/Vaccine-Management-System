@@ -38,7 +38,7 @@ public class AppointmentBooking {
     }
 
     /** indicates whether there is an opening for the specified time period
-    * @return true the stime period is available - false if not. 
+    * @return true the stime period is available - false if not.
     */
     private boolean isTimeslotAvailable(){
         for(TimePeriod timePeriod: clinic.getTimePeriods(this.timePeriod.getDateTime().toLocalDate())) {
@@ -49,10 +49,12 @@ public class AppointmentBooking {
         return false;
     }
 
+
     /** Reserve a vaccine dose for this client IF there is a timeslot available
-    * AND this person doesn't already have an appointment.
-    * @return the VaccineBatch in question
-    */
+     * AND this person doesn't already have an appointment.
+     * @return the VaccineBatch in question
+     * @throws ManagementSystemException throws if the client has an appointment
+     */
     public VaccineBatch assignVaccineDose() throws ManagementSystemException {
         if(this.client.getHasAppointment()) {
             throw new ManagementSystemException(ManagementSystemException.CLIENT_ALREADY_HAS_APPOINTMENT);
@@ -76,9 +78,10 @@ public class AppointmentBooking {
         return earliestExpiringVaccine;
     }
 
+
     /** Check if the appointment ID is unique
-    @return true if the id is unique - false otherwise
-    */
+     * @return true if the id is unique - false otherwise
+     */
     private boolean hasUniqueId() {
         return !clinic.getAppointmentIds().contains(appointmentId);
     }
