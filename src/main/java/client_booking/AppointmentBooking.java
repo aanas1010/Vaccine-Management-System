@@ -22,12 +22,12 @@ public class AppointmentBooking {
 
     /**
     * creates Use Case for booking appointments.
-    * 
+    *
     * @param client The client booking the appointment
     * @param clinic The clinic where the appointment is book
     * @param timePeriod The time period when the appointment is expected to happen
     * @param vaccineBrand the vaccine brand for this appointment
-    * @param appointmentId the id of this appointment 
+    * @param id the id of this appointment
     */
     public AppointmentBooking(User client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id){
         this.client = client;
@@ -83,10 +83,11 @@ public class AppointmentBooking {
         return !clinic.getAppointmentIds().contains(appointmentId);
     }
 
+
     /** Create an appointment for this client in the Clinic's system
-    * @return String describing the appointment
-    * @throws ManagementSystemException
-    */
+     * @return String describing the appointment
+     * @throws ManagementSystemException throws exception if the time slot unavailable or doesnt have a unique id.
+     */
     public String createAppointment() throws ManagementSystemException {
         if(!this.isTimeslotAvailable()) {
             throw new ManagementSystemException(ManagementSystemException.TIME_SLOT_UNAVAILABLE);
