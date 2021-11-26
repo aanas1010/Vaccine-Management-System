@@ -11,40 +11,103 @@ import java.util.ArrayList;
 
 public interface ServiceLocation {
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     boolean supplyContainsBatchId(int id);
 
+    /**
+     * @param batch [description]
+     */
     void addBatch(VaccineBatch batch);
 
+    /**
+     * @param vaccinationId [description]
+     * @param client [description]
+     * @param dateTime [description]
+     * @param vaccineBrand [description]
+     */
     void logPastVaccinations(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand);
 
+    /**
+     * @param date [description]
+     * @param num [description]
+     */
     void setShift(LocalDate date, int num);
 
+    /**
+     * @param timePeriod [description]
+     * @param date [description]
+     */
     void addTimePeriod(TimePeriod timePeriod, LocalDate date);
 
+    /**
+     * @param dateTime [description]
+     */
     void removeTimePeriod(LocalDateTime dateTime);
 
+    /**
+     * @return [description]
+     */
     int getServiceLocationId();
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     int getShiftForDate(LocalDate date);
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     boolean shiftAvailable(LocalDate date);
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     boolean containsShift(LocalDate date);
 
+    /**
+     * @param dateTime [description]
+     * @return [description]
+     */
     boolean checkTimePeriod(LocalDateTime dateTime);
 
+    /**
+     * @param dateTime [description]
+     * @return [description]
+     */
     TimePeriod getTimePeriod(LocalDateTime dateTime);
 
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     ArrayList<TimePeriod> getTimePeriods(LocalDate date);
 
+    /**
+     * @return [description]
+     */
     VaccinationLog getVaccineLog();
 
+    /**
+     * @return [description]
+     */
     String getLocation();
 
 
+    /**
+     * @return [description]
+     */
     ArrayList<VaccineBatch> getSupply();
 
+    /**
+     * @return [description]
+     */
     VaccineSupply getSupplyObj();
 
 }

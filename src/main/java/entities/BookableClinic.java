@@ -11,6 +11,9 @@ import java.util.ArrayList;
 public class BookableClinic extends ClinicDecorator{
     private final ArrayList<Appointment> appointments;
 
+    /**
+     * @param decoratedClinic [description]
+     */
     // Basic constructor
     public BookableClinic(ServiceLocation decoratedClinic)
     {
@@ -18,6 +21,10 @@ public class BookableClinic extends ClinicDecorator{
         this.appointments = new ArrayList<>();
     }
 
+    /**
+     * @param ap [description]
+     * @return [description]
+     */
     // Try to add the appointment to the list and return whether the appointment was added
     public boolean addAppointment(Appointment ap) {
         // If this appointment ID is already taken, do not add the appointment
@@ -30,6 +37,10 @@ public class BookableClinic extends ClinicDecorator{
         return true;
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     // Return the Appointment record by ID. Return null if it cannot be found
     public Appointment getAppointmentRecord(int id) {
         for(Appointment record: appointments) {
@@ -40,6 +51,10 @@ public class BookableClinic extends ClinicDecorator{
         return null;
     }
 
+    /**
+     * @param ap [description]
+     * @return [description]
+     */
     // Try to remove an appointment from the list. Return whether successful
     public boolean removeAppointment(Appointment ap) {
         if(appointments.contains(ap)) {
@@ -51,16 +66,26 @@ public class BookableClinic extends ClinicDecorator{
         }
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     // Try to remove an appointment by ID from the list. Return whether successful
     public boolean removeAppointmentById(int id) {
         return removeAppointment(getAppointmentRecord(id));
     }
 
+    /**
+     * @param appointment [description]
+     */
     // Log a past vaccination (WITH APPOINTMENT)
     public void logPastVaccinations(Appointment appointment) {
         decoratedClinic.getVaccineLog().addToLog(appointment);
     }
 
+    /**
+     * @return [description]
+     */
     public ArrayList<Integer> getAppointmentIds() {
         ArrayList<Integer> appointmentIds = new ArrayList<>();
         for(Appointment ap : appointments) {
@@ -69,6 +94,10 @@ public class BookableClinic extends ClinicDecorator{
         return appointmentIds;
     }
 
+    /**
+     * @param timePeriod [description]
+     * @return [description]
+     */
     public ArrayList<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod){
         ArrayList<Appointment> dateAppointments = new ArrayList<>();
         for (Appointment appointment: appointments){
