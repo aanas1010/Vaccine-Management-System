@@ -15,10 +15,10 @@ public class VaccineBatchTest {
 
     @Before // Setting up before the tests
     public void setUp() throws Exception {
-        batch = new VaccineBatch("Pfizer", 100,
-                LocalDate.of(2099, 10 , 30), 1234);
-        badBatch = new VaccineBatch("Moderna", 69,
-                LocalDate.of(2021, 10 , 10), 1234);
+        batch = new VaccineBatch.BatchBuilder("Pfizer", 100,
+                LocalDate.of(2099, 10 , 30), 1234).build();
+        badBatch = new VaccineBatch.BatchBuilder("Moderna", 69,
+                LocalDate.of(2021, 10 , 10), 1234).build();
     }
 
     @Test(timeout = 100) // Testing that a vaccine batch is expired

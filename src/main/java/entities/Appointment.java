@@ -1,5 +1,9 @@
 package entities;
 
+import entities.TimePeriod;
+import entities.User;
+import entities.VaccineBatch;
+
 import java.time.LocalDateTime;
 
 /**
@@ -14,12 +18,12 @@ public class Appointment {
     String vaccineBrand;
     VaccineBatch clientVaccineBatch;
 
-    public Appointment(User client, TimePeriod timePeriod, String vaccineBrand, int id, VaccineBatch clientVaccineBatch){
-        this.client = client;
-        this.timePeriod = timePeriod;
-        this.vaccineBrand = vaccineBrand;
-        this.appointmentId = id;
-        this.clientVaccineBatch = clientVaccineBatch;
+    public Appointment(AppointmentBuilder builder){
+        this.client = builder.client;
+        this.timePeriod = builder.timePeriod;
+        this.vaccineBrand = builder.vaccineBrand;
+        this.appointmentId = builder.appointmentId;
+        this.clientVaccineBatch = builder.clientVaccineBatch;
     }
 
     // Return whether this appointment's time has already occurred
@@ -44,4 +48,35 @@ public class Appointment {
     public TimePeriod getTimePeriod() { return timePeriod; }
 
     public String getVaccineBrand() { return vaccineBrand;}
+
+    public static  class AppointmentBuilder {
+
+        private final int appointmentId;
+        private final User client;
+        private final TimePeriod timePeriod;
+        private final String vaccineBrand;
+        private final VaccineBatch clientVaccineBatch;
+
+        // Constructor for an appointment
+        public AppointmentBuilder(User client, TimePeriod timePeriod, String vaccineBrand, int id, VaccineBatch clientVaccineBatch) {
+            this.client = client;
+            this.timePeriod = timePeriod;
+            this.vaccineBrand = vaccineBrand;
+            this.appointmentId = id;
+            this.clientVaccineBatch = clientVaccineBatch;
+        }
+
+        // Building the appointment
+        public Appointment build(){
+            Appointment appointment = new Appointment(this);
+//            validateAppointment(appointment);
+            return appointment;
+        }
+
+        // Possibly add a validation check in the future
+//        private void validateAppointment(Appointment batch){
+//
+//        }
+    }
 }
+

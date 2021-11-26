@@ -17,7 +17,7 @@ public class SetTimePeriodTest {
     LocalDate testDate;
     @Before // Setting up before the tests
     public void setUp() throws Exception{
-        clinic = new Clinic(1, "Shoppers Drug Mart - 279 Yonge Street");
+        clinic = new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").build();
         setTimePeriod = new SetTimePeriod(clinic);
         testDateTime = LocalDateTime.of(2021, 10, 31, 12, 0);
         testDate = LocalDate.of(2021, 11, 4);

@@ -1,5 +1,6 @@
 package entities;
 
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,33 +20,13 @@ public class Clinic implements ServiceLocation {
     private final String location;
 
     // Basic constructor
-    public Clinic(int id, String location) {
-        this.clinicId = id;
-        this.supply = new VaccineSupply();
-        this.log = new VaccinationLog();
-        this.timePeriods = new HashMap<>();
-        this.shifts = new HashMap<>();
-        this.location = location;
-    }
-
-    // Overloaded Constructors for testing
-    public Clinic(int id, VaccineSupply supply, VaccinationLog vaccinationLog, HashMap<LocalDate,
-            ArrayList<TimePeriod>> timePeriods, HashMap<LocalDate, Integer> shifts, String location) {
-        this.clinicId = id;
-        this.supply = supply;
-        this.log = vaccinationLog;
-        this.timePeriods = timePeriods;
-        this.shifts = shifts;
-        this.location = location;
-    }
-    // Overloaded constructor
-    public Clinic(int id, VaccineSupply supply, String location) {
-        this.clinicId = id;
-        this.supply = supply;
-        this.log = new VaccinationLog();
-        this.timePeriods = new HashMap<>();
-        this.shifts = new HashMap<>();
-        this.location = location;
+    public Clinic(ClinicBuilder builder) {
+        this.clinicId = builder.clinicId;
+        this.supply = builder.supply;
+        this.log = builder.log;
+        this.timePeriods = builder.timePeriods;
+        this.shifts = builder.shifts;
+        this.location = builder.location;
     }
 
     // Add a batch to the VaccineSupply
@@ -152,5 +133,42 @@ public class Clinic implements ServiceLocation {
     public VaccinationLog getVaccineLog() {return log;}
 
     public String getLocation() {return location;}
+
+    public static  class ClinicBuilder {
+        private final int clinicId;
+        private VaccineSupply supply;
+        private final VaccinationLog log;
+        private final HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
+        private final HashMap<LocalDate, Integer> shifts;
+        private final String location;
+
+        // Basic constructor
+        public ClinicBuilder(int id, String location) {
+            this.clinicId = id;
+            this.supply = new VaccineSupply();
+            this.log = new VaccinationLog();
+            this.timePeriods = new HashMap<>();
+            this.shifts = new HashMap<>();
+            this.location = location;
+        }
+
+        public ClinicBuilder Supply (VaccineSupply supply){
+            this.supply = supply;
+            return this;
+        }
+
+
+        public Clinic build(){
+            Clinic clinic = new Clinic(this);
+            // validateBatch(clinic);
+            return clinic;
+        }
+//        private void validateClinic(VaccineBatch1 batch){
+//            assert(this.expiry.isAfter(LocalDate.now()));
+//            assert(Objects.equals(this.brand, "Pfizer") || Objects.equals(this.brand, "Moderna"));
+//        }
+    }
+
+
 
 }
