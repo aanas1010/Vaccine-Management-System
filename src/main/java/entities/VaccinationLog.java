@@ -4,6 +4,7 @@ import constants.BookingConstants;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the VaccinationLog entity that keeps track of all previous vaccinations
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  */
 
 public class VaccinationLog {
-    private final ArrayList<VaccinationRecord> log;
+    private final List<VaccinationRecord> log;
     public VaccinationLog() {
         this.log = new ArrayList<>();
     }

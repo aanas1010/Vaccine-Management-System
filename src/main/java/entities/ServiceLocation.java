@@ -2,7 +2,7 @@ package entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the ServiceLocation interface which supports methods for
@@ -36,14 +36,14 @@ public interface ServiceLocation {
     TimePeriod getTimePeriod(LocalDateTime dateTime);
 
 
-    ArrayList<TimePeriod> getTimePeriods(LocalDate date);
+    List<TimePeriod> getTimePeriods(LocalDate date);
 
     VaccinationLog getVaccineLog();
 
     String getLocation();
 
 
-    ArrayList<VaccineBatch> getSupply();
+    List<VaccineBatch> getSupply();
 
     VaccineSupply getSupplyObj();
 

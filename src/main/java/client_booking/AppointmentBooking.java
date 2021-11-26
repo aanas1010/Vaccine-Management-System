@@ -4,7 +4,7 @@ import constants.ManagementSystemException;
 import entities.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Use Case for booking appointments.
@@ -47,7 +47,7 @@ public class AppointmentBooking {
             throw new ManagementSystemException(ManagementSystemException.CLIENT_ALREADY_HAS_APPOINTMENT);
         }
 
-        ArrayList<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
+        List<VaccineBatch> batchList = this.clinic.getSupplyObj().getBatchList();
         VaccineBatch earliestExpiringVaccine = null;
         LocalDate earliestDate = null;
         for (VaccineBatch batch : batchList) {

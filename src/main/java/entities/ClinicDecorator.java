@@ -2,7 +2,7 @@ package entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ClinicDecorator implements ServiceLocation{
     protected ServiceLocation decoratedClinic;
@@ -52,7 +52,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
         return this.decoratedClinic.checkTimePeriod(dateTime);
     }
 
-    public ArrayList<TimePeriod> getTimePeriods(LocalDate date){
+    public List<TimePeriod> getTimePeriods(LocalDate date){
         return this.decoratedClinic.getTimePeriods(date);
     }
 
@@ -62,7 +62,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
 
     public String getLocation() {return this.decoratedClinic.getLocation();}
 
-    public ArrayList<VaccineBatch> getSupply(){
+    public List<VaccineBatch> getSupply(){
         return this.decoratedClinic.getSupply();
     }
 
@@ -95,8 +95,8 @@ public abstract class ClinicDecorator implements ServiceLocation{
 
      public abstract void logPastVaccinations(Appointment appointmentRecord);
 
-     public abstract ArrayList<Integer> getAppointmentIds();
+     public abstract List<Integer> getAppointmentIds();
 
-     public abstract ArrayList<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod);
+     public abstract List<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod);
 
 }

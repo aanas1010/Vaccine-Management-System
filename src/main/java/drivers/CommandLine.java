@@ -5,10 +5,7 @@ import managers.ManagementSystem;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * This is the class for the Command Line UI
@@ -18,7 +15,7 @@ import java.util.Scanner;
 public class CommandLine {
     private final ManagementSystem managementSystem;
     private final Scanner in;
-    private final int clinicId;
+    private int clinicId;
 
     // Constructor accepts a management system
     public CommandLine(ManagementSystem system) {
@@ -29,12 +26,12 @@ public class CommandLine {
 
     public void run() {
         //Get the clinic ID from the user
-        int clinicId = getClinicId();
+        this.clinicId = getClinicId();
 
         boolean isBookableClinic = managementSystem.getBookableClinicIds().contains(clinicId);
 
         // Get the list of acceptable commands
-        ArrayList<Enum<?>> acceptableCommands = new ArrayList<>(Arrays.asList(DataValidation.CoreCommands.values()));
+        List<Enum<?>> acceptableCommands = new ArrayList<>(Arrays.asList(DataValidation.CoreCommands.values()));
 
         String commandListString = createAcceptableCommandsString(isBookableClinic, acceptableCommands);
 
@@ -44,7 +41,7 @@ public class CommandLine {
 
     // Determine which command to run
     private void runCommands(String commandListString,
-                             ArrayList<Enum<?>> acceptableCommands) {
+                             List<Enum<?>> acceptableCommands) {
         boolean isRunning = true;
 
         /* Current implementation uses large if-else block and not a switch statement from phase 0.
@@ -104,7 +101,7 @@ public class CommandLine {
     }
 
     // Return a string of the acceptable commands depending on whether the clinic is bookable
-    private String createAcceptableCommandsString(boolean isBookableClinic, ArrayList<Enum<?>> acceptableCommands) {
+    private String createAcceptableCommandsString(boolean isBookableClinic, List<Enum<?>> acceptableCommands) {
         // Depending on whether isBookableClinic, accept different types of commands
         if(isBookableClinic) {
             acceptableCommands.addAll(Arrays.asList(DataValidation.BookableCommands.values()));
