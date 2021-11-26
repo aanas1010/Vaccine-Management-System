@@ -19,7 +19,7 @@ public class AppointmentBooking {
     * creates Use Case for booking appointments.
     *
     * @param client The client booking the appointment
-    * @param clinic The clinic where the appointment is book
+    * @param clinic The clinic where the appointment is booked
     * @param timePeriod The time period when the appointment is expected to happen
     * @param vaccineBrand the vaccine brand for this appointment
     * @param id the id of this appointment
@@ -33,7 +33,7 @@ public class AppointmentBooking {
     }
 
     /** indicates whether there is an opening for the specified time period
-    * @return true the stime period is available - false if not.
+    * @return true the time period is available - false if not.
     */
     private boolean isTimeslotAvailable(){
         for(TimePeriod timePeriod: clinic.getTimePeriods(this.timePeriod.getDateTime().toLocalDate())) {
