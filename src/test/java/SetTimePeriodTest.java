@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class SetTimePeriodTest {
     SetTimePeriod setTimePeriod;
@@ -16,7 +15,7 @@ public class SetTimePeriodTest {
     LocalDateTime testDateTime;
     LocalDate testDate;
     @Before // Setting up before the tests
-    public void setUp() throws Exception{
+    public void setUp() {
         clinic = new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").build();
         setTimePeriod = new SetTimePeriod(clinic);
         testDateTime = LocalDateTime.of(2021, 10, 31, 12, 0);

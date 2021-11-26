@@ -3,7 +3,6 @@ import client_booking.AppointmentBooking;
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class AppointmentBookingTest {
     VaccineBatch expiredBatch;
 
     @Before // Setting up before the tests
-    public void setUp() throws Exception{
+    public void setUp() {
         timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
 
         // Setting up the first client
