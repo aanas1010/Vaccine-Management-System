@@ -68,15 +68,8 @@ public class Appointment {
 
         // Building the appointment
         public Appointment build(){
-            Appointment appointment = new Appointment(this);
-//            validateAppointment(appointment);
-            return appointment;
+            return new Appointment(this);
         }
-
-        // Possibly add a validation check in the future
-//        private void validateAppointment(Appointment batch){
-//
-//        }
     }
 }
 

@@ -159,14 +159,8 @@ public class Clinic implements ServiceLocation {
 
 
         public Clinic build(){
-            Clinic clinic = new Clinic(this);
-            // validateBatch(clinic);
-            return clinic;
+            return new Clinic(this);
         }
-//        private void validateClinic(VaccineBatch1 batch){
-//            assert(this.expiry.isAfter(LocalDate.now()));
-//            assert(Objects.equals(this.brand, "Pfizer") || Objects.equals(this.brand, "Moderna"));
-//        }
     }
 
 
