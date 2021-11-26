@@ -14,7 +14,7 @@ public class VaccineBatchTest {
 
 
     @Before // Setting up before the tests
-    public void setUp() throws Exception {
+    public void setUp() {
         batch = new VaccineBatch.BatchBuilder("Pfizer", 100,
                 LocalDate.of(2099, 10 , 30), 1234).build();
         badBatch = new VaccineBatch.BatchBuilder("Moderna", 69,

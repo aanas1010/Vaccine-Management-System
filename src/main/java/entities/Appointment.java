@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
  */
 
 public class Appointment {
-    int appointmentId;
-    User client;
-    TimePeriod timePeriod;
-    String vaccineBrand;
-    VaccineBatch clientVaccineBatch;
+    final int appointmentId;
+    final User client;
+    final TimePeriod timePeriod;
+    final String vaccineBrand;
+    final VaccineBatch clientVaccineBatch;
 
     public Appointment(AppointmentBuilder builder){
         this.client = builder.client;

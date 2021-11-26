@@ -17,7 +17,7 @@ import java.util.List;
 
 public class RecordAdding {
 
-    ClinicDecorator clinic;
+    final ClinicDecorator clinic;
 
     // Constructor
     public RecordAdding(ClinicDecorator clinic){

@@ -38,6 +38,8 @@ public class ManagementSystemException extends Exception {
     public final static String BRAND_DOES_NOT_EXIST =
             "This clinic does not have any batches for the provided vaccine brand";
 
+    // Allows us to output an error without a message
     public ManagementSystemException() {}
+    // Allows us to output an error with a message
     public ManagementSystemException(String message) {super(message);}
 }

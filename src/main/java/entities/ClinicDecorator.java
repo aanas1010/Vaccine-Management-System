@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public abstract class ClinicDecorator implements ServiceLocation{
-    protected ServiceLocation decoratedClinic;
+    protected final ServiceLocation decoratedClinic;
 
     //constructor
     public ClinicDecorator(ServiceLocation decoratedClinic)
@@ -89,7 +89,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
 
      public abstract Appointment getAppointmentRecord(int id);
 
-     public abstract boolean removeAppointment(Appointment ap);
+     // --Commented out by Inspection (2021-11-22 3:52 p.m.):public abstract boolean removeAppointment(Appointment ap);
 
      public abstract boolean removeAppointmentById(int id);
 

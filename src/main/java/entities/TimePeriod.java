@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  */
 
 public class TimePeriod {
-    LocalDateTime dateTime;
+    final LocalDateTime dateTime;
     int availableSlots;
     int bookedSlots;
 
