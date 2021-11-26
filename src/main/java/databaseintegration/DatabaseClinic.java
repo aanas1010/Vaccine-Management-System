@@ -1,4 +1,4 @@
-package database_integration;
+package databaseintegration;
 
 import java.sql.*;
 import java.util.ArrayList;

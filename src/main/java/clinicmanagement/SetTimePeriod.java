@@ -1,4 +1,4 @@
-package clinic_management;
+package clinicmanagement;
 
 import constants.ManagementSystemException;
 import entities.ServiceLocation;

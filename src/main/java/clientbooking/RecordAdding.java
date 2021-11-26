@@ -1,4 +1,4 @@
-package client_booking;
+package clientbooking;
 
 import constants.BookingConstants;
 import constants.ManagementSystemException;

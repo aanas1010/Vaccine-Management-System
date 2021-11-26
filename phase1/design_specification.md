@@ -128,7 +128,7 @@ So far we have implemented refactoring in many parts of our project, from renami
 ## Code Organization
 Our code was organized in accordance with clean architecture, that is, each package in the ‘main’ file represents a layer of clean architecture, with the exception of the ‘Use Cases’ and ‘Drivers’ layers.
 
-Instead of isolating the ‘Use Cases’ layer, we decided to separate it into the two main functions of our program: client_booking - which contains the classes involved in the booking of appointments, and clinic_management- which contains the classes needed to manage the clinic. 
+Instead of isolating the ‘Use Cases’ layer, we decided to separate it into the two main functions of our program: clientbooking - which contains the classes involved in the booking of appointments, and clinicmanagement- which contains the classes needed to manage the clinic. 
 
 On the other hand, the ‘Drivers’ layer is where the CommandLine is created and where our Main class is located. For the time being, we have decided to separate the database from the ‘Drivers’ package until we have got it connected. 
 
@@ -138,7 +138,7 @@ As its name implies, the ‘Entities’ layer contains all the entities of this 
 
 Lastly, we have a package called ‘constants’ which contains the constants related to the booking process, including entity-specific constants and driver constants, as well as a custom exception class that contains the constants for error messages thrown by the use cases.
 
-Organizing our code using this package structure made it easy to abide by clean architecture. It also made it easy to understand what part of the program collaborated with what (for instance, the Use Cases AppointmentBooking, AppointmentCancellation, and AppointmentViewing are all in the client_booking package. All three classes have to do with the client’s appointment. An example of the classes relying on each other is the fact that you can’t cancel an appointment that you haven’t booked, which requires AppointmentBooking and AppointmentCancellation).
+Organizing our code using this package structure made it easy to abide by clean architecture. It also made it easy to understand what part of the program collaborated with what (for instance, the Use Cases AppointmentBooking, AppointmentCancellation, and AppointmentViewing are all in the clientbooking package. All three classes have to do with the client’s appointment. An example of the classes relying on each other is the fact that you can’t cancel an appointment that you haven’t booked, which requires AppointmentBooking and AppointmentCancellation).
 
 Furthermore, as was mentioned above, we have implemented the Decorator design pattern. This way we have optimized the organization of the code involved with clinics, and their subtypes. When designing our code, we’ve been using the “camelCase” format for variables and method names and ‘PascalCase’ for class names. This distinguishing between variable names and method names makes things clearer when creating a new variable which we name the same thing as the object type.
 

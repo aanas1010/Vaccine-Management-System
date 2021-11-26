@@ -1,7 +1,7 @@
 import constants.ManagementSystemException;
-import client_booking.AppointmentBooking;
-import client_booking.AppointmentCancellation;
-import client_booking.AppointmentViewing;
+import clientbooking.AppointmentBooking;
+import clientbooking.AppointmentCancellation;
+import clientbooking.AppointmentViewing;
 import entities.*;
 import org.junit.*;
 

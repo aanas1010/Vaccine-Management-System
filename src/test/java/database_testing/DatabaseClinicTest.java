@@ -1,6 +1,6 @@
 package database_testing;
 
-import database_integration.DatabaseClinic;
+import databaseintegration.DatabaseClinic;
 import java.sql.*;
 import java.util.ArrayList;
 import org.junit.*;
