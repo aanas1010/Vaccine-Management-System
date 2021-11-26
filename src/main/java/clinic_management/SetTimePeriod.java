@@ -18,18 +18,36 @@ import java.util.List;
 public class SetTimePeriod {
     private final ServiceLocation clinic;
 
+    /**
+     * This is the Use Case for setting time periods and shifts.
+     *
+     * @param clinic The clinic for which the time period is being set for
+     */
     // Constructor
     public SetTimePeriod(ServiceLocation clinic){
         this.clinic = clinic;
     }
 
-    // Setting the number of shifts for a certain time
+    /**
+     * Setting the number of shifts for a certain time
+     *
+     * @param date The date for when the employees are being set
+     * @param employees The number of employees being set for the given date
+     * @return a string that indicates the number of employees assigned for the chosen date
+     */
     public String setEmployees(LocalDate date, int employees) {
         this.clinic.setShift(date, employees);
         return "Set " + employees + " employees for " + date;
     }
 
-    // Adding a time period to a clinic if it is not already there
+    /**
+     * Adding a time period to a clinic if it is not already there
+     *
+     * @param dateTime The date and time for which the timePeriod is being added for
+     * @return a string of the timePeriod added
+     * @throws ManagementSystemException if no employees have been set for the given date or a time period
+     * already exists for the given time
+     */
     public String addTimePeriod(LocalDateTime dateTime) throws ManagementSystemException {
         if (this.clinic.shiftAvailable(dateTime.toLocalDate())
                 && !this.clinic.checkTimePeriod(dateTime)){
@@ -44,7 +62,13 @@ public class SetTimePeriod {
         }
     }
 
-    // Removing a time period from a clinic if there exists a time period at the specified date and time.
+    /**
+     * Removing a time period from a clinic if there exists a time period at the specified date and time.
+     *
+     * @param dateTime The date and time for which the timePeriod is being removed for
+     * @return a string that indicates the date and time of the timePeriod that has been removed
+     * @throws ManagementSystemException if there is no timePeriod that exists for the chosen date and time
+     */
     public String removeTimePeriod(LocalDateTime dateTime) throws ManagementSystemException {
         if(this.clinic.checkTimePeriod(dateTime)){
             this.clinic.removeTimePeriod(dateTime);
@@ -55,8 +79,17 @@ public class SetTimePeriod {
         }
     }
 
-    /* Adding multiple time periods from a starting time until the end based on
-       interval inputted in the form of minutes */
+    /**
+     * Adding multiple time periods from a starting time until the end based on interval inputted in
+     * the form of minutes
+     *
+     * @param start starting time of the first time period
+     * @param end ending time of the last time period
+     * @param interval the length (in minutes) of each timePeriod
+     * @return the number of timePeriods that have been added
+     * @throws ManagementSystemException if the start date and end date are NOT the same, or the interval is less
+     * than 1 minute
+     */
     public int addMultipleTimePeriods(LocalDateTime start, LocalDateTime end, int interval) throws ManagementSystemException {
         if(!start.toLocalDate().equals(end.toLocalDate()) || interval <= 0){
             throw new ManagementSystemException(ManagementSystemException.INVALID_RANGE_OR_INTERVAL);

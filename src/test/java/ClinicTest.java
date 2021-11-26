@@ -1,7 +1,6 @@
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
