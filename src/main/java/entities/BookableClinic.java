@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public class BookableClinic extends ClinicDecorator{
-    private final ArrayList<Appointment> appointments;
+    private final List<Appointment> appointments;
 
     // Basic constructor
     public BookableClinic(ServiceLocation decoratedClinic)
@@ -61,16 +62,16 @@ public class BookableClinic extends ClinicDecorator{
         decoratedClinic.getVaccineLog().addToLog(appointment);
     }
 
-    public ArrayList<Integer> getAppointmentIds() {
-        ArrayList<Integer> appointmentIds = new ArrayList<>();
+    public List<Integer> getAppointmentIds() {
+        List<Integer> appointmentIds = new ArrayList<>();
         for(Appointment ap : appointments) {
             appointmentIds.add(ap.getAppointmentId());
         }
         return appointmentIds;
     }
 
-    public ArrayList<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod){
-        ArrayList<Appointment> dateAppointments = new ArrayList<>();
+    public List<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod){
+        List<Appointment> dateAppointments = new ArrayList<>();
         for (Appointment appointment: appointments){
             if (appointment.getTimePeriod().equals(timePeriod)){
                 dateAppointments.add(appointment);

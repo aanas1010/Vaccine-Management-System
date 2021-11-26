@@ -6,7 +6,7 @@ import constants.ManagementSystemException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
@@ -71,7 +71,7 @@ public class DataValidation {
 
 
     // Return the value given by the command line if it is a valid value in the list of parameter types
-    protected static Enum<?> getCommand(Scanner in, String prompt, ArrayList<Enum<?>> types) {
+    protected static Enum<?> getCommand(Scanner in, String prompt, List<Enum<?>> types) {
         while(true) {
             System.out.println(prompt);
             System.out.print(BookingConstants.COMMAND_LINE_PROMPT);

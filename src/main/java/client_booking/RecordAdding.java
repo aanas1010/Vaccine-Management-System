@@ -7,6 +7,7 @@ import entities.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Use Case for logging records to the VaccinationLog
@@ -63,8 +64,8 @@ public class RecordAdding {
 
         else{
             TimePeriod timePeriod = clinic.getTimePeriod(dateTime);
-            ArrayList<Appointment> appointments = clinic.getAppointmentByTimePeriod(timePeriod);
-            ArrayList<String> appointmentsString = new ArrayList<>();
+            List<Appointment> appointments = clinic.getAppointmentByTimePeriod(timePeriod);
+            List<String> appointmentsString = new ArrayList<>();
             for (Appointment appointment: appointments){
                 clinic.logPastVaccinations(appointment);
                 appointmentsString.add(appointment.toString());

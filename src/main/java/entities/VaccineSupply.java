@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This is the Entity for a clinic's vaccine supply
@@ -9,7 +10,7 @@ import java.util.HashMap;
  */
 
 public class VaccineSupply {
-    private final ArrayList<VaccineBatch> batchList;
+    private final List<VaccineBatch> batchList;
 
     // Constructor
     public VaccineSupply(){
@@ -17,7 +18,7 @@ public class VaccineSupply {
     }
 
     // Overloaded Constructor for testing
-    public VaccineSupply(ArrayList<VaccineBatch> batchList){
+    public VaccineSupply(List<VaccineBatch> batchList){
         this.batchList = batchList;
     }
 
@@ -56,5 +57,5 @@ public class VaccineSupply {
 
 
     // Getters
-    public ArrayList<VaccineBatch> getBatchList(){return this.batchList;}
+    public List<VaccineBatch> getBatchList(){return this.batchList;}
 }

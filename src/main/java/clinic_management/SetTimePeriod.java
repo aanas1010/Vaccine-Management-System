@@ -7,6 +7,7 @@ import entities.TimePeriod;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Use Case for setting time periods and shifts.
@@ -61,7 +62,7 @@ public class SetTimePeriod {
             throw new ManagementSystemException(ManagementSystemException.INVALID_RANGE_OR_INTERVAL);
         }
 
-        ArrayList<LocalDateTime> times = new ArrayList<>();
+        List<LocalDateTime> times = new ArrayList<>();
         while (start.isBefore(end)){
             times.add(start);
             start = start.plusMinutes(interval);

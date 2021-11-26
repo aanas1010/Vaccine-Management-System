@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * This is the core Clinic entity which stores the clinic's vaccine supply
@@ -15,7 +16,7 @@ public class Clinic implements ServiceLocation {
     private final int clinicId;
     private final VaccineSupply supply;
     private final VaccinationLog log;
-    private final HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
+    private final HashMap<LocalDate, List<TimePeriod>> timePeriods;
     private final HashMap<LocalDate, Integer> shifts;
     private final String location;
 
@@ -71,7 +72,7 @@ public class Clinic implements ServiceLocation {
     @Override
     public boolean checkTimePeriod(LocalDateTime dateTime){
         if (this.timePeriods.containsKey(dateTime.toLocalDate())){
-            ArrayList<TimePeriod> timePeriods = this.timePeriods.get(dateTime.toLocalDate());
+            List<TimePeriod> timePeriods = this.timePeriods.get(dateTime.toLocalDate());
             for (TimePeriod timePeriod: timePeriods){
                 if (timePeriod.getDateTime().equals(dateTime)){
                     return true;
@@ -88,7 +89,7 @@ public class Clinic implements ServiceLocation {
             this.timePeriods.get(date).add(timePeriod);
         }
         else{
-            ArrayList<TimePeriod> newTime = new ArrayList<>();
+            List<TimePeriod> newTime = new ArrayList<>();
             newTime.add(timePeriod);
             this.timePeriods.put(date, newTime);
         }
@@ -116,7 +117,7 @@ public class Clinic implements ServiceLocation {
         return this.clinicId;
     }
 
-    public ArrayList<VaccineBatch> getSupply(){
+    public List<VaccineBatch> getSupply(){
         return this.supply.getBatchList();}
 
     public VaccineSupply getSupplyObj() {
@@ -126,7 +127,7 @@ public class Clinic implements ServiceLocation {
     @Override
     public int getShiftForDate(LocalDate date) {return shifts.get(date);}
 
-    public ArrayList<TimePeriod> getTimePeriods(LocalDate date) {
+    public List<TimePeriod> getTimePeriods(LocalDate date) {
         return this.timePeriods.get(date);
     }
 
@@ -138,7 +139,7 @@ public class Clinic implements ServiceLocation {
         private final int clinicId;
         private VaccineSupply supply;
         private final VaccinationLog log;
-        private final HashMap<LocalDate, ArrayList<TimePeriod>> timePeriods;
+        private final HashMap<LocalDate, List<TimePeriod>> timePeriods;
         private final HashMap<LocalDate, Integer> shifts;
         private final String location;
 
