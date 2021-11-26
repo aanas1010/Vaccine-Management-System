@@ -17,6 +17,9 @@ public class VaccinationLog {
         this.log = new ArrayList<>();
     }
 
+    /**
+     * @param a [description]
+     */
     // For appointments
     public void addToLog(Appointment a){
         int appointmentId = a.getAppointmentId();
@@ -30,6 +33,12 @@ public class VaccinationLog {
         log.add(dataObj);
     }
 
+    /**
+     * @param vaccinationId [description]
+     * @param client [description]
+     * @param dateTime [description]
+     * @param vaccineBrand [description]
+     */
     // For non-appointments
     public void addToLog(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand){
         VaccinationRecord dataObj =
@@ -38,6 +47,10 @@ public class VaccinationLog {
         log.add(dataObj);
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     // Return the VaccinationRecord record by ID. Return null if it cannot be found
     public VaccinationRecord getVaccinationRecord(String id) {
         for(VaccinationRecord record: log) {
@@ -48,6 +61,10 @@ public class VaccinationLog {
         return null;
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     // Getters
     public User getClientByVaccinationId(String id) {
         try{
@@ -57,6 +74,10 @@ public class VaccinationLog {
         }
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     // Return the dateTime based on the vaccination id
     public LocalDateTime getDateTimeByVaccinationId(String id) {
         try{
@@ -66,6 +87,10 @@ public class VaccinationLog {
         }
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     // Return the vaccine brand based on the vaccination id
     public String getVaccineBrandByVaccinationId(String id) {
         try{
@@ -75,12 +100,20 @@ public class VaccinationLog {
         }
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     // Return the vaccine toString based on the vaccination id
     public String getRecordString (String id) {
         try{return getVaccinationRecord(id).toString();}
         catch(Exception ex) {return null;}
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     public boolean containsId(String id) {
         for(VaccinationRecord record : log) {
             if(record.getVaccinationId().equals(id)) {
@@ -89,7 +122,10 @@ public class VaccinationLog {
         }
         return false;
     }
-    
+
+    /**
+     * [description]
+     */
     // VaccinationRecord inner class for storing info for a specific vaccination
     private static class VaccinationRecord {
         //vaccinationId is of the form "A123" for appointment-based vaccinations, or "V123" otherwise
@@ -98,6 +134,12 @@ public class VaccinationLog {
         private final LocalDateTime dateTime;
         private final String vaccineBrand;
 
+        /**
+         * @param vaccinationId [description]
+         * @param client [description]
+         * @param dateTime [description]
+         * @param vaccineBrand [description]
+         */
         public VaccinationRecord(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand) {
             this.vaccinationId = vaccinationId;
             this.client = client;
@@ -105,23 +147,38 @@ public class VaccinationLog {
             this.vaccineBrand = vaccineBrand;
         }
 
+        /**
+         * @return [description]
+         */
         public String getVaccinationId() {
             return vaccinationId;
         }
 
+        /**
+         * @return [description]
+         */
         public User getClient() {
             return client;
         }
 
+        /**
+         * @return [description]
+         */
         public String getVaccineBrand() {
             return vaccineBrand;
         }
 
+        /**
+         * @return [description]
+         */
         public LocalDateTime getDateTime() {
             return dateTime;
         }
 
 
+        /**
+         * @return [description]
+         */
         @Override
         public String toString(){
             return "----------------VACCINATION #" + vaccinationId + "----------------" +
