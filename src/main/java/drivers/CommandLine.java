@@ -24,12 +24,12 @@ public class CommandLine {
     public CommandLine(ManagementSystem system) {
         this.managementSystem = system;
         this.in = new Scanner(System.in);
-        this.clinicId = getClinicId();
+        this.clinicId = -1;
     }
 
     public void run() {
         //Get the clinic ID from the user
-        //int clinicId = getClinicId();
+        int clinicId = getClinicId();
 
         boolean isBookableClinic = managementSystem.getBookableClinicIds().contains(clinicId);
 
