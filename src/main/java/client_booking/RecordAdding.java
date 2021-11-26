@@ -18,11 +18,19 @@ public class RecordAdding {
 
     ClinicDecorator clinic;
 
+    /**
+     * @param clinic [description]
+     */
     // Constructor
     public RecordAdding(ClinicDecorator clinic){
         this.clinic = clinic;
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     * @throws ManagementSystemException [description]
+     */
     // Log a given appointment based on an appointment ID
     public String logAppointment(int id) throws ManagementSystemException {
         if(clinic.getAppointmentRecord(id) == null) {
@@ -38,6 +46,14 @@ public class RecordAdding {
         return removedAppointment.toString();
     }
 
+    /**
+     * @param vaccinationID [description]
+     * @param client [description]
+     * @param dateTime [description]
+     * @param brand [description]
+     * @return [description]
+     * @throws ManagementSystemException [description]
+     */
     // Log a walk-in appointment given certain parameters
     public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand)
             throws ManagementSystemException {
@@ -51,6 +67,11 @@ public class RecordAdding {
         }
     }
 
+    /**
+     * @param dateTime [description]
+     * @return [description]
+     * @throws ManagementSystemException [description]
+     */
     // Log all appointment on a certain date and time
     public StringBuilder logByDateTime(LocalDateTime dateTime) throws ManagementSystemException {
         if(dateTime.isAfter(LocalDateTime.now())) {
@@ -78,6 +99,11 @@ public class RecordAdding {
         }
     }
 
+    /**
+     * @param date [description]
+     * @return [description]
+     * @throws ManagementSystemException [description]
+     */
     // Log all appointments on a given date
     public StringBuilder logByDate(LocalDate date) throws ManagementSystemException {
         if (clinic.getTimePeriods(date) == null ||
