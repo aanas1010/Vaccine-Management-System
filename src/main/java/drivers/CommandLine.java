@@ -17,18 +17,19 @@ import java.util.Scanner;
 
 public class CommandLine {
     private final ManagementSystem managementSystem;
+    private final Scanner in;
+    private final int clinicId;
 
     // Constructor accepts a management system
     public CommandLine(ManagementSystem system) {
         this.managementSystem = system;
+        this.in = new Scanner(System.in);
+        this.clinicId = getClinicId();
     }
 
     public void run() {
-        //Create scanner for command line
-        Scanner in = new Scanner(System.in);
-
         //Get the clinic ID from the user
-        int clinicId = getClinicId(in, managementSystem);
+        //int clinicId = getClinicId();
 
         boolean isBookableClinic = managementSystem.getBookableClinicIds().contains(clinicId);
 
@@ -38,48 +39,63 @@ public class CommandLine {
         String commandListString = createAcceptableCommandsString(isBookableClinic, acceptableCommands);
 
         //Ask what the user would like to do
-        runCommands(in, clinicId, commandListString, acceptableCommands);
+        runCommands(commandListString, acceptableCommands);
     }
 
     // Determine which command to run
-    private void runCommands(Scanner in, int clinicId, String commandListString,
+    private void runCommands(String commandListString,
                              ArrayList<Enum<?>> acceptableCommands) {
         boolean isRunning = true;
+
+        /* Current implementation uses large if-else block and not a switch statement from phase 0.
+        * This is due to the limitations of switch statements of only being able to take a primitive data
+        * type as the switch variable. This is incompatible with our program whose specifications require
+        * different Enum types for different clinic types (e.g. enums of type BookableCommands are only
+        * applicable to BookableClinic, not to the core functionality of clinic). This means that no interface,
+        * abstract class, or any other "union" of two enums is possible in a switch statement, thus requiring
+        * a more complex if-else block.
+        * */
 
         while(isRunning) {
             try {
 
-                Enum<?> userInput = DataValidation.getCommand(in, commandListString, acceptableCommands);
+                //Get the command that the user inputs
+                Enum<?> command = DataValidation.getCommand(in, commandListString, acceptableCommands);
 
-                if (DataValidation.CoreCommands.ADD_BATCH.equals(userInput)) {
-                    addBatch(in, managementSystem, clinicId);
-                } else if (DataValidation.CoreCommands.SET_EMPLOYEES.equals(userInput)) {
-                    setEmployees(in, managementSystem, clinicId);
-                } else if (DataValidation.CoreCommands.ADD_TIME_PERIOD.equals(userInput)) {
-                    addTimePeriod(in, managementSystem, clinicId);
-                } else if (DataValidation.CoreCommands.REMOVE_TIME_PERIOD.equals(userInput)) {
-                    removeTimePeriod(in, managementSystem, clinicId);
-                } else if (DataValidation.CoreCommands.ADD_TIME_PERIODS.equals(userInput)) {
-                    addTimePeriods(in, managementSystem, clinicId);
-                } else if (DataValidation.CoreCommands.QUIT.equals(userInput)) {
+                //Core Commands
+                if (command.equals(DataValidation.CoreCommands.ADD_BATCH)) {
+                    addBatch();
+                } else if (command.equals(DataValidation.CoreCommands.SET_EMPLOYEES)) {
+                    setEmployees();
+                } else if (command.equals(DataValidation.CoreCommands.ADD_TIME_PERIOD)) {
+                    addTimePeriod();
+                } else if (command.equals(DataValidation.CoreCommands.REMOVE_TIME_PERIOD)) {
+                    removeTimePeriod();
+                } else if (command.equals(DataValidation.CoreCommands.ADD_TIME_PERIODS)) {
+                    addTimePeriods();
+                } else if (command.equals(DataValidation.CoreCommands.QUIT)) {
                     isRunning = false;
                     System.out.println("Quitting Program");
-                } else if (DataValidation.BookableCommands.BOOK_APPOINTMENT.equals(userInput)) {
-                    bookAppointment(in, managementSystem, clinicId);
-                } else if (DataValidation.BookableCommands.CANCEL_APPOINTMENT.equals(userInput)) {
-                    cancelAppointment(in, managementSystem, clinicId);
-                } else if (DataValidation.BookableCommands.VIEW_APPOINTMENT.equals(userInput)) {
-                    viewAppointment(in, managementSystem, clinicId);
-                } else if(DataValidation.BookableCommands.LOG_APPOINTMENT.equals(userInput)) {
-                    logAppointment(in, managementSystem, clinicId);
-                } else if(DataValidation.BookableCommands.LOG_WALK_IN.equals(userInput)) {
-                    logWalkIn(in, managementSystem, clinicId);
-                } else if(DataValidation.BookableCommands.LOG_BY_DATETIME.equals(userInput)) {
-                    logByDateTime(in, managementSystem, clinicId);
-                } else if(DataValidation.BookableCommands.LOG_BY_DATE.equals(userInput)) {
-                    logByDate(in, managementSystem, clinicId);
+
+
+                //Bookable Commands
+                } else if (command.equals(DataValidation.BookableCommands.BOOK_APPOINTMENT)) {
+                    bookAppointment();
+                } else if (command.equals(DataValidation.BookableCommands.CANCEL_APPOINTMENT)) {
+                    cancelAppointment();
+                } else if (command.equals(DataValidation.BookableCommands.VIEW_APPOINTMENT)) {
+                    viewAppointment();
+                } else if(command.equals(DataValidation.BookableCommands.LOG_APPOINTMENT)) {
+                    logAppointment();
+                } else if(command.equals(DataValidation.BookableCommands.LOG_WALK_IN)) {
+                    logWalkIn();
+                } else if(command.equals(DataValidation.BookableCommands.LOG_BY_DATETIME)) {
+                    logByDateTime();
+                } else if(command.equals(DataValidation.BookableCommands.LOG_BY_DATE)) {
+                    logByDate();
                 }
             }
+            //If at any point there is an exception thrown, print the message to the command line
             catch(ManagementSystemException e) {
                 System.out.println(e.getMessage());
             }
@@ -104,7 +120,7 @@ public class CommandLine {
     }
 
     // Get the clinic ID
-    private int getClinicId(Scanner in, ManagementSystem managementSystem) {
+    private int getClinicId() {
         while(true) {
             try {
                 int userInput = (Integer) DataValidation.getValue(in, "Please provide your Clinic ID",
@@ -125,7 +141,7 @@ public class CommandLine {
     }
 
     // Start addBatch workflow
-    private void addBatch(Scanner in, ManagementSystem managementSystem, int clinicId) throws ManagementSystemException {
+    private void addBatch() throws ManagementSystemException {
         // Ask for information for a new batch
         String batchBrand = (String) DataValidation.getValue(in,
                 "Batch Brand:",
@@ -154,7 +170,7 @@ public class CommandLine {
     }
 
     // Start setEmployees workflow
-    private void setEmployees(Scanner in, ManagementSystem managementSystem, int clinicId) {
+    private void setEmployees() {
         // Ask for information for employee setting
         LocalDate date = (LocalDate) DataValidation.getValue(in,
                 "Date (DD/MM/YYYY):",
@@ -171,7 +187,7 @@ public class CommandLine {
     }
 
     // Start the addTimePeriod workflow
-    private void addTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void addTimePeriod()
             throws ManagementSystemException {
         // Ask for information for adding a new time period
         LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
@@ -189,7 +205,7 @@ public class CommandLine {
     }
 
     // Start the addTimePeriod workflow
-    private void addTimePeriods(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void addTimePeriods()
             throws ManagementSystemException {
         // Ask for information for adding a new time period
         LocalDateTime start = (LocalDateTime) DataValidation.getValue(in,
@@ -213,7 +229,7 @@ public class CommandLine {
     }
 
     // Start the logAppointment workflow
-    private void logAppointment(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void logAppointment()
             throws ManagementSystemException {
         // Ask for information for logging an appointment
         int appointmentId = (Integer) DataValidation.getValue(in,
@@ -231,7 +247,7 @@ public class CommandLine {
         }
     }
 
-    private void logWalkIn(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void logWalkIn()
             throws ManagementSystemException {
         // Ask for information for logging a walk-in
         String vaccinationID = (String) DataValidation.getValue(
@@ -256,7 +272,7 @@ public class CommandLine {
         }
     }
 
-    private void logByDateTime(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void logByDateTime()
             throws ManagementSystemException {
         // Ask for information for logging all appointments for a given dateTime
         LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
@@ -274,7 +290,7 @@ public class CommandLine {
     }
 
 
-    private void logByDate(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void logByDate()
             throws ManagementSystemException {
         // Ask for information for logging all appointments for a given dateTime
         LocalDate date = (LocalDate) DataValidation.getValue(in,
@@ -294,7 +310,7 @@ public class CommandLine {
 
 
     // Start the removeTimePeriod workflow
-    private void removeTimePeriod(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void removeTimePeriod()
             throws ManagementSystemException {
         // Ask for information for which time period to remove
         LocalDateTime dateTime = (LocalDateTime) DataValidation.getValue(in,
@@ -312,7 +328,7 @@ public class CommandLine {
     }
 
     // Start the bookAppointment workflow
-    private void bookAppointment(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void bookAppointment()
             throws ManagementSystemException {
         // Ask for information for booking an appointment
         String healthCareNumber = (String) DataValidation.getValue(in,
@@ -343,7 +359,7 @@ public class CommandLine {
     }
 
     // Start the cancelAppointment workflow
-    private void cancelAppointment(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void cancelAppointment()
             throws ManagementSystemException {
         // Ask for information for canceling an appointment
         int appointmentId = (Integer) DataValidation.getValue(in,
@@ -362,7 +378,7 @@ public class CommandLine {
     }
 
     // Start the viewAppointment workflow
-    private void viewAppointment(Scanner in, ManagementSystem managementSystem, int clinicId)
+    private void viewAppointment()
             throws ManagementSystemException {
         // Ask for information for viewing an appointment
         int appointmentId = (Integer) DataValidation.getValue(in,
