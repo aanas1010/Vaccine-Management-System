@@ -12,17 +12,26 @@ import java.util.List;
 public class VaccineSupply {
     private final List<VaccineBatch> batchList;
 
+    /**
+     * [description]
+     */
     // Constructor
     public VaccineSupply(){
         this.batchList = new ArrayList<>();
     }
 
+    /**
+     * @param batchList [description]
+     */
     // Overloaded Constructor for testing
     public VaccineSupply(List<VaccineBatch> batchList){
         this.batchList = batchList;
     }
 
 
+    /**
+     * @return [description]
+     */
     // Return a hashmap that stores vaccine brand and the corresponding amount of vaccine
     public HashMap<String, Integer> getAvailableVaccines(){
         HashMap<String, Integer> vaccines = new HashMap<>();
@@ -40,6 +49,9 @@ public class VaccineSupply {
         return new HashMap<>(vaccines);
     }
 
+    /**
+     * @return [description]
+     */
     // Return a string of the list of batches using the brand and id number
     @Override
     public String toString() {
@@ -57,5 +69,9 @@ public class VaccineSupply {
 
 
     // Getters
+
+    /**
+     * @return [description]
+     */
     public List<VaccineBatch> getBatchList(){return this.batchList;}
 }

@@ -13,6 +13,10 @@ public class TimePeriod {
     int availableSlots;
     int bookedSlots;
 
+    /**
+     * @param dateTime [description]
+     * @param availableSlots [description]
+     */
     // Constructor
     public TimePeriod(LocalDateTime dateTime, int availableSlots){
         this.dateTime = dateTime;
@@ -20,6 +24,9 @@ public class TimePeriod {
         this.bookedSlots = 0;
     }
 
+    /**
+     * @return [description]
+     */
     // Try to remove 1 from available slots and add 1 to bookedSlots.
     // Return whether it was added
     public boolean findAndReserveSlot(){
@@ -30,6 +37,9 @@ public class TimePeriod {
         return true;
     }
 
+    /**
+     * [description]
+     */
     // Try to add 1 to available slots and remove 1 from bookedSlots. This is done because the Client cancelled
     public void addAvailableSlot(){
 
@@ -37,6 +47,9 @@ public class TimePeriod {
         bookedSlots -= 1;
     }
 
+    /**
+     * @return [description]
+     */
     // Return a string of the information of this batch
     @Override
     public String toString() {
@@ -45,10 +58,16 @@ public class TimePeriod {
                 "\nTimeslots Booked: " + this.bookedSlots;
     }
 
+    /**
+     * @return [description]
+     */
     // Getters
     public int getAvailableSlots() {
         return availableSlots;
     }
 
+    /**
+     * @return [description]
+     */
     public LocalDateTime getDateTime() {return dateTime;}
 }

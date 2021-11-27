@@ -14,12 +14,23 @@ public class AppointmentCancellation {
     final int appointmentId;
     final ClinicDecorator clinic;
 
-    // Constructor
+    /**
+     * creates Use Case for canceling appointments.
+     *
+     * @param appointmentId the id of the appointment
+     * @param clinic the clinic where the appointment suppose to happen
+     */
     public AppointmentCancellation(int appointmentId, ClinicDecorator clinic){
         this.appointmentId = appointmentId;
         this.clinic = clinic;
     }
 
+    /**
+     * Delete the appointment.
+     *
+     * @return true if process successfully; false otherwise.
+     * @throws ManagementSystemException if there is no appointment to delete.
+     */
     // Delete the appointment. Return true if successful
     public String deleteAppointment() throws ManagementSystemException {
         Appointment appointment = clinic.getAppointmentRecord(this.appointmentId);

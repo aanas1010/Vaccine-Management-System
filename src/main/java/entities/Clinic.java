@@ -30,11 +30,18 @@ public class Clinic implements ServiceLocation {
         this.location = builder.location;
     }
 
+    /**
+     * @param batch [description]
+     */
     // Add a batch to the VaccineSupply
     public void addBatch(VaccineBatch batch) {
         this.getSupply().add(batch);
     }
 
+    /**
+     * @param id [description]
+     * @return [description]
+     */
     public boolean supplyContainsBatchId(int id) {
         for(VaccineBatch batch : this.getSupply()) {
             if(batch.getId() == id) {
@@ -44,12 +51,22 @@ public class Clinic implements ServiceLocation {
         return false;
     }
 
+    /**
+     * @param vaccinationId [description]
+     * @param client        [description]
+     * @param dateTime      [description]
+     * @param vaccineBrand  [description]
+     */
     // Log a past vaccination (NON-APPOINTMENT)
     public void logPastVaccinations(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand) {
         log.addToLog(vaccinationId, client, dateTime, vaccineBrand);
     }
 
 
+    /**
+     * @param date [description]
+     * @param num  [description]
+     */
     // Set the number of shifts for a date
     @Override
     public void setShift(LocalDate date, int num) {
@@ -57,9 +74,17 @@ public class Clinic implements ServiceLocation {
     }
 
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     // Checking if a date has a number of shifts
     public boolean containsShift(LocalDate date){return this.shifts.containsKey(date);}
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     // Checking if a date has more than 0 shifts on a day
     public boolean shiftAvailable(LocalDate date){
         if (this.shifts.containsKey(date)){
@@ -68,6 +93,10 @@ public class Clinic implements ServiceLocation {
         return false;
     }
 
+    /**
+     * @param dateTime [description]
+     * @return [description]
+     */
     // Checking if a time period is already stored in a clinic
     @Override
     public boolean checkTimePeriod(LocalDateTime dateTime){
@@ -82,6 +111,10 @@ public class Clinic implements ServiceLocation {
         return false;
     }
 
+    /**
+     * @param timePeriod [description]
+     * @param date       [description]
+     */
     // Adding a time period to a certain date
     @Override
     public void addTimePeriod(TimePeriod timePeriod, LocalDate date){
@@ -95,6 +128,9 @@ public class Clinic implements ServiceLocation {
         }
     }
 
+    /**
+     * @param dateTime [description]
+     */
     // Removing a time period from a clinic
     @Override
     public void removeTimePeriod(LocalDateTime dateTime){
@@ -102,6 +138,10 @@ public class Clinic implements ServiceLocation {
                 timePeriod.getDateTime().equals(dateTime));
     }
 
+    /**
+     * @param dateTime [description]
+     * @return [description]
+     */
     // Getters
     public TimePeriod getTimePeriod(LocalDateTime dateTime){
         for (TimePeriod timePeriod: getTimePeriods(dateTime.toLocalDate())){
@@ -113,6 +153,9 @@ public class Clinic implements ServiceLocation {
     }
 
 
+    /**
+     * @return [description]
+     */
     public int getServiceLocationId() {
         return this.clinicId;
     }
@@ -120,19 +163,36 @@ public class Clinic implements ServiceLocation {
     public List<VaccineBatch> getSupply(){
         return this.supply.getBatchList();}
 
+    /**
+     * @return [description]
+     */
     public VaccineSupply getSupplyObj() {
         return this.supply;
     }
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     @Override
     public int getShiftForDate(LocalDate date) {return shifts.get(date);}
 
+    /**
+     * @param date [description]
+     * @return [description]
+     */
     public List<TimePeriod> getTimePeriods(LocalDate date) {
         return this.timePeriods.get(date);
     }
 
+    /**
+     * @return [description]
+     */
     public VaccinationLog getVaccineLog() {return log;}
 
+    /**
+     * @return [description]
+     */
     public String getLocation() {return location;}
 
     public static  class ClinicBuilder {

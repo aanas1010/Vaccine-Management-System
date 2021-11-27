@@ -2,8 +2,12 @@ package entities;
 
 import java.time.LocalDate;
 
-public class VaccineBatch{
+/**
+ * This is the Entity for a vaccine batch, which includes the
+ * brand, quantity, expiry, and other data relevant to a specific batch
+ */
 
+public class VaccineBatch {
     private final String brand;
     private final int quantity;
     private final LocalDate expiry;
@@ -19,27 +23,42 @@ public class VaccineBatch{
 
     }
 
+    /**
+     * @return [description]
+     */
     // Return whether the batch is expired
     public boolean isExpired(){
         LocalDate today = LocalDate.now();
         return (today.isAfter(this.expiry) || today.equals(this.expiry));
     }
 
+    /**
+     * @param num [description]
+     */
     // Set the reserve quantity
     public void setReserve(int num) {
         this.reserve = num;
     }
 
+    /**
+     * @param num [description]
+     */
     // Change the reserve quantity
     public void changeReserve(int num) {
         this.reserve += num;
     }
 
+    /**
+     * @return [description]
+     */
     // Return the number of available vaccines in a batch
     public int getAvailable(){
         return this.quantity - this.reserve;
     }
 
+    /**
+     * @return [description]
+     */
     // Return a string of the information of this batch
     @Override
     public String toString() {
@@ -51,14 +70,27 @@ public class VaccineBatch{
     }
 
     // Getters
+
+    /**
+     * @return [description]
+     */
     public String getBrand(){
         return this.brand;
     }
 
+    /**
+     * @return [description]
+     */
     public LocalDate getExpiry(){return this.expiry;}
 
+    /**
+     * @return [description]
+     */
     public int getId(){return this.id;}
 
+    /**
+     * @return [description]
+     */
     public int getReserve() {return this.reserve;}
 
     public static  class BatchBuilder {
