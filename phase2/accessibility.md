@@ -5,10 +5,10 @@
 <table> <tr> <td>
   
  At this point we would like to point out that we do not have an implemented GUI, and the some of the following principle would be refering to a `potential program` - which is a future version of the program. This potential program, among other things, would have an apporopriate GUI, would have: 
-  * <ins>voice output option</ins> - the ability for the text displayd on the screen to be converted into an audio which the user can play at their convenience.  
-  * <ins>enlarge-text option</ins> - the ability to adjust the size of the displayd text.
-  * <ins>multiple language option</ins> - the user would be able to choose the language in which the text would be displayd.
-  * <ins>different size and format of text</ins> - text that is designed and formatted in such a way that the important information would be highligted, and the overall program would not look like a simplified .txt file.
+  * *voice output option* - the ability for the text displayd on the screen to be converted into an audio which the user can play at their convenience.  
+  * *enlarge-text option* - the ability to adjust the size of the displayd text.
+  * *multiple language option* - the user would be able to choose the language in which the text would be displayd.
+  * *different size and format of text* - text that is designed and formatted in such a way that the important information would be highligted, and the overall program would not look like a simplified .txt file.
   
 </td> </tr> </table>
 
