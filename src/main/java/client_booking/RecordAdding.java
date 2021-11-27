@@ -14,7 +14,7 @@ import java.util.List;
  * Every time the use case is needed, a new RecordAdding instance is created
  * with parameters being flexible based on how we want to log
  */
-
+//TODO: finish the java doc for this class.
 public class RecordAdding {
 
     final ClinicDecorator clinic;

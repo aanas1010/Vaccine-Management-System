@@ -31,7 +31,6 @@ public class AppointmentCancellation {
      * @return true if process successfully; false otherwise.
      * @throws ManagementSystemException if there is no appointment to delete.
      */
-    // Delete the appointment. Return true if successful
     public String deleteAppointment() throws ManagementSystemException {
         Appointment appointment = clinic.getAppointmentRecord(this.appointmentId);
         if (appointment.getClient().getHasAppointment()) {

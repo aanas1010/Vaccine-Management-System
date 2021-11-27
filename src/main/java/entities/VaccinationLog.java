@@ -11,7 +11,7 @@ import java.util.List;
  * It contains only a list of VaccinationRecord records, which keep track of the data itself
  * Note that items in the list may be from either drop-in or appointment-based vaccinations
  */
-
+//TODO: finish the java doc for this class.
 public class VaccinationLog {
     private final List<VaccinationRecord> log;
 

@@ -87,8 +87,6 @@ public class AppointmentBooking {
     }
 
 
-    // Create an appointment for this client in the Clinic's system
-
     /** Create an appointment for this client in the Clinic's system
      * @return String describing the appointment
      * @throws ManagementSystemException throws exception if the time slot unavailable or doesnt have a unique id.
