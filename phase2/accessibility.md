@@ -2,6 +2,16 @@
 
 ##  Principle of Universal Design
 
+<table> <tr> <td>
+  
+ At this point we would like to point out that we do not have an implemented GUI, and the some of the following principle would be refering to a `potential program` - which is a future version of the program. This potential program, among other things, would have an apporopriate GUI, would have: 
+  * <ins>voice output option</ins> - the ability for the text displayd on the screen to be converted into an audio which the user can play at their convenience.  
+  * <ins>enlarge-text option</ins> - the ability to adjust the size of the displayd text.
+  * <ins>multiple language option</ins> - the user would be able to choose the language in which the text would be displayd.
+  * <ins>different size and format of text</ins> - text that is designed and formatted in such a way that the important information would be highligted, and the overall program would not look like a simplified .txt file.
+  
+</td> </tr> </table>
+
   1. `Equitable Use`  
 Suppose our program were to implement an audio text reading tool, and a text in multiple languages. This potential version of our program would have adhered to the principle of equitable use. As all users would have been able to use our program, without the assumption of whether they know English - since if a clinic manager in a non-English country might not know English - or whether they are to visually perceive information - since the alternative option would allow for audio perception option. Therefore, regardless of the language barrier or the physical disabilities the clients information would be equally secure. Most importantly the GUI would be the same regardless of the user, thus providing the same means of use for all users.
 
