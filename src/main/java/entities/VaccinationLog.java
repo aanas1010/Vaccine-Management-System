@@ -14,11 +14,17 @@ import java.util.List;
 
 public class VaccinationLog {
     private final List<VaccinationRecord> log;
+
+    /**
+     * [description]
+     */
     public VaccinationLog() {
         this.log = new ArrayList<>();
     }
 
     /**
+     * [description]
+     *
      * @param a [description]
      */
     // For appointments
@@ -35,6 +41,8 @@ public class VaccinationLog {
     }
 
     /**
+     * [description]
+     *
      * @param vaccinationId [description]
      * @param client [description]
      * @param dateTime [description]
@@ -49,6 +57,8 @@ public class VaccinationLog {
     }
 
     /**
+     * [description]
+     *
      * @param id [description]
      * @return [description]
      */
@@ -62,11 +72,14 @@ public class VaccinationLog {
         return null;
     }
 
+    // Getters
+
     /**
+     * getter.
+     *
      * @param id [description]
      * @return [description]
      */
-    // Getters
     public User getClientByVaccinationId(String id) {
         try{
             return getVaccinationRecord(id).getClient();
@@ -76,6 +89,8 @@ public class VaccinationLog {
     }
 
     /**
+     * getter.
+     *
      * @param id [description]
      * @return [description]
      */
@@ -89,6 +104,8 @@ public class VaccinationLog {
     }
 
     /**
+     * getter.
+     *
      * @param id [description]
      * @return [description]
      */
@@ -102,6 +119,8 @@ public class VaccinationLog {
     }
 
     /**
+     * getter.
+     *
      * @param id [description]
      * @return [description]
      */
@@ -112,6 +131,8 @@ public class VaccinationLog {
     }
 
     /**
+     * [description]
+     *
      * @param id [description]
      * @return [description]
      */
@@ -124,9 +145,7 @@ public class VaccinationLog {
         return false;
     }
 
-    /**
-     * [description]
-     */
+
     // VaccinationRecord inner class for storing info for a specific vaccination
     private static class VaccinationRecord {
         //vaccinationId is of the form "A123" for appointment-based vaccinations, or "V123" otherwise
@@ -136,6 +155,8 @@ public class VaccinationLog {
         private final String vaccineBrand;
 
         /**
+         * construct a vaccination record object.
+         *
          * @param vaccinationId [description]
          * @param client [description]
          * @param dateTime [description]
@@ -149,6 +170,8 @@ public class VaccinationLog {
         }
 
         /**
+         * [description]
+         *
          * @return [description]
          */
         public String getVaccinationId() {
@@ -156,6 +179,8 @@ public class VaccinationLog {
         }
 
         /**
+         * [description]
+         *
          * @return [description]
          */
         public User getClient() {
@@ -163,6 +188,8 @@ public class VaccinationLog {
         }
 
         /**
+         * [description]
+         *
          * @return [description]
          */
         public String getVaccineBrand() {
@@ -170,15 +197,18 @@ public class VaccinationLog {
         }
 
         /**
+         * [description]
+         *
          * @return [description]
          */
         public LocalDateTime getDateTime() {
             return dateTime;
         }
 
-
         /**
-         * @return [description]
+         * Return a string of the information of this record.
+         *
+         * @return a string representation of the object.
          */
         @Override
         public String toString(){

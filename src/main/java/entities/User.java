@@ -1,30 +1,41 @@
 package entities;
 
+/**
+ * Interface class for the user.
+ */
+
 public interface User {
+
     /**
-     * [description]
+     * Approves the user's appointment.
      */
     void approveAppointment();
 
     /**
-     * [description]
+     * Disapproves the user's appointment.
      */
     void disapproveAppointment();
 
+    // Getters
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return the name of the user.
      */
-    // Getters
     String getName();
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return the health care number of the under.
      */
     String getHealthCareNumber();
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return true if the user has an appointment; false otherwise.
      */
     Boolean getHasAppointment();
 }

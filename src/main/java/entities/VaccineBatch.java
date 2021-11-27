@@ -14,6 +14,11 @@ public class VaccineBatch {
     private final int id;
     private int reserve;
 
+    /**
+     * construct a vaccine batch object.
+     *
+     * @param builder the builder of the batch.
+     */
     private VaccineBatch(BatchBuilder builder){
         this.brand = builder.brand;
         this.id = builder.id;
@@ -24,42 +29,47 @@ public class VaccineBatch {
     }
 
     /**
-     * @return [description]
+     * Return whether the batch is expired.
+     *
+     * @return true if the batch has expired; false otherwise.
      */
-    // Return whether the batch is expired
     public boolean isExpired(){
         LocalDate today = LocalDate.now();
         return (today.isAfter(this.expiry) || today.equals(this.expiry));
     }
 
     /**
-     * @param num [description]
+     * Set the reserve quantity.
+     *
+     * @param num number of reserved vaccines.
      */
-    // Set the reserve quantity
     public void setReserve(int num) {
         this.reserve = num;
     }
 
     /**
-     * @param num [description]
+     * Change the reserve quantity.
+     *
+     * @param num number of added reserved vaccines.
      */
-    // Change the reserve quantity
     public void changeReserve(int num) {
         this.reserve += num;
     }
 
     /**
-     * @return [description]
+     * Return the number of available vaccines in a batch.
+     *
+     * @return number of available vaccines.
      */
-    // Return the number of available vaccines in a batch
     public int getAvailable(){
         return this.quantity - this.reserve;
     }
 
     /**
-     * @return [description]
+     * Return a string of the information of this batch.
+     *
+     * @return a string representation of the object.
      */
-    // Return a string of the information of this batch
     @Override
     public String toString() {
         return  "Batch ID: " + this.id +
@@ -72,27 +82,38 @@ public class VaccineBatch {
     // Getters
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return the brand of the batch.
      */
     public String getBrand(){
         return this.brand;
     }
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return the expiry date of the batch.
      */
     public LocalDate getExpiry(){return this.expiry;}
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return id if the batch.
      */
     public int getId(){return this.id;}
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return number of reserved vaccines.
      */
     public int getReserve() {return this.reserve;}
 
+    /**
+     * The builder class for a batch.
+     */
     public static  class BatchBuilder {
         private final String brand;
         private final int quantity;
@@ -100,6 +121,14 @@ public class VaccineBatch {
         private final int id;
         private int reserve;
 
+        /**
+         * Constructor for a vaccine batch.
+         *
+         * @param brand of this vaccine batch.
+         * @param quantity of the vaccines in the batch.
+         * @param expiry date of the batch.
+         * @param id of the vaccine batch.
+         */
         public BatchBuilder(String brand, int quantity, LocalDate expiry, int id) {
             this.brand = brand;
             this.quantity = quantity;
@@ -108,11 +137,22 @@ public class VaccineBatch {
             this.reserve = 0;
         }
 
+        /**
+         * assigns the number of reserved vaccines to the batch.
+         *
+         * @param reserved number of reserved vaccines.
+         * @return the builder of the vaccine batch.
+         */
         public BatchBuilder Reserved(int reserved){
             this.reserve = reserved;
             return this;
         }
 
+        /**
+         * Building the batch.
+         *
+         * @return returns the batch.
+         */
         public VaccineBatch build(){
             return new VaccineBatch(this);
         }

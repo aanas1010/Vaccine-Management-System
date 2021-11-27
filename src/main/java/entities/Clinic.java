@@ -20,7 +20,11 @@ public class Clinic implements ServiceLocation {
     private final HashMap<LocalDate, Integer> shifts;
     private final String location;
 
-    // Basic constructor
+    /**
+     * creates a walk in clinic object.
+     *
+     * @param builder the builder of the clinic
+     */
     public Clinic(ClinicBuilder builder) {
         this.clinicId = builder.clinicId;
         this.supply = builder.supply;
@@ -31,16 +35,19 @@ public class Clinic implements ServiceLocation {
     }
 
     /**
-     * @param batch [description]
+     * add the provided batch to the location's supply.
+     *
+     * @param batch the vaccine batch we are interested in adding.
      */
-    // Add a batch to the VaccineSupply
     public void addBatch(VaccineBatch batch) {
         this.getSupply().add(batch);
     }
 
     /**
-     * @param id [description]
-     * @return [description]
+     * does the vaccine batch with id x exists.
+     *
+     * @param id of the wanted batch
+     * @return true if the wanted batch exists; false otherwise
      */
     public boolean supplyContainsBatchId(int id) {
         for(VaccineBatch batch : this.getSupply()) {
@@ -52,40 +59,42 @@ public class Clinic implements ServiceLocation {
     }
 
     /**
-     * @param vaccinationId [description]
-     * @param client        [description]
-     * @param dateTime      [description]
-     * @param vaccineBrand  [description]
+     * logs an appointment that has already happened - using the appointment details.
+     *
+     * @param vaccinationId id of the past appointment.
+     * @param client who received the vaccine.
+     * @param dateTime when the vaccine was given.
+     * @param vaccineBrand of the vaccine which was administered.
      */
-    // Log a past vaccination (NON-APPOINTMENT)
     public void logPastVaccinations(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand) {
         log.addToLog(vaccinationId, client, dateTime, vaccineBrand);
     }
 
-
     /**
-     * @param date [description]
-     * @param num  [description]
+     * Set the number of shifts for a date.
+     *
+     * @param date of the date we are interested.
+     * @param num number of employs assigned to that shift.
      */
-    // Set the number of shifts for a date
     @Override
     public void setShift(LocalDate date, int num) {
         shifts.put(date, num);
     }
 
-
     /**
-     * @param date [description]
-     * @return [description]
+     * Checks if a date has shifts.
+     *
+     * @param date of the date we are interested.
+     * @return true if there is a shift at the given dateTime; false otherwise.
      */
-    // Checking if a date has a number of shifts
     public boolean containsShift(LocalDate date){return this.shifts.containsKey(date);}
 
     /**
-     * @param date [description]
-     * @return [description]
+     * Checks if a date has more than 0 shifts on a day.
+     *
+     * @param date of the date we are interested.
+     * @return true if there are more than 0 shifts; false otherwise.
      */
-    // Checking if a date has more than 0 shifts on a day
     public boolean shiftAvailable(LocalDate date){
         if (this.shifts.containsKey(date)){
             return this.shifts.get(date) > 0;
@@ -94,10 +103,11 @@ public class Clinic implements ServiceLocation {
     }
 
     /**
-     * @param dateTime [description]
-     * @return [description]
+     * Checks if a time period is already stored in the location.
+     *
+     * @param dateTime of the date we are interested.
+     * @return true if the time period of the given dateTime exists; false otherwise.
      */
-    // Checking if a time period is already stored in a clinic
     @Override
     public boolean checkTimePeriod(LocalDateTime dateTime){
         if (this.timePeriods.containsKey(dateTime.toLocalDate())){
@@ -112,10 +122,11 @@ public class Clinic implements ServiceLocation {
     }
 
     /**
-     * @param timePeriod [description]
-     * @param date       [description]
+     * adds a time period the location's list of time periods.
+     *
+     * @param timePeriod the time period we are adding.
+     * @param date the date to whose list we are adding the time period.
      */
-    // Adding a time period to a certain date
     @Override
     public void addTimePeriod(TimePeriod timePeriod, LocalDate date){
         if (this.timePeriods.containsKey(date)){
@@ -129,20 +140,24 @@ public class Clinic implements ServiceLocation {
     }
 
     /**
-     * @param dateTime [description]
+     * Removing a time period from a location.
+     *
+     * @param dateTime of the date we are interested.
      */
-    // Removing a time period from a clinic
     @Override
     public void removeTimePeriod(LocalDateTime dateTime){
         this.timePeriods.get(dateTime.toLocalDate()).removeIf(timePeriod ->
                 timePeriod.getDateTime().equals(dateTime));
     }
 
+    //getters
+
     /**
-     * @param dateTime [description]
-     * @return [description]
+     * getter.
+     *
+     * @param dateTime of the date we are interested.
+     * @return the time period of the given time.
      */
-    // Getters
     public TimePeriod getTimePeriod(LocalDateTime dateTime){
         for (TimePeriod timePeriod: getTimePeriods(dateTime.toLocalDate())){
             if (timePeriod.getDateTime().equals(dateTime)){
@@ -152,49 +167,68 @@ public class Clinic implements ServiceLocation {
         return null;
     }
 
-
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return id of the location.
      */
     public int getServiceLocationId() {
         return this.clinicId;
     }
 
+    /**
+     * getter.
+     *
+     * @return list of vaccine batches of the location.
+     */
     public List<VaccineBatch> getSupply(){
         return this.supply.getBatchList();}
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return vaccine supply of the location.
      */
     public VaccineSupply getSupplyObj() {
         return this.supply;
     }
 
     /**
-     * @param date [description]
-     * @return [description]
+     * getter.
+     *
+     * @param date of the date we are interested.
+     * @return the number of shift.
      */
     @Override
     public int getShiftForDate(LocalDate date) {return shifts.get(date);}
 
     /**
-     * @param date [description]
-     * @return [description]
+     * getter.
+     *
+     * @param date date from which extract the list of time periods.
+     * @return list of time periods of the location of the given date.
      */
     public List<TimePeriod> getTimePeriods(LocalDate date) {
         return this.timePeriods.get(date);
     }
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return vaccine log of the location.
      */
     public VaccinationLog getVaccineLog() {return log;}
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return the location of the location.
      */
     public String getLocation() {return location;}
 
+    /**
+     * The builder class for a clinic.
+     */
     public static  class ClinicBuilder {
         private final int clinicId;
         private VaccineSupply supply;
@@ -203,7 +237,12 @@ public class Clinic implements ServiceLocation {
         private final HashMap<LocalDate, Integer> shifts;
         private final String location;
 
-        // Basic constructor
+        /**
+         * Constructor for a clinic.
+         *
+         * @param id of the location
+         * @param location location of the location
+         */
         public ClinicBuilder(int id, String location) {
             this.clinicId = id;
             this.supply = new VaccineSupply();
@@ -213,12 +252,22 @@ public class Clinic implements ServiceLocation {
             this.location = location;
         }
 
+        /**
+         * assigns a supply to the clinic builder.
+         *
+         * @param supply of the clinic.
+         * @return the builder of the clinic.
+         */
         public ClinicBuilder Supply (VaccineSupply supply){
             this.supply = supply;
             return this;
         }
 
-
+        /**
+         * Building the clinic.
+         *
+         * @return returns the clinic.
+         */
         public Clinic build(){
             return new Clinic(this);
         }

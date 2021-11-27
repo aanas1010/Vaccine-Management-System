@@ -5,133 +5,164 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- *  [description]
+ *  this is the abstract class which acts as the decorator class within the decorator design patter.
  */
 public abstract class ClinicDecorator implements ServiceLocation{
     protected final ServiceLocation decoratedClinic;
 
     /**
-     * @param decoratedClinic  [description]
+     * construct a decorator for clinics
+     *
+     * @param decoratedClinic an object of the interface for service location.
      */
-    //constructor
     public ClinicDecorator(ServiceLocation decoratedClinic)
     {
         super();
         this.decoratedClinic = decoratedClinic;
     }
 
-    // implementing methods of the interface
-
     /**
-     * @param id [description]
-     * @return [description]
+     * does the vaccine batch with id x exists.
+     *
+     * @param id of the wanted batch
+     * @return true if the wanted batch exists; false otherwise
      */
     public boolean supplyContainsBatchId(int id) {return decoratedClinic.supplyContainsBatchId(id);}
 
     /**
-     * @param batch [description]
+     * add the provided batch to the location's supply.
+     *
+     * @param batch the vaccine batch we are interested in adding.
      */
     public void addBatch(VaccineBatch batch){decoratedClinic.addBatch(batch);}
 
     /**
-     * @param date [description]
-     * @param num  [description]
+     * Set the number of shifts for a date.
+     *
+     * @param date of the date we are interested.
+     * @param num number of employs assigned to that shift.
      */
     public void setShift(LocalDate date, int num){
         decoratedClinic.setShift(date, num);
     }
 
     /**
-     * @param timePeriod [description]
-     * @param date       [description]
+     * adds a time period the location's list of time periods.
+     *
+     * @param timePeriod the time period we are adding.
+     * @param date the date to whose list we are adding the time period.
      */
     public void addTimePeriod(TimePeriod timePeriod, LocalDate date){
         decoratedClinic.addTimePeriod(timePeriod, date);
     }
 
     /**
-     * @param dateTime [description]
+     * Removing a time period from a location.
+     *
+     * @param dateTime of the date we are interested.
      */
     public void removeTimePeriod(LocalDateTime dateTime){
         decoratedClinic.removeTimePeriod(dateTime);
     }
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return id of the location.
      */
     public int getServiceLocationId(){
         return this.decoratedClinic.getServiceLocationId();
     }
 
     /**
-     * @param date [description]
-     * @return [description]
+     * getter.
+     *
+     * @param date of the date we are interested.
+     * @return the number of shift.
      */
     public int getShiftForDate(LocalDate date){
         return this.decoratedClinic.getShiftForDate(date);
     }
 
     /**
-     * @param date [description]
-     * @return [description]
+     * Checks if a date has more than 0 shifts on a day.
+     *
+     * @param date of the date we are interested.
+     * @return true if there are more than 0 shifts; false otherwise.
      */
     public boolean shiftAvailable(LocalDate date){
         return this.decoratedClinic.shiftAvailable(date);
     }
 
     /**
-     * @param date [description]
-     * @return [description]
+     * Checks if a date has shifts.
+     *
+     * @param date of the date we are interested.
+     * @return true if there is a shift at the given dateTime; false otherwise.
      */
     public boolean containsShift(LocalDate date){
         return this.decoratedClinic.containsShift(date);
     }
 
     /**
-     * @param dateTime [description]
-     * @return [description]
+     * Checks if a time period is already stored in the location.
+     *
+     * @param dateTime of the date we are interested.
+     * @return true if the time period of the given dateTime exists; false otherwise.
      */
     public boolean checkTimePeriod(LocalDateTime dateTime){
         return this.decoratedClinic.checkTimePeriod(dateTime);
     }
 
     /**
-     * @param date [description]
-     * @return [description]
+     * getter.
+     *
+     * @param date date from which extract the list of time periods.
+     * @return list of time periods of the location of the given date.
      */
     public List<TimePeriod> getTimePeriods(LocalDate date){
         return this.decoratedClinic.getTimePeriods(date);
     }
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return vaccine log of the location.
      */
     public VaccinationLog getVaccineLog(){
         return this.decoratedClinic.getVaccineLog();
     }
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return the location of the location.
      */
     public String getLocation() {return this.decoratedClinic.getLocation();}
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return list of vaccine batches of the location.
      */
     public List<VaccineBatch> getSupply(){
         return this.decoratedClinic.getSupply();
     }
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return vaccine supply of the location.
      */
     public VaccineSupply getSupplyObj(){
         return this.decoratedClinic.getSupplyObj();
     }
 
     /**
-     * @param dateTime [description]
-     * @return [description]
+     * getter.
+     *
+     * @param dateTime of the date we are interested.
+     * @return the time period of the given time.
      */
     public TimePeriod getTimePeriod(LocalDateTime dateTime){
         for (TimePeriod timePeriod: getTimePeriods(dateTime.toLocalDate())){
@@ -143,10 +174,12 @@ public abstract class ClinicDecorator implements ServiceLocation{
     }
 
     /**
-     * @param vaccinationId [description]
-     * @param client        [description]
-     * @param dateTime      [description]
-     * @param vaccineBrand  [description]
+     * logs an appointment that has already happened.
+     *
+     * @param vaccinationId id of the past appointment.
+     * @param client who received the vaccine.
+     * @param dateTime when the vaccine was given.
+     * @param vaccineBrand of the vaccine which was administered.
      */
     public void logPastVaccinations(String vaccinationId, User client, LocalDateTime dateTime, String vaccineBrand) {
         this.decoratedClinic.logPastVaccinations(vaccinationId, client, dateTime, vaccineBrand);
@@ -155,44 +188,58 @@ public abstract class ClinicDecorator implements ServiceLocation{
     //BookableClinic
 
     /**
-     * @param ap [description]
-     * @return  [description]
+     * Try to add the appointment to the list and return whether the appointment was added.
+     *
+     * @param ap appointment that is getting added to the list.
+     * @return true if appointment added successfully.
      */
      public abstract boolean addAppointment(Appointment ap);
 
     /**
-     * @param id  [description]
-     * @return [description]
+     * Return the Appointment record by ID.
+     *
+     * @param id of the appointment
+     * @return appointment by id if found; null otherwise.
      */
      public abstract Appointment getAppointmentRecord(int id);
 
      // --Commented out by Inspection (2021-11-22 3:52 p.m.):
     /*
-     * @param ap  [description]
-     * @return [description]
+     * Try to remove an appointment from the list.
+     *
+     * @param ap appointment we are interested in removing.
+     * @return true if the appointment removed successfully; false otherwise.
      */
     // public abstract boolean removeAppointment(Appointment ap);
 
 
     /**
-     * @param id  [description]
-     * @return [description]
+     * Try to remove an appointment by ID from the list.
+     *
+     * @param id the id of the appointment we are interested in removing.
+     * @return true if appointment removed successfully; false otherwise.
      */
      public abstract boolean removeAppointmentById(int id);
 
     /**
-     * @param appointmentRecord  [description]
+     * logs an appointment that has already happened.
+     *
+     * @param appointmentRecord the appointment we want to log.
      */
      public abstract void logPastVaccinations(Appointment appointmentRecord);
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return list of appointment ids
      */
      public abstract List<Integer> getAppointmentIds();
 
     /**
-     * @param timePeriod [description]
-     * @return [description]
+     * getters.
+     *
+     * @param timePeriod the date in which are interested in getting a list of appointments.
+     * @return list of appointment at a given date.
      */
      public abstract List<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod);
 

@@ -11,8 +11,10 @@ public class Client implements User{
     private Boolean hasAppointment;
 
     /**
-     * @param name [description]
-     * @param healthCareNumber [description]
+     * construct a client object.
+     *
+     * @param name name of the client.
+     * @param healthCareNumber number of the client.
      */
     public Client(String name, String healthCareNumber){
         this.name = name;
@@ -21,28 +23,35 @@ public class Client implements User{
     }
 
     /**
-     * [description]
+     * Approves the user's appointment.
      */
     public void approveAppointment() {this.hasAppointment = true;}
 
     /**
-     * [description]
+     * Disapproves the user's appointment.
      */
     public void disapproveAppointment() {this.hasAppointment = false;}
 
     // Getters
+
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return the name of the user.
      */
     public String getName() {return name;}
 
     /**
-     * @return // Getters
+     * getter.
+     *
+     * @return the health care number of the under.
      */
     public String getHealthCareNumber() {return healthCareNumber;}
 
     /**
-     * @return // Getters
+     * getter.
+     *
+     * @return true if the user has an appointment; false otherwise.
      */
     public Boolean getHasAppointment() {return hasAppointment;}
 }

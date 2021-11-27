@@ -14,10 +14,11 @@ public class TimePeriod {
     int bookedSlots;
 
     /**
-     * @param dateTime [description]
-     * @param availableSlots [description]
+     * constructs a time period object.
+     *
+     * @param dateTime the date of the time period.
+     * @param availableSlots number of available spot in this time period.
      */
-    // Constructor
     public TimePeriod(LocalDateTime dateTime, int availableSlots){
         this.dateTime = dateTime;
         this.availableSlots = availableSlots;
@@ -25,10 +26,10 @@ public class TimePeriod {
     }
 
     /**
-     * @return [description]
+     * try to remove 1 from available slots and add 1 to bookedSlots.
+     *
+     * @return true if added successfully; false otherwise.
      */
-    // Try to remove 1 from available slots and add 1 to bookedSlots.
-    // Return whether it was added
     public boolean findAndReserveSlot(){
         // If there are no slots, return false
         if(this.getAvailableSlots() == 0) {return false;}
@@ -38,9 +39,8 @@ public class TimePeriod {
     }
 
     /**
-     * [description]
+     * Try to add 1 to available slots and remove 1 from bookedSlots. This is done because the Client cancelled.
      */
-    // Try to add 1 to available slots and remove 1 from bookedSlots. This is done because the Client cancelled
     public void addAvailableSlot(){
 
         availableSlots += 1;
@@ -48,9 +48,10 @@ public class TimePeriod {
     }
 
     /**
-     * @return [description]
+     * Return a string of the information of this time period.
+     *
+     * @return a string representation of the object.
      */
-    // Return a string of the information of this batch
     @Override
     public String toString() {
         return  "Time: " + this.dateTime +
@@ -58,16 +59,21 @@ public class TimePeriod {
                 "\nTimeslots Booked: " + this.bookedSlots;
     }
 
-    /**
-     * @return [description]
-     */
     // Getters
+
+    /**
+     * getter.
+     *
+     * @return number of available slots.
+     */
     public int getAvailableSlots() {
         return availableSlots;
     }
 
     /**
-     * @return [description]
+     * getter.
+     *
+     * @return local date of the time period.
      */
     public LocalDateTime getDateTime() {return dateTime;}
 }
