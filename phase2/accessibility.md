@@ -18,19 +18,19 @@ Suppose our program were to implement an audio text reading tool, and a text in 
   2. `Flexibility in Use`  
 The program waits for the user’s input, rather than having a timer, allowing the user the option of browsing and input implementation at their own pace, where they can just click ‘next’ or ‘enter’ when they feel comfortable with the data they wrote down or received. Furthermore, in our potential program, there will be an option of audio output, allowing the user to choose between reading the information on the page themselves, and having the information read out loud to them. Providing the user with the flexibility in use.
 
-  3. `Simple and Intuitive Use` 
+  3. `Simple and Intuitive Use`   
 In our program we have multiple error messages which are prompted if the user tries to input an invalid input - such invlid id, and non-existent appointment in case of trying to view an appointment. Moreover, the instruction in our program for the user would be formatted in a concise manner detailing only the necessary and relevant information at the time. Lastly, in our alternative program, due to the implementation of multiple language options, we would be able to provide a simple use regardless of the user’s preference in language or the company’s main language of operation. Allowing for a simple and intuitive use.
 
-  4. `Perceptible Information` 
+  4. `Perceptible Information`    
 In our potential program which would have a GUI consisting of a voice output option, enlarge-text option, multiple language, and different size and format of text. The user would be able to optimize their information consumption as they would be able to adjust the text size to their preference or simply opt to the audio option if they are more comfortable with this format. Furthermore, with multiple languages put, the "legibility" of essential information would be maximized - as there won’t be a language barrier  - and lastly, the different formatting of text would be able to highlight important information for the user from a visual perspective.
 
-  5. `Tolerance for Error` 
+  5. `Tolerance for Error`    
 Clear instructions are given to the user, to prevent confusion which could result in unwanted actions which could result in potential errors. However, if unwanted actions were made, the program would output an error message with further instruction, and would not crash. Thus providing for tolerance for error.
 
-  6. `Low Physical Effort` 
+  6. `Low Physical Effort`   
 Since our program is one that focuses on managing an establishment, all of the actions can be done on a gadget screen, and given the GUI of the potential program, would only involve receiving information on the screen, inputting the required input once and ,giving it to the same page with a single button click. All which require minimal to no physical effort.
 
-  7. `Size and Space for Approach and Use` 
+  7. `Size and Space for Approach and Use`   
 Our program is centered around management of a vaccine distribution establishment, which focuses all of its features on actions which can be done on screen. Thus, this principle is not applicable for our program, as all features can be seen on screen regardless of the individual's location, and there are no special accommodations required in terms of use of physical space.
 
 
