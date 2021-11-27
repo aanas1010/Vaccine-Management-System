@@ -28,10 +28,9 @@ public class TimePeriod {
     /**
      * try to remove 1 from available slots and add 1 to bookedSlots.
      *
-     * @return true if added successfully; false otherwise.
+     * @return true if added successfully; false otherwise and there are no slots available.
      */
     public boolean findAndReserveSlot(){
-        // If there are no slots, return false
         if(this.getAvailableSlots() == 0) {return false;}
         availableSlots -= 1;
         bookedSlots += 1;
@@ -42,7 +41,6 @@ public class TimePeriod {
      * Try to add 1 to available slots and remove 1 from bookedSlots. This is done because the Client cancelled.
      */
     public void addAvailableSlot(){
-
         availableSlots += 1;
         bookedSlots -= 1;
     }
@@ -66,9 +64,7 @@ public class TimePeriod {
      *
      * @return number of available slots.
      */
-    public int getAvailableSlots() {
-        return availableSlots;
-    }
+    public int getAvailableSlots() {return availableSlots;}
 
     /**
      * getter.

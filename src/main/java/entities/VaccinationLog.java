@@ -17,9 +17,7 @@ public class VaccinationLog {
     /**
      * constructs a vaccination log object.
      */
-    public VaccinationLog() {
-        this.log = new ArrayList<>();
-    }
+    public VaccinationLog() {this.log = new ArrayList<>();}
 
     /**
      * add vaccination-event to log.
@@ -171,36 +169,28 @@ public class VaccinationLog {
          *
          * @return the id of the recorded vaccination-event, as a string.
          */
-        public String getVaccinationId() {
-            return vaccinationId;
-        }
+        public String getVaccinationId() {return vaccinationId;}
 
         /**
          * getter.
          *
          * @return client attending the recorded vaccination-event
          */
-        public User getClient() {
-            return client;
-        }
+        public User getClient() {return client;}
 
         /**
          * getter.
          *
          * @return brand used in the recorded vaccination-event.
          */
-        public String getVaccineBrand() {
-            return vaccineBrand;
-        }
+        public String getVaccineBrand() {return vaccineBrand;}
 
         /**
          * getter.
          *
          * @return date when the recorded vaccination-event happened.
          */
-        public LocalDateTime getDateTime() {
-            return dateTime;
-        }
+        public LocalDateTime getDateTime() {return dateTime;}
 
         /**
          * Return a string of the information of this record.

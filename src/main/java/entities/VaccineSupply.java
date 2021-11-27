@@ -10,23 +10,20 @@ import java.util.List;
  */
 
 public class VaccineSupply {
+
     private final List<VaccineBatch> batchList;
 
     /**
      * construct a supply of vaccines object.
      */
-    public VaccineSupply(){
-        this.batchList = new ArrayList<>();
-    }
+    public VaccineSupply(){this.batchList = new ArrayList<>();}
 
     /**
      * Overloaded Constructor for testing.
      *
      * @param batchList list of batches in the supply.
      */
-    public VaccineSupply(List<VaccineBatch> batchList){
-        this.batchList = batchList;
-    }
+    public VaccineSupply(List<VaccineBatch> batchList){this.batchList = batchList;}
 
     /**
      * getter.
@@ -67,7 +64,6 @@ public class VaccineSupply {
         s.append("------------------------------------------");
         return s.toString();
     }
-
 
     // Getters
 

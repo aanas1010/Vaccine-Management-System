@@ -25,7 +25,6 @@ public class VaccineBatch {
         this.expiry = builder.expiry;
         this.quantity = builder.quantity;
         this.reserve = builder.reserve;
-
     }
 
     /**
@@ -43,27 +42,21 @@ public class VaccineBatch {
      *
      * @param num number of reserved vaccines.
      */
-    public void setReserve(int num) {
-        this.reserve = num;
-    }
+    public void setReserve(int num) {this.reserve = num;}
 
     /**
      * Change the reserve quantity.
      *
      * @param num number of added reserved vaccines.
      */
-    public void changeReserve(int num) {
-        this.reserve += num;
-    }
+    public void changeReserve(int num) {this.reserve += num;}
 
     /**
      * Return the number of available vaccines in a batch.
      *
      * @return number of available vaccines.
      */
-    public int getAvailable(){
-        return this.quantity - this.reserve;
-    }
+    public int getAvailable(){return this.quantity - this.reserve;}
 
     /**
      * Return a string of the information of this batch.
@@ -86,9 +79,7 @@ public class VaccineBatch {
      *
      * @return the brand of the batch.
      */
-    public String getBrand(){
-        return this.brand;
-    }
+    public String getBrand(){return this.brand;}
 
     /**
      * getter.
@@ -153,9 +144,7 @@ public class VaccineBatch {
          *
          * @return returns the batch.
          */
-        public VaccineBatch build(){
-            return new VaccineBatch(this);
-        }
+        public VaccineBatch build(){return new VaccineBatch(this);}
     }
 }
 

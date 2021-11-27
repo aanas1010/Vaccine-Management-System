@@ -42,9 +42,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param date of the date we are interested.
      * @param num number of employs assigned to that shift.
      */
-    public void setShift(LocalDate date, int num){
-        decoratedClinic.setShift(date, num);
-    }
+    public void setShift(LocalDate date, int num){decoratedClinic.setShift(date, num);}
 
     /**
      * adds a time period the location's list of time periods.
@@ -52,27 +50,21 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param timePeriod the time period we are adding.
      * @param date the date to whose list we are adding the time period.
      */
-    public void addTimePeriod(TimePeriod timePeriod, LocalDate date){
-        decoratedClinic.addTimePeriod(timePeriod, date);
-    }
+    public void addTimePeriod(TimePeriod timePeriod, LocalDate date){decoratedClinic.addTimePeriod(timePeriod, date);}
 
     /**
      * Removing a time period from a location.
      *
      * @param dateTime of the date we are interested.
      */
-    public void removeTimePeriod(LocalDateTime dateTime){
-        decoratedClinic.removeTimePeriod(dateTime);
-    }
+    public void removeTimePeriod(LocalDateTime dateTime){decoratedClinic.removeTimePeriod(dateTime);}
 
     /**
      * getter.
      *
      * @return id of the location.
      */
-    public int getServiceLocationId(){
-        return this.decoratedClinic.getServiceLocationId();
-    }
+    public int getServiceLocationId(){return this.decoratedClinic.getServiceLocationId();}
 
     /**
      * getter.
@@ -80,9 +72,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param date of the date we are interested.
      * @return the number of shift.
      */
-    public int getShiftForDate(LocalDate date){
-        return this.decoratedClinic.getShiftForDate(date);
-    }
+    public int getShiftForDate(LocalDate date){return this.decoratedClinic.getShiftForDate(date);}
 
     /**
      * Checks if a date has more than 0 shifts on a day.
@@ -90,9 +80,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param date of the date we are interested.
      * @return true if there are more than 0 shifts; false otherwise.
      */
-    public boolean shiftAvailable(LocalDate date){
-        return this.decoratedClinic.shiftAvailable(date);
-    }
+    public boolean shiftAvailable(LocalDate date){return this.decoratedClinic.shiftAvailable(date);}
 
     /**
      * Checks if a date has shifts.
@@ -100,9 +88,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param date of the date we are interested.
      * @return true if there is a shift at the given dateTime; false otherwise.
      */
-    public boolean containsShift(LocalDate date){
-        return this.decoratedClinic.containsShift(date);
-    }
+    public boolean containsShift(LocalDate date){return this.decoratedClinic.containsShift(date);}
 
     /**
      * Checks if a time period is already stored in the location.
@@ -110,9 +96,7 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param dateTime of the date we are interested.
      * @return true if the time period of the given dateTime exists; false otherwise.
      */
-    public boolean checkTimePeriod(LocalDateTime dateTime){
-        return this.decoratedClinic.checkTimePeriod(dateTime);
-    }
+    public boolean checkTimePeriod(LocalDateTime dateTime){return this.decoratedClinic.checkTimePeriod(dateTime);}
 
     /**
      * getter.
@@ -120,18 +104,14 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param date date from which extract the list of time periods.
      * @return list of time periods of the location of the given date.
      */
-    public List<TimePeriod> getTimePeriods(LocalDate date){
-        return this.decoratedClinic.getTimePeriods(date);
-    }
+    public List<TimePeriod> getTimePeriods(LocalDate date){return this.decoratedClinic.getTimePeriods(date);}
 
     /**
      * getter.
      *
      * @return vaccine log of the location.
      */
-    public VaccinationLog getVaccineLog(){
-        return this.decoratedClinic.getVaccineLog();
-    }
+    public VaccinationLog getVaccineLog(){return this.decoratedClinic.getVaccineLog();}
 
     /**
      * getter.
@@ -145,18 +125,14 @@ public abstract class ClinicDecorator implements ServiceLocation{
      *
      * @return list of vaccine batches of the location.
      */
-    public List<VaccineBatch> getSupply(){
-        return this.decoratedClinic.getSupply();
-    }
+    public List<VaccineBatch> getSupply(){return this.decoratedClinic.getSupply();}
 
     /**
      * getter.
      *
      * @return vaccine supply of the location.
      */
-    public VaccineSupply getSupplyObj(){
-        return this.decoratedClinic.getSupplyObj();
-    }
+    public VaccineSupply getSupplyObj(){return this.decoratedClinic.getSupplyObj();}
 
     /**
      * getter.
@@ -211,7 +187,6 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @return true if the appointment removed successfully; false otherwise.
      */
     // public abstract boolean removeAppointment(Appointment ap);
-
 
     /**
      * Try to remove an appointment by ID from the list.

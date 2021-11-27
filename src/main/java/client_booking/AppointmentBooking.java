@@ -82,9 +82,7 @@ public class AppointmentBooking {
     /** Check if the appointment ID is unique
      * @return true if the id is unique - false otherwise
      */
-    private boolean hasUniqueId() {
-        return !clinic.getAppointmentIds().contains(appointmentId);
-    }
+    private boolean hasUniqueId() {return !clinic.getAppointmentIds().contains(appointmentId);}
 
 
     /** Create an appointment for this client in the Clinic's system

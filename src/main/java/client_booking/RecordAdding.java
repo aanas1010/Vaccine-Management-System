@@ -23,9 +23,7 @@ public class RecordAdding {
      *
      * @param clinic an object of the abstract class for Clinic Decorator.
      */
-    public RecordAdding(ClinicDecorator clinic){
-        this.clinic = clinic;
-    }
+    public RecordAdding(ClinicDecorator clinic){this.clinic = clinic;}
 
     /**
      * Log a given appointment based on an appointment ID.

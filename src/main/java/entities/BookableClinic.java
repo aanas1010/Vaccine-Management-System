@@ -77,18 +77,14 @@ public class BookableClinic extends ClinicDecorator{
      * @param id the id of the appointment we are interested in removing.
      * @return true if appointment removed successfully; false otherwise.
      */
-    public boolean removeAppointmentById(int id) {
-        return removeAppointment(getAppointmentRecord(id));
-    }
+    public boolean removeAppointmentById(int id) {return removeAppointment(getAppointmentRecord(id));}
 
     /**
      * logs an appointment that has already happened.
      *
      * @param appointment the appointment we want to log.
      */
-    public void logPastVaccinations(Appointment appointment) {
-        decoratedClinic.getVaccineLog().addToLog(appointment);
-    }
+    public void logPastVaccinations(Appointment appointment) {decoratedClinic.getVaccineLog().addToLog(appointment);}
 
     /**
      * getter.

@@ -39,9 +39,7 @@ public class Clinic implements ServiceLocation {
      *
      * @param batch the vaccine batch we are interested in adding.
      */
-    public void addBatch(VaccineBatch batch) {
-        this.getSupply().add(batch);
-    }
+    public void addBatch(VaccineBatch batch) {this.getSupply().add(batch);}
 
     /**
      * does the vaccine batch with id x exists.
@@ -77,9 +75,7 @@ public class Clinic implements ServiceLocation {
      * @param num number of employs assigned to that shift.
      */
     @Override
-    public void setShift(LocalDate date, int num) {
-        shifts.put(date, num);
-    }
+    public void setShift(LocalDate date, int num) {shifts.put(date, num);}
 
     /**
      * Checks if a date has shifts.
@@ -172,26 +168,21 @@ public class Clinic implements ServiceLocation {
      *
      * @return id of the location.
      */
-    public int getServiceLocationId() {
-        return this.clinicId;
-    }
+    public int getServiceLocationId() {return this.clinicId;}
 
     /**
      * getter.
      *
      * @return list of vaccine batches of the location.
      */
-    public List<VaccineBatch> getSupply(){
-        return this.supply.getBatchList();}
+    public List<VaccineBatch> getSupply(){return this.supply.getBatchList();}
 
     /**
      * getter.
      *
      * @return vaccine supply of the location.
      */
-    public VaccineSupply getSupplyObj() {
-        return this.supply;
-    }
+    public VaccineSupply getSupplyObj() {return this.supply;}
 
     /**
      * getter.
@@ -208,9 +199,7 @@ public class Clinic implements ServiceLocation {
      * @param date date from which extract the list of time periods.
      * @return list of time periods of the location of the given date.
      */
-    public List<TimePeriod> getTimePeriods(LocalDate date) {
-        return this.timePeriods.get(date);
-    }
+    public List<TimePeriod> getTimePeriods(LocalDate date) {return this.timePeriods.get(date);}
 
     /**
      * getter.
@@ -268,9 +257,7 @@ public class Clinic implements ServiceLocation {
          *
          * @return returns the clinic.
          */
-        public Clinic build(){
-            return new Clinic(this);
-        }
+        public Clinic build(){return new Clinic(this);}
     }
 
 
