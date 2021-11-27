@@ -14,25 +14,27 @@ import java.util.List;
  * Every time the use case is needed, a new RecordAdding instance is created
  * with parameters being flexible based on how we want to log
  */
-//TODO: finish the java doc for this class.
 public class RecordAdding {
 
     final ClinicDecorator clinic;
 
     /**
-     * @param clinic [description]
+     * creates Use Case for record adding.
+     *
+     * @param clinic an object of the abstract class for Clinic Decorator.
      */
-    // Constructor
     public RecordAdding(ClinicDecorator clinic){
         this.clinic = clinic;
     }
 
     /**
-     * @param id [description]
-     * @return [description]
-     * @throws ManagementSystemException [description]
+     * Log a given appointment based on an appointment ID.
+     *
+     * @param id id of the appointment being added.
+     * @return string description of the logged appointment.
+     * @throws ManagementSystemException if the doesn't exist in the location's record,
+     * or the appointment time hasn't happened yet.
      */
-    // Log a given appointment based on an appointment ID
     public String logAppointment(int id) throws ManagementSystemException {
         if(clinic.getAppointmentRecord(id) == null) {
             throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_DOES_NOT_EXIST);
@@ -48,14 +50,15 @@ public class RecordAdding {
     }
 
     /**
-     * @param vaccinationID [description]
-     * @param client [description]
-     * @param dateTime [description]
-     * @param brand [description]
-     * @return [description]
-     * @throws ManagementSystemException [description]
+     * Log a walk-in appointment given certain parameters.
+     *
+     * @param vaccinationID id of the walk in vaccination event.
+     * @param client who walked in to get vaccinated.
+     * @param dateTime when the walk-in vaccination happened.
+     * @param brand used in the walk in event.
+     * @return string of appointment description.
+     * @throws ManagementSystemException if the date time hasn't happened yet.
      */
-    // Log a walk-in appointment given certain parameters
     public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand)
             throws ManagementSystemException {
         if (dateTime.isBefore(LocalDateTime.now())){
@@ -69,11 +72,12 @@ public class RecordAdding {
     }
 
     /**
-     * @param dateTime [description]
-     * @return [description]
-     * @throws ManagementSystemException [description]
+     * Log all appointment on a certain date and time.
+     *
+     * @param dateTime for which the appointments are added.
+     * @return StringBuilder of string appointments.
+     * @throws ManagementSystemException if the time hasn't passed yet or does not exist in the clinic.
      */
-    // Log all appointment on a certain date and time
     public StringBuilder logByDateTime(LocalDateTime dateTime) throws ManagementSystemException {
         if(dateTime.isAfter(LocalDateTime.now())) {
             throw new ManagementSystemException(ManagementSystemException.TIME_NOT_PASSED);
@@ -101,11 +105,12 @@ public class RecordAdding {
     }
 
     /**
-     * @param date [description]
-     * @return [description]
-     * @throws ManagementSystemException [description]
+     * Log all appointments on a given date.
+     *
+     * @param date for which the appointments are added.
+     * @return StringBuilder of date time in a time period on a date in a location/
+     * @throws ManagementSystemException if location does not have time slot that day
      */
-    // Log all appointments on a given date
     public StringBuilder logByDate(LocalDate date) throws ManagementSystemException {
         if (clinic.getTimePeriods(date) == null ||
                 clinic.getTimePeriods(date).equals(new ArrayList<TimePeriod>())){
