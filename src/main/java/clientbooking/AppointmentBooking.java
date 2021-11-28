@@ -14,11 +14,11 @@ import java.util.List;
  */
 
 public class AppointmentBooking {
-    User client;
-    ClinicDecorator clinic;
-    TimePeriod timePeriod;
-    String vaccineBrand;
-    int appointmentId;
+    final User client;
+    final ClinicDecorator clinic;
+    final TimePeriod timePeriod;
+    final String vaccineBrand;
+    final int appointmentId;
 
 
     public AppointmentBooking(User client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id){
@@ -69,6 +69,7 @@ public class AppointmentBooking {
     private boolean hasUniqueId() {
         return !clinic.getAppointmentIds().contains(appointmentId);
     }
+
 
     // Create an appointment for this client in the Clinic's system
     public String createAppointment() throws ManagementSystemException {

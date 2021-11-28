@@ -13,7 +13,7 @@ public class TimePeriodTest {
 
 
     @Before // Setting up before the tests
-    public void setUp() throws Exception {
+    public void setUp() {
         timePeriod = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 30), 5);
         timePeriodNoSlots = new TimePeriod(LocalDateTime.of(2021, 11, 14, 12, 0), 0);
     }

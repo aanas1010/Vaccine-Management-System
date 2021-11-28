@@ -19,7 +19,7 @@ public class DatabaseClinicTest {
         clinicDB = new DatabaseClinic(connection, statement);
     }
 
-    @Test(timeout = 100) // Testing adding an existing clinic to the clinic table
+    @Test(timeout = 150) // Testing adding an existing clinic to the clinic table
     public void TestAddClinicExisting() throws SQLException {
         assertFalse(clinicDB.addClinic(1));
     }

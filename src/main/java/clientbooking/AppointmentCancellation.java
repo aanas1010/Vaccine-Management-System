@@ -11,8 +11,8 @@ import entities.*;
 
 public class AppointmentCancellation {
 
-    int appointmentId;
-    ClinicDecorator clinic;
+    final int appointmentId;
+    final ClinicDecorator clinic;
 
     // Constructor
     public AppointmentCancellation(int appointmentId, ClinicDecorator clinic){

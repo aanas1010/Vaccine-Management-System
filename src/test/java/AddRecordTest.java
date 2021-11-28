@@ -16,7 +16,7 @@ public class AddRecordTest {
 
 
     @Before // Setting up before the tests
-    public void setUp() throws Exception{
+    public void setUp() {
         dateTime = LocalDateTime.of(2020, 11, 14, 12, 30);
         timePeriod = new TimePeriod(dateTime, 5);
         batch = new VaccineBatch.BatchBuilder("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234).build();

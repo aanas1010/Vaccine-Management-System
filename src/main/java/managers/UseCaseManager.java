@@ -4,7 +4,6 @@ import constants.ManagementSystemException;
 import clientbooking.*;
 import clinicmanagement.*;
 import entities.*;
-import entities.Clinic;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

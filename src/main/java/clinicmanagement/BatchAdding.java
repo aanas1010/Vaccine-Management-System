@@ -14,14 +14,24 @@ public class BatchAdding {
     private final ServiceLocation clinic;
     private final VaccineBatch batch;
 
+    /**
+     * This is the Use Case for adding batches.
+     *
+     * @param clinic The clinic for which the batch is added
+     * @param batch The batch that is being added for the clinic
+     */
     // Constructor
     public BatchAdding(ServiceLocation clinic, VaccineBatch batch){
         this.clinic = clinic;
         this.batch = batch;
     }
 
-    // Adding a vaccine batch to the supply of a clinic if it is not expired
-    // Return whether the batch is added
+    /**
+     * Adds the batch to the clinic
+     *
+     * @return the details of the batch as a string
+     * @throws ManagementSystemException if the batch is expired or the clinic already has a batch with the same ID
+     */
     public String addBatch() throws ManagementSystemException {
         if (batch.isExpired()){
             throw new ManagementSystemException(ManagementSystemException.BATCH_EXPIRED);

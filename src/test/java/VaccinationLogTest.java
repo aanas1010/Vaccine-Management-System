@@ -14,7 +14,7 @@ public class VaccinationLogTest {
 
 
     @Before // Setting up before the tests
-    public void setUp() throws Exception {
+    public void setUp() {
         dateTime = LocalDateTime.of(2021, 11, 14, 12, 30);
         client = new Client("Paul Gries","99678538CX");
         vaccinationLog = new VaccinationLog();
