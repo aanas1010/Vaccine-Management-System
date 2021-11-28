@@ -13,31 +13,43 @@ public class TimePeriod {
     int availableSlots;
     int bookedSlots;
 
-    // Constructor
+    /**
+     * constructs a time period object.
+     *
+     * @param dateTime the date of the time period.
+     * @param availableSlots number of available spot in this time period.
+     */
     public TimePeriod(LocalDateTime dateTime, int availableSlots){
         this.dateTime = dateTime;
         this.availableSlots = availableSlots;
         this.bookedSlots = 0;
     }
 
-    // Try to remove 1 from available slots and add 1 to bookedSlots.
-    // Return whether it was added
+    /**
+     * try to remove 1 from available slots and add 1 to bookedSlots.
+     *
+     * @return true if added successfully; false otherwise and there are no slots available.
+     */
     public boolean findAndReserveSlot(){
-        // If there are no slots, return false
         if(this.getAvailableSlots() == 0) {return false;}
         availableSlots -= 1;
         bookedSlots += 1;
         return true;
     }
 
-    // Try to add 1 to available slots and remove 1 from bookedSlots. This is done because the Client cancelled
+    /**
+     * Try to add 1 to available slots and remove 1 from bookedSlots. This is done because the Client cancelled.
+     */
     public void addAvailableSlot(){
-
         availableSlots += 1;
         bookedSlots -= 1;
     }
 
-    // Return a string of the information of this batch
+    /**
+     * Return a string of the information of this time period.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         return  "Time: " + this.dateTime +
@@ -46,9 +58,18 @@ public class TimePeriod {
     }
 
     // Getters
-    public int getAvailableSlots() {
-        return availableSlots;
-    }
 
+    /**
+     * getter.
+     *
+     * @return number of available slots.
+     */
+    public int getAvailableSlots() {return availableSlots;}
+
+    /**
+     * getter.
+     *
+     * @return local date of the time period.
+     */
     public LocalDateTime getDateTime() {return dateTime;}
 }

@@ -10,20 +10,26 @@ import java.util.List;
  */
 
 public class VaccineSupply {
+
     private final List<VaccineBatch> batchList;
 
-    // Constructor
-    public VaccineSupply(){
-        this.batchList = new ArrayList<>();
-    }
+    /**
+     * construct a supply of vaccines object.
+     */
+    public VaccineSupply(){this.batchList = new ArrayList<>();}
 
-    // Overloaded Constructor for testing
-    public VaccineSupply(List<VaccineBatch> batchList){
-        this.batchList = batchList;
-    }
+    /**
+     * Overloaded Constructor for testing.
+     *
+     * @param batchList list of batches in the supply.
+     */
+    public VaccineSupply(List<VaccineBatch> batchList){this.batchList = batchList;}
 
-
-    // Return a hashmap that stores vaccine brand and the corresponding amount of vaccine
+    /**
+     * getter.
+     *
+     * @return a hashmap that stores vaccine brand and the corresponding amount of vaccine.
+     */
     public HashMap<String, Integer> getAvailableVaccines(){
         HashMap<String, Integer> vaccines = new HashMap<>();
         // Get the total quantities of each vaccine brand and put in hashmap
@@ -40,7 +46,11 @@ public class VaccineSupply {
         return new HashMap<>(vaccines);
     }
 
-    // Return a string of the list of batches using the brand and id number
+    /**
+     * Return a string of the list of batches using the brand and id number.
+     *
+     * @return a string representation of the object.
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder("----------------BATCH LIST---------------- \n");
@@ -55,7 +65,12 @@ public class VaccineSupply {
         return s.toString();
     }
 
-
     // Getters
+
+    /**
+     * getter.
+     *
+     * @return a list of vaccine batches in the supply.
+     */
     public List<VaccineBatch> getBatchList(){return this.batchList;}
 }
