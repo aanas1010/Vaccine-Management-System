@@ -14,14 +14,12 @@ import java.time.LocalDateTime;
 
 public class DatabaseStoring implements DataStoring {
     private final Connection connection;
-    private final Statement statement;
 
     public DatabaseStoring() throws SQLException {
         connection = DriverManager.getConnection(
                 BookingConstants.DATABASE_CONNECTION_URL,
                 BookingConstants.DATABASE_CONNECTION_USERNAME,
                 BookingConstants.DATABASE_CONNECTION_PASSWORD);
-        statement = connection.createStatement();
     }
 
 
