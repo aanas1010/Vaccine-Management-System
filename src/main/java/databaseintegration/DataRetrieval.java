@@ -1,22 +1,22 @@
 package databaseintegration;
 
-import java.sql.ResultSet;
-import java.util.List;
+import javax.json.JsonObject;
 
 /**
  * This is the interface for an adapter that loads data from a ResultSet
+ * This interface corresponds to classes that lie on the "Controllers" layer of clean architecture
  */
 
 public interface DataRetrieval {
-    List<Integer> getClinicIDs();
+    JsonObject getClinicIDs();
 
-    ResultSet getClients();
+    JsonObject getClients();
 
-    ResultSet getClinicInfo(int clinicID);
+    JsonObject getClinicInfo(int clinicID);
 
-    ResultSet getVaccineBatches(int clinicID);
+    JsonObject getVaccineBatches(int clinicID);
 
-    ResultSet getTimePeriods(int clinicID);
+    JsonObject getTimePeriods(int clinicID);
 
-    ResultSet getAppointments(int clinicID);
+    JsonObject getAppointments(int clinicID);
 }

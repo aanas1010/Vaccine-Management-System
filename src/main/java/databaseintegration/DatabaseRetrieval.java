@@ -2,6 +2,7 @@ package databaseintegration;
 
 import constants.BookingConstants;
 
+import javax.json.JsonObject;
 import java.sql.*;
 import java.util.List;
 
@@ -22,30 +23,30 @@ public class DatabaseRetrieval implements DataRetrieval {
         statement = connection.createStatement();
     }
 
-    public List<Integer> getClinicIDs() {
+    public JsonObject getClinicIDs() {
         String query = "SELECT clinicID FROM clinic";
         // The resultSet line below should probably be in the upper-level (driver-level) classes
         //ResultSet resultSet = statement.executeQuery(query);
         return null;
     }
 
-    public ResultSet getClients() {
+    public JsonObject getClients() {
         return null;
     }
 
-    public ResultSet getClinicInfo(int clinicID) {
+    public JsonObject getClinicInfo(int clinicID) {
         return null;
     }
 
-    public ResultSet getVaccineBatches(int clinicID) {
+    public JsonObject getVaccineBatches(int clinicID) {
         return null;
     }
 
-    public ResultSet getTimePeriods(int clinicID) {
+    public JsonObject getTimePeriods(int clinicID) {
         return null;
     }
 
-    public ResultSet getAppointments(int clinicID) {
+    public JsonObject getAppointments(int clinicID) {
         return null;
     }
 

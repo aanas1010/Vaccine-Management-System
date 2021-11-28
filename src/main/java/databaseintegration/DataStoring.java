@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * This is the interface for an adapter that stores data that can then be loaded later
+ * This interface corresponds to classes that lie on the "Controllers" layer of clean architecture
  */
 
 public interface DataStoring {
