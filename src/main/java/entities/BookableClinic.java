@@ -12,14 +12,23 @@ import java.util.List;
 public class BookableClinic extends ClinicDecorator{
     private final List<Appointment> appointments;
 
-    // Basic constructor
+    /**
+     * constructs a bookable clinic object
+     *
+     * @param decoratedClinic an object of the interface for service location.
+     */
     public BookableClinic(ServiceLocation decoratedClinic)
     {
         super(decoratedClinic);
         this.appointments = new ArrayList<>();
     }
 
-    // Try to add the appointment to the list and return whether the appointment was added
+    /**
+     * Try to add the appointment to the list and return whether the appointment was added.
+     *
+     * @param ap appointment that is getting added to the list.
+     * @return true if appointment added successfully.
+     */
     public boolean addAppointment(Appointment ap) {
         // If this appointment ID is already taken, do not add the appointment
         for(Appointment a: appointments) {
@@ -31,7 +40,12 @@ public class BookableClinic extends ClinicDecorator{
         return true;
     }
 
-    // Return the Appointment record by ID. Return null if it cannot be found
+    /**
+     * Return the Appointment record by ID.
+     *
+     * @param id of the appointment
+     * @return appointment by id if found; null otherwise.
+     */
     public Appointment getAppointmentRecord(int id) {
         for(Appointment record: appointments) {
             if(id == record.getAppointmentId()) {
@@ -41,7 +55,12 @@ public class BookableClinic extends ClinicDecorator{
         return null;
     }
 
-    // Try to remove an appointment from the list. Return whether successful
+    /**
+     * Try to remove an appointment from the list.
+     *
+     * @param ap appointment we are interested in removing.
+     * @return true if the appointment removed successfully; false otherwise.
+     */
     public boolean removeAppointment(Appointment ap) {
         if(appointments.contains(ap)) {
             ap.clientVaccineBatch.changeReserve(-1); // This adds 1 to the quantity
@@ -52,16 +71,26 @@ public class BookableClinic extends ClinicDecorator{
         }
     }
 
-    // Try to remove an appointment by ID from the list. Return whether successful
-    public boolean removeAppointmentById(int id) {
-        return removeAppointment(getAppointmentRecord(id));
-    }
+    /**
+     * Try to remove an appointment by ID from the list.
+     *
+     * @param id the id of the appointment we are interested in removing.
+     * @return true if appointment removed successfully; false otherwise.
+     */
+    public boolean removeAppointmentById(int id) {return removeAppointment(getAppointmentRecord(id));}
 
-    // Log a past vaccination (WITH APPOINTMENT)
-    public void logPastVaccinations(Appointment appointment) {
-        decoratedClinic.getVaccineLog().addToLog(appointment);
-    }
+    /**
+     * logs an appointment that has already happened.
+     *
+     * @param appointment the appointment we want to log.
+     */
+    public void logPastVaccinations(Appointment appointment) {decoratedClinic.getVaccineLog().addToLog(appointment);}
 
+    /**
+     * getter.
+     *
+     * @return list of appointment ids
+     */
     public List<Integer> getAppointmentIds() {
         List<Integer> appointmentIds = new ArrayList<>();
         for(Appointment ap : appointments) {
@@ -70,6 +99,12 @@ public class BookableClinic extends ClinicDecorator{
         return appointmentIds;
     }
 
+    /**
+     * getters.
+     *
+     * @param timePeriod the date in which are interested in getting a list of appointments.
+     * @return list of appointment at a given date.
+     */
     public List<Appointment> getAppointmentByTimePeriod(TimePeriod timePeriod){
         List<Appointment> dateAppointments = new ArrayList<>();
         for (Appointment appointment: appointments){
