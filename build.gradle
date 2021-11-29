@@ -8,6 +8,7 @@ repositories {
 
 dependencies {
     implementation 'javax.json:javax.json-api:1.1.4'
+    implementation 'org.glassfish:javax.json:1.1.4'
     implementation 'junit:junit:4.13.2'
     testImplementation('org.junit.jupiter:junit-jupiter:5.8.1')
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java

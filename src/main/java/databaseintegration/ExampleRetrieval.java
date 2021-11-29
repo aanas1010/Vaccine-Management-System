@@ -17,7 +17,17 @@ public class ExampleRetrieval implements DataRetrieval{
         for(int i=0;i<10;i++) {
             clinicIDs.add(i);
         }
+
         return Json.createObjectBuilder().add("clinicIDs", clinicIDs).build();
+    }
+
+    public JsonObject getBookableClinicIDs() {
+        JsonArrayBuilder clinicIDs = Json.createArrayBuilder();
+        for(int i=1;i<10;i=i+2) {
+            clinicIDs.add(i);
+        }
+
+        return Json.createObjectBuilder().add("bookableClinicIDs", clinicIDs).build();
     }
 
     public JsonObject getClients() {
@@ -55,7 +65,7 @@ public class ExampleRetrieval implements DataRetrieval{
         return Json.createObjectBuilder()
                 .add("clinicID", clinicID)
                 .add("location", "Some Location")
-                .add("isBookable", clinicID % 2 == 0 ? 0 : 1).build();
+                .add("isBookable", clinicID % 2).build();
     }
 
     public JsonObject getVaccineBatches(int clinicID) {

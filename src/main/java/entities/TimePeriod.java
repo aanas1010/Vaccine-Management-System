@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
  */
 
 public class TimePeriod {
+    static int timePeriodIDTracker = 1;
+    final int timePeriodID;
     final LocalDateTime dateTime;
     int availableSlots;
     int bookedSlots;
@@ -23,6 +25,23 @@ public class TimePeriod {
         this.dateTime = dateTime;
         this.availableSlots = availableSlots;
         this.bookedSlots = 0;
+        this.timePeriodID = timePeriodIDTracker;
+        timePeriodIDTracker++;
+    }
+
+    /**
+     * constructs a time period object with explicit ID.
+     *
+     * @param dateTime the date of the time period.
+     * @param availableSlots number of available spot in this time period.
+     * @param timePeriodID explicit id of the time period
+     */
+    public TimePeriod(LocalDateTime dateTime, int availableSlots, int timePeriodID){
+        this.dateTime = dateTime;
+        this.availableSlots = availableSlots;
+        this.bookedSlots = 0;
+        this.timePeriodID = timePeriodID;
+        timePeriodIDTracker = Math.max(timePeriodID, timePeriodIDTracker) + 1;
     }
 
     /**
@@ -58,6 +77,13 @@ public class TimePeriod {
     }
 
     // Getters
+
+    /**
+     * getter.
+     *
+     * @return ID of the time period
+     */
+    public int getID() {return timePeriodID;}
 
     /**
      * getter.

@@ -40,10 +40,8 @@ public class DatabaseStoring implements DataStoring {
     }
 
     public void writeToClinic(int clinicID, String location, boolean isBookable) {
-        /**
-         * NOTE: SINCE WE DO NOT HAVE THE USE CASE TO ADD NEW CLINICS,
-         * IS THIS REALLY NECESSARY? OR SHOULD THIS JUST BE A "READ-ONLY" TABLE?
-        */
+        // TODO SINCE WE DO NOT HAVE THE USE CASE TO ADD NEW CLINICS,
+        //  IS THIS REALLY NECESSARY? OR SHOULD THIS JUST BE A "READ-ONLY" TABLE?
     }
 
     public void writeToTimePeriods(int periodID, int clinicID, int availableSlots, LocalDateTime datetime)

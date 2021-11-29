@@ -3,8 +3,10 @@ package databaseintegration;
 import constants.BookingConstants;
 
 import javax.json.JsonObject;
-import java.sql.*;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * This is the adapter for retrieving data from the database.
@@ -29,6 +31,8 @@ public class DatabaseRetrieval implements DataRetrieval {
         //ResultSet resultSet = statement.executeQuery(query);
         return null;
     }
+
+    public JsonObject getBookableClinicIDs() {return null;}
 
     public JsonObject getClients() {
         return null;

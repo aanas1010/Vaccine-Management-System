@@ -81,12 +81,12 @@ public class RecordAdding {
             throw new ManagementSystemException(ManagementSystemException.TIME_NOT_PASSED);
         }
 
-        if(clinic.getTimePeriod(dateTime) == null) {
+        if(clinic.getTimePeriodByTime(dateTime) == null) {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_DOES_NOT_HAVE_TIMESLOT);
         }
 
         else{
-            TimePeriod timePeriod = clinic.getTimePeriod(dateTime);
+            TimePeriod timePeriod = clinic.getTimePeriodByTime(dateTime);
             List<Appointment> appointments = clinic.getAppointmentByTimePeriod(timePeriod);
             List<String> appointmentsString = new ArrayList<>();
             for (Appointment appointment: appointments){

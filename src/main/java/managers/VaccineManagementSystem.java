@@ -5,6 +5,7 @@ import constants.ManagementSystemException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Controller for a vaccine management system
@@ -18,6 +19,16 @@ public class VaccineManagementSystem implements ManagementSystem {
 
     public VaccineManagementSystem(UseCaseManagerInterface useCaseManager) {
         this.useCaseManagerInterface = useCaseManager;
+    }
+
+    // Data permanence
+
+    public boolean loadInitialData(){
+        return useCaseManagerInterface.loadInitialData();
+    }
+
+    public boolean loadClinicData(int clinicID) {
+        return useCaseManagerInterface.loadClinicData(clinicID);
     }
 
     public String setEmployees(int clinicId, LocalDate date, int employees) {
@@ -74,11 +85,11 @@ public class VaccineManagementSystem implements ManagementSystem {
     }
 
     // Getters
-    public ArrayList<Integer> getClinicIds() {
+    public List<Integer> getClinicIds() {
         return this.useCaseManagerInterface.getClinicIds();
     }
 
-    public ArrayList<Integer> getBookableClinicIds() {return this.useCaseManagerInterface.getBookableClinicIds();}
+    public List<Integer> getBookableClinicIds() {return this.useCaseManagerInterface.getBookableClinicIds();}
 
 
 

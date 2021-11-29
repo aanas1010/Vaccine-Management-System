@@ -154,10 +154,27 @@ public class Clinic implements ServiceLocation {
      * @param dateTime of the date we are interested.
      * @return the time period of the given time.
      */
-    public TimePeriod getTimePeriod(LocalDateTime dateTime){
+    public TimePeriod getTimePeriodByTime(LocalDateTime dateTime){
         for (TimePeriod timePeriod: getTimePeriods(dateTime.toLocalDate())){
             if (timePeriod.getDateTime().equals(dateTime)){
                 return timePeriod;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * getter.
+     *
+     * @param timePeriodID the ID of the time period
+     * @return the time period of the given ID.
+     */
+    public TimePeriod getTimePeriodByID(int timePeriodID){
+        for(LocalDate date : timePeriods.keySet()) {
+            for (TimePeriod timePeriod: getTimePeriods(date)){
+                if (timePeriod.getID() == timePeriodID){
+                    return timePeriod;
+                }
             }
         }
         return null;

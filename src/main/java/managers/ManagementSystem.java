@@ -5,6 +5,7 @@ import constants.ManagementSystemException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Interface that the Command Line uses.
@@ -12,6 +13,10 @@ import java.util.ArrayList;
  */
 
 public interface ManagementSystem {
+
+    boolean loadInitialData();
+
+    boolean loadClinicData(int clinicID);
 
     String setEmployees(int clinicId, LocalDate date, int employees);
 
@@ -23,9 +28,9 @@ public interface ManagementSystem {
 
     String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry, int batchId) throws ManagementSystemException;
 
-    ArrayList<Integer> getClinicIds();
+    List<Integer> getClinicIds();
 
-    ArrayList<Integer> getBookableClinicIds();
+    List<Integer> getBookableClinicIds();
 
     String getSupplyByClinic(int clinicId);
 
