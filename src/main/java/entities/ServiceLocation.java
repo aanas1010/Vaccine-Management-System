@@ -104,7 +104,15 @@ public interface ServiceLocation {
      * @param dateTime of the date we are interested.
      * @return the time period of the given time.
      */
-    TimePeriod getTimePeriod(LocalDateTime dateTime);
+    TimePeriod getTimePeriodByTime(LocalDateTime dateTime);
+
+    /**
+     * getter.
+     *
+     * @param timePeriodID of the time period
+     * @return the time period of the given time.
+     */
+    TimePeriod getTimePeriodByID(int timePeriodID);
 
 
     /**

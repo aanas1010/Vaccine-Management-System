@@ -3,11 +3,14 @@ package managers;
 import constants.ManagementSystemException;
 import clientbooking.*;
 import clinicmanagement.*;
+import databaseintegration.DataRetrieval;
+import databaseintegration.DataStoring;
 import entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -17,14 +20,55 @@ import java.util.Objects;
 
 public class UseCaseManager implements UseCaseManagerInterface {
     //List of clinics, looking to change this into a database
-    private final ArrayList<ServiceLocation> clinics;
-    private final ArrayList<User> clients;
+    private List<Integer> clinicIDs;
+    private List<Integer> bookableClinicIDs;
+    private List<ServiceLocation> clinics;
+    private List<User> clients;
+    private Retriever retriever;
+    private Storer storer;
 
-    //Constructor with empty list of service locations
+    //Constructor with no dataRetrieval
     public UseCaseManager(){
+        this.clinicIDs = new ArrayList<>();
+        this.bookableClinicIDs = new ArrayList<>();
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
     }
+
+    //Constructor with no dataRetrieval
+    public UseCaseManager(DataRetrieval dataRetrieval, DataStoring dataStoring){
+        this.bookableClinicIDs = new ArrayList<>();
+        this.clinicIDs = new ArrayList<>();
+        this.clinics = new ArrayList<>();
+        this.clients = new ArrayList<>();
+        this.retriever = new Retriever(dataRetrieval);
+        this.storer = new Storer(dataStoring);
+    }
+
+    /** LOADING DATA */
+    public boolean loadInitialData() {
+        if(retriever == null) {return false;}
+        clinicIDs = retriever.getClinicIDs();
+        bookableClinicIDs = retriever.getBookableClinicIDs();
+        clients = retriever.getClients();
+
+        return true;
+    }
+
+    public boolean loadClinicData(int clinicID) {
+        if(retriever == null) {return false;}
+        ServiceLocation thisClinic = retriever.getClinicInfo(clinicID);
+        clinics.add(thisClinic);
+        retriever.getTimePeriods(thisClinic);
+        retriever.getVaccineBatches(thisClinic);
+
+        if(thisClinic instanceof BookableClinic) {
+            retriever.getAppointments((BookableClinic) thisClinic, this.clients);
+        }
+
+        return true;
+    }
+
 
     /** ADDING CLINICS */
 
@@ -51,7 +95,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
                 return true;
             }
         }
-        return false;
+        return clinicIDs.contains(clinicId);
     }
 
     /** Adding Clients **/
@@ -167,27 +211,35 @@ public class UseCaseManager implements UseCaseManagerInterface {
     /** GETTERS */
 
     //Return a list of the clinic IDs
-    public ArrayList<Integer> getClinicIds() {
-        int arraySize = clinics.size();
-        ArrayList<Integer> clinicNums = new ArrayList<>(arraySize);
-        for (ServiceLocation clinic : clinics) {
-            //Call the getClinicId method for all clinics
-            clinicNums.add(clinic.getServiceLocationId());
-        }
-        return clinicNums;
-    }
-
-    //Return a list of the bookable clinic IDs
-    public ArrayList<Integer> getBookableClinicIds() {
-        int arraySize = clinics.size();
-        ArrayList<Integer> clinicNums = new ArrayList<>(arraySize);
-        for (ServiceLocation clinic : clinics) {
-            if(clinic instanceof ClinicDecorator) {
+    public List<Integer> getClinicIds() {
+        if(retriever == null) {
+            int arraySize = clinics.size();
+            ArrayList<Integer> clinicNums = new ArrayList<>(arraySize);
+            for (ServiceLocation clinic : clinics) {
                 //Call the getClinicId method for all clinics
                 clinicNums.add(clinic.getServiceLocationId());
             }
+            return clinicNums;
+        }else {
+            return clinicIDs;
         }
-        return clinicNums;
+    }
+
+    //Return a list of the bookable clinic IDs
+    public List<Integer> getBookableClinicIds() {
+        if(retriever == null) {
+            int arraySize = clinics.size();
+            ArrayList<Integer> clinicNums = new ArrayList<>(arraySize);
+            for (ServiceLocation clinic : clinics) {
+                if(clinic instanceof ClinicDecorator) {
+                    //Call the getClinicId method for all clinics
+                    clinicNums.add(clinic.getServiceLocationId());
+                }
+            }
+            return clinicNums;
+        }else {
+            return bookableClinicIDs;
+        }
     }
 
     private ServiceLocation getClinicById(int clinicId) {

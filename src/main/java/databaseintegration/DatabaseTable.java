@@ -8,8 +8,6 @@ import java.sql.ResultSet;
  * This interface corresponds to classes that lie on the "Drivers" layer of clean architecture
  */
 
-//TODO: Are these methods sufficient for driver-level classes? Do we even need all of them?
-
 public interface DatabaseTable {
     ResultSet getFromTable(String query);
 

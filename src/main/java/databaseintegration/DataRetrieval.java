@@ -10,6 +10,8 @@ import javax.json.JsonObject;
 public interface DataRetrieval {
     JsonObject getClinicIDs();
 
+    JsonObject getBookableClinicIDs();
+
     JsonObject getClients();
 
     JsonObject getClinicInfo(int clinicID);

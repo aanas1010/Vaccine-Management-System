@@ -140,14 +140,9 @@ public abstract class ClinicDecorator implements ServiceLocation{
      * @param dateTime of the date we are interested.
      * @return the time period of the given time.
      */
-    public TimePeriod getTimePeriod(LocalDateTime dateTime){
-        for (TimePeriod timePeriod: getTimePeriods(dateTime.toLocalDate())){
-            if (timePeriod.getDateTime().equals(dateTime)){
-                return timePeriod;
-            }
-        }
-        return null;
-    }
+    public TimePeriod getTimePeriodByTime(LocalDateTime dateTime){return this.decoratedClinic.getTimePeriodByTime(dateTime);}
+
+    public TimePeriod getTimePeriodByID(int periodID){return this.decoratedClinic.getTimePeriodByID(periodID);}
 
     /**
      * logs an appointment that has already happened.

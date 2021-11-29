@@ -5,6 +5,7 @@ import constants.ManagementSystemException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Interface that a management system may use.
@@ -12,15 +13,19 @@ import java.util.ArrayList;
  */
 
 public interface UseCaseManagerInterface {
-    ArrayList<Integer> getClinicIds();
+    List<Integer> getClinicIds();
 
-    ArrayList<Integer> getBookableClinicIds();
+    List<Integer> getBookableClinicIds();
 
     void addClinic(int clinicId, String location) throws ManagementSystemException;
 
     void addBookableClinic(int clinicId, String location) throws ManagementSystemException;
 
     void addClient(String name, String healthCardNumber) throws ManagementSystemException;
+
+    boolean loadInitialData();
+
+    boolean loadClinicData(int clinicID);
 
     String setEmployees(int clinicId, LocalDate date, int employees);
 

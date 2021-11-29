@@ -25,10 +25,16 @@ public class CommandLine {
     }
 
     public void run() {
-        //Get the clinic ID from the user
+        // Load the initial data
+        this.managementSystem.loadInitialData();
+
+        // Get the clinic ID from the user
         this.clinicId = getClinicId();
 
         boolean isBookableClinic = managementSystem.getBookableClinicIds().contains(clinicId);
+
+        // Load the data for this clinic
+        this.managementSystem.loadClinicData(clinicId);
 
         // Get the list of acceptable commands
         List<Enum<?>> acceptableCommands = new ArrayList<>(Arrays.asList(DataValidation.CoreCommands.values()));
