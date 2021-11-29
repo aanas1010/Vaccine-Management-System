@@ -1,5 +1,5 @@
 import constants.ManagementSystemException;
-import clinic_management.SetTimePeriod;
+import clinicmanagement.SetTimePeriod;
 import entities.Clinic;
 import org.junit.Before;
 import org.junit.Test;

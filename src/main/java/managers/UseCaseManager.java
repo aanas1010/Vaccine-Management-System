@@ -1,8 +1,8 @@
 package managers;
 
 import constants.ManagementSystemException;
-import client_booking.*;
-import clinic_management.*;
+import clientbooking.*;
+import clinicmanagement.*;
 import entities.*;
 
 import java.time.LocalDate;
