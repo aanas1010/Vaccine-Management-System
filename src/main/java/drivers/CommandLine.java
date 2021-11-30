@@ -17,13 +17,18 @@ public class CommandLine {
     private final Scanner in;
     private int clinicId;
 
-    // Constructor accepts a management system
+    /**
+     * @param system a management system that calls the use cases
+     */
     public CommandLine(ManagementSystem system) {
         this.managementSystem = system;
         this.in = new Scanner(System.in);
         this.clinicId = -1;
     }
 
+    /**
+     * Runs the program. The way the program runs is based on the inputs by the user i.e., the clinic manager
+     */
     public void run() {
         //Get the clinic ID from the user
         this.clinicId = getClinicId();

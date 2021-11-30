@@ -17,7 +17,10 @@ import static java.lang.Integer.parseInt;
  */
 
 public class DataValidation {
-    // Parameter types accepted by the command line
+
+    /**
+     * Parameter types accepted by the command line
+     */
     protected enum ParameterTypes {
         NON_NEGATIVE_INT,
         POSITIVE_INT,
@@ -28,7 +31,10 @@ public class DataValidation {
         COMMAND_BOOKABLE
     }
 
-    // Types of commands which must all have a contains method
+
+    /**
+     * Types of commands which must all have a contains method
+     */
     protected enum CoreCommands {
         ADD_BATCH,
         SET_EMPLOYEES,
@@ -37,7 +43,12 @@ public class DataValidation {
         ADD_TIME_PERIODS,
         QUIT;
 
-        // Return whether s is a valid element of CoreCommands
+        /**
+         * Check if the inputted command is indeed a core command
+         *
+         * @param s a command. This command must be one of the commands in the CoreCommands enum
+         * @return whether s is a valid element of CoreCommands
+         */
         public static boolean contains(String s) {
             for (CoreCommands c : CoreCommands.values()) {
                 if (c.name().equals(s)) {
@@ -49,6 +60,9 @@ public class DataValidation {
         }
     }
 
+    /**
+     * Commands that can only be inputted if the clinic is declared a bookable clinic
+     */
     protected enum BookableCommands {
         BOOK_APPOINTMENT,
         CANCEL_APPOINTMENT,
@@ -58,7 +72,12 @@ public class DataValidation {
         LOG_BY_DATETIME,
         LOG_BY_DATE;
 
-        // Return whether s is a valid element of BookableCommands
+        /**
+         * Check if the inputted command is indeed a bookable command
+         *
+         * @param s a command. This command must be one of the commands in the BookableCommands enum
+         * @return whether s is a valid element of BookableCommands
+         */
         public static boolean contains(String s) {
             for (BookableCommands c : BookableCommands.values()) {
                 if (c.name().equals(s)) {
@@ -70,7 +89,15 @@ public class DataValidation {
     }
 
 
-    // Return the value given by the command line if it is a valid value in the list of parameter types
+    /**
+     * Gets the command inputted by the user
+     *
+     * @param in Scans/parses the text that the user inputs
+     * @param prompt The display of the possible inputs. While the program is running, the prompt displays
+     *               the commands that may be entered
+     * @param types The possible choices of commands the user may input
+     * @return the input given by the command line
+     */
     protected static Enum<?> getCommand(Scanner in, String prompt, List<Enum<?>> types) {
         while(true) {
             System.out.println(prompt);
@@ -89,7 +116,16 @@ public class DataValidation {
         }
     }
 
-    // Helper function for input and output to command line
+    /**
+     *
+     * Helper function for input and output to command line
+     *
+     * @param in Scans/parses the text that the user inputs
+     * @param prompt The display of the possible inputs. While the program is running, the prompt displays
+     *               the commands that may be entered
+     * @param type the type of parameter that the user inputted
+     * @return the value if it is a valid value in the list of parameter types
+     */
     protected static Object getValue(Scanner in, String prompt, ParameterTypes type) {
         while(true) {
             System.out.println(prompt);

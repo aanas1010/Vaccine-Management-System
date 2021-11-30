@@ -3,6 +3,9 @@ package drivers;
 import constants.ManagementSystemException;
 import managers.*;
 
+/**
+ * This is the Main class in our program. Running this file allows you to use the program.
+ */
 public class Main {
     public static void main(String[] args) {
 
