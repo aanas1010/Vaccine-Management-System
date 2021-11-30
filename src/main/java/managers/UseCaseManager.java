@@ -21,7 +21,7 @@ import java.util.Objects;
 public class UseCaseManager implements UseCaseManagerInterface {
     private List<Integer> clinicIDs;
     private List<Integer> bookableClinicIDs;
-    private List<ServiceLocation> clinics;
+    private final List<ServiceLocation> clinics;
     private List<User> clients;
     private Retriever retriever;
     private Storer storer;
@@ -47,18 +47,25 @@ public class UseCaseManager implements UseCaseManagerInterface {
         this.storer = new Storer(dataStoring);
     }
 
-    /** LOADING DATA */
-    public boolean loadInitialData() {
-        if(retriever == null) {return false;}
+    /**
+     * Load initial data for clinic IDs and users
+     *
+     */
+    public void loadInitialData() {
+        if(retriever == null) {return;}
         clinicIDs = retriever.getClinicIDs();
         bookableClinicIDs = retriever.getBookableClinicIDs();
         clients = retriever.getClients();
 
-        return true;
     }
 
-    public boolean loadClinicData(int clinicID) {
-        if(retriever == null) {return false;}
+    /**
+     * Load data for a single clinic by adding it to clinics
+     *
+     * @param clinicID The ID of the clinic that is going to be loaded
+     */
+    public void loadClinicData(int clinicID) {
+        if(retriever == null) {return;}
         ServiceLocation thisClinic = retriever.getClinicInfo(clinicID);
         clinics.add(thisClinic);
         retriever.getTimePeriods(thisClinic);
@@ -68,7 +75,6 @@ public class UseCaseManager implements UseCaseManagerInterface {
             retriever.getAppointments((BookableClinic) thisClinic, this.clients);
         }
 
-        return true;
     }
 
 

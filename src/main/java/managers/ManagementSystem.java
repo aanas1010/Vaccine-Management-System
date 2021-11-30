@@ -16,17 +16,15 @@ public interface ManagementSystem {
     /**
      * Load the initial data from the retriever
      *
-     * @return Whether the loading was successful
      */
-    boolean loadInitialData();
+    void loadInitialData();
 
     /**
      * Load the clinic data from the retriever
      *
      * @param clinicID The ID of the clinic whose info we want to load
-     * @return Whether the loading was successful
      */
-    boolean loadClinicData(int clinicID);
+    void loadClinicData(int clinicID);
 
     /**
      * Setting the number of shifts for the given for a certain date

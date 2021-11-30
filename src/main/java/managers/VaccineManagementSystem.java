@@ -4,7 +4,6 @@ import constants.ManagementSystemException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,12 +23,21 @@ public class VaccineManagementSystem implements ManagementSystem {
         this.useCaseManagerInterface = useCaseManager;
     }
 
-    public boolean loadInitialData(){
-        return useCaseManagerInterface.loadInitialData();
+    /**
+     * Load the initial data from the retriever
+     *
+     */
+    public void loadInitialData(){
+        useCaseManagerInterface.loadInitialData();
     }
 
-    public boolean loadClinicData(int clinicID) {
-        return useCaseManagerInterface.loadClinicData(clinicID);
+    /**
+     * Load the clinic data from the retriever
+     *
+     * @param clinicID The ID of the clinic whose info we want to load
+     */
+    public void loadClinicData(int clinicID) {
+        useCaseManagerInterface.loadClinicData(clinicID);
     }
 
     /**

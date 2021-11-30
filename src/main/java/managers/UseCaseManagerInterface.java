@@ -4,7 +4,6 @@ import constants.ManagementSystemException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,9 +56,18 @@ public interface UseCaseManagerInterface {
      */
     void addClient(String name, String healthCardNumber) throws ManagementSystemException;
 
-    boolean loadInitialData();
+    /**
+     * Load initial data for clinic IDs and users
+     *
+     */
+    void loadInitialData();
 
-    boolean loadClinicData(int clinicID);
+    /**
+     * Load data for a single clinic by adding it to clinics
+     *
+     * @param clinicID The ID of the clinic that is going to be loaded
+     */
+    void loadClinicData(int clinicID);
 
     /**
      * Setting the number of shifts for the given for a certain date
