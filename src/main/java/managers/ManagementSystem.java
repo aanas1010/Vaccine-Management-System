@@ -4,7 +4,7 @@ import constants.ManagementSystemException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Interface that the Command Line uses.
@@ -12,6 +12,21 @@ import java.util.ArrayList;
  */
 
 public interface ManagementSystem {
+
+    /**
+     * Load the initial data from the retriever
+     *
+     * @return Whether the loading was successful
+     */
+    boolean loadInitialData();
+
+    /**
+     * Load the clinic data from the retriever
+     *
+     * @param clinicID The ID of the clinic whose info we want to load
+     * @return Whether the loading was successful
+     */
+    boolean loadClinicData(int clinicID);
 
     /**
      * Setting the number of shifts for the given for a certain date
@@ -79,14 +94,14 @@ public interface ManagementSystem {
      *
      * @return a list of the clinic IDs
      */
-    ArrayList<Integer> getClinicIds();
+    List<Integer> getClinicIds();
 
     /**
      * Gets the IDs of all the bookable clinics
      *
      * @return a list of the bookable clinic IDs
      */
-    ArrayList<Integer> getBookableClinicIds();
+    List<Integer> getBookableClinicIds();
 
     /**
      * Gets the details of the supply (i.e., all the batches) of the specified clinic

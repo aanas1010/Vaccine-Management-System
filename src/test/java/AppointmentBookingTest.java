@@ -1,5 +1,5 @@
 import constants.ManagementSystemException;
-import client_booking.AppointmentBooking;
+import clientbooking.AppointmentBooking;
 import entities.*;
 import org.junit.*;
 import static org.junit.Assert.*;

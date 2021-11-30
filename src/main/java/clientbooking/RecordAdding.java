@@ -1,4 +1,4 @@
-package client_booking;
+package clientbooking;
 
 import constants.BookingConstants;
 import constants.ManagementSystemException;
@@ -14,17 +14,25 @@ import java.util.List;
  * Every time the use case is needed, a new RecordAdding instance is created
  * with parameters being flexible based on how we want to log
  */
-
 public class RecordAdding {
 
     final ClinicDecorator clinic;
 
-    // Constructor
-    public RecordAdding(ClinicDecorator clinic){
-        this.clinic = clinic;
-    }
+    /**
+     * creates Use Case for record adding.
+     *
+     * @param clinic an object of the abstract class for Clinic Decorator.
+     */
+    public RecordAdding(ClinicDecorator clinic){this.clinic = clinic;}
 
-    // Log a given appointment based on an appointment ID
+    /**
+     * Log a given appointment based on an appointment ID.
+     *
+     * @param id id of the appointment being added.
+     * @return string description of the logged appointment.
+     * @throws ManagementSystemException if the doesn't exist in the location's record,
+     * or the appointment time hasn't happened yet.
+     */
     public String logAppointment(int id) throws ManagementSystemException {
         if(clinic.getAppointmentRecord(id) == null) {
             throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_DOES_NOT_EXIST);
@@ -39,7 +47,16 @@ public class RecordAdding {
         return removedAppointment.toString();
     }
 
-    // Log a walk-in appointment given certain parameters
+    /**
+     * Log a walk-in appointment given certain parameters.
+     *
+     * @param vaccinationID id of the walk in vaccination event.
+     * @param client who walked in to get vaccinated.
+     * @param dateTime when the walk-in vaccination happened.
+     * @param brand used in the walk in event.
+     * @return string of appointment description.
+     * @throws ManagementSystemException if the date time hasn't happened yet.
+     */
     public String logWalkIn(String vaccinationID, User client, LocalDateTime dateTime, String brand)
             throws ManagementSystemException {
         if (dateTime.isBefore(LocalDateTime.now())){
@@ -52,18 +69,24 @@ public class RecordAdding {
         }
     }
 
-    // Log all appointment on a certain date and time
+    /**
+     * Log all appointment on a certain date and time.
+     *
+     * @param dateTime for which the appointments are added.
+     * @return StringBuilder of string appointments.
+     * @throws ManagementSystemException if the time hasn't passed yet or does not exist in the clinic.
+     */
     public StringBuilder logByDateTime(LocalDateTime dateTime) throws ManagementSystemException {
         if(dateTime.isAfter(LocalDateTime.now())) {
             throw new ManagementSystemException(ManagementSystemException.TIME_NOT_PASSED);
         }
 
-        if(clinic.getTimePeriod(dateTime) == null) {
+        if(clinic.getTimePeriodByTime(dateTime) == null) {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_DOES_NOT_HAVE_TIMESLOT);
         }
 
         else{
-            TimePeriod timePeriod = clinic.getTimePeriod(dateTime);
+            TimePeriod timePeriod = clinic.getTimePeriodByTime(dateTime);
             List<Appointment> appointments = clinic.getAppointmentByTimePeriod(timePeriod);
             List<String> appointmentsString = new ArrayList<>();
             for (Appointment appointment: appointments){
@@ -79,7 +102,13 @@ public class RecordAdding {
         }
     }
 
-    // Log all appointments on a given date
+    /**
+     * Log all appointments on a given date.
+     *
+     * @param date for which the appointments are added.
+     * @return StringBuilder of date time in a time period on a date in a location/
+     * @throws ManagementSystemException if location does not have time slot that day
+     */
     public StringBuilder logByDate(LocalDate date) throws ManagementSystemException {
         if (clinic.getTimePeriods(date) == null ||
                 clinic.getTimePeriods(date).equals(new ArrayList<TimePeriod>())){

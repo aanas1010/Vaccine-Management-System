@@ -30,10 +30,16 @@ public class CommandLine {
      * Runs the program. The way the program runs is based on the inputs by the user i.e., the clinic manager
      */
     public void run() {
-        //Get the clinic ID from the user
+        // Load the initial data
+        this.managementSystem.loadInitialData();
+
+        // Get the clinic ID from the user
         this.clinicId = getClinicId();
 
         boolean isBookableClinic = managementSystem.getBookableClinicIds().contains(clinicId);
+
+        // Load the data for this clinic
+        this.managementSystem.loadClinicData(clinicId);
 
         // Get the list of acceptable commands
         List<Enum<?>> acceptableCommands = new ArrayList<>(Arrays.asList(DataValidation.CoreCommands.values()));

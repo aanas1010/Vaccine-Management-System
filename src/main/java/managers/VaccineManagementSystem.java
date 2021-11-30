@@ -5,6 +5,7 @@ import constants.ManagementSystemException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Controller for a vaccine management system
@@ -21,6 +22,14 @@ public class VaccineManagementSystem implements ManagementSystem {
      */
     public VaccineManagementSystem(UseCaseManagerInterface useCaseManager) {
         this.useCaseManagerInterface = useCaseManager;
+    }
+
+    public boolean loadInitialData(){
+        return useCaseManagerInterface.loadInitialData();
+    }
+
+    public boolean loadClinicData(int clinicID) {
+        return useCaseManagerInterface.loadClinicData(clinicID);
     }
 
     /**
@@ -197,7 +206,7 @@ public class VaccineManagementSystem implements ManagementSystem {
      *
      * @return a list of the clinic IDs
      */
-    public ArrayList<Integer> getClinicIds() {
+    public List<Integer> getClinicIds() {
         return this.useCaseManagerInterface.getClinicIds();
     }
 
@@ -206,7 +215,7 @@ public class VaccineManagementSystem implements ManagementSystem {
      *
      * @return a list of the bookable clinic IDs
      */
-    public ArrayList<Integer> getBookableClinicIds() {return this.useCaseManagerInterface.getBookableClinicIds();}
+    public List<Integer> getBookableClinicIds() {return this.useCaseManagerInterface.getBookableClinicIds();}
 
     /**
      * Gets the details of the supply (i.e., all the batches) of the specified clinic

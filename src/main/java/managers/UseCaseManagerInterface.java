@@ -5,6 +5,7 @@ import constants.ManagementSystemException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the Interface that a management system may use.
@@ -18,14 +19,14 @@ public interface UseCaseManagerInterface {
      *
      * @return a list of the clinic IDs
      */
-    ArrayList<Integer> getClinicIds();
+    List<Integer> getClinicIds();
 
     /**
      * Gets the IDs of all the bookable clinics
      *
      * @return a list of the bookable clinic IDs
      */
-    ArrayList<Integer> getBookableClinicIds();
+    List<Integer> getBookableClinicIds();
 
     /**
      * Adding a basic clinic. Note that adding a regular clinic doesn't mean that it will be accepting
@@ -55,6 +56,10 @@ public interface UseCaseManagerInterface {
      * the system
      */
     void addClient(String name, String healthCardNumber) throws ManagementSystemException;
+
+    boolean loadInitialData();
+
+    boolean loadClinicData(int clinicID);
 
     /**
      * Setting the number of shifts for the given for a certain date

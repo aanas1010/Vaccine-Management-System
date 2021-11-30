@@ -1,5 +1,5 @@
 import constants.ManagementSystemException;
-import clinic_management.BatchAdding;
+import clinicmanagement.BatchAdding;
 import entities.Clinic;
 import entities.VaccineBatch;
 import org.junit.*;
