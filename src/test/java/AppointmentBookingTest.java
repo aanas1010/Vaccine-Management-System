@@ -30,7 +30,7 @@ public class AppointmentBookingTest {
         newList.add(batch);
         VaccineSupply supply = new VaccineSupply(newList);
 
-        clinic = new BookableClinic(new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").Supply(supply).build());
+        clinic = new BookableClinic(new Clinic.ClinicBuilder().clinicId(1).location("Shoppers Drug Mart - 279 Yonge Street").supply(supply).build());
         clinic.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 
@@ -45,7 +45,7 @@ public class AppointmentBookingTest {
         newList2.add(expiredBatch);
         VaccineSupply supply2 = new VaccineSupply(newList2);
 
-        clinic2 = new BookableClinic(new Clinic.ClinicBuilder(1,"Rexall - 63 Wellesley Street East").Supply(supply2).build());
+        clinic2 = new BookableClinic(new Clinic.ClinicBuilder().clinicId(1).location("Rexall - 63 Wellesley Street East").supply(supply2).build());
         clinic2.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic2.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 

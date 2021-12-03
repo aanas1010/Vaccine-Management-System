@@ -108,14 +108,14 @@ public class Appointment {
         private VaccineBatch clientVaccineBatch;
 
         /**
-         * Constructor for an appointment.
+         * Constructor for an appointment builder.
          */
         public AppointmentBuilder() {
             this.appointmentId = -1;
         }
 
         /**
-         * assigns a client to the appointment.
+         * assigns a client to the appointment builder.
          * @param client the client of the appointment.
          * @return the builder of the appointment.
          */
@@ -125,7 +125,7 @@ public class Appointment {
         }
 
         /**
-         * assigns a time period to the appointment.
+         * assigns a time period to the appointment builder.
          * @param timePeriod the time period of the appointment.
          * @return the builder of the appointment.
          */
@@ -135,7 +135,7 @@ public class Appointment {
         }
 
         /**
-         * assigns a vaccine brand to the appointment.
+         * assigns a vaccine brand to the appointment builder.
          * @param brand the vaccine brand of the appointment.
          * @return the builder of the appointment.
          */
@@ -145,7 +145,7 @@ public class Appointment {
         }
 
         /**
-         * assigns an id to the appointment.
+         * assigns an id to the appointment builder.
          * @param id the id of the appointment.
          * @return the builder of the appointment.
          */
@@ -155,7 +155,7 @@ public class Appointment {
         }
 
         /**
-         * assigns a client to the appointment.
+         * assigns a client to the appointment builder.
          * @param batch the vaccine batch of the appointment.
          * @return the builder of the appointment.
          */
