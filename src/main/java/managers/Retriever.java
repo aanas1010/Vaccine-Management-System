@@ -68,7 +68,7 @@ public class Retriever {
         // Convert the Clinic JSON into clinic object
         JsonObject clinicJson = dataRetrieval.getClinicInfo(clinicID);
 
-        ServiceLocation newClinic = new Clinic.ClinicBuilder(clinicID, clinicJson.getString("location")).build();
+        ServiceLocation newClinic = new Clinic.ClinicBuilder().clinicId(clinicID).location(clinicJson.getString("location")).build();
 
         if(clinicJson.getInt("isBookable") == 1) {
             newClinic = new BookableClinic(newClinic);
