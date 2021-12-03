@@ -4,7 +4,6 @@ import databaseintegration.DataStoring;
 import entities.*;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * This is the Use Case that stores data to a class that implements DataStoring
@@ -25,6 +24,7 @@ public class Storer{
 //        }
 //    }
 
+    // Storing a vaccine batch in the database
     public void StoreBatch(VaccineBatch batch, int clinicID){
         try{
             this.dataStoring.writeToVaccineBatch(batch.getId(), clinicID,
@@ -34,6 +34,7 @@ public class Storer{
         }
     }
 
+    // Storing a time period batch in the database
     public void StoreTimePeriod(TimePeriod timePeriod, int clinicID){
         try{
             this.dataStoring.writeToTimePeriods(timePeriod.getID(),
@@ -42,6 +43,8 @@ public class Storer{
             System.out.println("Cannot enter the time period");
         }
     }
+
+    // Storing an appointment in the database
     public void StoreAppointment(Appointment appointment, int clinicID){
         try{
             this.dataStoring.writeToAppointment(appointment.getAppointmentId(), clinicID,
