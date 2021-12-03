@@ -19,7 +19,7 @@ public class AddRecordTest {
     public void setUp() {
         dateTime = LocalDateTime.of(2020, 11, 14, 12, 30);
         timePeriod = new TimePeriod(dateTime, 5);
-        batch = new VaccineBatch.BatchBuilder("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234).build();
+        batch = new VaccineBatch.BatchBuilder().brand("Pfizer").quantity(100).expiry(LocalDate.of(2099, 10 , 30)).id(1234).build();
 
 
         // Setting up the clients

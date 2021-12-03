@@ -55,7 +55,7 @@ public class Storer{
     }
 
     /**
-     * Storing an appointment in the databse
+     * Storing an appointment in the database
      *
      * @param appointment the appointment being stored
      * @param clinicID the ID of the clinic where the appointment is located
