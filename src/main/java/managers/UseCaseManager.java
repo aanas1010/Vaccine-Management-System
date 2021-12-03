@@ -77,6 +77,37 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     }
 
+    /**
+     * Storing a vaccine batch in the database
+     *
+     * @param batch the vaccine batch being stored
+     * @param clinicID the ID of the clinic where the vaccine batch is located
+     */
+
+    public void storeVaccineBatchData(VaccineBatch batch, int clinicID){
+        this.storer.StoreBatch(batch, clinicID);
+    }
+
+    /**
+     * Storing a time period in the database
+     *
+     * @param timePeriod the time period being stored
+     * @param clinicID the ID of the clinic where the time period is located
+     */
+    public void storeTimePeriodData(TimePeriod timePeriod, int clinicID){
+        this.storer.StoreTimePeriod(timePeriod, clinicID);
+    }
+
+    /**
+     * Storing an appointment in the databse
+     *
+     * @param appointment the appointment being stored
+     * @param clinicID the ID of the clinic where the appointment is located
+     */
+    public void storeAppointmentData(Appointment appointment, int clinicID){
+        this.storer.StoreAppointment(appointment, clinicID);
+    }
+
 
     /**
      * Adding a basic clinic. Note that adding a regular clinic doesn't mean that it will be accepting
