@@ -39,4 +39,13 @@ public class DatabaseTimePeriods {
         System.out.println("All stored clinic IDs: " + results);
         return results;
     }
+
+    public void updateTimePeriods (int periodID, int availableSlots, int bookedSlots) throws SQLException {
+        String query = "UPDATE timePeriods SET availableSlots = ? AND bookedSlots = ? WHERE periodID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, availableSlots);
+        state.setInt(2, bookedSlots);
+        state.setInt(3, periodID);
+        statement.executeQuery(query);
+    }
 }

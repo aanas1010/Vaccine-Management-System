@@ -40,4 +40,12 @@ public class DatabaseBatchAdding {
         }
         return results;
     }
+
+    public void updateReservedBatch (int batchID, int reserved) throws SQLException {
+        String query = "UPDATE vaccineBatch SET reserved = ? WHERE batchID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, reserved);
+        state.setInt(2, batchID);
+        statement.executeQuery(query);
+    }
 }

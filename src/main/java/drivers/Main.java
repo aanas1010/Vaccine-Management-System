@@ -1,7 +1,7 @@
 package drivers;
 
 import databaseintegration.DatabaseRetrieval;
-import databaseintegration.DatabaseStoring;
+import databaseintegration.DatabaseModification;
 import databaseintegration.ExampleRetrieval;
 import managers.*;
 

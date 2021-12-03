@@ -1,6 +1,6 @@
 package managers;
 
-import databaseintegration.DataStoring;
+import databaseintegration.DataModification;
 import entities.*;
 
 import java.sql.SQLException;
@@ -10,9 +10,9 @@ import java.sql.SQLException;
  */
 
 public class Storer{
-    DataStoring dataStoring;
+    DataModification dataStoring;
 
-    public Storer(DataStoring dataStoring){this.dataStoring = dataStoring;}
+    public Storer(DataModification dataStoring){this.dataStoring = dataStoring;}
 
 //    public void StoreClients(List<Client> clients){
 //        try{
@@ -64,7 +64,8 @@ public class Storer{
         try{
             this.dataStoring.writeToAppointment(appointment.getAppointmentId(), clinicID,
                     appointment.getClient().getHealthCareNumber(),
-                    appointment.getTimePeriod().getID(), appointment.getVaccineBrand());
+                    appointment.getTimePeriod().getID(), appointment.getClientVaccineBatch().getId(),
+                    appointment.getVaccineBrand());
         }catch(SQLException ex) {
             System.out.println("Cannot enter the appointment");
         }

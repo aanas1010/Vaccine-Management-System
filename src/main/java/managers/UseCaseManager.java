@@ -3,8 +3,9 @@ package managers;
 import constants.ManagementSystemException;
 import clientbooking.*;
 import clinicmanagement.*;
+import databaseintegration.DataModification;
 import databaseintegration.DataRetrieval;
-import databaseintegration.DataStoring;
+import databaseintegration.DataModification;
 import entities.*;
 
 import java.time.LocalDate;
@@ -38,13 +39,13 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     //Constructor with no dataRetrieval
-    public UseCaseManager(DataRetrieval dataRetrieval, DataStoring dataStoring){
+    public UseCaseManager(DataRetrieval dataRetrieval, DataModification dataModification){
         this.bookableClinicIDs = new ArrayList<>();
         this.clinicIDs = new ArrayList<>();
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
         this.retriever = new Retriever(dataRetrieval);
-        this.storer = new Storer(dataStoring);
+        this.storer = new Storer(dataModification);
     }
 
     /**

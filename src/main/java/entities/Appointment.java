@@ -85,6 +85,13 @@ public class Appointment {
     public String getVaccineBrand() { return vaccineBrand;}
 
     /**
+     * getter.
+     *
+     * @return vaccine batch used in the appointment.
+     */
+    public VaccineBatch getClientVaccineBatch() { return clientVaccineBatch;}
+
+    /**
      * The builder class for an appointment.
      */
     public static  class AppointmentBuilder {
