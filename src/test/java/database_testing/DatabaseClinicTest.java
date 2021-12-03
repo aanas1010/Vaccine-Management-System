@@ -3,6 +3,8 @@ package database_testing;
 import databaseintegration.DatabaseClinic;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import org.junit.*;
 import static org.junit.Assert.*;
 
@@ -21,12 +23,12 @@ public class DatabaseClinicTest {
 
     @Test(timeout = 150) // Testing adding an existing clinic to the clinic table
     public void TestAddClinicExisting() throws SQLException {
-        assertFalse(clinicDB.addClinic(1));
+        assertFalse(clinicDB.addClinic(1, "420 Yonge St.", true));
     }
 
     @Test(timeout = 100) // Testing an expired batch of vaccine doses does not get added
     public void TestLoadClinicIDs() throws SQLException {
-        ArrayList<Integer> results = clinicDB.loadAllClinics();
+        ArrayList<Object> results = clinicDB.loadAllClinics();
         assertNotNull(results);
     }
 

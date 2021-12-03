@@ -12,11 +12,14 @@ public class DatabaseClinic {
         this.statement = statement;
     }
 
-    public boolean addClinic (int clinicID) throws SQLException {
+    public boolean addClinic (int clinicID, String location, boolean isBookable) throws SQLException {
         if (isExistingClinic(clinicID)) {
-            String query = "INSERT INTO clinic VALUES (?)";
+            String query = "INSERT INTO clinic VALUES (?, ?, ?)";
             PreparedStatement state =  connection.prepareStatement(query);
             state.setInt(1, clinicID);
+            state.setString(2, location);
+            state.setBoolean(3, isBookable);
+
             state.executeUpdate();
             System.out.println("Upload Successful");
             return true;
@@ -25,12 +28,14 @@ public class DatabaseClinic {
         return false;
     }
 
-    public ArrayList<Integer> loadAllClinics () throws SQLException {
-        String query = "SELECT clinicID FROM clinic";
+    public ArrayList<Object> loadAllClinics () throws SQLException {
+        String query = "SELECT * FROM clinic";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Integer> results = new ArrayList<>();
+        ArrayList<Object> results = new ArrayList<>();
         while(resultSet.next()) {
             results.add(resultSet.getInt("clinicID"));
+            results.add(resultSet.getString("location"));
+            results.add(resultSet.getBoolean("isBookable"));
         }
         System.out.println("All stored clinic IDs: " + results);
         return results;
