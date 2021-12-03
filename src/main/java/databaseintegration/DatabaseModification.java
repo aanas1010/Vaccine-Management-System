@@ -12,36 +12,35 @@ import java.time.LocalDateTime;
  * specific tables in a database, whose URL is specified in BookingConstants
  */
 
-public class DatabaseStoring implements DataStoring {
+public class DatabaseModification implements DataModification {
     private final Connection connection;
+    private final Statement statement;
 
-    public DatabaseStoring() throws SQLException {
+    public DatabaseModification() throws SQLException {
         connection = DriverManager.getConnection(
                 BookingConstants.DATABASE_CONNECTION_URL,
                 BookingConstants.DATABASE_CONNECTION_USERNAME,
                 BookingConstants.DATABASE_CONNECTION_PASSWORD);
+        statement = connection.createStatement();
     }
 
 
-    public void writeToAppointment(int appointmentID, int clinicID, int clientID, int periodID, String brand) throws SQLException {
+    public void writeToAppointment(int appointmentID, int clinicID, String clientID, int periodID, int batchID,
+                                   String brand) throws SQLException {
         // Create new DatabaseRetrieval instance
         // Do the thing with it
         String query = getQuery("appointment", appointmentID, clinicID, clientID, periodID, brand);
         PreparedStatement state =  connection.prepareStatement(query);
         // Then, reference the driver-level class for this table
         // doSomething(state, query);
+        DatabaseAppointment appointment = new DatabaseAppointment(connection, statement);
     }
 
 
-    public void writeToClient(int healthCardID, String name, boolean hasAppointment) throws SQLException {
+    public void writeToClient(String healthCardID, String name, boolean hasAppointment) throws SQLException {
         String query = getQuery("client", healthCardID, name, hasAppointment);
         PreparedStatement state =  connection.prepareStatement(query);
         // doSomething(state, query);
-    }
-
-    public void writeToClinic(int clinicID, String location, boolean isBookable) {
-        // TODO SINCE WE DO NOT HAVE THE USE CASE TO ADD NEW CLINICS,
-        //  IS THIS REALLY NECESSARY? OR SHOULD THIS JUST BE A "READ-ONLY" TABLE?
     }
 
     public void writeToTimePeriods(int periodID, int clinicID, int availableSlots, LocalDateTime datetime)

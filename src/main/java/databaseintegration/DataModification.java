@@ -9,12 +9,11 @@ import java.time.LocalDateTime;
  * This interface corresponds to classes that lie on the "Controllers" layer of clean architecture
  */
 
-public interface DataStoring {
-    void writeToAppointment(int appointmentID, int clinicID, int clientID, int periodID, String brand) throws SQLException;
+public interface DataModification {
+    void writeToAppointment(int appointmentID, int clinicID, String clientID, int periodID, int batchID, String brand)
+            throws SQLException;
 
-    void writeToClient(int healthCardID, String name, boolean hasAppointment) throws SQLException;
-
-    void writeToClinic(int clinicID, String location, boolean isBookable);
+    void writeToClient(String healthCardID, String name, boolean hasAppointment) throws SQLException;
 
     void writeToTimePeriods(int periodID, int clinicID, int availableSlots, LocalDateTime datetime) throws SQLException;
 
