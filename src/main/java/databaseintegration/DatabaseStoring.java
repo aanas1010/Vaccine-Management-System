@@ -23,7 +23,7 @@ public class DatabaseStoring implements DataStoring {
     }
 
 
-    public void writeToAppointment(int appointmentID, int clinicID, int clientID, int periodID, String brand) throws SQLException {
+    public void writeToAppointment(int appointmentID, int clinicID, String clientID, int periodID, String brand) throws SQLException {
         // Create new DatabaseRetrieval instance
         // Do the thing with it
         String query = getQuery("appointment", appointmentID, clinicID, clientID, periodID, brand);
@@ -33,7 +33,7 @@ public class DatabaseStoring implements DataStoring {
     }
 
 
-    public void writeToClient(int healthCardID, String name, boolean hasAppointment) throws SQLException {
+    public void writeToClient(String healthCardID, String name, boolean hasAppointment) throws SQLException {
         String query = getQuery("client", healthCardID, name, hasAppointment);
         PreparedStatement state =  connection.prepareStatement(query);
         // doSomething(state, query);
