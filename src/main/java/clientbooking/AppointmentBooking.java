@@ -97,8 +97,9 @@ public class AppointmentBooking {
             throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_ID_ALREADY_EXISTS);
         }
 
-        Appointment appointment = new Appointment.AppointmentBuilder(
-                this.client, this.timePeriod, this.vaccineBrand, this.appointmentId, this.assignVaccineDose()).build();
+        Appointment appointment = new Appointment.AppointmentBuilder()
+                .client(this.client).timePeriod(this.timePeriod).vaccineBrand(this.vaccineBrand)
+                .appointmentID(this.appointmentId).clientVaccineBatch(this.assignVaccineDose()).build();
         this.client.approveAppointment();
         this.clinic.addAppointment(appointment);
         this.timePeriod.findAndReserveSlot();

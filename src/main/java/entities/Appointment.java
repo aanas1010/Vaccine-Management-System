@@ -24,10 +24,15 @@ public class Appointment {
      * @param builder the builder of the appointment.
      */
     public Appointment(AppointmentBuilder builder){
+        assert(builder.client != null);
         this.client = builder.client;
+        assert(builder.timePeriod != null);
         this.timePeriod = builder.timePeriod;
+        assert(builder.vaccineBrand != null);
         this.vaccineBrand = builder.vaccineBrand;
+        assert(builder.appointmentId != -1);
         this.appointmentId = builder.appointmentId;
+        assert(builder.clientVaccineBatch != null);
         this.clientVaccineBatch = builder.clientVaccineBatch;
     }
 
@@ -96,27 +101,67 @@ public class Appointment {
      */
     public static  class AppointmentBuilder {
 
-        private final int appointmentId;
-        private final User client;
-        private final TimePeriod timePeriod;
-        private final String vaccineBrand;
-        private final VaccineBatch clientVaccineBatch;
+        private int appointmentId;
+        private User client;
+        private TimePeriod timePeriod;
+        private String vaccineBrand;
+        private VaccineBatch clientVaccineBatch;
 
         /**
          * Constructor for an appointment.
-         *
-         * @param client the client assigned in the appointment.
-         * @param timePeriod the time period when the appointment is happening.
-         * @param vaccineBrand the vaccine brand used in the appointment.
-         * @param id is fo the appointment.
-         * @param clientVaccineBatch the vaccine batch reserved for the appointment.
          */
-        public AppointmentBuilder(User client, TimePeriod timePeriod, String vaccineBrand, int id, VaccineBatch clientVaccineBatch) {
+        public AppointmentBuilder() {
+            this.appointmentId = -1;
+        }
+
+        /**
+         * assigns a client to the appointment.
+         * @param client the client of the appointment.
+         * @return the builder of the appointment.
+         */
+        public AppointmentBuilder client(User client){
             this.client = client;
+            return this;
+        }
+
+        /**
+         * assigns a time period to the appointment.
+         * @param timePeriod the time period of the appointment.
+         * @return the builder of the appointment.
+         */
+        public AppointmentBuilder timePeriod(TimePeriod timePeriod){
             this.timePeriod = timePeriod;
-            this.vaccineBrand = vaccineBrand;
+            return this;
+        }
+
+        /**
+         * assigns a vaccine brand to the appointment.
+         * @param brand the vaccine brand of the appointment.
+         * @return the builder of the appointment.
+         */
+        public AppointmentBuilder vaccineBrand(String brand){
+            this.vaccineBrand = brand;
+            return this;
+        }
+
+        /**
+         * assigns an id to the appointment.
+         * @param id the id of the appointment.
+         * @return the builder of the appointment.
+         */
+        public AppointmentBuilder appointmentID(int id){
             this.appointmentId = id;
-            this.clientVaccineBatch = clientVaccineBatch;
+            return this;
+        }
+
+        /**
+         * assigns a client to the appointment.
+         * @param batch the vaccine batch of the appointment.
+         * @return the builder of the appointment.
+         */
+        public AppointmentBuilder clientVaccineBatch(VaccineBatch batch){
+            this.clientVaccineBatch = batch;
+            return this;
         }
 
         /**
