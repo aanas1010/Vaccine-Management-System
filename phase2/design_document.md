@@ -1,4 +1,4 @@
-# Design Specification Phase 2
+# Design Document Phase 2
 ## SOLID
 Our program adheres to the SOLID design principles in the following ways:
 ### Single-Responsibility Principle
