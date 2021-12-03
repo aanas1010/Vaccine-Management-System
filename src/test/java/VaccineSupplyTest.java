@@ -16,10 +16,8 @@ public class VaccineSupplyTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        batch = new VaccineBatch.BatchBuilder("Pfizer", 100,
-                LocalDate.of(2099, 10 , 30), 1234).build();
-        batch1 = new VaccineBatch.BatchBuilder("Moderna", 69,
-                LocalDate.of(2022, 10 , 10), 1234).build();
+        batch = new VaccineBatch.BatchBuilder().brand("Pfizer").quantity(100).expiry(LocalDate.of(2099, 10 , 30)).id(1234).build();
+        batch1 = new VaccineBatch.BatchBuilder().brand("Moderna").quantity(69).expiry(LocalDate.of(2022, 10 , 10)).id(1234).build();
         supply = new VaccineSupply();
         supply.getBatchList().add(batch);
         supply.getBatchList().add(batch1);

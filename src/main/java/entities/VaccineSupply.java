@@ -57,7 +57,7 @@ public class VaccineSupply {
         for (VaccineBatch batch : this.batchList) {
             s.append(batch.getBrand()).append("-").append(batch.getId())
                     .append(": ").append(batch.getReserve()).append("/")
-                    .append(batch.getAvailable()).append(" RESERVED | EXP:")
+                    .append(batch.getAvailable() + batch.getReserve()).append(" RESERVED | EXP:")
                     .append(batch.getExpiry());
             s.append("\n");
         }

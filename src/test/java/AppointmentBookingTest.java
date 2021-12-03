@@ -24,7 +24,7 @@ public class AppointmentBookingTest {
         // Setting up the first client
         Client client1 = new Client("client1", "qwertyuiop");
 
-        batch = new VaccineBatch.BatchBuilder("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234).build();
+        batch = new VaccineBatch.BatchBuilder().brand("Pfizer").quantity(100).expiry(LocalDate.of(2099, 10 , 30)).id(1234).build();
 
         ArrayList<VaccineBatch> newList = new ArrayList<>();
         newList.add(batch);
@@ -39,7 +39,7 @@ public class AppointmentBookingTest {
         // Setting up the second client
         Client client2 = new Client("client2", "asdfghjkl");
 
-        expiredBatch = new VaccineBatch.BatchBuilder("Pfizer", 100, LocalDate.of(2020, 10 , 30), 1234).build();
+        expiredBatch = new VaccineBatch.BatchBuilder().brand("Pfizer").quantity(100).expiry(LocalDate.of(2020, 10 , 30)).id(1234).build();
 
         ArrayList<VaccineBatch> newList2 = new ArrayList<>();
         newList2.add(expiredBatch);
