@@ -19,7 +19,7 @@ public class BookableClinicTest {
         timePeriod = new TimePeriod(LocalDateTime.now(), 50);
         clinic.addTimePeriod(timePeriod, LocalDate.now());
         vaccineBatch = new VaccineBatch.BatchBuilder().brand("Pfizer").quantity(5).expiry(LocalDate.ofYearDay(2021, 365)).id(1234).reserve(4).build();
-        appointment = new Appointment.AppointmentBuilder(client, timePeriod, "Pfizer", 10, vaccineBatch).build();
+        appointment = new Appointment.AppointmentBuilder().client(client).timePeriod(timePeriod).vaccineBrand("Pfizer").appointmentID(10).clientVaccineBatch(vaccineBatch).build();
     }
 
     @Test(timeout = 100) // Testing adding appointments

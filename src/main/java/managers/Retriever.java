@@ -129,17 +129,17 @@ public class Retriever {
             TimePeriod thisTimePeriod = clinic.getTimePeriodByID(thisAppointment.getInt("periodID"));
             User thisClient = getClientByHCN(clients, thisAppointment.getString("clientID"));
 
-            Appointment newAppointment = new Appointment.AppointmentBuilder(
-                    thisClient,
-                    thisTimePeriod,
-                    thisAppointment.getString("brand"),
-                    thisAppointment.getInt("appointmentID"),
-                    //TODO: Need batchID parameter from the database
-                    //thisAppointment.getInt("batchID")
-                    null
-            ).build();
+//            Appointment newAppointment = new Appointment.AppointmentBuilder()
+//                    .client(thisClient)
+//                    .timePeriod(thisTimePeriod)
+//                    .vaccineBrand(thisAppointment.getString("brand"))
+//                    .appointmentID(thisAppointment.getInt("appointmentID"))
+//                    //TODO: Need batchID parameter from the database
+//                    //thisAppointment.getInt("batchID")
+//                    null
+//            ).build();
 
-            clinic.addAppointment(newAppointment);
+//            clinic.addAppointment(newAppointment);
         }
     }
 

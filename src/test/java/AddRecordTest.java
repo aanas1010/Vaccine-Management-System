@@ -26,7 +26,7 @@ public class AddRecordTest {
         client1 = new Client("client1", "qwertyuiop");
 
         // Setting up appointments
-        Appointment appointment1 = new Appointment.AppointmentBuilder(client1, timePeriod, "Pfizer", 1, batch).build();
+        Appointment appointment1 = new Appointment.AppointmentBuilder().client(client1).timePeriod(timePeriod).vaccineBrand("Pfizer").appointmentID(1).clientVaccineBatch(batch).build();
 
         Clinic clinic1 = new Clinic.ClinicBuilder(1, "Toronto").build();
         clinic = new BookableClinic(clinic1);
