@@ -122,7 +122,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
-        clinics.add(new Clinic.ClinicBuilder(clinicId, location).build());
+        clinics.add(new Clinic.ClinicBuilder().clinicId(clinicId).location(location).build());
     }
 
     /**
@@ -137,7 +137,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
-        clinics.add(new BookableClinic(new Clinic.ClinicBuilder(clinicId, location).build()));
+        clinics.add(new BookableClinic(new Clinic.ClinicBuilder().clinicId(clinicId).location(location).build()));
     }
 
     private boolean containsClinicWithId(int clinicId) {
