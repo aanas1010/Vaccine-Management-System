@@ -1,8 +1,6 @@
 package entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This is the Entity for a vaccine batch, which includes the
