@@ -38,7 +38,7 @@ public class AppointmentViewingTest {
         newList.add(batch);
         VaccineSupply supply = new VaccineSupply(newList);
 
-        clinic = new BookableClinic(new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").Supply(supply).build());
+        clinic = new BookableClinic(new Clinic.ClinicBuilder().clinicId(1).location("Shoppers Drug Mart - 279 Yonge Street").supply(supply).build());
         clinic.setShift(LocalDate.of(2021, 11, 14), 20);
         clinic.addTimePeriod(timePeriod, LocalDate.of(2021, 11, 14));
 

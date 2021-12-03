@@ -26,11 +26,13 @@ public class Clinic implements ServiceLocation {
      * @param builder the builder of the clinic
      */
     public Clinic(ClinicBuilder builder) {
+        assert(builder.clinicId != -1);
         this.clinicId = builder.clinicId;
         this.supply = builder.supply;
         this.log = builder.log;
         this.timePeriods = builder.timePeriods;
         this.shifts = builder.shifts;
+        assert(builder.location != null);
         this.location = builder.location;
     }
 
@@ -236,36 +238,87 @@ public class Clinic implements ServiceLocation {
      * The builder class for a clinic.
      */
     public static  class ClinicBuilder {
-        private final int clinicId;
+        private int clinicId;
         private VaccineSupply supply;
-        private final VaccinationLog log;
-        private final HashMap<LocalDate, List<TimePeriod>> timePeriods;
-        private final HashMap<LocalDate, Integer> shifts;
-        private final String location;
+        private VaccinationLog log;
+        private HashMap<LocalDate, List<TimePeriod>> timePeriods;
+        private HashMap<LocalDate, Integer> shifts;
+        private String location;
 
         /**
          * Constructor for a clinic.
-         *
-         * @param id of the location
-         * @param location location of the location
          */
-        public ClinicBuilder(int id, String location) {
-            this.clinicId = id;
+        public ClinicBuilder() {
+            this.clinicId = -1;
             this.supply = new VaccineSupply();
             this.log = new VaccinationLog();
             this.timePeriods = new HashMap<>();
             this.shifts = new HashMap<>();
-            this.location = location;
+        }
+
+        /**
+         * assigns a clinic id to the clinic builder.
+         *
+         * @param iD the iD of the clinic.
+         * @return the builder of the clinic.
+         */
+        public ClinicBuilder clinicId (int iD){
+            this.clinicId = iD;
+            return this;
         }
 
         /**
          * assigns a supply to the clinic builder.
          *
-         * @param supply of the clinic.
+         * @param supply the supply of the clinic.
          * @return the builder of the clinic.
          */
-        public ClinicBuilder Supply (VaccineSupply supply){
+        public ClinicBuilder supply (VaccineSupply supply){
             this.supply = supply;
+            return this;
+        }
+
+        /**
+         * assigns a vaccination log to the clinic builder.
+         *
+         * @param log the vaccination log of the clinic.
+         * @return the builder of the clinic.
+         */
+        public ClinicBuilder log (VaccinationLog log){
+            this.log = log;
+            return this;
+        }
+
+        /**
+         * assigns time periods to the clinic builder.
+         *
+         * @param timePeriods the time periods of the clinic.
+         * @return the builder of the clinic.
+         */
+        public ClinicBuilder timePeriods (HashMap<LocalDate, List<TimePeriod>> timePeriods){
+            this.timePeriods = timePeriods;
+            return this;
+        }
+
+        /**
+         * assigns shifts to the clinic builder.
+         *
+         * @param shifts of the clinic.
+         * @return the builder of the clinic.
+         */
+        public ClinicBuilder shifts (HashMap<LocalDate, Integer> shifts){
+            this.shifts = shifts;
+            return this;
+        }
+
+        /**
+         * assigns a supply to the clinic builder.
+         *
+         * @param location the location of the clinic.
+         * @return the builder of the clinic.
+         */
+        public ClinicBuilder location (String location){
+            this.location = location;
             return this;
         }
 
