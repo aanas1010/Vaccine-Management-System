@@ -58,6 +58,7 @@ As mentioned, dependency inversion is used extensively, thus preserving the clea
 - CRC-cards were uploaded within the folder `phase1` to demonstrate consistency with the Clean Architecture.
 
 ## Design Patterns
+### Decorator
 In our program, we chose to implement the Decorator design pattern. We made an interface called `ServiceLocation`, which supports methods for reading and writing vaccine and appointment details.
 
 We have two classes, `Clinic` - which acts as our __core-functionality__ and `ClinicDecorator` - which acts as our __optional wrapper__ in the form of an abstract class, both which implement the ServiceLocation interface.
@@ -74,11 +75,20 @@ For future implementation of the code, we could use this pattern to expand furth
 
 ![alt text](decorator.png "Decorator Design Pattern Diagram")
 
+### Builder
+
+For phase 2 we also decided to implement the builder design pattern for our entities that are constructed when our program is run. These classes include clinic, appointment and vaccine batch. We decided to do this based on the feedback from our TA that our constructors were too long and to add more flexibility when constructing these objects.
+
+For each of these three classes, the builder is implemented as a static class within each of our entity classes. It allows us to pick and choose which instance attributes to build the object with and there are assert statements in place to assure that necessary instance attributes are not null.
+
+For example, the entity clinic has six instance attributes (clinicId, supply, log, timePeriods, shifts and location). Of these six, only clinicId and location are required with the other four parameters being optional. The builder design pattern allows us to build a clinic with a location and clinicId as well as any combination of the optional parameters.
+
 ## Use of GitHub Features
 For our project, we have been using many of the great features provided by GitHub to enhance the way we work as a group.
 * Creating branches and using pull requests
   * Each group member has their own branches they use to make changes
   * Instead of committing to main, we push commits on branches and merge them into the project using pull requests
+  * As of Phase 2, we have been using the review function on pull requests to request reviewers and leave reviews. 
 * Actions and Issues
   * One member of our group has a Chromebook and cannot use IntelliJ when we meet up in person to work on the project. This means they make changes directly in GitHub and sometimes there are some errors in their commits. The actions tab on GitHub helps us review all the previous workflows and see what errors were made.
   * So far our group has used the issues tab to bring up any issues we have with the design of our project. Some examples can be seen below.
@@ -92,13 +102,15 @@ For this project we have been documenting all the code we are writing as well as
   * For each method in a class, we have a one line comment that explains what the method does right above it. For more complicated methods, there are inline comments that explain more complex pieces of code. 
 * Style Warnings
   * We have been fixing the style warnings highlighted in IntelliJ as they come up after the feedback we got for Phase 0
-  * So far we have not used JavaDoc so far in our project
 * Reviewing Pull Requests
   * For phase 0 we did not really spend the time to properly review pull requests
   * For phase 1 we have been properly reviewing pull request on the following criteria
     * Any errors in the code
     * Documentation and comments
     * Making sure methods and classes are implemented in a way that matches our design speciation/class diagram
+  * For Phase 2 we have still been reviewing pull requests in a thorough manner
+* JavaDocs
+  * For Phase 2 we have added JavaDocs to all of our methods in all of our classes 
 ## Testing 
 The goal of our project is to extensively test all the more complicated methods in our program. We will avoid testing for methods like getters, setters and simple boolean methods as these are simple in their implementation.
 * Testing Schematics
@@ -122,6 +134,8 @@ So far we have implemented refactoring in many parts of our project, from renami
   * With more time, CommandLine could be further cleaned by refactoring commonalities between use-case workflows into extracted functions which these use-case-specific functions call. As well, the large if-else block and the getValue function are most likely not implemented in a best-practice way and should be improved upon for phase 2.
 * Refactoring to implement the decorator design
   * We changed our implementation of service location, clinic and bookable clinic by using the decorator design pattern (see above).
+* Refactoring to implment the builder design pattern
+  *   We changed the implementation of the constructors of three entities (VaccineBatch, Clinic and Appointment) to the builder design pattern (see above).
 
 
 
