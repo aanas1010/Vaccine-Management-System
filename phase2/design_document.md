@@ -120,7 +120,7 @@ The goal of our project is to extensively test all the more complicated methods 
     * Testing all methods in our use cases
   * Database
     * Testing is implemented for storing and loading data from tables.
-
+TODO: Add more information on database testing
 ## Refactoring 
 So far we have implemented refactoring in many parts of our project, from renaming all the way to implementing a design pattern.
 * Renaming
@@ -159,11 +159,11 @@ Furthermore, as was mentioned above, we have implemented the Decorator design pa
 Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for the database and use cases as well.
 
 ## Functionality
-For the most part, our program does what we mentioned in the Project Specification in Phase 0 - We still accept both walk-in and booked appointments, appointments only take place if the correct vaccine is available (and not expired), and appointments are logged once they have been completed. However, there was one change made.
+For the most part, our program does what we mentioned in the design document in Phase 1. The main area of focus for phase 2 was to expand upon our use of a cloud hosted MySQL database.
 
-Before, we assumed that our program would be accessed by the clinic manager as well as the client, who would be booking the appointment themselves. However, we are now working under the assumption that all the client’s actions take place through an external source, and that only the manager uses our program. The manager will get all the necessary client information from the external source, and the manager will input it into the management system. 
+Before, there was no functionality other than establishing a connection to the database and manually inputting data. Now the database is integrated with our program and the functionality has increased massively. Our program now loads the data from the database whenever it is run, meaning that data from past sessions carry over to future sessions. We know also have the ability to store objects in the database like Appointments, Time Periods and Vaccine Batches. 
 
-The reason for this change was because our program was already complex, and because we are a group of 5, we were suggested to reduce the complexity of our program. Note that our code would be somewhat similar if we had chosen to go with the initial specification.
+As of right now, our program does not have the ability to add clients and clinics to the database. We decided to implement the program this way because we are assuming that in practice the system will have access to a government database of all eligible clients for vaccination (Only eligible clients can book an appointment). Also, the clinics that provide vaccinations must be approved by the government, so the clinics will be based on the list of government approved clinics.
 
-As of Phase 1, we have the functionality for the data to persist in a cloud hosted MySQL database. Data can be stored and loaded to and from our different tables within the database, with relevant testing to ensure everything is working properly. However, this functionality is not yet fully integrated with our program and we will be working on the data persistence to be completely automated by the user during Phase 2.
+TODo: Add more
 
