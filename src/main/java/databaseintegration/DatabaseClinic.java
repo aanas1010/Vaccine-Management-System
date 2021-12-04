@@ -1,5 +1,6 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -28,17 +29,10 @@ public class DatabaseClinic {
         return false;
     }
 
-    public ArrayList<Object> loadAllClinics () throws SQLException {
+    public JsonArray loadAllClinics () throws SQLException {
         String query = "SELECT * FROM clinic";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getInt("clinicID"));
-            results.add(resultSet.getString("location"));
-            results.add(resultSet.getBoolean("isBookable"));
-        }
-        System.out.println("All stored clinic IDs: " + results);
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 
     private boolean isExistingClinic (int clinicID) throws SQLException {

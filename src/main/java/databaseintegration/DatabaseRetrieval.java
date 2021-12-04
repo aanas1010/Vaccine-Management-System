@@ -2,6 +2,9 @@ package databaseintegration;
 
 import constants.BookingConstants;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,33 +28,41 @@ public class DatabaseRetrieval implements DataRetrieval {
         statement = connection.createStatement();
     }
 
-    public JsonObject getClinicIDs() {
-        String query = "SELECT clinicID FROM clinic";
-        // The resultSet line below should probably be in the upper-level (driver-level) classes
-        //ResultSet resultSet = statement.executeQuery(query);
-        return null;
+    public JsonArray getClinicIDs() throws SQLException {
+        return new DatabaseClinic(connection, statement).loadAllClinics();
     }
 
-    public JsonObject getBookableClinicIDs() {return null;}
+    public JsonArray getBookableClinicIDs() throws SQLException {
+        JsonArray clinics = new DatabaseClinic(connection, statement).loadAllClinics();
 
-    public JsonObject getClients() {
-        return null;
+        JsonArrayBuilder clinicIDs = Json.createArrayBuilder();
+        for (int i = 0; i < clinics.size(); i++) {
+            JsonObject thisClinic = clinics.getJsonObject(i);
+            clinicIDs.add(thisClinic.getInt("clinicID"));
+        }
+
+        return clinicIDs.build();
+
     }
 
-    public JsonObject getClinicInfo(int clinicID) {
-        return null;
+    public JsonArray getClients() throws SQLException {
+        return new DatabaseClient(connection, statement).loadAllClients();
     }
 
-    public JsonObject getVaccineBatches(int clinicID) {
-        return null;
+    public JsonArray getClinicInfo(int clinicID) throws SQLException {
+        return new DatabaseClinic(connection, statement).loadAllClinics();
     }
 
-    public JsonObject getTimePeriods(int clinicID) {
-        return null;
+    public JsonArray getVaccineBatches(int clinicID) throws SQLException {
+        return new DatabaseBatchAdding(connection, statement).loadAllBatches();
     }
 
-    public JsonObject getAppointments(int clinicID) {
-        return null;
+    public JsonArray getTimePeriods(int clinicID) throws SQLException {
+        return new DatabaseTimePeriods(connection, statement).loadAllTimePeriods();
+    }
+
+    public JsonArray getAppointments(int clinicID) throws SQLException {
+        return new DatabaseAppointment(connection, statement).loadAllBatches();
     }
 
 }

@@ -1,5 +1,6 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -25,18 +26,9 @@ public class DatabaseTimePeriods {
         state.executeUpdate();
     }
 
-    public ArrayList<Object> loadAllTimePeriods () throws SQLException {
+    public JsonArray loadAllTimePeriods () throws SQLException {
         String query = "SELECT * FROM timePeriods";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getInt("periodID"));
-            results.add(resultSet.getInt("clinicID"));
-            results.add(resultSet.getInt("availableSlots"));
-            results.add(resultSet.getInt("bookedSlots"));
-            results.add(resultSet.getTimestamp("datetime"));
-        }
-        System.out.println("All stored clinic IDs: " + results);
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 }

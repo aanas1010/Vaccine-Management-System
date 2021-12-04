@@ -1,5 +1,6 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -12,30 +13,23 @@ public class DatabaseAppointment {
         this.statement = statement;
     }
 
-    public void addAppointment (int appointmentID, int clinicID, String clientID, int periodID, int batchID) throws
+    public void addAppointment (int appointmentID, int clinicID, String clientID, int periodID, int batchID, String brand) throws
             SQLException {
-        String query = "INSERT INTO appointment VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO appointment VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement state =  connection.prepareStatement(query);
         state.setInt(1, appointmentID);
         state.setInt(2, clinicID);
         state.setString(3, clientID);
         state.setInt(4, periodID);
         state.setInt(5, batchID);
+        state.setString(6, brand);
 
         state.executeUpdate();
     }
 
-    public ArrayList<Object> loadAllBatches () throws SQLException {
+    public JsonArray loadAllBatches () throws SQLException {
         String query = "SELECT * FROM appointment";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getInt("appointmentID"));
-            results.add(resultSet.getInt("clinicID"));
-            results.add(resultSet.getString("clientID"));
-            results.add(resultSet.getInt("periodID"));
-            results.add(resultSet.getInt("batchID"));
-        }
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 }

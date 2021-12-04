@@ -1,5 +1,6 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -26,18 +27,9 @@ public class DatabaseBatchAdding {
         state.executeUpdate();
     }
 
-    public ArrayList<Object> loadAllBatches () throws SQLException {
+    public JsonArray loadAllBatches () throws SQLException {
         String query = "SELECT * FROM vaccineBatch";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getInt("batchID"));
-            results.add(resultSet.getInt("clinicID"));
-            results.add(resultSet.getString("brand"));
-            results.add(resultSet.getDate("expiryDate"));
-            results.add(resultSet.getInt("reserved"));
-            results.add(resultSet.getInt("quantity"));
-        }
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 }

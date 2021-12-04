@@ -7,6 +7,7 @@ import databaseintegration.DataRetrieval;
 import databaseintegration.DataStoring;
 import entities.*;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -53,9 +54,14 @@ public class UseCaseManager implements UseCaseManagerInterface {
      */
     public void loadInitialData() {
         if(retriever == null) {return;}
-        clinicIDs = retriever.getClinicIDs();
-        bookableClinicIDs = retriever.getBookableClinicIDs();
-        clients = retriever.getClients();
+
+        try{
+            clinicIDs = retriever.getClinicIDs();
+            bookableClinicIDs = retriever.getBookableClinicIDs();
+            clients = retriever.getClients();
+        }catch(SQLException ex){
+            System.out.println("Could not load all initial data");
+        }
 
     }
 
@@ -65,14 +71,20 @@ public class UseCaseManager implements UseCaseManagerInterface {
      * @param clinicID The ID of the clinic that is going to be loaded
      */
     public void loadClinicData(int clinicID) {
-        if(retriever == null) {return;}
-        ServiceLocation thisClinic = retriever.getClinicInfo(clinicID);
-        clinics.add(thisClinic);
-        retriever.getTimePeriods(thisClinic);
-        retriever.getVaccineBatches(thisClinic);
+        try{
+            if(retriever == null) {return;}
+            ServiceLocation thisClinic = retriever.getClinicInfo(clinicID);
+            clinics.add(thisClinic);
+            retriever.getTimePeriods(thisClinic);
+            retriever.getVaccineBatches(thisClinic);
 
-        if(thisClinic instanceof BookableClinic) {
-            retriever.getAppointments((BookableClinic) thisClinic, this.clients);
+            // Get the appointments only if the clinic is bookable
+            if(thisClinic instanceof BookableClinic) {
+                retriever.getAppointments((BookableClinic) thisClinic, this.clients);
+            }
+
+        }catch(SQLException ex) {
+            System.out.println("Could not load all data for the given clinic");
         }
 
     }

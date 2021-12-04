@@ -1,5 +1,6 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -22,15 +23,9 @@ public class DatabaseClient {
         state.executeUpdate();
     }
 
-    public ArrayList<Object> loadAllBatches () throws SQLException {
+    public JsonArray loadAllClients () throws SQLException {
         String query = "SELECT * FROM client";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getString("healthCareID"));
-            results.add(resultSet.getString("name"));
-            results.add(resultSet.getBoolean("hasAppointment"));
-        }
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 }
