@@ -31,4 +31,13 @@ public class DatabaseTimePeriods {
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
+
+    public void updateTimePeriods (int periodID, int availableSlots, int bookedSlots) throws SQLException {
+        String query = "UPDATE timePeriods SET availableSlots = ? AND bookedSlots = ? WHERE periodID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, availableSlots);
+        state.setInt(2, bookedSlots);
+        state.setInt(3, periodID);
+        statement.executeQuery(query);
+    }
 }

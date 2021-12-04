@@ -14,12 +14,12 @@ public class BookableClinicTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinic = new BookableClinic(new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").build());
+        clinic = new BookableClinic(new Clinic.ClinicBuilder().clinicId(1).location("Shoppers Drug Mart - 279 Yonge Street").build());
         client = new Client("Joe Mama", "4206969");
         timePeriod = new TimePeriod(LocalDateTime.now(), 50);
         clinic.addTimePeriod(timePeriod, LocalDate.now());
-        vaccineBatch = new VaccineBatch.BatchBuilder("Pfizer", 5, LocalDate.ofYearDay(2021, 365), 1234).Reserved(4).build();
-        appointment = new Appointment.AppointmentBuilder(client, timePeriod, "Pfizer", 10, vaccineBatch).build();
+        vaccineBatch = new VaccineBatch.BatchBuilder().brand("Pfizer").quantity(5).expiry(LocalDate.ofYearDay(2021, 365)).id(1234).reserve(4).build();
+        appointment = new Appointment.AppointmentBuilder().client(client).timePeriod(timePeriod).vaccineBrand("Pfizer").appointmentID(10).clientVaccineBatch(vaccineBatch).build();
     }
 
     @Test(timeout = 100) // Testing adding appointments

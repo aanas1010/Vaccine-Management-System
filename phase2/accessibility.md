@@ -35,11 +35,11 @@ Since our program is one that focuses on managing an establishment, all of the a
 Our program is centered around management of a *vaccine distribution establishment*. Program that focuses all of its features on actions which can be done on screen. Thus, this principle is not applicable for our program, as all features can be done and seen on screen regardless of the individual's location or position, and there are no special accommodations required in terms of use of physical space.
 
 
-## "who you would market your program towards?"
+## "Who you would market your program towards?"
 
 If we were to license our program, the main category of people to whom the program would be advertised would be the `managers of locations which distribute vaccines` - mainly locations such as clinics.  People under this category are those who are in charge of managing the happenings of a unique clinic - that is one clinic per manager. With our program the managers would be able to digitally manage their clinic - mainly updating the clinic’s vaccine supply, and working with the client's vaccine appointment and the list where it is stored.
 
-## "whether or not your program is less likely to be used by certain demographics."
+## "Whether or not your program is less likely to be used by certain demographics."
 
 The main reason an individual would choose not to use our program is the lack of  need to use the features of the program. Therefore, **the main demographic of people who are less likely to use our program are `those who do not own a vaccine-administrative establishment`**. As they do not have a clinic to manage.
 

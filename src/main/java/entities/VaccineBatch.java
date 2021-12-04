@@ -20,9 +20,13 @@ public class VaccineBatch {
      * @param builder the builder of the batch.
      */
     private VaccineBatch(BatchBuilder builder){
+        assert(builder.brand != null);
         this.brand = builder.brand;
+        assert(builder.id != -1);
         this.id = builder.id;
+        assert(builder.expiry != null);
         this.expiry = builder.expiry;
+        assert(builder.quantity != -1);
         this.quantity = builder.quantity;
         this.reserve = builder.reserve;
     }
@@ -106,35 +110,66 @@ public class VaccineBatch {
      * The builder class for a batch.
      */
     public static  class BatchBuilder {
-        private final String brand;
-        private final int quantity;
-        private final LocalDate expiry;
-        private final int id;
+        private String brand;
+        private int quantity;
+        private LocalDate expiry;
+        private int id;
         private int reserve;
 
         /**
          * Constructor for a vaccine batch.
-         *
-         * @param brand of this vaccine batch.
-         * @param quantity of the vaccines in the batch.
-         * @param expiry date of the batch.
-         * @param id of the vaccine batch.
          */
-        public BatchBuilder(String brand, int quantity, LocalDate expiry, int id) {
-            this.brand = brand;
-            this.quantity = quantity;
-            this.expiry = expiry;
-            this.id = id;
-            this.reserve = 0;
+        public BatchBuilder() {
+            this.quantity = -1;
+            this.id = -1;
         }
-
+        /**
+         * assigns the brand of vaccines to the batch.
+         *
+         * @param brand the brand of the vaccine batch.
+         * @return the builder of the vaccine batch.
+         */
+        public BatchBuilder brand(String brand){
+            this.brand = brand;
+            return this;
+        }
+        /**
+         * assigns the number of vaccines to the batch.
+         *
+         * @param quantity the number of vaccines in the vaccine batch.
+         * @return the builder of the vaccine batch.
+         */
+        public BatchBuilder quantity(int quantity){
+            this.quantity = quantity;
+            return this;
+        }
+        /**
+         * assigns the expiry of the vaccines to the batch.
+         *
+         * @param expiry the expiry of the vaccine batch.
+         * @return the builder of the vaccine batch.
+         */
+        public BatchBuilder expiry(LocalDate expiry){
+            this.expiry = expiry;
+            return this;
+        }
+        /**
+         * assigns an id to the batch.
+         *
+         * @param id id of the vaccine batch.
+         * @return the builder of the vaccine batch.
+         */
+        public BatchBuilder id(int id){
+            this.id = id;
+            return this;
+        }
         /**
          * assigns the number of reserved vaccines to the batch.
          *
          * @param reserved number of reserved vaccines.
          * @return the builder of the vaccine batch.
          */
-        public BatchBuilder Reserved(int reserved){
+        public BatchBuilder reserve(int reserved){
             this.reserve = reserved;
             return this;
         }

@@ -32,4 +32,11 @@ public class DatabaseAppointment {
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
+
+    public void deleteAppointment (int appointmentID) throws SQLException {
+        String query = "DELETE FROM appointment WHERE appointmentID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, appointmentID);
+        statement.executeUpdate(query);
+    }
 }

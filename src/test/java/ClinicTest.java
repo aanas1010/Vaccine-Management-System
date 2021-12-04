@@ -12,9 +12,9 @@ public class ClinicTest {
 
     @Before // Setting up before the tests
     public void setUp() {
-        clinicWalkIn = new Clinic.ClinicBuilder(1, "Shoppers Drug Mart - 279 Yonge Street").build();
-        clinicBookingOpt = new BookableClinic(new Clinic.ClinicBuilder(2, "Rexall - 63 Wellesley Street East").build());
-        clinic = new Clinic.ClinicBuilder(3, "Walmart - 900 Dufferin Street").build();
+        clinicWalkIn = new Clinic.ClinicBuilder().clinicId(1).location("Shoppers Drug Mart - 279 Yonge Street").build();
+        clinicBookingOpt = new BookableClinic(new Clinic.ClinicBuilder().clinicId(2).location("Rexall - 63 Wellesley Street East").build());
+        clinic = new Clinic.ClinicBuilder().clinicId(3).location("Walmart - 900 Dufferin Street").build();
         client = new Client("Barack Obama", "1776");
 
     }

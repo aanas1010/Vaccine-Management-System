@@ -3,8 +3,9 @@ package managers;
 import constants.ManagementSystemException;
 import clientbooking.*;
 import clinicmanagement.*;
+import databaseintegration.DataModification;
 import databaseintegration.DataRetrieval;
-import databaseintegration.DataStoring;
+import databaseintegration.DataModification;
 import entities.*;
 
 import java.sql.SQLException;
@@ -39,13 +40,13 @@ public class UseCaseManager implements UseCaseManagerInterface {
     }
 
     //Constructor with no dataRetrieval
-    public UseCaseManager(DataRetrieval dataRetrieval, DataStoring dataStoring){
+    public UseCaseManager(DataRetrieval dataRetrieval, DataModification dataModification){
         this.bookableClinicIDs = new ArrayList<>();
         this.clinicIDs = new ArrayList<>();
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
         this.retriever = new Retriever(dataRetrieval);
-        this.storer = new Storer(dataStoring);
+        this.storer = new Storer(dataModification);
     }
 
     /**
@@ -89,6 +90,37 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     }
 
+    /**
+     * Storing a vaccine batch in the database
+     *
+     * @param batch the vaccine batch being stored
+     * @param clinicID the ID of the clinic where the vaccine batch is located
+     */
+
+    public void storeVaccineBatchData(VaccineBatch batch, int clinicID){
+        this.storer.StoreBatch(batch, clinicID);
+    }
+
+    /**
+     * Storing a time period in the database
+     *
+     * @param timePeriod the time period being stored
+     * @param clinicID the ID of the clinic where the time period is located
+     */
+    public void storeTimePeriodData(TimePeriod timePeriod, int clinicID){
+        this.storer.StoreTimePeriod(timePeriod, clinicID);
+    }
+
+    /**
+     * Storing an appointment in the databse
+     *
+     * @param appointment the appointment being stored
+     * @param clinicID the ID of the clinic where the appointment is located
+     */
+    public void storeAppointmentData(Appointment appointment, int clinicID){
+        this.storer.StoreAppointment(appointment, clinicID);
+    }
+
 
     /**
      * Adding a basic clinic. Note that adding a regular clinic doesn't mean that it will be accepting
@@ -103,7 +135,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
-        clinics.add(new Clinic.ClinicBuilder(clinicId, location).build());
+        clinics.add(new Clinic.ClinicBuilder().clinicId(clinicId).location(location).build());
     }
 
     /**
@@ -118,7 +150,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
             throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
         }
 
-        clinics.add(new BookableClinic(new Clinic.ClinicBuilder(clinicId, location).build()));
+        clinics.add(new BookableClinic(new Clinic.ClinicBuilder().clinicId(clinicId).location(location).build()));
     }
 
     private boolean containsClinicWithId(int clinicId) {
@@ -179,7 +211,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     public String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry,
                            int batchId) throws ManagementSystemException {
         ServiceLocation clinicById = getClinicById(clinicId);
-        VaccineBatch batch = new VaccineBatch.BatchBuilder(batchBrand, batchQuantity, batchExpiry, batchId).build();
+        VaccineBatch batch = new VaccineBatch.BatchBuilder().brand(batchBrand).quantity(batchQuantity).expiry(batchExpiry).id(batchId).build();
         BatchAdding newBatch = new BatchAdding(clinicById, batch);
         return newBatch.addBatch();
     }

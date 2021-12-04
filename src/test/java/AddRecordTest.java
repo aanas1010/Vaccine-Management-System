@@ -19,16 +19,16 @@ public class AddRecordTest {
     public void setUp() {
         dateTime = LocalDateTime.of(2020, 11, 14, 12, 30);
         timePeriod = new TimePeriod(dateTime, 5);
-        batch = new VaccineBatch.BatchBuilder("Pfizer", 100, LocalDate.of(2099, 10 , 30), 1234).build();
+        batch = new VaccineBatch.BatchBuilder().brand("Pfizer").quantity(100).expiry(LocalDate.of(2099, 10 , 30)).id(1234).build();
 
 
         // Setting up the clients
         client1 = new Client("client1", "qwertyuiop");
 
         // Setting up appointments
-        Appointment appointment1 = new Appointment.AppointmentBuilder(client1, timePeriod, "Pfizer", 1, batch).build();
+        Appointment appointment1 = new Appointment.AppointmentBuilder().client(client1).timePeriod(timePeriod).vaccineBrand("Pfizer").appointmentID(1).clientVaccineBatch(batch).build();
 
-        Clinic clinic1 = new Clinic.ClinicBuilder(1, "Toronto").build();
+        Clinic clinic1 = new Clinic.ClinicBuilder().clinicId(1).location("Toronto").build();
         clinic = new BookableClinic(clinic1);
         clinic.setShift(dateTime.toLocalDate(), 5);
         clinic.addTimePeriod(timePeriod, dateTime.toLocalDate());

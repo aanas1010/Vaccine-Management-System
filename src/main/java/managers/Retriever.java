@@ -102,11 +102,11 @@ public class Retriever {
                     thisBatch.getString("expiryDate")
                             .replace('T',' '), formatter);
 
-            VaccineBatch newBatch = new VaccineBatch.BatchBuilder(
-                    thisBatch.getString("brand"),
-                    thisBatch.getInt("quantity"),
-                    dateObj,
-                    thisBatch.getInt("batchID")).Reserved(thisBatch.getInt("reserved")).build();
+            VaccineBatch newBatch = new VaccineBatch.BatchBuilder()
+                    .brand(thisBatch.getString("brand"))
+                    .quantity(thisBatch.getInt("quantity"))
+                    .expiry(dateObj)
+                    .id(thisBatch.getInt("batchID")).reserve(thisBatch.getInt("reserved")).build();
 
 
             clinic.addBatch(newBatch);
