@@ -24,6 +24,7 @@ public class DatabaseBatchAdding {
         state.setInt(6, quantity);
 
         state.executeUpdate();
+        System.out.println("Added a batch");
     }
 
     public JsonArray loadAllBatches () throws SQLException {

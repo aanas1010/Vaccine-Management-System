@@ -47,8 +47,18 @@ public class UseCaseManager implements UseCaseManagerInterface {
         this.clinicIDs = new ArrayList<>();
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
-        this.retriever = new Retriever(dataRetrieval);
-        this.storer = new Storer(dataModification);
+        if(dataRetrieval == null) {
+            this.retriever = null;
+        }else {
+            this.retriever = new Retriever(dataRetrieval);
+        }
+
+        if(dataModification == null) {
+            this.storer = null;
+        }else {
+            this.storer = new Storer(dataModification);
+        }
+
     }
 
     /**

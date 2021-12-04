@@ -48,6 +48,7 @@ public class Retriever {
         // Convert the Client JSON into client objects
 
         JsonArray clientsJson = dataRetrieval.getClients();
+
         List<User> clientsList = new ArrayList<>();
         for (int i = 0; i < clientsJson.size(); i++) {
             JsonObject thisClient = clientsJson.getJsonObject(i);
@@ -140,7 +141,6 @@ public class Retriever {
         JsonArray appointmentJson = dataRetrieval.getAppointments(clinic.getServiceLocationId());
         for (int i = 0; i < appointmentJson.size(); i++) {
             JsonObject thisAppointment = appointmentJson.getJsonObject(i);
-
             TimePeriod thisTimePeriod = clinic.getTimePeriodByID(thisAppointment.getInt("periodID"));
             User thisClient = getClientByHCN(clients, thisAppointment.getString("clientID"));
 

@@ -13,20 +13,27 @@ import java.time.LocalDate;
 
 public class ExampleRetrieval implements DataRetrieval{
     public JsonArray getClinicIDs() {
-        JsonArrayBuilder clinicIDs = Json.createArrayBuilder();
-        for(int i=0;i<10;i++) {
-            clinicIDs.add(i);
-        }
+        JsonArrayBuilder clinicIDs = Json.createArrayBuilder()
+                .add(Json.createObjectBuilder()
+                        .add("clinicID", 1)
+                        .add("location", "420 Yonge St.")
+                        .add("isBookable", true)
+                ).add(Json.createObjectBuilder()
+                        .add("clinicID", 2)
+                        .add("location", "221b Baker St.")
+                        .add("isBookable", true)
+                ).add(Json.createObjectBuilder()
+                        .add("clinicID", 3)
+                        .add("location", "111 St. George st.")
+                        .add("isBookable", false)
+                );
+
 
         return clinicIDs.build();
     }
 
     public JsonArray getBookableClinicIDs() {
-        JsonArrayBuilder clinicIDs = Json.createArrayBuilder();
-        for(int i=1;i<10;i=i+2) {
-            clinicIDs.add(i);
-        }
-
+        JsonArrayBuilder clinicIDs = Json.createArrayBuilder().add(1).add(2);
         return clinicIDs.build();
     }
 
@@ -35,27 +42,27 @@ public class ExampleRetrieval implements DataRetrieval{
             .add(Json.createObjectBuilder()
                     .add("healthCareID", "1111-111-111-AA")
                     .add("name", "Amy Ashcroft")
-                    .add("hasAppointment", 1)
+                    .add("hasAppointment", true)
             )
             .add(Json.createObjectBuilder()
                     .add("healthCareID", "2222-222-222-BB")
                     .add("name", "Bart Black")
-                    .add("hasAppointment", 1)
+                    .add("hasAppointment", true)
             )
             .add(Json.createObjectBuilder()
                     .add("healthCareID", "3333-333-333-CC")
                     .add("name", "Cameron Cooper")
-                    .add("hasAppointment", 0)
+                    .add("hasAppointment", false)
             )
             .add(Json.createObjectBuilder()
                     .add("healthCareID", "4444-444-444-DD")
                     .add("name", "Denis Dick")
-                    .add("hasAppointment", 0)
+                    .add("hasAppointment", false)
             )
             .add(Json.createObjectBuilder()
                     .add("healthCareID", "5555-555-555-EE")
                     .add("name", "Emily Edmonds")
-                    .add("hasAppointment", 0)
+                    .add("hasAppointment", false)
         ).build();
     }
 
@@ -64,7 +71,7 @@ public class ExampleRetrieval implements DataRetrieval{
                 Json.createObjectBuilder()
                 .add("clinicID", clinicID)
                 .add("location", "Some Location")
-                .add("isBookable", clinicID % 2).build()
+                .add("isBookable", true).build()
         ).build();
     }
 
@@ -140,6 +147,7 @@ public class ExampleRetrieval implements DataRetrieval{
                 .add("clientID", "1111-111-111-AA")
                 .add("periodID", 1)
                 .add("brand", "Pfizer")
+                .add("batchID", 1)
             )
             .add(Json.createObjectBuilder()
                 .add("appointmentID", 2)
@@ -147,6 +155,7 @@ public class ExampleRetrieval implements DataRetrieval{
                 .add("clientID", "2222-222-222-BB")
                 .add("periodID", 2)
                 .add("brand", "Moderna")
+                .add("batchID", 2)
             ).build();
     }
 }
