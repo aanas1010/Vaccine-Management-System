@@ -3,7 +3,6 @@ package managers;
 import constants.ManagementSystemException;
 import clientbooking.*;
 import clinicmanagement.*;
-import databaseintegration.DataModification;
 import databaseintegration.DataRetrieval;
 import databaseintegration.DataModification;
 import entities.*;
@@ -25,21 +24,24 @@ public class UseCaseManager implements UseCaseManagerInterface {
     private List<Integer> bookableClinicIDs;
     private final List<ServiceLocation> clinics;
     private List<User> clients;
-    private Retriever retriever;
-    private Storer storer;
+    private final Retriever retriever;
+    private final Storer storer;
 
     /**
-     * Stores clinics and manages other use cases. This constructor creates an empty list of service locations
-     * and an empty list of clients.
+     * Stores clinics and manages other use cases. This constructor does not load or store data
      */
     public UseCaseManager(){
         this.clinicIDs = new ArrayList<>();
         this.bookableClinicIDs = new ArrayList<>();
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
+        this.retriever = null;
+        this.storer = null;
     }
 
-    //Constructor with no dataRetrieval
+    /**
+     * Stores clinics and manages other use cases. This constructor can load and store data
+     */
     public UseCaseManager(DataRetrieval dataRetrieval, DataModification dataModification){
         this.bookableClinicIDs = new ArrayList<>();
         this.clinicIDs = new ArrayList<>();
@@ -98,6 +100,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
      */
 
     public void storeVaccineBatchData(VaccineBatch batch, int clinicID){
+        assert this.storer != null;
         this.storer.StoreBatch(batch, clinicID);
     }
 
@@ -108,17 +111,8 @@ public class UseCaseManager implements UseCaseManagerInterface {
      * @param clinicID the ID of the clinic where the time period is located
      */
     public void storeTimePeriodData(TimePeriod timePeriod, int clinicID){
+        assert this.storer != null;
         this.storer.StoreTimePeriod(timePeriod, clinicID);
-    }
-
-    /**
-     * Storing an appointment in the databse
-     *
-     * @param appointment the appointment being stored
-     * @param clinicID the ID of the clinic where the appointment is located
-     */
-    public void storeAppointmentData(Appointment appointment, int clinicID){
-        this.storer.StoreAppointment(appointment, clinicID);
     }
 
 
@@ -212,7 +206,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
                            int batchId) throws ManagementSystemException {
         ServiceLocation clinicById = getClinicById(clinicId);
         VaccineBatch batch = new VaccineBatch.BatchBuilder().brand(batchBrand).quantity(batchQuantity).expiry(batchExpiry).id(batchId).build();
-        BatchAdding newBatch = new BatchAdding(clinicById, batch);
+        BatchAdding newBatch = new BatchAdding(clinicById, batch, storer);
         return newBatch.addBatch();
     }
 
@@ -235,7 +229,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
         User client = getClientByHCN(healthCareNumber);
         TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
         AppointmentBooking appointmentBooking = new AppointmentBooking(client, clinic, timePeriod,
-                vaccineBrand, appointmentId);
+                vaccineBrand, appointmentId, storer);
         return appointmentBooking.createAppointment();
     }
 
@@ -327,7 +321,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     private SetTimePeriod createSetTimePeriod(int clinicId) {
         ServiceLocation clinic = getClinicById(clinicId);
-        return new SetTimePeriod(clinic);
+        return new SetTimePeriod(clinic, storer);
     }
 
     /**

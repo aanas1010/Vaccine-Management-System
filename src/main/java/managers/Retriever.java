@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class Retriever {
-    DataRetrieval dataRetrieval;
+    final DataRetrieval dataRetrieval;
 
     public Retriever(DataRetrieval dataRetrieval) {
         this.dataRetrieval = dataRetrieval;
@@ -72,12 +72,10 @@ public class Retriever {
         // Only get the clinicID's clinic
         ServiceLocation newClinic;
         for(int i=0;i<clinicJson.size();i++) {
-            if(clinicJson.getJsonObject(0).getInt("clinicID") == clinicID) {
-                newClinic = new Clinic.ClinicBuilder(
-                        clinicID,
-                        clinicJson.getJsonObject(0)
-                                .getString("location")).build();
-                if(clinicJson.getJsonObject(0).getBoolean("isBookable")) {
+            if(clinicJson.getJsonObject(i).getInt("clinicID") == clinicID) {
+                newClinic = new Clinic.ClinicBuilder().clinicId(clinicID).location(clinicJson.getJsonObject(i)
+                        .getString("location")).build();
+                if(clinicJson.getJsonObject(i).getBoolean("isBookable")) {
                     newClinic = new BookableClinic(newClinic);
                 }
                 return newClinic;
@@ -96,7 +94,6 @@ public class Retriever {
         JsonArray batchJson = dataRetrieval.getVaccineBatches(clinic.getServiceLocationId());
         for (int i = 0; i < batchJson.size(); i++) {
             JsonObject thisBatch = batchJson.getJsonObject(i);
-
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate dateObj = LocalDate.parse(
                     thisBatch.getString("expiryDate")
@@ -162,13 +159,13 @@ public class Retriever {
                 return;
             }
 
-            Appointment newAppointment = new Appointment.AppointmentBuilder(
-                    thisClient,
-                    thisTimePeriod,
-                    thisAppointment.getString("brand"),
-                    thisAppointment.getInt("appointmentID"),
-                    thisBatch
-            ).build();
+            Appointment newAppointment = new Appointment.AppointmentBuilder()
+                    .client(thisClient)
+                    .timePeriod(thisTimePeriod)
+                    .vaccineBrand(thisAppointment.getString("brand"))
+                    .appointmentID(thisAppointment.getInt("appointmentID"))
+                    .clientVaccineBatch(thisBatch)
+                .build();
 
             clinic.addAppointment(newAppointment);
         }

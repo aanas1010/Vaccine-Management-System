@@ -1,7 +1,6 @@
 package databaseintegration;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseConnectivityManager {
     private Connection myConn;

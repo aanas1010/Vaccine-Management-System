@@ -21,40 +21,37 @@ public class DatabaseModification implements DataModification {
                 BookingConstants.DATABASE_CONNECTION_URL,
                 BookingConstants.DATABASE_CONNECTION_USERNAME,
                 BookingConstants.DATABASE_CONNECTION_PASSWORD);
+
         statement = connection.createStatement();
     }
 
 
     public void writeToAppointment(int appointmentID, int clinicID, String clientID, int periodID, int batchID,
                                    String brand) throws SQLException {
-        // Create new DatabaseRetrieval instance
-        // Do the thing with it
         String query = getQuery("appointment", appointmentID, clinicID, clientID, periodID, brand);
-        PreparedStatement state =  connection.prepareStatement(query);
-        // Then, reference the driver-level class for this table
-        // doSomething(state, query);
-        DatabaseAppointment appointment = new DatabaseAppointment(connection, statement);
+        connection.prepareStatement(query);
+        new DatabaseAppointment(connection, statement).addAppointment(appointmentID, clinicID, clientID, periodID, batchID, brand);
     }
 
 
     public void writeToClient(String healthCardID, String name, boolean hasAppointment) throws SQLException {
         String query = getQuery("client", healthCardID, name, hasAppointment);
-        PreparedStatement state =  connection.prepareStatement(query);
-        // doSomething(state, query);
+        connection.prepareStatement(query);
+        new DatabaseClient(connection, statement).addClient(healthCardID, name, hasAppointment);
     }
 
-    public void writeToTimePeriods(int periodID, int clinicID, int availableSlots, LocalDateTime datetime)
+    public void writeToTimePeriods(int periodID, int clinicID, int availableSlots, int bookedSlots, LocalDateTime datetime)
             throws SQLException {
         String query = getQuery("timePeriods", periodID, clinicID, availableSlots, datetime);
-        PreparedStatement state =  connection.prepareStatement(query);
-        // doSomething(state, query);
+        connection.prepareStatement(query);
+        new DatabaseTimePeriods(connection, statement).addTimePeriod(periodID, clinicID, availableSlots, bookedSlots, Timestamp.valueOf(datetime));
     }
 
     public void writeToVaccineBatch(int batchID, int clinicID, String brand,
                                     LocalDate expiryDate, int reserved, int quantity) throws SQLException {
         String query = getQuery("vaccineBatch", batchID, clinicID, brand, expiryDate, reserved, quantity);
-        PreparedStatement state =  connection.prepareStatement(query);
-        // doSomething(state, query);
+        connection.prepareStatement(query);
+        new DatabaseBatchAdding(connection, statement).addBatch(batchID, clinicID, brand, Date.valueOf(expiryDate), reserved, quantity);
     }
 
 

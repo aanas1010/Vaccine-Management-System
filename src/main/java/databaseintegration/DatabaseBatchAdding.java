@@ -2,7 +2,6 @@ package databaseintegration;
 
 import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseBatchAdding {
     private final Connection connection;
@@ -28,6 +27,7 @@ public class DatabaseBatchAdding {
     }
 
     public JsonArray loadAllBatches () throws SQLException {
+        //TODO need to only get the batches from a specific clinic
         String query = "SELECT * FROM vaccineBatch";
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);

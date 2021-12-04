@@ -2,7 +2,6 @@ package databaseintegration;
 
 import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseAppointment {
     private final Connection connection;
@@ -27,7 +26,8 @@ public class DatabaseAppointment {
         state.executeUpdate();
     }
 
-    public JsonArray loadAllBatches () throws SQLException {
+    public JsonArray loadAllAppointments() throws SQLException {
+        //TODO need to only get the appointments from a specific clinic
         String query = "SELECT * FROM appointment";
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);

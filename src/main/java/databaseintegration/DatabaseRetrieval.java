@@ -62,7 +62,7 @@ public class DatabaseRetrieval implements DataRetrieval {
     }
 
     public JsonArray getAppointments(int clinicID) throws SQLException {
-        return new DatabaseAppointment(connection, statement).loadAllBatches();
+        return new DatabaseAppointment(connection, statement).loadAllAppointments();
     }
 
 }

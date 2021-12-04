@@ -2,6 +2,7 @@ package databaseintegration;
 
 import javax.json.*;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ResultSetToJSON {
@@ -33,7 +34,9 @@ public class ResultSetToJSON {
                 } else if (value instanceof Boolean) {
                     jsonObject.add(column, (Boolean) value);
                 } else if (value instanceof Date) {
-                    jsonObject.add(column, ((Date) value).getTime());
+                    jsonObject.add(column, value.toString());
+                } else if (value instanceof LocalDateTime) {
+                    jsonObject.add(column, value.toString());
                 } else {
                     throw new IllegalArgumentException("Unmappable object type: " + value.getClass());
                 }

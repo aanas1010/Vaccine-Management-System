@@ -15,7 +15,7 @@ public interface DataModification {
 
     void writeToClient(String healthCardID, String name, boolean hasAppointment) throws SQLException;
 
-    void writeToTimePeriods(int periodID, int clinicID, int availableSlots, LocalDateTime datetime) throws SQLException;
+    void writeToTimePeriods(int periodID, int clinicID, int availableSlots, int bookedSlots, LocalDateTime datetime) throws SQLException;
 
     void writeToVaccineBatch(int batchID, int clinicID, String brand,
                              LocalDate expiryDate, int reserved, int quantity) throws SQLException;

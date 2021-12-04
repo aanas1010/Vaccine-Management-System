@@ -2,7 +2,6 @@ package databaseintegration;
 
 import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseClient {
     private final Connection connection;
@@ -13,7 +12,7 @@ public class DatabaseClient {
         this.statement = statement;
     }
 
-    public void addBatch (String healthCareID, String name, boolean hasAppointment) throws SQLException {
+    public void addClient(String healthCareID, String name, boolean hasAppointment) throws SQLException {
         String query = "INSERT INTO client VALUES (?, ?, ?)";
         PreparedStatement state =  connection.prepareStatement(query);
         state.setString(1, healthCareID);

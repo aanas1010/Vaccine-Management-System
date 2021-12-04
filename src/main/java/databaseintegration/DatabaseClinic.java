@@ -2,7 +2,6 @@ package databaseintegration;
 
 import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseClinic {
     private final Connection connection;

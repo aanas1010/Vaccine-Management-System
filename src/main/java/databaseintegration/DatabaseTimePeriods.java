@@ -2,7 +2,6 @@ package databaseintegration;
 
 import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseTimePeriods {
     private final Connection connection;
@@ -27,6 +26,7 @@ public class DatabaseTimePeriods {
     }
 
     public JsonArray loadAllTimePeriods () throws SQLException {
+        //TODO need to only get the time periods from a specific clinic
         String query = "SELECT * FROM timePeriods";
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);

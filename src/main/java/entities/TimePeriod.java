@@ -95,6 +95,13 @@ public class TimePeriod {
     /**
      * getter.
      *
+     * @return number of booked slots.
+     */
+    public int getBookedSlots() {return availableSlots;}
+
+    /**
+     * getter.
+     *
      * @return local date of the time period.
      */
     public LocalDateTime getDateTime() {return dateTime;}
