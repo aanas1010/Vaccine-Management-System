@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 
 public class Storer{
-    DataModification dataStoring;
+    final DataModification dataStoring;
 
     public Storer(DataModification dataStoring){this.dataStoring = dataStoring;}
 
@@ -32,10 +32,12 @@ public class Storer{
      */
     public void StoreBatch(VaccineBatch batch, int clinicID){
         try{
+
             this.dataStoring.writeToVaccineBatch(batch.getId(), clinicID,
                     batch.getBrand(), batch.getExpiry(), batch.getReserve(), batch.getAvailable());
         }catch(SQLException ex) {
             System.out.println("Cannot enter the batch");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -48,7 +50,7 @@ public class Storer{
     public void StoreTimePeriod(TimePeriod timePeriod, int clinicID){
         try{
             this.dataStoring.writeToTimePeriods(timePeriod.getID(),
-                    clinicID, timePeriod.getAvailableSlots(), timePeriod.getDateTime());
+                    clinicID, timePeriod.getAvailableSlots(), timePeriod.getBookedSlots(), timePeriod.getDateTime());
         }catch(SQLException ex) {
             System.out.println("Cannot enter the time period");
         }

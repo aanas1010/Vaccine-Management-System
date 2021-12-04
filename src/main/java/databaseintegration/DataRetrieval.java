@@ -1,6 +1,7 @@
 package databaseintegration;
 
-import javax.json.JsonObject;
+import javax.json.JsonArray;
+import java.sql.SQLException;
 
 /**
  * This is the interface for an adapter that loads data from a ResultSet
@@ -8,17 +9,17 @@ import javax.json.JsonObject;
  */
 
 public interface DataRetrieval {
-    JsonObject getClinicIDs();
+    JsonArray getClinicIDs() throws SQLException;
 
-    JsonObject getBookableClinicIDs();
+    JsonArray getBookableClinicIDs() throws SQLException;
 
-    JsonObject getClients();
+    JsonArray getClients() throws SQLException;
 
-    JsonObject getClinicInfo(int clinicID);
+    JsonArray getClinicInfo(int clinicID) throws SQLException;
 
-    JsonObject getVaccineBatches(int clinicID);
+    JsonArray getVaccineBatches(int clinicID) throws SQLException;
 
-    JsonObject getTimePeriods(int clinicID);
+    JsonArray getTimePeriods(int clinicID) throws SQLException;
 
-    JsonObject getAppointments(int clinicID);
+    JsonArray getAppointments(int clinicID) throws SQLException;
 }

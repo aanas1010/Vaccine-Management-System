@@ -2,6 +2,7 @@ package clientbooking;
 
 import constants.ManagementSystemException;
 import entities.*;
+import managers.Storer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,6 +20,7 @@ public class AppointmentBooking {
     final TimePeriod timePeriod;
     final String vaccineBrand;
     final int appointmentId;
+    final Storer storer;
 
     /**
     * creates Use Case for booking appointments.
@@ -35,7 +37,28 @@ public class AppointmentBooking {
         this.timePeriod = timePeriod;
         this.vaccineBrand = vaccineBrand;
         this.appointmentId = id;
+        this.storer = null;
     }
+
+    /**
+     * creates Use Case for booking appointments.
+     *
+     * @param client The client booking the appointment
+     * @param clinic The clinic where the appointment is booked
+     * @param timePeriod The time period when the appointment is expected to happen
+     * @param vaccineBrand the vaccine brand for this appointment
+     * @param id the id of this appointment
+     * @param storer the storer that this appointment will be written to
+     */
+    public AppointmentBooking(User client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id, Storer storer){
+        this.client = client;
+        this.clinic = clinic;
+        this.timePeriod = timePeriod;
+        this.vaccineBrand = vaccineBrand;
+        this.appointmentId = id;
+        this.storer = storer;
+    }
+
 
     /** indicates whether there is an opening for the specified time period
     * @return true the time period is available - false if not.
@@ -103,6 +126,11 @@ public class AppointmentBooking {
         this.client.approveAppointment();
         this.clinic.addAppointment(appointment);
         this.timePeriod.findAndReserveSlot();
+
+        if(storer != null) {
+            this.storer.StoreAppointment(appointment, this.clinic.getServiceLocationId());
+        }
+
         return appointment.toString();
     }
 }

@@ -2,10 +2,11 @@ package database_testing;
 
 import databaseintegration.DatabaseClinic;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Objects;
 
 import org.junit.*;
+
+import javax.json.JsonArray;
+
 import static org.junit.Assert.*;
 
 public class DatabaseClinicTest {
@@ -28,7 +29,7 @@ public class DatabaseClinicTest {
 
     @Test(timeout = 100) // Testing an expired batch of vaccine doses does not get added
     public void TestLoadClinicIDs() throws SQLException {
-        ArrayList<Object> results = clinicDB.loadAllClinics();
+        JsonArray results = clinicDB.loadAllClinics();
         assertNotNull(results);
     }
 

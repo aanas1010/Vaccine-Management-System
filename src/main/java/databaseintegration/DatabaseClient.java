@@ -1,9 +1,9 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
-public class DatabaseClient {
+public class DatabaseClient implements DatabaseClientInterface{
     private final Connection connection;
     private final Statement statement;
 
@@ -12,7 +12,7 @@ public class DatabaseClient {
         this.statement = statement;
     }
 
-    public void addBatch (String healthCareID, String name, boolean hasAppointment) throws SQLException {
+    public void addClient(String healthCareID, String name, boolean hasAppointment) throws SQLException {
         String query = "INSERT INTO client VALUES (?, ?, ?)";
         PreparedStatement state =  connection.prepareStatement(query);
         state.setString(1, healthCareID);
@@ -22,15 +22,9 @@ public class DatabaseClient {
         state.executeUpdate();
     }
 
-    public ArrayList<Object> loadAllBatches () throws SQLException {
+    public JsonArray loadAllClients() throws SQLException {
         String query = "SELECT * FROM client";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getString("healthCareID"));
-            results.add(resultSet.getString("name"));
-            results.add(resultSet.getBoolean("hasAppointment"));
-        }
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 }

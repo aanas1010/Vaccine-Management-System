@@ -1,12 +1,10 @@
 package databaseintegration;
 
-import constants.BookingConstants;
-
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * This is the adapter for retrieving data from the database.
@@ -14,44 +12,131 @@ import java.sql.Statement;
  */
 
 public class DatabaseRetrieval implements DataRetrieval {
-    private final Connection connection;
-    private final Statement statement;
+    private final DatabaseClientInterface databaseClient;
+    private final DatabaseClinicInterface databaseClinic;
+    private final DatabaseBatchInterface databaseBatch;
+    private final DatabaseTimePeriodsInterface databaseTimePeriods;
+    private final DatabaseAppointmentInterface databaseAppointment;
 
-    public DatabaseRetrieval() throws SQLException {
-        connection = DriverManager.getConnection(
-                BookingConstants.DATABASE_CONNECTION_URL,
-                BookingConstants.DATABASE_CONNECTION_USERNAME,
-                BookingConstants.DATABASE_CONNECTION_PASSWORD);
-        statement = connection.createStatement();
+    public DatabaseRetrieval(RetrieverBuilder builder) {
+        assert(builder.databaseClient != null);
+        this.databaseClient = builder.databaseClient;
+        assert(builder.databaseClinic != null);
+        this.databaseClinic = builder.databaseClinic;
+        assert(builder.databaseBatch != null);
+        this.databaseBatch = builder.databaseBatch;
+        assert(builder.databaseTimePeriods != null);
+        this.databaseTimePeriods = builder.databaseTimePeriods;
+        assert(builder.databaseAppointment != null);
+        this.databaseAppointment = builder.databaseAppointment;
+
     }
 
-    public JsonObject getClinicIDs() {
-        String query = "SELECT clinicID FROM clinic";
-        // The resultSet line below should probably be in the upper-level (driver-level) classes
-        //ResultSet resultSet = statement.executeQuery(query);
-        return null;
+    public JsonArray getClinicIDs() throws SQLException {
+        return databaseClinic.loadAllClinics();
     }
 
-    public JsonObject getBookableClinicIDs() {return null;}
+    public JsonArray getBookableClinicIDs() throws SQLException {
+        JsonArray clinics = databaseClinic.loadAllClinics();
 
-    public JsonObject getClients() {
-        return null;
+        JsonArrayBuilder clinicIDs = Json.createArrayBuilder();
+        for (int i = 0; i < clinics.size(); i++) {
+            JsonObject thisClinic = clinics.getJsonObject(i);
+            clinicIDs.add(thisClinic.getInt("clinicID"));
+        }
+
+        return clinicIDs.build();
+
     }
 
-    public JsonObject getClinicInfo(int clinicID) {
-        return null;
+    public JsonArray getClients() throws SQLException {
+        return databaseClient.loadAllClients();
     }
 
-    public JsonObject getVaccineBatches(int clinicID) {
-        return null;
+    public JsonArray getClinicInfo(int clinicID) throws SQLException {
+        return databaseClinic.loadAllClinics();
     }
 
-    public JsonObject getTimePeriods(int clinicID) {
-        return null;
+    public JsonArray getVaccineBatches(int clinicID) throws SQLException {
+        return databaseBatch.loadBatches(clinicID);
     }
 
-    public JsonObject getAppointments(int clinicID) {
-        return null;
+    public JsonArray getTimePeriods(int clinicID) throws SQLException {
+        return databaseTimePeriods.loadTimePeriods(clinicID);
+    }
+
+    public JsonArray getAppointments(int clinicID) throws SQLException {
+        return databaseAppointment.loadAppointments(clinicID);
+    }
+
+    public static  class RetrieverBuilder {
+        private DatabaseClientInterface databaseClient;
+        private DatabaseClinicInterface databaseClinic;
+        private DatabaseBatchInterface databaseBatch;
+        private DatabaseTimePeriodsInterface databaseTimePeriods;
+        private DatabaseAppointmentInterface databaseAppointment;
+
+        /**
+         * Constructor for a Retriever.
+         */
+        public RetrieverBuilder() {}
+
+        /**
+         * assigns the client table class of this retriever
+         *
+         * @param databaseClient the client table class.
+         * @return the builder of the Retriever.
+         */
+        public RetrieverBuilder client(DatabaseClientInterface databaseClient){
+            this.databaseClient = databaseClient;
+            return this;
+        }
+
+        /**
+         * assigns the clinic table class of this retriever
+         *
+         * @param databaseClinic the clinic table class.
+         * @return the builder of the Retriever.
+         */
+        public RetrieverBuilder clinic(DatabaseClinicInterface databaseClinic){
+            this.databaseClinic = databaseClinic;
+            return this;
+        }
+
+        /**
+         * assigns the batch table class of this retriever
+         *
+         * @param databaseBatch the batch table class.
+         * @return the builder of the Retriever.
+         */
+        public RetrieverBuilder batch(DatabaseBatchInterface databaseBatch){
+            this.databaseBatch = databaseBatch;
+            return this;
+        }
+
+        /**
+         * assigns the time period table class of this retriever
+         *
+         * @param databaseTimePeriods the time period table class.
+         * @return the builder of the Retriever.
+         */
+        public RetrieverBuilder timePeriod(DatabaseTimePeriodsInterface databaseTimePeriods){
+            this.databaseTimePeriods = databaseTimePeriods;
+            return this;
+        }
+
+        /**
+         * assigns the appointment table class of this retriever
+         *
+         * @param databaseAppointment the appointment table class.
+         * @return the builder of the Retriever.
+         */
+        public RetrieverBuilder appointment(DatabaseAppointmentInterface databaseAppointment){
+            this.databaseAppointment = databaseAppointment;
+            return this;
+        }
+
+        public DatabaseRetrieval build(){return new DatabaseRetrieval(this);}
     }
 
 }

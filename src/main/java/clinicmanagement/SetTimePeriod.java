@@ -3,6 +3,7 @@ package clinicmanagement;
 import constants.ManagementSystemException;
 import entities.ServiceLocation;
 import entities.TimePeriod;
+import managers.Storer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.List;
 
 public class SetTimePeriod {
     private final ServiceLocation clinic;
+    private final Storer storer;
 
     /**
      * This is the Use Case for setting time periods and shifts.
@@ -25,6 +27,12 @@ public class SetTimePeriod {
      */
     public SetTimePeriod(ServiceLocation clinic){
         this.clinic = clinic;
+        this.storer = null;
+    }
+
+    public SetTimePeriod(ServiceLocation clinic, Storer storer){
+        this.clinic = clinic;
+        this.storer = storer;
     }
 
     /**
@@ -53,6 +61,11 @@ public class SetTimePeriod {
             int slots = this.clinic.getShiftForDate(dateTime.toLocalDate());
             TimePeriod addedTimePeriod = new TimePeriod(dateTime, slots);
             this.clinic.addTimePeriod(addedTimePeriod, dateTime.toLocalDate());
+
+            if(this.storer != null) {
+                this.storer.StoreTimePeriod(addedTimePeriod, clinic.getServiceLocationId());
+            }
+
             return addedTimePeriod.toString();
         }else if(!this.clinic.shiftAvailable(dateTime.toLocalDate())) {
             throw new ManagementSystemException(ManagementSystemException.NO_SHIFT_AVAILABLE);
@@ -69,6 +82,7 @@ public class SetTimePeriod {
      * @throws ManagementSystemException if there is no time period that exists for the chosen date and time
      */
     public String removeTimePeriod(LocalDateTime dateTime) throws ManagementSystemException {
+        //TODO: removing timeperiods from the database
         if(this.clinic.checkTimePeriod(dateTime)){
             this.clinic.removeTimePeriod(dateTime);
             return "Time: " + dateTime;
@@ -102,9 +116,13 @@ public class SetTimePeriod {
         int counter = 0;
         for(LocalDateTime time: times){
             if(!this.clinic.checkTimePeriod(time)){
-                this.clinic.addTimePeriod(new TimePeriod(time,
-                        this.clinic.getShiftForDate(time.toLocalDate())), time.toLocalDate());
+                TimePeriod createdTimePeriod = new TimePeriod(time, this.clinic.getShiftForDate(time.toLocalDate()));
+                this.clinic.addTimePeriod(createdTimePeriod, time.toLocalDate());
                 counter += 1;
+
+                if(this.storer != null) {
+                    this.storer.StoreTimePeriod(createdTimePeriod, clinic.getServiceLocationId());
+                }
             }
         }
         return counter;

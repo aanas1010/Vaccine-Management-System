@@ -3,6 +3,7 @@ package clinicmanagement;
 import constants.ManagementSystemException;
 import entities.ServiceLocation;
 import entities.VaccineBatch;
+import managers.Storer;
 
 /**
  * This is the Use Case for adding batches.
@@ -13,6 +14,7 @@ import entities.VaccineBatch;
 public class BatchAdding {
     private final ServiceLocation clinic;
     private final VaccineBatch batch;
+    private final Storer storer;
 
     /**
      * This is the Use Case for adding batches.
@@ -23,6 +25,20 @@ public class BatchAdding {
     public BatchAdding(ServiceLocation clinic, VaccineBatch batch){
         this.clinic = clinic;
         this.batch = batch;
+        this.storer = null;
+    }
+
+    /**
+     * This is the Use Case for adding batches.
+     *
+     * @param clinic The clinic for which the batch is added
+     * @param batch The batch that is being added for the clinic
+     * @param storer The storer that the batch will be written to
+     */
+    public BatchAdding(ServiceLocation clinic, VaccineBatch batch, Storer storer){
+        this.clinic = clinic;
+        this.batch = batch;
+        this.storer = storer;
     }
 
     /**
@@ -39,6 +55,11 @@ public class BatchAdding {
         }
         else{
             this.clinic.addBatch(batch);
+
+            if(this.storer != null) {
+                this.storer.StoreBatch(batch, clinic.getServiceLocationId());
+            }
+
             return batch.toString();
         }
     }

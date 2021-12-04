@@ -37,6 +37,7 @@ public class CommandLine {
         this.clinicId = getClinicId();
 
         boolean isBookableClinic = managementSystem.getBookableClinicIds().contains(clinicId);
+        System.out.println("Loading data. Please wait...");
 
         // Load the data for this clinic
         this.managementSystem.loadClinicData(clinicId);

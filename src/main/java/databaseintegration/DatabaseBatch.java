@@ -1,13 +1,13 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
-public class DatabaseBatchAdding {
+public class DatabaseBatch implements DatabaseBatchInterface{
     private final Connection connection;
     private final Statement statement;
 
-    public DatabaseBatchAdding (Connection connection, Statement statement) {
+    public DatabaseBatch(Connection connection, Statement statement) {
         this.connection = connection;
         this.statement = statement;
     }
@@ -24,24 +24,17 @@ public class DatabaseBatchAdding {
         state.setInt(6, quantity);
 
         state.executeUpdate();
+        System.out.println("Added a batch");
     }
 
-    public ArrayList<Object> loadAllBatches () throws SQLException {
+    public JsonArray loadBatches(int clinicID) throws SQLException {
+        //TODO need to only get the batches from a specific clinic
         String query = "SELECT * FROM vaccineBatch";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getInt("batchID"));
-            results.add(resultSet.getInt("clinicID"));
-            results.add(resultSet.getString("brand"));
-            results.add(resultSet.getDate("expiryDate"));
-            results.add(resultSet.getInt("reserved"));
-            results.add(resultSet.getInt("quantity"));
-        }
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 
-    public void updateReservedBatch (int batchID, int reserved) throws SQLException {
+    public void updateReservedBatch (int clinicID, int batchID, int reserved) throws SQLException {
         String query = "UPDATE vaccineBatch SET reserved = ? WHERE batchID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, reserved);

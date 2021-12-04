@@ -1,9 +1,9 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
-public class DatabaseAppointment {
+public class DatabaseAppointment implements DatabaseAppointmentInterface{
     private final Connection connection;
     private final Statement statement;
 
@@ -12,8 +12,8 @@ public class DatabaseAppointment {
         this.statement = statement;
     }
 
-    public void addAppointment (int appointmentID, int clinicID, String clientID, int periodID, int batchID,
-                                String brand) throws SQLException {
+    public void addAppointment (int appointmentID, int clinicID, String clientID, int periodID, int batchID, String brand) throws
+            SQLException {
         String query = "INSERT INTO appointment VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement state =  connection.prepareStatement(query);
         state.setInt(1, appointmentID);
@@ -26,22 +26,14 @@ public class DatabaseAppointment {
         state.executeUpdate();
     }
 
-    public ArrayList<Object> loadAllAppointments () throws SQLException {
+    public JsonArray loadAppointments(int clinicID) throws SQLException {
+        //TODO need to only get the appointments from a specific clinic
         String query = "SELECT * FROM appointment";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getInt("appointmentID"));
-            results.add(resultSet.getInt("clinicID"));
-            results.add(resultSet.getString("clientID"));
-            results.add(resultSet.getInt("periodID"));
-            results.add(resultSet.getInt("batchID"));
-            results.add(resultSet.getString("brand"));
-        }
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 
-    public void deleteAppointment (int appointmentID) throws SQLException {
+    public void deleteAppointment (int clinicID, int appointmentID) throws SQLException {
         String query = "DELETE FROM appointment WHERE appointmentID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, appointmentID);

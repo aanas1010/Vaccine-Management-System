@@ -1,9 +1,9 @@
 package databaseintegration;
 
+import javax.json.JsonArray;
 import java.sql.*;
-import java.util.ArrayList;
 
-public class DatabaseTimePeriods {
+public class DatabaseTimePeriods implements DatabaseTimePeriodsInterface {
     private final Connection connection;
     private final Statement statement;
 
@@ -25,22 +25,14 @@ public class DatabaseTimePeriods {
         state.executeUpdate();
     }
 
-    public ArrayList<Object> loadAllTimePeriods () throws SQLException {
+    public JsonArray loadTimePeriods(int clinicID) throws SQLException {
+        //TODO need to only get the time periods from a specific clinic
         String query = "SELECT * FROM timePeriods";
         ResultSet resultSet = statement.executeQuery(query);
-        ArrayList<Object> results = new ArrayList<>();
-        while(resultSet.next()) {
-            results.add(resultSet.getInt("periodID"));
-            results.add(resultSet.getInt("clinicID"));
-            results.add(resultSet.getInt("availableSlots"));
-            results.add(resultSet.getInt("bookedSlots"));
-            results.add(resultSet.getTimestamp("datetime"));
-        }
-        System.out.println("All stored clinic IDs: " + results);
-        return results;
+        return ResultSetToJSON.toJSON(resultSet);
     }
 
-    public void updateTimePeriods (int periodID, int availableSlots, int bookedSlots) throws SQLException {
+    public void updateTimePeriods(int clinicID, int periodID, int availableSlots, int bookedSlots) throws SQLException {
         String query = "UPDATE timePeriods SET availableSlots = ? AND bookedSlots = ? WHERE periodID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, availableSlots);
