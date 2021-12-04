@@ -3,11 +3,11 @@ package databaseintegration;
 import javax.json.JsonArray;
 import java.sql.*;
 
-public class DatabaseBatchAdding {
+public class DatabaseBatch implements DatabaseBatchInterface{
     private final Connection connection;
     private final Statement statement;
 
-    public DatabaseBatchAdding (Connection connection, Statement statement) {
+    public DatabaseBatch(Connection connection, Statement statement) {
         this.connection = connection;
         this.statement = statement;
     }
@@ -27,14 +27,14 @@ public class DatabaseBatchAdding {
         System.out.println("Added a batch");
     }
 
-    public JsonArray loadAllBatches () throws SQLException {
+    public JsonArray loadBatches(int clinicID) throws SQLException {
         //TODO need to only get the batches from a specific clinic
         String query = "SELECT * FROM vaccineBatch";
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
 
-    public void updateReservedBatch (int batchID, int reserved) throws SQLException {
+    public void updateReservedBatch (int clinicID, int batchID, int reserved) throws SQLException {
         String query = "UPDATE vaccineBatch SET reserved = ? WHERE batchID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, reserved);

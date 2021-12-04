@@ -3,7 +3,7 @@ package databaseintegration;
 import javax.json.JsonArray;
 import java.sql.*;
 
-public class DatabaseTimePeriods {
+public class DatabaseTimePeriods implements DatabaseTimePeriodsInterface {
     private final Connection connection;
     private final Statement statement;
 
@@ -25,14 +25,14 @@ public class DatabaseTimePeriods {
         state.executeUpdate();
     }
 
-    public JsonArray loadAllTimePeriods () throws SQLException {
+    public JsonArray loadTimePeriods(int clinicID) throws SQLException {
         //TODO need to only get the time periods from a specific clinic
         String query = "SELECT * FROM timePeriods";
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
 
-    public void updateTimePeriods (int periodID, int availableSlots, int bookedSlots) throws SQLException {
+    public void updateTimePeriods(int clinicID, int periodID, int availableSlots, int bookedSlots) throws SQLException {
         String query = "UPDATE timePeriods SET availableSlots = ? AND bookedSlots = ? WHERE periodID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, availableSlots);

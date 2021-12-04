@@ -1,9 +1,12 @@
 package drivers;
 
-import databaseintegration.DatabaseRetrieval;
-import databaseintegration.DatabaseModification;
-import databaseintegration.ExampleRetrieval;
+import constants.BookingConstants;
+import databaseintegration.*;
 import managers.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 /**
  * This is the Main class in our program. Running this file allows you to use the program.
@@ -14,14 +17,45 @@ public class Main {
         try {
             // Create the useCaseManager that stores the service locations
 
-            //Use this line for reading and writing to the database
-            UseCaseManagerInterface useCaseManager = new UseCaseManager(new DatabaseRetrieval(), new DatabaseModification());
+            //FOR FULL DATABASE STORING AND RETRIEVING
+            //Create connection and statement
+            Connection connection = DriverManager.getConnection(
+                    BookingConstants.DATABASE_CONNECTION_URL,
+                    BookingConstants.DATABASE_CONNECTION_USERNAME,
+                    BookingConstants.DATABASE_CONNECTION_PASSWORD);
+            Statement statement = connection.createStatement();
 
-            // Use this line for only reading from a mock class
+            //Create database table driver classes
+            DatabaseClinicInterface databaseClinic = new DatabaseClinic(connection, statement);
+            DatabaseTimePeriodsInterface databaseTimePeriods = new DatabaseTimePeriods(connection, statement);
+            DatabaseClientInterface databaseClient = new DatabaseClient(connection, statement);
+            DatabaseBatchInterface databaseBatch = new DatabaseBatch(connection, statement);
+            DatabaseAppointmentInterface databaseAppointment = new DatabaseAppointment(connection, statement);
+
+            //Create database controllers
+            DataRetrieval databaseRetrieval = new DatabaseRetrieval.RetrieverBuilder()
+                    .clinic(databaseClinic)
+                    .timePeriod(databaseTimePeriods)
+                    .client(databaseClient)
+                    .batch(databaseBatch)
+                    .appointment(databaseAppointment)
+                    .build();
+
+            DataModification databaseStorer = new DatabaseModification.StorerBuilder()
+                    .timePeriod(databaseTimePeriods)
+                    .client(databaseClient)
+                    .batch(databaseBatch)
+                    .appointment(databaseAppointment)
+                    .build();
+
+            //Create Use Case Manager
+            UseCaseManagerInterface useCaseManager = new UseCaseManager(new Retriever(databaseRetrieval), new Storer(databaseStorer));
+
+
+            //Alternatively, for retrieving from a mock class
             //UseCaseManagerInterface useCaseManager = new UseCaseManager(new ExampleRetrieval(), null);
 
-
-            // Create the management system given the useCaseManager
+            // Create the Management System
             ManagementSystem system = new VaccineManagementSystem(useCaseManager);
             CommandLine UI = new CommandLine(system);
 

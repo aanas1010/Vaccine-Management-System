@@ -3,7 +3,7 @@ package databaseintegration;
 import javax.json.JsonArray;
 import java.sql.*;
 
-public class DatabaseClient {
+public class DatabaseClient implements DatabaseClientInterface{
     private final Connection connection;
     private final Statement statement;
 
@@ -22,7 +22,7 @@ public class DatabaseClient {
         state.executeUpdate();
     }
 
-    public JsonArray loadAllClients () throws SQLException {
+    public JsonArray loadAllClients() throws SQLException {
         String query = "SELECT * FROM client";
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);

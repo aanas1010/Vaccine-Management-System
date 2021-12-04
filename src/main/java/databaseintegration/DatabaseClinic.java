@@ -3,7 +3,7 @@ package databaseintegration;
 import javax.json.JsonArray;
 import java.sql.*;
 
-public class DatabaseClinic {
+public class DatabaseClinic implements DatabaseClinicInterface{
     private final Connection connection;
     private final Statement statement;
 

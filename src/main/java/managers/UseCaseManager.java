@@ -42,23 +42,13 @@ public class UseCaseManager implements UseCaseManagerInterface {
     /**
      * Stores clinics and manages other use cases. This constructor can load and store data
      */
-    public UseCaseManager(DataRetrieval dataRetrieval, DataModification dataModification){
+    public UseCaseManager(Retriever retriever, Storer storer){
         this.bookableClinicIDs = new ArrayList<>();
         this.clinicIDs = new ArrayList<>();
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
-        if(dataRetrieval == null) {
-            this.retriever = null;
-        }else {
-            this.retriever = new Retriever(dataRetrieval);
-        }
-
-        if(dataModification == null) {
-            this.storer = null;
-        }else {
-            this.storer = new Storer(dataModification);
-        }
-
+        this.retriever = retriever;
+        this.storer = storer;
     }
 
     /**

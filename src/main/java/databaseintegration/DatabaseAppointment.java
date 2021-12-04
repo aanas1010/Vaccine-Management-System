@@ -3,7 +3,7 @@ package databaseintegration;
 import javax.json.JsonArray;
 import java.sql.*;
 
-public class DatabaseAppointment {
+public class DatabaseAppointment implements DatabaseAppointmentInterface{
     private final Connection connection;
     private final Statement statement;
 
@@ -26,14 +26,14 @@ public class DatabaseAppointment {
         state.executeUpdate();
     }
 
-    public JsonArray loadAllAppointments() throws SQLException {
+    public JsonArray loadAppointments(int clinicID) throws SQLException {
         //TODO need to only get the appointments from a specific clinic
         String query = "SELECT * FROM appointment";
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
 
-    public void deleteAppointment (int appointmentID) throws SQLException {
+    public void deleteAppointment (int clinicID, int appointmentID) throws SQLException {
         String query = "DELETE FROM appointment WHERE appointmentID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, appointmentID);
