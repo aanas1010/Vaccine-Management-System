@@ -1,5 +1,7 @@
 # Specification
 
+## Vaccine Management System
+
 Key:
 * **Bold**: class
 * _Italics_: function
