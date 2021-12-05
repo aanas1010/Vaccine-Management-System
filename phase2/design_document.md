@@ -30,6 +30,8 @@ Interfaces in our program also allow us to add a layer of abstraction between th
 * UseCaseManagerInterface interface between the management system implementations and the use cases
 * ServiceLocation interface between the use cases and the service location implementations, such as clinics
 * ServiceLocationDecorator abstract class between the use cases and bookable clinics
+* Multiple interfaces in the databaseintegration package
+  * Create layers of abstraction between the database tables and the use cases   
 
 Thus, there are no strong dependencies between the different levels of architecture. In all cases, the abstraction layer allows us to decouple the system and subsequently follow the Open-Closed principle as well.
 
@@ -51,9 +53,7 @@ Let’s decompose this into the two main actions which are called. Let the n-th 
 | Using the CommandLine, a clinic manager inputs their clinic ID which cross references a list of valid clinic IDs                                                                                                                                                                                                      | CommandLine (L1) calls the ManagementSystem (Interface)’s getClinicIds method. This is implemented by VaccineManagementSystem (L2), which in turn calls its useCaseManagerInterface (Interface)’s getClinicIds method. This is implemented by UseCaseManager (L3), which stores and returns the list of clinic IDs. Once this list is returned to the outermost layer, CommandLine searches for the given ID in the list.                                                                                                                                                                             |
 | Once the Clinic is selected, the clinic manager indicates that they want to add a VaccineBatch to the Clinic’s VaccineSupply, using the BatchAdding class. They specify the batch ID (60), brand (Pfizer), the number of individual doses (400), and the expiry date for this VaccineBatch (e.g. 2 months from today) | CommandLine (L1) calls the ManagementSystem (Interface)’s addBatch method. This is implemented by VaccineManagementSystem (L2), which in turn calls its useCaseManagerInterface (Interface)’s addBatch method. This is implemented by UseCaseManager (L3), which creates a new BatchAdding (L3) instance to complete the task for a given ServiceLocation (Interface). BatchAdding’s addBatch method is called, which calls the ServiceLocation’s getSupply method which is implemented by Clinic (L4). Then, Clinic’s VaccineSupply (L4) instance is retrieved and a VaccineBatch instance is added. |
 
-
-
-As mentioned, dependency inversion is used extensively, thus preserving the clean architecture’s dependency requirement. In other words, the outer layers only depend on the inner layers and not the inverse, and each layer has interfaces that they implement for the outer layers to reference. This approach has the advantage of maintaining a clean, organized program and allowing for ease of collaboration. 
+As mentioned, dependency inversion is used extensively, thus preserving the clean architecture’s dependency requirement. In other words, the outer layers only depend on the inner layers and not the inverse, and each layer has interfaces that they implement for the outer layers to reference. This approach has the advantage of maintaining a clean, organized program and allowing for ease of collaboration.
 
 - CRC-cards were uploaded within the folder `phase1` to demonstrate consistency with the Clean Architecture.
 
@@ -82,6 +82,8 @@ For phase 2 we also decided to implement the builder design pattern for our enti
 For each of these three classes, the builder is implemented as a static class within each of our entity classes. It allows us to pick and choose which instance attributes to build the object with and there are assert statements in place to assure that necessary instance attributes are not null.
 
 For example, the entity clinic has six instance attributes (clinicId, supply, log, timePeriods, shifts and location). Of these six, only clinicId and location are required with the other four parameters being optional. The builder design pattern allows us to build a clinic with a location and clinicId as well as any combination of the optional parameters.
+
+The builder design pattern is also implemented in the DatabaseRetrieval and DatabaseModification the same way it was implemented in the entities. We decided to use the builder pattern due to the length of the constructor. The Json package builder is also used to create Json objects. 
 
 ## Use of GitHub Features
 For our project, we have been using many of the great features provided by GitHub to enhance the way we work as a group.
