@@ -16,7 +16,7 @@ Splitting up our use cases as such ensures that responsibilities are divided int
 ### Open-Closed Principle
 When dealing with appointment-based clinics, we decided to use the decorator design pattern to expand the functionality of clinics without modifying the core entity. Therefore our implementation is open to extension and closed to modification. In the future, if we wanted to add more decorators for added functionality to clinics, this would be very much possible.
 
-Given more time, an improvement to this principle could involve facilitating the adding of new use cases. This would likely involve creating another interface specific to the sub-use cases with a general method “run,” which would run the use case. This new design would then more easily allow additional use cases to be created by implementing this interface.
+As well, our database class structure, which also follows clean architecture, features many interfaces that allow us to easily create new controllers and drivers for storing and retrieving data. In fact, our program makes use of a mock database class called "ExampleRetrieval" that simulates the JSON data being passed into the system via an external source. This demonstrates the versatility of our program.
 
 ### Liskov Substitution Principle
 Our program does not make much use out of subclasses except for in the decorators, where an abstract decorator class is used. Since this abstract class cannot be instantiated on its own, Liskov’s substitution principle does not apply. Otherwise, there is no need to apply this principle in our program.
@@ -24,14 +24,15 @@ Our program does not make much use out of subclasses except for in the decorator
 ### Interface Segregation Principle
 Interfaces are used throughout the program to enforce functionality, such as through the ManagementSystem and UseCaseManagerInterface interfaces. These enforce any management systems or use case managers to have the core functionalities of such a program, such as booking an appointment or adding a batch to a clinic, regardless of the underlying implementations of these features. 
 
+The classes involved in data storing and retrieving abide by this principle as well. Specifically, each database table has a corresponding interface associated with it, resulting in 5 interfaces whose behaviours are segregated from each other.
+
 ### Dependency Injection Principle
 Interfaces in our program also allow us to add a layer of abstraction between the low-level and high-level classes. Specifically:
 * ManagementSystem interface between the command line and the management system implementations
 * UseCaseManagerInterface interface between the management system implementations and the use cases
 * ServiceLocation interface between the use cases and the service location implementations, such as clinics
 * ServiceLocationDecorator abstract class between the use cases and bookable clinics
-* Multiple interfaces in the databaseintegration package
-  * Create layers of abstraction between the database tables and the use cases   
+* Multiple interfaces in the databaseintegration package, such as DataModification, DataRetrieval, and interfaces for each of the database tables
 
 Thus, there are no strong dependencies between the different levels of architecture. In all cases, the abstraction layer allows us to decouple the system and subsequently follow the Open-Closed principle as well.
 
