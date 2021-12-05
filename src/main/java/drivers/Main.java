@@ -41,7 +41,7 @@ public class Main {
                     .appointment(databaseAppointment)
                     .build();
 
-            DataModification databaseStorer = new DatabaseModification.StorerBuilder()
+            DataModification databaseModifier = new DatabaseModification.ModifierBuilder()
                     .timePeriod(databaseTimePeriods)
                     .client(databaseClient)
                     .batch(databaseBatch)
@@ -49,7 +49,8 @@ public class Main {
                     .build();
 
             //Create Use Case Manager
-            UseCaseManagerInterface useCaseManager = new UseCaseManager(new Retriever(databaseRetrieval), new Storer(databaseStorer));
+            UseCaseManagerInterface useCaseManager = new UseCaseManager(new Retriever(databaseRetrieval),
+                    new Modifier(databaseModifier));
 
 
             //Alternatively, for retrieving from a mock class

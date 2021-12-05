@@ -2,6 +2,7 @@ package clientbooking;
 
 import constants.ManagementSystemException;
 import entities.*;
+import managers.Modifier;
 
 /**
  * This is the Use Case for cancelling appointments.
@@ -13,6 +14,7 @@ public class AppointmentCancellation {
 
     final int appointmentId;
     final ClinicDecorator clinic;
+    final Modifier modifier;
 
     /**
      * creates Use Case for canceling appointments.
@@ -23,6 +25,20 @@ public class AppointmentCancellation {
     public AppointmentCancellation(int appointmentId, ClinicDecorator clinic){
         this.appointmentId = appointmentId;
         this.clinic = clinic;
+        this.modifier = null;
+    }
+
+    /**
+     * creates Use Case for canceling appointments.
+     *
+     * @param appointmentId the id of the appointment
+     * @param clinic the clinic where the appointment suppose to happen
+     * @param modifier the modifier object it is referred to
+     */
+    public AppointmentCancellation(int appointmentId, ClinicDecorator clinic, Modifier modifier){
+        this.appointmentId = appointmentId;
+        this.clinic = clinic;
+        this.modifier = modifier;
     }
 
     /**
@@ -37,6 +53,25 @@ public class AppointmentCancellation {
             appointment.getClient().disapproveAppointment();
             clinic.removeAppointmentById(this.appointmentId);
             appointment.getTimePeriod().addAvailableSlot();
+
+            if(modifier != null) {
+                this.modifier.UpdateBookedAvailableSlots(appointment.getTimePeriod(),
+                        this.clinic.getServiceLocationId());
+            }
+
+            if(modifier != null) {
+                this.modifier.UpdateReservedInBatch(appointment.getClientVaccineBatch(),
+                        this.clinic.getServiceLocationId());
+            }
+
+            if(modifier != null) {
+                this.modifier.DeleteAppointment(appointment, this.clinic.getServiceLocationId());
+            }
+
+            if(modifier != null) {
+                this.modifier.UpdateToNoAppointment(appointment.getClient().getHealthCareNumber());
+            }
+
             return appointment.toString();
         }
         throw new ManagementSystemException(ManagementSystemException.APPOINTMENT_DOES_NOT_EXIST);

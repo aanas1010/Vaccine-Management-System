@@ -3,8 +3,8 @@ package databaseintegration;
 import java.sql.*;
 
 public class DatabaseConnectivityManager {
-    private Connection myConn;
-    private Statement statement;
+    private final Connection myConn;
+    private final Statement statement;
 
     public DatabaseConnectivityManager() throws SQLException {
 

@@ -1,7 +1,6 @@
 package databaseintegration;
 
 import constants.BookingConstants;
-import managers.Storer;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -20,7 +19,7 @@ public class DatabaseModification implements DataModification {
     private final DatabaseTimePeriodsInterface databaseTimePeriods;
     private final DatabaseAppointmentInterface databaseAppointment;
 
-    public DatabaseModification(StorerBuilder builder) throws SQLException {
+    public DatabaseModification(ModifierBuilder builder) throws SQLException {
         connection = DriverManager.getConnection(
                 BookingConstants.DATABASE_CONNECTION_URL,
                 BookingConstants.DATABASE_CONNECTION_USERNAME,
@@ -39,47 +38,45 @@ public class DatabaseModification implements DataModification {
 
     public void writeToAppointment(int appointmentID, int clinicID, String clientID, int periodID, int batchID,
                                    String brand) throws SQLException {
-        String query = getQuery("appointment", appointmentID, clinicID, clientID, periodID, brand);
-        connection.prepareStatement(query);
         databaseAppointment.addAppointment(appointmentID, clinicID, clientID, periodID, batchID, brand);
     }
 
 
     public void writeToClient(String healthCardID, String name, boolean hasAppointment) throws SQLException {
-        String query = getQuery("client", healthCardID, name, hasAppointment);
-        connection.prepareStatement(query);
         databaseClient.addClient(healthCardID, name, hasAppointment);
     }
 
-    public void writeToTimePeriods(int periodID, int clinicID, int availableSlots, int bookedSlots, LocalDateTime datetime)
-            throws SQLException {
-        String query = getQuery("timePeriods", periodID, clinicID, availableSlots, datetime);
-        connection.prepareStatement(query);
+    public void writeToTimePeriods(int periodID, int clinicID, int availableSlots, int bookedSlots,
+                                   LocalDateTime datetime) throws SQLException {
         databaseTimePeriods.addTimePeriod(periodID, clinicID, availableSlots, bookedSlots, Timestamp.valueOf(datetime));
     }
 
     public void writeToVaccineBatch(int batchID, int clinicID, String brand,
                                     LocalDate expiryDate, int reserved, int quantity) throws SQLException {
-        String query = getQuery("vaccineBatch", batchID, clinicID, brand, expiryDate, reserved, quantity);
-        connection.prepareStatement(query);
         databaseBatch.addBatch(batchID, clinicID, brand, Date.valueOf(expiryDate), reserved, quantity);
     }
 
-
-
-    private String getQuery(String table, Object ... o) {
-        StringBuilder query = new StringBuilder("INSERT INTO " + table + " VALUES (");
-        for(int i = 0;i<o.length;i++) {
-            query.append(i);
-            if(i < o.length - 1) {
-                query.append(", ");
-            }
-        }
-        query.append(")");
-        return query.toString();
+    public void deleteFromAppointments(int clinicID, int appointmentID) throws SQLException {
+        databaseAppointment.deleteAppointment(clinicID, appointmentID);
     }
 
-    public static  class StorerBuilder {
+    public void updateReservedInBatch(int clinicID, int batchID, int reserved) throws SQLException {
+        databaseBatch.updateReservedBatch(clinicID, batchID, reserved);
+    }
+
+    public void updateBookedAvailableSlots(int clinicID, int periodID, int available, int booked) throws SQLException {
+        databaseTimePeriods.updateTimePeriods(clinicID, periodID, available, booked);
+    }
+
+    public void updateToNoAppointment(String healthCareID) throws SQLException {
+        databaseClient.updateToNoAppointment(healthCareID);
+    }
+
+    public void updateToHasAppointment(String healthCareID) throws SQLException {
+        databaseClient.updateToHasAppointment(healthCareID);
+    }
+
+    public static class ModifierBuilder {
         private DatabaseClientInterface databaseClient;
         private DatabaseBatchInterface databaseBatch;
         private DatabaseTimePeriodsInterface databaseTimePeriods;
@@ -88,7 +85,7 @@ public class DatabaseModification implements DataModification {
         /**
          * Constructor for a Retriever.
          */
-        public StorerBuilder() {}
+        public ModifierBuilder() {}
 
         /**
          * assigns the client table class of this storer
@@ -96,7 +93,7 @@ public class DatabaseModification implements DataModification {
          * @param databaseClient the client table class.
          * @return the builder of the Storer.
          */
-        public StorerBuilder client(DatabaseClientInterface databaseClient){
+        public ModifierBuilder client(DatabaseClientInterface databaseClient){
             this.databaseClient = databaseClient;
             return this;
         }
@@ -107,7 +104,7 @@ public class DatabaseModification implements DataModification {
          * @param databaseBatch the batch table class.
          * @return the builder of the storer.
          */
-        public StorerBuilder batch(DatabaseBatchInterface databaseBatch){
+        public ModifierBuilder batch(DatabaseBatchInterface databaseBatch){
             this.databaseBatch = databaseBatch;
             return this;
         }
@@ -118,7 +115,7 @@ public class DatabaseModification implements DataModification {
          * @param databaseTimePeriods the time period table class.
          * @return the builder of the storer.
          */
-        public StorerBuilder timePeriod(DatabaseTimePeriodsInterface databaseTimePeriods){
+        public ModifierBuilder timePeriod(DatabaseTimePeriodsInterface databaseTimePeriods){
             this.databaseTimePeriods = databaseTimePeriods;
             return this;
         }
@@ -129,7 +126,7 @@ public class DatabaseModification implements DataModification {
          * @param databaseAppointment the appointment table class.
          * @return the builder of the storer.
          */
-        public StorerBuilder appointment(DatabaseAppointmentInterface databaseAppointment){
+        public ModifierBuilder appointment(DatabaseAppointmentInterface databaseAppointment){
             this.databaseAppointment = databaseAppointment;
             return this;
         }

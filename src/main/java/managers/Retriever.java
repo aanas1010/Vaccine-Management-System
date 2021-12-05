@@ -126,6 +126,7 @@ public class Retriever {
             TimePeriod newTimePeriod = new TimePeriod(
                     dateTimeObj,
                     thisTimePeriod.getInt("availableSlots"),
+                    thisTimePeriod.getInt("bookedSlots"),
                     thisTimePeriod.getInt("periodID")
             );
 

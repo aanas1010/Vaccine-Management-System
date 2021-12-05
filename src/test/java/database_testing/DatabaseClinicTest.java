@@ -22,12 +22,7 @@ public class DatabaseClinicTest {
         clinicDB = new DatabaseClinic(connection, statement);
     }
 
-    @Test(timeout = 150) // Testing adding an existing clinic to the clinic table
-    public void TestAddClinicExisting() throws SQLException {
-        assertFalse(clinicDB.addClinic(1, "420 Yonge St.", true));
-    }
-
-    @Test(timeout = 100) // Testing an expired batch of vaccine doses does not get added
+    @Test // Testing whether clinic IDs were loaded successfully
     public void TestLoadClinicIDs() throws SQLException {
         JsonArray results = clinicDB.loadAllClinics();
         assertNotNull(results);

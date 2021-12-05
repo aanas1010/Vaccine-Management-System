@@ -36,10 +36,10 @@ public class TimePeriod {
      * @param availableSlots number of available spot in this time period.
      * @param timePeriodID explicit id of the time period
      */
-    public TimePeriod(LocalDateTime dateTime, int availableSlots, int timePeriodID){
+    public TimePeriod(LocalDateTime dateTime, int availableSlots, int bookedSlots, int timePeriodID){
         this.dateTime = dateTime;
         this.availableSlots = availableSlots;
-        this.bookedSlots = 0;
+        this.bookedSlots = bookedSlots;
         this.timePeriodID = timePeriodID;
         timePeriodIDTracker = Math.max(timePeriodID, timePeriodIDTracker) + 1;
     }

@@ -3,11 +3,10 @@ package managers;
 import constants.ManagementSystemException;
 import clientbooking.*;
 import clinicmanagement.*;
-import databaseintegration.DataRetrieval;
-import databaseintegration.DataModification;
 import entities.*;
 
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
     private final List<ServiceLocation> clinics;
     private List<User> clients;
     private final Retriever retriever;
-    private final Storer storer;
+    private final Modifier modifier;
 
     /**
      * Stores clinics and manages other use cases. This constructor does not load or store data
@@ -36,19 +35,19 @@ public class UseCaseManager implements UseCaseManagerInterface {
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
         this.retriever = null;
-        this.storer = null;
+        this.modifier = null;
     }
 
     /**
      * Stores clinics and manages other use cases. This constructor can load and store data
      */
-    public UseCaseManager(Retriever retriever, Storer storer){
+    public UseCaseManager(Retriever retriever, Modifier modifier){
         this.bookableClinicIDs = new ArrayList<>();
         this.clinicIDs = new ArrayList<>();
         this.clinics = new ArrayList<>();
         this.clients = new ArrayList<>();
         this.retriever = retriever;
-        this.storer = storer;
+        this.modifier = modifier;
     }
 
     /**
@@ -58,11 +57,11 @@ public class UseCaseManager implements UseCaseManagerInterface {
     public void loadInitialData() {
         if(retriever == null) {return;}
 
-        try{
+        try {
             clinicIDs = retriever.getClinicIDs();
             bookableClinicIDs = retriever.getBookableClinicIDs();
             clients = retriever.getClients();
-        }catch(SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Could not load all initial data");
         }
 
@@ -74,7 +73,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
      * @param clinicID The ID of the clinic that is going to be loaded
      */
     public void loadClinicData(int clinicID) {
-        try{
+        try {
             if(retriever == null) {return;}
             ServiceLocation thisClinic = retriever.getClinicInfo(clinicID);
             clinics.add(thisClinic);
@@ -82,11 +81,11 @@ public class UseCaseManager implements UseCaseManagerInterface {
             retriever.getVaccineBatches(thisClinic);
 
             // Get the appointments only if the clinic is bookable
-            if(thisClinic instanceof BookableClinic) {
+            if (thisClinic instanceof BookableClinic) {
                 retriever.getAppointments((BookableClinic) thisClinic, this.clients);
             }
 
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Could not load all data for the given clinic");
         }
 
@@ -100,8 +99,8 @@ public class UseCaseManager implements UseCaseManagerInterface {
      */
 
     public void storeVaccineBatchData(VaccineBatch batch, int clinicID){
-        assert this.storer != null;
-        this.storer.StoreBatch(batch, clinicID);
+        assert this.modifier != null;
+        this.modifier.StoreBatch(batch, clinicID);
     }
 
     /**
@@ -111,8 +110,8 @@ public class UseCaseManager implements UseCaseManagerInterface {
      * @param clinicID the ID of the clinic where the time period is located
      */
     public void storeTimePeriodData(TimePeriod timePeriod, int clinicID){
-        assert this.storer != null;
-        this.storer.StoreTimePeriod(timePeriod, clinicID);
+        assert this.modifier != null;
+        this.modifier.StoreTimePeriod(timePeriod, clinicID);
     }
 
 
@@ -205,8 +204,9 @@ public class UseCaseManager implements UseCaseManagerInterface {
     public String addBatch(int clinicId, String batchBrand, int batchQuantity, LocalDate batchExpiry,
                            int batchId) throws ManagementSystemException {
         ServiceLocation clinicById = getClinicById(clinicId);
-        VaccineBatch batch = new VaccineBatch.BatchBuilder().brand(batchBrand).quantity(batchQuantity).expiry(batchExpiry).id(batchId).build();
-        BatchAdding newBatch = new BatchAdding(clinicById, batch, storer);
+        VaccineBatch batch = new VaccineBatch.BatchBuilder().brand(batchBrand).quantity(batchQuantity)
+                .expiry(batchExpiry).id(batchId).build();
+        BatchAdding newBatch = new BatchAdding(clinicById, batch, modifier);
         return newBatch.addBatch();
     }
 
@@ -229,7 +229,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
         User client = getClientByHCN(healthCareNumber);
         TimePeriod timePeriod = new TimePeriod(appointmentTime, 0);
         AppointmentBooking appointmentBooking = new AppointmentBooking(client, clinic, timePeriod,
-                vaccineBrand, appointmentId, storer);
+                vaccineBrand, appointmentId, modifier);
         return appointmentBooking.createAppointment();
     }
 
@@ -244,7 +244,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
      */
     public String cancelAppointment(int clinicId, int appointmentId) throws ManagementSystemException {
         ClinicDecorator clinic = (ClinicDecorator) getClinicById(clinicId);
-        AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic);
+        AppointmentCancellation appointmentCancellation = new AppointmentCancellation(appointmentId, clinic, modifier);
 
         return appointmentCancellation.deleteAppointment();
     }
@@ -321,7 +321,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     private SetTimePeriod createSetTimePeriod(int clinicId) {
         ServiceLocation clinic = getClinicById(clinicId);
-        return new SetTimePeriod(clinic, storer);
+        return new SetTimePeriod(clinic, modifier);
     }
 
     /**
@@ -416,7 +416,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
                 }
             }
             return clinicNums;
-        }else {
+        } else {
             return bookableClinicIDs;
         }
     }

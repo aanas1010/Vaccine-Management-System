@@ -42,7 +42,9 @@ public class DatabaseRetrieval implements DataRetrieval {
         JsonArrayBuilder clinicIDs = Json.createArrayBuilder();
         for (int i = 0; i < clinics.size(); i++) {
             JsonObject thisClinic = clinics.getJsonObject(i);
-            clinicIDs.add(thisClinic.getInt("clinicID"));
+            if (thisClinic.getBoolean("isBookable")) {
+                clinicIDs.add(thisClinic.getInt("clinicID"));
+            }
         }
 
         return clinicIDs.build();
@@ -69,7 +71,7 @@ public class DatabaseRetrieval implements DataRetrieval {
         return databaseAppointment.loadAppointments(clinicID);
     }
 
-    public static  class RetrieverBuilder {
+    public static class RetrieverBuilder {
         private DatabaseClientInterface databaseClient;
         private DatabaseClinicInterface databaseClinic;
         private DatabaseBatchInterface databaseBatch;

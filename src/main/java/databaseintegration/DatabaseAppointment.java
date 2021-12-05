@@ -27,16 +27,18 @@ public class DatabaseAppointment implements DatabaseAppointmentInterface{
     }
 
     public JsonArray loadAppointments(int clinicID) throws SQLException {
-        //TODO need to only get the appointments from a specific clinic
-        String query = "SELECT * FROM appointment";
+        String query = "SELECT * FROM appointment WHERE clinicID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, clinicID);
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
 
     public void deleteAppointment (int clinicID, int appointmentID) throws SQLException {
-        String query = "DELETE FROM appointment WHERE appointmentID = ?";
+        String query = "DELETE FROM appointment WHERE appointmentID = ? AND clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, appointmentID);
+        state.setInt(2, clinicID);
         statement.executeUpdate(query);
     }
 }

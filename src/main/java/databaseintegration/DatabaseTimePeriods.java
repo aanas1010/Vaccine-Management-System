@@ -26,18 +26,21 @@ public class DatabaseTimePeriods implements DatabaseTimePeriodsInterface {
     }
 
     public JsonArray loadTimePeriods(int clinicID) throws SQLException {
-        //TODO need to only get the time periods from a specific clinic
-        String query = "SELECT * FROM timePeriods";
+        String query = "SELECT * FROM timePeriods WHERE clinicID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, clinicID);
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
 
     public void updateTimePeriods(int clinicID, int periodID, int availableSlots, int bookedSlots) throws SQLException {
-        String query = "UPDATE timePeriods SET availableSlots = ? AND bookedSlots = ? WHERE periodID = ?";
+        String query = "UPDATE timePeriods SET availableSlots = ? AND bookedSlots = ? WHERE periodID = ? AND " +
+                "clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, availableSlots);
         state.setInt(2, bookedSlots);
         state.setInt(3, periodID);
+        state.setInt(4, clinicID);
         statement.executeQuery(query);
     }
 }

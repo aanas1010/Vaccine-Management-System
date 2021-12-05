@@ -28,8 +28,9 @@ public class DatabaseBatch implements DatabaseBatchInterface{
     }
 
     public JsonArray loadBatches(int clinicID) throws SQLException {
-        //TODO need to only get the batches from a specific clinic
-        String query = "SELECT * FROM vaccineBatch";
+        String query = "SELECT * FROM vaccineBatch WHERE clinicID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, clinicID);
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
