@@ -117,6 +117,8 @@ For this project we have been documenting all the code we are writing as well as
     * Making sure methods and classes are implemented in a way that matches our design speciation/class diagram
   * For Phase 2 we have still been reviewing pull requests in a thorough manner
     * As stated above, we are now using the github review feature and requesting reviewers
+  * Below is the updated phase 2 design diagram
+    * https://miro.com/app/board/o9J_lr-wuew=/ 
 * JavaDocs
   * For Phase 2 we have added JavaDocs to all of our methods in all of our classes except private methods 
 ## Testing 
@@ -151,7 +153,7 @@ Our code was organized in accordance with clean architecture, that is, each pack
 
 Instead of isolating the ‘Use Cases’ layer, we decided to separate it into the two main functions of our program: clientbooking - which contains the classes involved in the booking of appointments, and clinicmanagement- which contains the classes needed to manage the clinic. 
 
-On the other hand, the ‘Drivers’ layer is where the CommandLine is created and where our Main class is located. For the time being, we have decided to separate the database from the ‘Drivers’ package until we have got it connected. 
+On the other hand, the ‘Drivers’ layer is where the CommandLine is created and where our Main class is located. We decided to seperate the database integration from the drivers package due to the large number of classes and interafces that were used. 
 
 Our ‘Managers’ layer contains the interfaces and the management systems that manage the Use Cases (from layer below) and is used by the Command Line (in layer above).  
 
