@@ -97,6 +97,10 @@ For our project, we have been using many of the great features provided by GitHu
   * So far our group has used the issues tab to bring up any issues we have with the design of our project. Some examples can be seen below.
     * Reworking the hierarchy of clinics and bookable clinics
     * Reworking the hierarchy of the use cases and their interaction with VaccineManagement
+  * As of phase 2, our group has increased our use of the issues tab. Some issues include:
+    * Creating Javadocs for all non-private methods
+    * Implmenting the builder design pattern
+    * Create controllers and adapters to integrate the database (dependency inversion)
 
 ## Code Style and Documentation
 For this project we have been documenting all the code we are writing as well as reviewing the pull requests group members make and adjusting style errors
@@ -112,8 +116,9 @@ For this project we have been documenting all the code we are writing as well as
     * Documentation and comments
     * Making sure methods and classes are implemented in a way that matches our design speciation/class diagram
   * For Phase 2 we have still been reviewing pull requests in a thorough manner
+    * As stated above, we are now using the github review feature and requesting reviewers
 * JavaDocs
-  * For Phase 2 we have added JavaDocs to all of our methods in all of our classes 
+  * For Phase 2 we have added JavaDocs to all of our methods in all of our classes except private methods 
 ## Testing 
 The goal of our project is to extensively test all the more complicated methods in our program. We will avoid testing for methods like getters, setters and simple boolean methods as these are simple in their implementation.
 * Testing Schematics
@@ -123,7 +128,6 @@ The goal of our project is to extensively test all the more complicated methods 
     * Testing all methods in our use cases
   * Database
     * Testing is implemented for storing and loading data from tables.
-TODO: Add more information on database testing
 ## Refactoring 
 So far we have implemented refactoring in many parts of our project, from renaming all the way to implementing a design pattern.
 * Renaming
