@@ -56,7 +56,7 @@ Let’s decompose this into the two main actions which are called. Let the n-th 
 
 As mentioned, dependency inversion is used extensively, thus preserving the clean architecture’s dependency requirement. In other words, the outer layers only depend on the inner layers and not the inverse, and each layer has interfaces that they implement for the outer layers to reference. This approach has the advantage of maintaining a clean, organized program and allowing for ease of collaboration.
 
-- CRC-cards were uploaded within the folder `phase1` to demonstrate consistency with the Clean Architecture.
+- CRC-cards were uploaded within the folder `phase2` to demonstrate consistency with the Clean Architecture.
 
 ## Design Patterns
 ### Decorator
@@ -145,7 +145,7 @@ So far we have implemented refactoring in many parts of our project, from renami
   * We changed our implementation of service location, clinic and bookable clinic by using the decorator design pattern (see above).
 * Refactoring to implment the builder design pattern
   *   We changed the implementation of the constructors of three entities (VaccineBatch, Clinic and Appointment) to the builder design pattern (see above).
-
+* TODO: Add any refactoring based on the database
 
 
 ## Code Organization
