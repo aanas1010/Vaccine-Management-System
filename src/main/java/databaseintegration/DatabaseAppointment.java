@@ -35,6 +35,7 @@ public class DatabaseAppointment implements DatabaseAppointmentInterface{
     }
 
     public void deleteAppointment (int clinicID, int appointmentID) throws SQLException {
+        System.out.println("DELETING");
         connection.setAutoCommit(false);
         String query = "DELETE FROM appointment WHERE appointmentID = ? AND clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);

@@ -41,7 +41,6 @@ public class DatabaseTimePeriods implements DatabaseTimePeriodsInterface {
         state.setInt(2, bookedSlots);
         state.setInt(3, periodID);
         state.setInt(4, clinicID);
-        System.out.println(state);
         state.executeUpdate();
         connection.commit();
     }

@@ -49,7 +49,7 @@ public class AppointmentCancellation {
      */
     public String deleteAppointment() throws ManagementSystemException {
         Appointment appointment = clinic.getAppointmentRecord(this.appointmentId);
-        if (appointment.getClient().getHasAppointment()) {
+        if (appointment != null) {
             appointment.getClient().disapproveAppointment();
             clinic.removeAppointmentById(this.appointmentId);
             appointment.getTimePeriod().addAvailableSlot();

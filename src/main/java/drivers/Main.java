@@ -54,7 +54,8 @@ public class Main {
 
 
             //Alternatively, for retrieving from a mock class
-            //UseCaseManagerInterface useCaseManager = new UseCaseManager(new ExampleRetrieval(), null);
+//            UseCaseManagerInterface useCaseManager =
+//                    new UseCaseManager(new Retriever(new ExampleRetrieval()), null);
 
             // Create the Management System
             ManagementSystem system = new VaccineManagementSystem(useCaseManager);
