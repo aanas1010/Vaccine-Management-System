@@ -17,7 +17,7 @@ import java.util.List;
 public class AppointmentBooking {
     final User client;
     final ClinicDecorator clinic;
-    final TimePeriod timePeriod;
+    TimePeriod timePeriod;
     final String vaccineBrand;
     final int appointmentId;
     final Modifier modifier;
@@ -67,6 +67,7 @@ public class AppointmentBooking {
     private boolean isTimeslotAvailable(){
         for(TimePeriod timePeriod: clinic.getTimePeriods(this.timePeriod.getDateTime().toLocalDate())) {
             if (timePeriod.getDateTime().equals(this.timePeriod.getDateTime())) {
+                this.timePeriod = timePeriod;
                 return timePeriod.getAvailableSlots() > 0;
             }
         }

@@ -82,7 +82,6 @@ public class SetTimePeriod {
      * @throws ManagementSystemException if there is no time period that exists for the chosen date and time
      */
     public String removeTimePeriod(LocalDateTime dateTime) throws ManagementSystemException {
-        //TODO: removing timeperiods from the database
         if(this.clinic.checkTimePeriod(dateTime)){
             this.clinic.removeTimePeriod(dateTime);
             return "Time: " + dateTime;

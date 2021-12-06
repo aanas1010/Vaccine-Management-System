@@ -21,11 +21,11 @@ public class Modifier {
      * @param clinicID the ID of the clinic where the vaccine batch is located
      */
     public void StoreBatch(VaccineBatch batch, int clinicID){
-        try{
+        try {
 
             this.dataModifying.writeToVaccineBatch(batch.getId(), clinicID,
                     batch.getBrand(), batch.getExpiry(), batch.getReserve(), batch.getAvailable());
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Cannot enter the batch");
             System.out.println(ex.getMessage());
         }
@@ -43,6 +43,7 @@ public class Modifier {
                     clinicID, timePeriod.getAvailableSlots(), timePeriod.getBookedSlots(), timePeriod.getDateTime());
         } catch (SQLException ex) {
             System.out.println("Cannot enter the time period");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -60,6 +61,7 @@ public class Modifier {
                     appointment.getVaccineBrand());
         } catch (SQLException ex) {
             System.out.println("Cannot enter the appointment");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -70,10 +72,11 @@ public class Modifier {
      * @param clinicID the ID of the clinic where the appointment is located
      */
     public void DeleteAppointment(Appointment appointment, int clinicID){
-        try{
+        try {
             this.dataModifying.deleteFromAppointments(clinicID, appointment.getAppointmentId());
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Cannot delete the appointment");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -84,10 +87,11 @@ public class Modifier {
      * @param clinicID the ID of the clinic where the batch belongs to
      */
     public void UpdateReservedInBatch(VaccineBatch batch, int clinicID){
-        try{
+        try {
             this.dataModifying.updateReservedInBatch(clinicID, batch.getId(), batch.getReserve());
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Cannot update the batch");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -98,11 +102,12 @@ public class Modifier {
      * @param clinicID the ID of the clinic where the time period belongs to
      */
     public void UpdateBookedAvailableSlots(TimePeriod timePeriod, int clinicID){
-        try{
+        try {
             this.dataModifying.updateBookedAvailableSlots(clinicID, timePeriod.getID(),
                     timePeriod.getAvailableSlots(), timePeriod.getBookedSlots());
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Cannot update the slots");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -112,10 +117,11 @@ public class Modifier {
      * @param healthCareID the ID of the client being updated
      */
     public void UpdateToNoAppointment(String healthCareID){
-        try{
+        try {
             this.dataModifying.updateToNoAppointment(healthCareID);
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Cannot update the client");
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -125,10 +131,11 @@ public class Modifier {
      * @param healthCareID the ID of the client being updated
      */
     public void UpdateToHasAppointment(String healthCareID){
-        try{
+        try {
             this.dataModifying.updateToHasAppointment(healthCareID);
-        }catch(SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Cannot update the client");
+            System.out.println(ex.getMessage());
         }
     }
 }

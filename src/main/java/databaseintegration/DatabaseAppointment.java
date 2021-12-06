@@ -30,15 +30,18 @@ public class DatabaseAppointment implements DatabaseAppointmentInterface{
         String query = "SELECT * FROM appointment WHERE clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, clinicID);
-        ResultSet resultSet = statement.executeQuery(query);
+        ResultSet resultSet = state.executeQuery();
         return ResultSetToJSON.toJSON(resultSet);
     }
 
     public void deleteAppointment (int clinicID, int appointmentID) throws SQLException {
+        connection.setAutoCommit(false);
         String query = "DELETE FROM appointment WHERE appointmentID = ? AND clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, appointmentID);
         state.setInt(2, clinicID);
-        statement.executeUpdate(query);
+        state.executeUpdate();
+        connection.commit();
+        System.out.println("Successfully deleted appointment");
     }
 }

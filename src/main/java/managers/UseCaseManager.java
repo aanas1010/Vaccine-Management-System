@@ -6,7 +6,6 @@ import clinicmanagement.*;
 import entities.*;
 
 import java.sql.SQLException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -62,6 +61,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
             bookableClinicIDs = retriever.getBookableClinicIDs();
             clients = retriever.getClients();
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             System.out.println("Could not load all initial data");
         }
 
@@ -74,7 +74,7 @@ public class UseCaseManager implements UseCaseManagerInterface {
      */
     public void loadClinicData(int clinicID) {
         try {
-            if(retriever == null) {return;}
+            if (retriever == null) {return;}
             ServiceLocation thisClinic = retriever.getClinicInfo(clinicID);
             clinics.add(thisClinic);
             retriever.getTimePeriods(thisClinic);
@@ -86,34 +86,11 @@ public class UseCaseManager implements UseCaseManagerInterface {
             }
 
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             System.out.println("Could not load all data for the given clinic");
         }
 
     }
-
-    /**
-     * Storing a vaccine batch in the database
-     *
-     * @param batch the vaccine batch being stored
-     * @param clinicID the ID of the clinic where the vaccine batch is located
-     */
-
-    public void storeVaccineBatchData(VaccineBatch batch, int clinicID){
-        assert this.modifier != null;
-        this.modifier.StoreBatch(batch, clinicID);
-    }
-
-    /**
-     * Storing a time period in the database
-     *
-     * @param timePeriod the time period being stored
-     * @param clinicID the ID of the clinic where the time period is located
-     */
-    public void storeTimePeriodData(TimePeriod timePeriod, int clinicID){
-        assert this.modifier != null;
-        this.modifier.StoreTimePeriod(timePeriod, clinicID);
-    }
-
 
     /**
      * Adding a basic clinic. Note that adding a regular clinic doesn't mean that it will be accepting

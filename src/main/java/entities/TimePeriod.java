@@ -97,7 +97,7 @@ public class TimePeriod {
      *
      * @return number of booked slots.
      */
-    public int getBookedSlots() {return availableSlots;}
+    public int getBookedSlots() {return bookedSlots;}
 
     /**
      * getter.

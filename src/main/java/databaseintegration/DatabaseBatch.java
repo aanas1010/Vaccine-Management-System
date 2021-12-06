@@ -31,15 +31,17 @@ public class DatabaseBatch implements DatabaseBatchInterface{
         String query = "SELECT * FROM vaccineBatch WHERE clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, clinicID);
-        ResultSet resultSet = statement.executeQuery(query);
+        ResultSet resultSet = state.executeQuery();
         return ResultSetToJSON.toJSON(resultSet);
     }
 
     public void updateReservedBatch (int clinicID, int batchID, int reserved) throws SQLException {
+        connection.setAutoCommit(false);
         String query = "UPDATE vaccineBatch SET reserved = ? WHERE batchID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, reserved);
         state.setInt(2, batchID);
-        statement.executeQuery(query);
+        state.executeUpdate();
+        connection.commit();
     }
 }

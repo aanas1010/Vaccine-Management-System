@@ -29,18 +29,20 @@ public class DatabaseTimePeriods implements DatabaseTimePeriodsInterface {
         String query = "SELECT * FROM timePeriods WHERE clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, clinicID);
-        ResultSet resultSet = statement.executeQuery(query);
+        ResultSet resultSet = state.executeQuery();
         return ResultSetToJSON.toJSON(resultSet);
     }
 
     public void updateTimePeriods(int clinicID, int periodID, int availableSlots, int bookedSlots) throws SQLException {
-        String query = "UPDATE timePeriods SET availableSlots = ? AND bookedSlots = ? WHERE periodID = ? AND " +
-                "clinicID = ?";
+        connection.setAutoCommit(false);
+        String query = "UPDATE timePeriods SET availableSlots = ?, bookedSlots = ? WHERE periodID = ? AND clinicID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, availableSlots);
         state.setInt(2, bookedSlots);
         state.setInt(3, periodID);
         state.setInt(4, clinicID);
-        statement.executeQuery(query);
+        System.out.println(state);
+        state.executeUpdate();
+        connection.commit();
     }
 }
