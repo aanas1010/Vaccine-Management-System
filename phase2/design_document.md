@@ -9,7 +9,7 @@ Multiple actions are done at different times to manipulate entities, notably cli
 * Concerning appointment-based clinics:
   * Booking an appointment for the given client based off of the clinic, vaccine brand, and time period specified
   * Viewing an appointment’s details as a string by its appointment unique identifier provided by the user
-  * Cancelling an appointment by its appointment unique identifier
+  * Canceling an appointment by its appointment unique identifier
   * Adding an appointment to a clinic's vaccination log by either a provided appointment ID or a provided date to log multiple
 
 Splitting up our use cases as such ensures that responsibilities are divided into appropriate classes, whereby a change in one does not interfere with the performance of another.
@@ -99,7 +99,7 @@ For our project, we have been using many of the great features provided by GitHu
     * Reworking the hierarchy of the use cases and their interaction with VaccineManagement
   * As of phase 2, our group has increased our use of the issues tab. Some issues include:
     * Creating Javadocs for all non-private methods
-    * Implmenting the builder design pattern
+    * Implementing the builder design pattern
     * Create controllers and adapters to integrate the database (dependency inversion)
 
 ## Code Style and Documentation
@@ -143,7 +143,7 @@ So far we have implemented refactoring in many parts of our project, from renami
   * With more time, CommandLine could be further cleaned by refactoring commonalities between use-case workflows into extracted functions which these use-case-specific functions call. As well, the large if-else block and the getValue function are most likely not implemented in a best-practice way and should be improved upon for phase 2.
 * Refactoring to implement the decorator design
   * We changed our implementation of service location, clinic and bookable clinic by using the decorator design pattern (see above).
-* Refactoring to implment the builder design pattern
+* Refactoring to implement the builder design pattern
   *   We changed the implementation of the constructors of three entities (VaccineBatch, Clinic and Appointment) to the builder design pattern (see above).
 * TODO: Add any refactoring based on the database
 
@@ -153,7 +153,7 @@ Our code was organized in accordance with clean architecture, that is, each pack
 
 Instead of isolating the ‘Use Cases’ layer, we decided to separate it into the two main functions of our program: clientbooking - which contains the classes involved in the booking of appointments, and clinicmanagement- which contains the classes needed to manage the clinic. 
 
-On the other hand, the ‘Drivers’ layer is where the CommandLine is created and where our Main class is located. We decided to seperate the database integration from the drivers package due to the large number of classes and interafces that were used. 
+On the other hand, the ‘Drivers’ layer is where the CommandLine is created and where our Main class is located. We decided to separate the database integration from the drivers package due to the large number of classes and interfaces that were used. 
 
 Our ‘Managers’ layer contains the interfaces and the management systems that manage the Use Cases (from layer below) and is used by the Command Line (in layer above).  
 
@@ -170,7 +170,7 @@ Lastly, our ‘test’ file contains the tests for this program, and is named wi
 ## Functionality
 For the most part, our program has implemented the promised functionality that was mentioned in the design document in Phase 1. The main area of focus for phase 2 was to expand upon our use of a cloud hosted MySQL database.
 
-Before, there was no functionality other than establishing a connection to the database and manually inputting data. Now the database is integrated with our program and the functionality has increased massively. Our program now loads the data from the database whenever it is run, meaning that data from past sessions carry over to future sessions. By virtue of using clean architecture in conjuction with the flexibility of JSON objects, we are also capable of loading data from a mock class if desired. In the future, this could even be expanded to use other forms of data retrieval by using our interfaces.
+Before, there was no functionality other than establishing a connection to the database and manually inputting data. Now the database is integrated with our program and the functionality has increased massively. Our program now loads the data from the database whenever it is run, meaning that data from past sessions carry over to future sessions. By virtue of using clean architecture in conjunction with the flexibility of JSON objects, we are also capable of loading data from a mock class if desired. In the future, this could even be expanded to use other forms of data retrieval by using our interfaces.
 
 We now also have the ability to store objects in the database like Appointments, Time Periods and Vaccine Batches, whose unique IDs for each clinic are enforced by the logic in the MySQL database in addition to the checks put in place by the system itself. There is also the necessary ability to modify and delete existing entries in the database as specified by our business logic and as requested by the user ad hoc.
 
