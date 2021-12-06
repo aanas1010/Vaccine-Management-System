@@ -162,11 +162,12 @@ Furthermore, as was mentioned above, we have implemented the Decorator design pa
 Lastly, our ‘test’ file contains the tests for this program, and is named with the name of the class, followed by Test. These tests are not only for entities, but for the database and use cases as well.
 
 ## Functionality
-For the most part, our program does what we mentioned in the design document in Phase 1. The main area of focus for phase 2 was to expand upon our use of a cloud hosted MySQL database.
+For the most part, our program has implemented the promised functionality that was mentioned in the design document in Phase 1. The main area of focus for phase 2 was to expand upon our use of a cloud hosted MySQL database.
 
-Before, there was no functionality other than establishing a connection to the database and manually inputting data. Now the database is integrated with our program and the functionality has increased massively. Our program now loads the data from the database whenever it is run, meaning that data from past sessions carry over to future sessions. We know also have the ability to store objects in the database like Appointments, Time Periods and Vaccine Batches. 
+Before, there was no functionality other than establishing a connection to the database and manually inputting data. Now the database is integrated with our program and the functionality has increased massively. Our program now loads the data from the database whenever it is run, meaning that data from past sessions carry over to future sessions. By virtue of using clean architecture in conjuction with the flexibility of JSON objects, we are also capable of loading data from a mock class if desired. In the future, this could even be expanded to use other forms of data retrieval by using our interfaces.
 
-As of right now, our program does not have the ability to add clients and clinics to the database. We decided to implement the program this way because we are assuming that in practice the system will have access to a government database of all eligible clients for vaccination (Only eligible clients can book an appointment). Also, the clinics that provide vaccinations must be approved by the government, so the clinics will be based on the list of government approved clinics.
+We now also have the ability to store objects in the database like Appointments, Time Periods and Vaccine Batches, whose unique IDs for each clinic are enforced by the logic in the MySQL database in addition to the checks put in place by the system itself. There is also the necessary ability to modify and delete existing entries in the database as specified by our business logic and as requested by the user ad hoc.
 
-TODo: Add more
+As of right now, We have decided not to implement the addition of clients and clinics to the database. We decided to implement the program this way because we are assuming that in practice the system will have access to a government database of all eligible clients for vaccination (Only eligible clients can book an appointment). Also, the clinics that provide vaccinations must be approved by the government, so the clinics will be based on the list of government approved clinics.
+
 
