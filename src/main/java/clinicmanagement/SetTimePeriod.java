@@ -3,7 +3,7 @@ package clinicmanagement;
 import constants.ManagementSystemException;
 import entities.ServiceLocation;
 import entities.TimePeriod;
-import managers.Storer;
+import managers.Modifier;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SetTimePeriod {
     private final ServiceLocation clinic;
-    private final Storer storer;
+    private final Modifier modifier;
 
     /**
      * This is the Use Case for setting time periods and shifts.
@@ -27,12 +27,12 @@ public class SetTimePeriod {
      */
     public SetTimePeriod(ServiceLocation clinic){
         this.clinic = clinic;
-        this.storer = null;
+        this.modifier = null;
     }
 
-    public SetTimePeriod(ServiceLocation clinic, Storer storer){
+    public SetTimePeriod(ServiceLocation clinic, Modifier modifier){
         this.clinic = clinic;
-        this.storer = storer;
+        this.modifier = modifier;
     }
 
     /**
@@ -62,14 +62,14 @@ public class SetTimePeriod {
             TimePeriod addedTimePeriod = new TimePeriod(dateTime, slots);
             this.clinic.addTimePeriod(addedTimePeriod, dateTime.toLocalDate());
 
-            if(this.storer != null) {
-                this.storer.StoreTimePeriod(addedTimePeriod, clinic.getServiceLocationId());
+            if (this.modifier != null) {
+                this.modifier.StoreTimePeriod(addedTimePeriod, clinic.getServiceLocationId());
             }
 
             return addedTimePeriod.toString();
-        }else if(!this.clinic.shiftAvailable(dateTime.toLocalDate())) {
+        } else if (!this.clinic.shiftAvailable(dateTime.toLocalDate())) {
             throw new ManagementSystemException(ManagementSystemException.NO_SHIFT_AVAILABLE);
-        }else {
+        } else {
             throw new ManagementSystemException(ManagementSystemException.TIME_PERIOD_ALREADY_EXISTS);
         }
     }
@@ -82,7 +82,6 @@ public class SetTimePeriod {
      * @throws ManagementSystemException if there is no time period that exists for the chosen date and time
      */
     public String removeTimePeriod(LocalDateTime dateTime) throws ManagementSystemException {
-        //TODO: removing timeperiods from the database
         if(this.clinic.checkTimePeriod(dateTime)){
             this.clinic.removeTimePeriod(dateTime);
             return "Time: " + dateTime;
@@ -120,8 +119,8 @@ public class SetTimePeriod {
                 this.clinic.addTimePeriod(createdTimePeriod, time.toLocalDate());
                 counter += 1;
 
-                if(this.storer != null) {
-                    this.storer.StoreTimePeriod(createdTimePeriod, clinic.getServiceLocationId());
+                if(this.modifier != null) {
+                    this.modifier.StoreTimePeriod(createdTimePeriod, clinic.getServiceLocationId());
                 }
             }
         }

@@ -28,17 +28,20 @@ public class DatabaseBatch implements DatabaseBatchInterface{
     }
 
     public JsonArray loadBatches(int clinicID) throws SQLException {
-        //TODO need to only get the batches from a specific clinic
-        String query = "SELECT * FROM vaccineBatch";
-        ResultSet resultSet = statement.executeQuery(query);
+        String query = "SELECT * FROM vaccineBatch WHERE clinicID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setInt(1, clinicID);
+        ResultSet resultSet = state.executeQuery();
         return ResultSetToJSON.toJSON(resultSet);
     }
 
     public void updateReservedBatch (int clinicID, int batchID, int reserved) throws SQLException {
+        connection.setAutoCommit(false);
         String query = "UPDATE vaccineBatch SET reserved = ? WHERE batchID = ?";
         PreparedStatement state = connection.prepareStatement(query);
         state.setInt(1, reserved);
         state.setInt(2, batchID);
-        statement.executeQuery(query);
+        state.executeUpdate();
+        connection.commit();
     }
 }

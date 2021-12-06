@@ -2,7 +2,7 @@ package clientbooking;
 
 import constants.ManagementSystemException;
 import entities.*;
-import managers.Storer;
+import managers.Modifier;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,10 +17,10 @@ import java.util.List;
 public class AppointmentBooking {
     final User client;
     final ClinicDecorator clinic;
-    final TimePeriod timePeriod;
+    TimePeriod timePeriod;
     final String vaccineBrand;
     final int appointmentId;
-    final Storer storer;
+    final Modifier modifier;
 
     /**
     * creates Use Case for booking appointments.
@@ -37,7 +37,7 @@ public class AppointmentBooking {
         this.timePeriod = timePeriod;
         this.vaccineBrand = vaccineBrand;
         this.appointmentId = id;
-        this.storer = null;
+        this.modifier = null;
     }
 
     /**
@@ -48,15 +48,16 @@ public class AppointmentBooking {
      * @param timePeriod The time period when the appointment is expected to happen
      * @param vaccineBrand the vaccine brand for this appointment
      * @param id the id of this appointment
-     * @param storer the storer that this appointment will be written to
+     * @param modifier the modifier that this appointment will be written to
      */
-    public AppointmentBooking(User client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id, Storer storer){
+    public AppointmentBooking(User client, ClinicDecorator clinic, TimePeriod timePeriod, String vaccineBrand, int id,
+                              Modifier modifier){
         this.client = client;
         this.clinic = clinic;
         this.timePeriod = timePeriod;
         this.vaccineBrand = vaccineBrand;
         this.appointmentId = id;
-        this.storer = storer;
+        this.modifier = modifier;
     }
 
 
@@ -66,6 +67,7 @@ public class AppointmentBooking {
     private boolean isTimeslotAvailable(){
         for(TimePeriod timePeriod: clinic.getTimePeriods(this.timePeriod.getDateTime().toLocalDate())) {
             if (timePeriod.getDateTime().equals(this.timePeriod.getDateTime())) {
+                this.timePeriod = timePeriod;
                 return timePeriod.getAvailableSlots() > 0;
             }
         }
@@ -98,6 +100,11 @@ public class AppointmentBooking {
             throw new ManagementSystemException(ManagementSystemException.BRAND_DOES_NOT_EXIST);
         }
         earliestExpiringVaccine.changeReserve(1);
+
+        if(modifier != null) {
+            this.modifier.UpdateReservedInBatch(earliestExpiringVaccine, this.clinic.getServiceLocationId());
+        }
+
         return earliestExpiringVaccine;
     }
 
@@ -127,8 +134,16 @@ public class AppointmentBooking {
         this.clinic.addAppointment(appointment);
         this.timePeriod.findAndReserveSlot();
 
-        if(storer != null) {
-            this.storer.StoreAppointment(appointment, this.clinic.getServiceLocationId());
+        if(modifier != null) {
+            this.modifier.UpdateBookedAvailableSlots(this.timePeriod, this.clinic.getServiceLocationId());
+        }
+
+        if(modifier != null) {
+            this.modifier.StoreAppointment(appointment, this.clinic.getServiceLocationId());
+        }
+
+        if(modifier != null) {
+            this.modifier.UpdateToHasAppointment(appointment.getClient().getHealthCareNumber());
         }
 
         return appointment.toString();

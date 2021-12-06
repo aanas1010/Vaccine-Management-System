@@ -126,12 +126,13 @@ public class Retriever {
             TimePeriod newTimePeriod = new TimePeriod(
                     dateTimeObj,
                     thisTimePeriod.getInt("availableSlots"),
+                    thisTimePeriod.getInt("bookedSlots"),
                     thisTimePeriod.getInt("periodID")
             );
 
-            for(int j = 0; j < thisTimePeriod.getInt("bookedSlots"); j++) {
-                newTimePeriod.findAndReserveSlot();
-            }
+            // for(int j = 0; j < thisTimePeriod.getInt("bookedSlots"); j++) {
+            //     newTimePeriod.findAndReserveSlot();
+            // }
             clinic.addTimePeriod(newTimePeriod, dateObj);
         }
     }
@@ -142,7 +143,7 @@ public class Retriever {
         for (int i = 0; i < appointmentJson.size(); i++) {
             JsonObject thisAppointment = appointmentJson.getJsonObject(i);
             TimePeriod thisTimePeriod = clinic.getTimePeriodByID(thisAppointment.getInt("periodID"));
-            User thisClient = getClientByHCN(clients, thisAppointment.getString("clientID"));
+            User thisClient = getClientByHCN(clients, thisAppointment.getString("healthCareID"));
 
             VaccineBatch thisBatch = null;
             for(VaccineBatch batch : clinic.getSupply()) {

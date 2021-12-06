@@ -3,7 +3,7 @@ package clinicmanagement;
 import constants.ManagementSystemException;
 import entities.ServiceLocation;
 import entities.VaccineBatch;
-import managers.Storer;
+import managers.Modifier;
 
 /**
  * This is the Use Case for adding batches.
@@ -14,7 +14,7 @@ import managers.Storer;
 public class BatchAdding {
     private final ServiceLocation clinic;
     private final VaccineBatch batch;
-    private final Storer storer;
+    private final Modifier modifier;
 
     /**
      * This is the Use Case for adding batches.
@@ -25,7 +25,7 @@ public class BatchAdding {
     public BatchAdding(ServiceLocation clinic, VaccineBatch batch){
         this.clinic = clinic;
         this.batch = batch;
-        this.storer = null;
+        this.modifier = null;
     }
 
     /**
@@ -35,10 +35,10 @@ public class BatchAdding {
      * @param batch The batch that is being added for the clinic
      * @param storer The storer that the batch will be written to
      */
-    public BatchAdding(ServiceLocation clinic, VaccineBatch batch, Storer storer){
+    public BatchAdding(ServiceLocation clinic, VaccineBatch batch, Modifier storer){
         this.clinic = clinic;
         this.batch = batch;
-        this.storer = storer;
+        this.modifier = storer;
     }
 
     /**
@@ -48,16 +48,16 @@ public class BatchAdding {
      * @throws ManagementSystemException if the batch is expired or the clinic already has a batch with the same ID
      */
     public String addBatch() throws ManagementSystemException {
-        if (batch.isExpired()){
+        if (batch.isExpired()) {
             throw new ManagementSystemException(ManagementSystemException.BATCH_EXPIRED);
-        }else if(this.clinic.supplyContainsBatchId(batch.getId())) {
+        } else if (this.clinic.supplyContainsBatchId(batch.getId())) {
             throw new ManagementSystemException(ManagementSystemException.BATCH_ID_ALREADY_EXISTS);
         }
-        else{
+        else {
             this.clinic.addBatch(batch);
 
-            if(this.storer != null) {
-                this.storer.StoreBatch(batch, clinic.getServiceLocationId());
+            if(this.modifier != null) {
+                this.modifier.StoreBatch(batch, clinic.getServiceLocationId());
             }
 
             return batch.toString();

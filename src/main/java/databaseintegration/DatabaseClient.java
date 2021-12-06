@@ -27,4 +27,24 @@ public class DatabaseClient implements DatabaseClientInterface{
         ResultSet resultSet = statement.executeQuery(query);
         return ResultSetToJSON.toJSON(resultSet);
     }
+
+    public void updateToNoAppointment(String healthCareID) throws SQLException {
+        connection.setAutoCommit(false);
+        String query = "UPDATE client SET hasAppointment = FALSE WHERE healthCareID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setString(1, healthCareID);
+        state.executeUpdate();
+        connection.commit();
+        System.out.println("Successfully updated client");
+    }
+
+    public void updateToHasAppointment(String healthCareID) throws SQLException {
+        connection.setAutoCommit(false);
+        String query = "UPDATE client SET hasAppointment = TRUE WHERE healthCareID = ?";
+        PreparedStatement state = connection.prepareStatement(query);
+        state.setString(1, healthCareID);
+        state.executeUpdate();
+        connection.commit();
+        System.out.println("Successfully updated client");
+    }
 }

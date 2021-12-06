@@ -19,4 +19,14 @@ public interface DataModification {
 
     void writeToVaccineBatch(int batchID, int clinicID, String brand,
                              LocalDate expiryDate, int reserved, int quantity) throws SQLException;
+
+    void deleteFromAppointments(int clinicID, int appointmentID) throws SQLException;
+
+    void updateReservedInBatch(int clinicID, int batchID, int reserved) throws SQLException;
+
+    void updateBookedAvailableSlots(int clinicID, int periodID, int available, int booked) throws SQLException;
+
+    void updateToNoAppointment(String healthCareID) throws SQLException;
+
+    void updateToHasAppointment(String healthCareID) throws SQLException;
 }

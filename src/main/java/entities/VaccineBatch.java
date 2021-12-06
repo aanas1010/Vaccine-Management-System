@@ -109,7 +109,7 @@ public class VaccineBatch {
     /**
      * The builder class for a batch.
      */
-    public static  class BatchBuilder {
+    public static class BatchBuilder {
         private String brand;
         private int quantity;
         private LocalDate expiry;
