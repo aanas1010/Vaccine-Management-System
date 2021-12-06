@@ -144,8 +144,10 @@ So far we have implemented refactoring in many parts of our project, from renami
 * Refactoring to implement the decorator design
   * We changed our implementation of service location, clinic and bookable clinic by using the decorator design pattern (see above).
 * Refactoring to implement the builder design pattern
-  *   We changed the implementation of the constructors of three entities (VaccineBatch, Clinic and Appointment) to the builder design pattern (see above).
-* TODO: Add any refactoring based on the database
+  * We changed the implementation of the constructors of three entities (VaccineBatch, Clinic and Appointment) to the builder design pattern (see above).
+* ResultSetToJSON Class
+  * Before, each indivdual class in databaseintegration had it's own ResultSet to Json method
+  * We refactored these methods into one class that converts all ResultSet objects into Json objects
 
 
 ## Code Organization
