@@ -51,7 +51,11 @@ public class CommandLine {
         runCommands(commandListString, acceptableCommands);
     }
 
-    // Determine which command to run
+    /** The the command line
+     *
+     * @param commandListString a String of commands that the user can type in
+     * @param acceptableCommands a List of enums that correspond to the valid commands
+     */
     private void runCommands(String commandListString,
                              List<Enum<?>> acceptableCommands) {
         boolean isRunning = true;
@@ -112,7 +116,12 @@ public class CommandLine {
         in.close();
     }
 
-    // Return a string of the acceptable commands depending on whether the clinic is bookable
+    /** Create a string of the acceptable commands depending on whether the clinic is bookable
+     *
+     * @param isBookableClinic whether the clinic is bookable
+     * @param acceptableCommands a list of enums corresponding to the acceptable commands
+     * @return a string that corresponds to the acceptable commands
+     */
     private String createAcceptableCommandsString(boolean isBookableClinic, List<Enum<?>> acceptableCommands) {
         // Depending on whether isBookableClinic, accept different types of commands
         if(isBookableClinic) {
@@ -128,7 +137,10 @@ public class CommandLine {
         return s.substring(0, s.toString().length() - 2);
     }
 
-    // Get the clinic ID
+    /** Get the clinic ID from the command line
+     *
+     * @return the Clinic's ID
+     */
     private int getClinicId() {
         while(true) {
             try {
@@ -149,7 +161,10 @@ public class CommandLine {
         }
     }
 
-    // Start addBatch workflow
+    /** Go through the batch adding workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void addBatch() throws ManagementSystemException {
         // Ask for information for a new batch
         String batchBrand = (String) DataValidation.getValue(in,
@@ -178,7 +193,9 @@ public class CommandLine {
         }
     }
 
-    // Start setEmployees workflow
+    /** Go through the employee setting workflow
+     *
+     */
     private void setEmployees() {
         // Ask for information for employee setting
         LocalDate date = (LocalDate) DataValidation.getValue(in,
@@ -195,7 +212,10 @@ public class CommandLine {
                 "Could not change the number of employees for that date"));
     }
 
-    // Start the addTimePeriod workflow
+    /** Start the addTimePeriod workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void addTimePeriod()
             throws ManagementSystemException {
         // Ask for information for adding a new time period
@@ -213,7 +233,10 @@ public class CommandLine {
         }
     }
 
-    // Start the addTimePeriod workflow
+    /** Go through the time period adding workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void addTimePeriods()
             throws ManagementSystemException {
         // Ask for information for adding a new time period
@@ -237,7 +260,10 @@ public class CommandLine {
         }
     }
 
-    // Start the logAppointment workflow
+    /** Go through the appointment logging workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void logAppointment()
             throws ManagementSystemException {
         // Ask for information for logging an appointment
@@ -256,6 +282,10 @@ public class CommandLine {
         }
     }
 
+    /** Go through walk-in adding workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void logWalkIn()
             throws ManagementSystemException {
         // Ask for information for logging a walk-in
@@ -281,6 +311,10 @@ public class CommandLine {
         }
     }
 
+    /** Go through the log-by-datetime workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void logByDateTime()
             throws ManagementSystemException {
         // Ask for information for logging all appointments for a given dateTime
@@ -298,7 +332,10 @@ public class CommandLine {
             System.out.println("Could not log appointments");
     }
 
-
+    /** Go through the log-by-date workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void logByDate()
             throws ManagementSystemException {
         // Ask for information for logging all appointments for a given dateTime
@@ -318,7 +355,10 @@ public class CommandLine {
     }
 
 
-    // Start the removeTimePeriod workflow
+    /** Go through the time period removing workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void removeTimePeriod()
             throws ManagementSystemException {
         // Ask for information for which time period to remove
@@ -336,7 +376,10 @@ public class CommandLine {
         }
     }
 
-    // Start the bookAppointment workflow
+    /** Go through the appointment booking workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void bookAppointment()
             throws ManagementSystemException {
         // Ask for information for booking an appointment
@@ -367,7 +410,10 @@ public class CommandLine {
         }
     }
 
-    // Start the cancelAppointment workflow
+    /** Go through the appointment cancelling workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void cancelAppointment()
             throws ManagementSystemException {
         // Ask for information for canceling an appointment
@@ -386,7 +432,10 @@ public class CommandLine {
         }
     }
 
-    // Start the viewAppointment workflow
+    /** Go through the appointment viewing workflow
+     *
+     * @throws ManagementSystemException if the system encounters an error in business logic
+     */
     private void viewAppointment()
             throws ManagementSystemException {
         // Ask for information for viewing an appointment
@@ -399,7 +448,4 @@ public class CommandLine {
 
         System.out.println(Objects.requireNonNullElse(output, "You don't have an appointment booked"));
     }
-
-
-
 }

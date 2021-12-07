@@ -174,7 +174,11 @@ public class DataValidation {
         }
     }
 
-    // Return the parsed int if it is a valid non-negative integer
+    /** Try to parse an int
+     *
+     * @param value a string to be parsed
+     * @return the parsed int or -1 if invalid
+     */
     private static int tryParseInt(String value) {
         try{
             return Math.max(parseInt(value), -1);
@@ -183,7 +187,11 @@ public class DataValidation {
         }
     }
 
-    // Return the parsed date if it is a valid non-past date
+    /** Try to parse a date
+     *
+     * @param value a string to be parsed
+     * @return the parsed date or null if invalid
+     */
     private static LocalDate isNonPastDate(String value) {
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -198,7 +206,11 @@ public class DataValidation {
         }
     }
 
-    // Return the parsed datetime if it is a valid non-past datetime
+    /** Try to parse a dateTime
+     *
+     * @param value a string to be parsed
+     * @return the parsed dateTime or null if invalid
+     */
     private static LocalDateTime isNonPastDateTime(String value) {
         try{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
