@@ -84,11 +84,10 @@ public class Modifier {
      * Updating the reserved amount in the database
      *
      * @param batch the batch being updated
-     * @param clinicID the ID of the clinic where the batch belongs to
      */
-    public void UpdateReservedInBatch(VaccineBatch batch, int clinicID){
+    public void UpdateReservedInBatch(VaccineBatch batch){
         try {
-            this.dataModifying.updateReservedInBatch(clinicID, batch.getId(), batch.getReserve());
+            this.dataModifying.updateReservedInBatch(batch.getId(), batch.getReserve());
         } catch (SQLException ex) {
             System.out.println("Cannot update the batch");
             System.out.println(ex.getMessage());

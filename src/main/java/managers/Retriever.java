@@ -22,6 +22,12 @@ public class Retriever {
         this.dataRetrieval = dataRetrieval;
     }
 
+    /**
+     * Get a list of the clinic IDs from the DataRetrieval instance
+     *
+     * @return the list of valid clinic IDs
+     * @throws SQLException if the query could not go through
+     */
     public List<Integer> getClinicIDs() throws SQLException {
         JsonArray clinicsJson = dataRetrieval.getClinicIDs();
         List<Integer> clinicsList = new ArrayList<>();
@@ -33,6 +39,12 @@ public class Retriever {
         return clinicsList;
     }
 
+    /**
+     * Get a list of the bookable clinic IDs from the DataRetrieval instance
+     *
+     * @return the list of bookable clinic IDs
+     * @throws SQLException if the query could not go through
+     */
     public List<Integer> getBookableClinicIDs() throws SQLException {
         JsonArray bookableClinicsJson = dataRetrieval.getBookableClinicIDs();
         List<Integer> clinicsList = new ArrayList<>();
@@ -44,6 +56,12 @@ public class Retriever {
 
     }
 
+    /**
+     * Get a list of the clinic IDs from the DataRetrieval instance
+     *
+     * @return the list of users
+     * @throws SQLException if the query could not go through
+     */
     public List<User> getClients() throws SQLException {
         // Convert the Client JSON into client objects
 
@@ -66,6 +84,13 @@ public class Retriever {
         return clientsList;
     }
 
+    /**
+     * Get a list of the clinic IDs from the DataRetrieval instance
+     *
+     * @param clinicID the ID of the clinic that we want
+     * @return the instance of ServiceLocatino relating to the clinicID
+     * @throws SQLException if the query could not go through
+     */
     public ServiceLocation getClinicInfo(int clinicID) throws SQLException {
         // Convert the Clinic JSON into clinic object
         JsonArray clinicJson = dataRetrieval.getClinicInfo(clinicID);
@@ -90,6 +115,12 @@ public class Retriever {
 
     }
 
+    /**
+     * Add the batches to a specified ServiceLocation instance
+     *
+     * @param clinic the instance of ServiceLocation that we want to add batches to
+     * @throws SQLException if the query could not go through
+     */
     public void getVaccineBatches(ServiceLocation clinic) throws SQLException {
         // Convert the VaccineBatch JSON into vaccineBatch objects
         JsonArray batchJson = dataRetrieval.getVaccineBatches(clinic.getServiceLocationId());
@@ -112,6 +143,12 @@ public class Retriever {
 
     }
 
+    /**
+     * Add the time periods to a specified ServiceLocation instance
+     *
+     * @param clinic the instance of ServiceLocation that we want to add time periods to
+     * @throws SQLException if the query could not go through
+     */
     public void getTimePeriods(ServiceLocation clinic) throws SQLException {
         // Convert the TimePeriod JSON into TimePeriod objects
         JsonArray timePeriodJson = dataRetrieval.getTimePeriods(clinic.getServiceLocationId());
@@ -130,13 +167,17 @@ public class Retriever {
                     thisTimePeriod.getInt("periodID")
             );
 
-            // for(int j = 0; j < thisTimePeriod.getInt("bookedSlots"); j++) {
-            //     newTimePeriod.findAndReserveSlot();
-            // }
             clinic.addTimePeriod(newTimePeriod, dateObj);
         }
     }
 
+    /**
+     * Add the appointments to a specified BookableClinic instance
+     *
+     * @param clinic the instance of ServiceLocation that we want to add appointments to
+     * @param clients the list of Users in the system to be linked with the appointments
+     * @throws SQLException if the query could not go through
+     */
     public void getAppointments(BookableClinic clinic, List<User> clients) throws SQLException {
         // Convert the Appointment JSON into Appointment Objects
         JsonArray appointmentJson = dataRetrieval.getAppointments(clinic.getServiceLocationId());
@@ -145,12 +186,7 @@ public class Retriever {
             TimePeriod thisTimePeriod = clinic.getTimePeriodByID(thisAppointment.getInt("periodID"));
             User thisClient = getClientByHCN(clients, thisAppointment.getString("healthCareID"));
 
-            VaccineBatch thisBatch = null;
-            for(VaccineBatch batch : clinic.getSupply()) {
-                if(batch.getId() == thisAppointment.getInt("batchID")) {
-                    thisBatch = batch;
-                }
-            }
+            VaccineBatch thisBatch = getVaccineBatch(clinic, thisAppointment);
 
             if(thisBatch == null) {
                 // If the appointment's batch cannot be found, do not add it
@@ -172,6 +208,30 @@ public class Retriever {
         }
     }
 
+    /**
+     * Get the vaccineBatch that corresponds to the batchID of a specified appointment
+     *
+     * @param clinic the instance of BookableClinic that contains the batch that we want
+     * @param thisAppointment the JsonObject of the appointment that contains the batchID
+     * @return the instance of VaccineBatch with the id provided
+     */
+    private VaccineBatch getVaccineBatch(BookableClinic clinic, JsonObject thisAppointment) {
+        VaccineBatch thisBatch = null;
+        for(VaccineBatch batch : clinic.getSupply()) {
+            if(batch.getId() == thisAppointment.getInt("batchID")) {
+                thisBatch = batch;
+            }
+        }
+        return thisBatch;
+    }
+
+    /**
+     * Get the User from a list of User instance that has a specified health care number
+     *
+     * @param clients the list of Users in the system to be linked with the appointments
+     * @param ID the health care number whose client we want
+     * @return the User instance that corresponds to the ID
+     */
     private User getClientByHCN(List<User> clients, String ID) {
         for(User client : clients) {
             if(client.getHealthCareNumber().equals(ID)) {

@@ -102,7 +102,7 @@ public class AppointmentBooking {
         earliestExpiringVaccine.changeReserve(1);
 
         if(modifier != null) {
-            this.modifier.UpdateReservedInBatch(earliestExpiringVaccine, this.clinic.getServiceLocationId());
+            this.modifier.UpdateReservedInBatch(earliestExpiringVaccine);
         }
 
         return earliestExpiringVaccine;

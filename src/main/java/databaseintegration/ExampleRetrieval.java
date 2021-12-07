@@ -12,6 +12,11 @@ import java.time.LocalDate;
  */
 
 public class ExampleRetrieval implements DataRetrieval{
+
+    /** Get the IDs of the clinics
+     *
+     * @return a JsonArray of the clinics
+     */
     public JsonArray getClinicIDs() {
         JsonArrayBuilder clinicIDs = Json.createArrayBuilder()
                 .add(Json.createObjectBuilder()
@@ -32,11 +37,19 @@ public class ExampleRetrieval implements DataRetrieval{
         return clinicIDs.build();
     }
 
+    /** Get the IDs of the bookable clinics
+     *
+     * @return a JsonArray of the bookable clinics
+     */
     public JsonArray getBookableClinicIDs() {
         JsonArrayBuilder clinicIDs = Json.createArrayBuilder().add(1).add(2);
         return clinicIDs.build();
     }
 
+    /** Get all clients
+     *
+     * @return a JsonArray of the clients
+     */
     public JsonArray getClients() {
         return Json.createArrayBuilder()
             .add(Json.createObjectBuilder()
@@ -66,6 +79,11 @@ public class ExampleRetrieval implements DataRetrieval{
         ).build();
     }
 
+    /** Get the info for a clinic
+     *
+     * @param clinicID the clinic whose ID we want
+     * @return a JsonArray of clinics
+     */
     public JsonArray getClinicInfo(int clinicID) {
         return Json.createArrayBuilder().add(
                 Json.createObjectBuilder()
@@ -75,6 +93,11 @@ public class ExampleRetrieval implements DataRetrieval{
         ).build();
     }
 
+    /** Get the batches for a clinic
+     *
+     * @param clinicID the ID of the clinic whose batches we want
+     * @return a JsonArray of the batches
+     */
     public JsonArray getVaccineBatches(int clinicID) {
         return Json.createArrayBuilder()
             .add(Json.createObjectBuilder()
@@ -103,6 +126,11 @@ public class ExampleRetrieval implements DataRetrieval{
         ).build();
     }
 
+    /** Get the time periods for a clinic
+     *
+     * @param clinicID the ID of the clinic whose batches we want
+     * @return a JsonArray of the time periods
+     */
     public JsonArray getTimePeriods(int clinicID) {
         return Json.createArrayBuilder()
             .add(Json.createObjectBuilder()
@@ -139,6 +167,11 @@ public class ExampleRetrieval implements DataRetrieval{
             ).build();
     }
 
+    /** Get the appointments for a bookable clinic
+     *
+     * @param clinicID the ID of a bookable clinic whose appoinments we want
+     * @return a JsonArray of the appointments
+     */
     public JsonArray getAppointments(int clinicID) {
         return Json.createArrayBuilder()
             .add(Json.createObjectBuilder()
