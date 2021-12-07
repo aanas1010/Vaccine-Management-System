@@ -19,7 +19,7 @@ public class DatabaseClinicTest {
         String url = "jdbc:mysql://sql5.freesqldatabase.com:3306/sql5447070"; //URL of database to be connected
         connection = DriverManager.getConnection(url, "sql5447070", "AxQ1YdG6MP");
         statement = connection.createStatement();
-        clinicDB = new DatabaseClinic(connection, statement);
+        clinicDB = new DatabaseClinic(statement);
     }
 
     @Test // Testing whether clinic IDs were loaded successfully

@@ -228,21 +228,14 @@ public class Clinic implements ServiceLocation {
     public VaccinationLog getVaccineLog() {return log;}
 
     /**
-     * getter.
-     *
-     * @return the location of the location.
-     */
-    public String getLocation() {return location;}
-
-    /**
      * The builder class for a clinic.
      */
     public static  class ClinicBuilder {
         private int clinicId;
         private VaccineSupply supply;
         private VaccinationLog log;
-        private HashMap<LocalDate, List<TimePeriod>> timePeriods;
-        private HashMap<LocalDate, Integer> shifts;
+        private final HashMap<LocalDate, List<TimePeriod>> timePeriods;
+        private final HashMap<LocalDate, Integer> shifts;
         private String location;
 
         /**
@@ -286,28 +279,6 @@ public class Clinic implements ServiceLocation {
          */
         public ClinicBuilder log (VaccinationLog log){
             this.log = log;
-            return this;
-        }
-
-        /**
-         * assigns time periods to the clinic builder.
-         *
-         * @param timePeriods the time periods of the clinic.
-         * @return the builder of the clinic.
-         */
-        public ClinicBuilder timePeriods (HashMap<LocalDate, List<TimePeriod>> timePeriods){
-            this.timePeriods = timePeriods;
-            return this;
-        }
-
-        /**
-         * assigns shifts to the clinic builder.
-         *
-         * @param shifts of the clinic.
-         * @return the builder of the clinic.
-         */
-        public ClinicBuilder shifts (HashMap<LocalDate, Integer> shifts){
-            this.shifts = shifts;
             return this;
         }
 

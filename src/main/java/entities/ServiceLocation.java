@@ -130,13 +130,6 @@ public interface ServiceLocation {
      */
     VaccinationLog getVaccineLog();
 
-    /**
-     * getter.
-     *
-     * @return the location of the location.
-     */
-    String getLocation();
-
 
     /**
      * getter.
