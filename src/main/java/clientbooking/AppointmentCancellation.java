@@ -60,8 +60,7 @@ public class AppointmentCancellation {
             }
 
             if(modifier != null) {
-                this.modifier.UpdateReservedInBatch(appointment.getClientVaccineBatch(),
-                        this.clinic.getServiceLocationId());
+                this.modifier.UpdateReservedInBatch(appointment.getClientVaccineBatch());
             }
 
             if(modifier != null) {

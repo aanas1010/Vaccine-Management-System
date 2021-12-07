@@ -26,11 +26,11 @@ public class Main {
             Statement statement = connection.createStatement();
 
             //Create database table driver classes
-            DatabaseClinicInterface databaseClinic = new DatabaseClinic(connection, statement);
-            DatabaseTimePeriodsInterface databaseTimePeriods = new DatabaseTimePeriods(connection, statement);
+            DatabaseClinicInterface databaseClinic = new DatabaseClinic(statement);
+            DatabaseTimePeriodsInterface databaseTimePeriods = new DatabaseTimePeriods(connection);
             DatabaseClientInterface databaseClient = new DatabaseClient(connection, statement);
-            DatabaseBatchInterface databaseBatch = new DatabaseBatch(connection, statement);
-            DatabaseAppointmentInterface databaseAppointment = new DatabaseAppointment(connection, statement);
+            DatabaseBatchInterface databaseBatch = new DatabaseBatch(connection);
+            DatabaseAppointmentInterface databaseAppointment = new DatabaseAppointment(connection);
 
             //Create database controllers
             DataRetrieval databaseRetrieval = new DatabaseRetrieval.RetrieverBuilder()

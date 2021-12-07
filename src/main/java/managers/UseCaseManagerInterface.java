@@ -28,35 +28,6 @@ public interface UseCaseManagerInterface {
     List<Integer> getBookableClinicIds();
 
     /**
-     * Adding a basic clinic. Note that adding a regular clinic doesn't mean that it will be accepting
-     * vaccine appointments.
-     *
-     * @param clinicId The ID of the clinic that is going to be added
-     * @param location Where this clinic is located i.e., address
-     * @throws ManagementSystemException if a clinic with the specified clinic ID already exists
-     */
-    void addClinic(int clinicId, String location) throws ManagementSystemException;
-
-    /**
-     * Adding a bookable clinic. Bookable clinics allow for vaccine appointments to be booked.
-     *
-     * @param clinicId The ID of the clinic that is going to be added
-     * @param location Where this clinic is located i.e., address
-     * @throws ManagementSystemException if a clinic with the specified clinic ID already exists
-     */
-    void addBookableClinic(int clinicId, String location) throws ManagementSystemException;
-
-    /**
-     * Adding a client to the system given the name and health card number
-     *
-     * @param name The full name of the client who wants to get vaccinated
-     * @param healthCardNumber The client's health card number
-     * @throws ManagementSystemException if a client with the specified health card number already exists in
-     * the system
-     */
-    void addClient(String name, String healthCardNumber) throws ManagementSystemException;
-
-    /**
      * Load initial data for clinic IDs and users
      *
      */
