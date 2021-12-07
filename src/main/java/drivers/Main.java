@@ -53,7 +53,7 @@ public class Main {
                     new Modifier(databaseModifier));
 
 
-            //Alternatively, for retrieving from a mock class
+            //ALTERNATIVELY, FOR RETRIEVING FROM A MOCK CLASS
 //            UseCaseManagerInterface useCaseManager =
 //                    new UseCaseManager(new Retriever(new ExampleRetrieval()), null);
 
