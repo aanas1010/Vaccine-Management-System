@@ -116,13 +116,6 @@ public abstract class ClinicDecorator implements ServiceLocation{
     /**
      * getter.
      *
-     * @return the location of the location.
-     */
-    public String getLocation() {return this.decoratedClinic.getLocation();}
-
-    /**
-     * getter.
-     *
      * @return list of vaccine batches of the location.
      */
     public List<VaccineBatch> getSupply(){return this.decoratedClinic.getSupply();}

@@ -5,7 +5,19 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+/**
+ * This is the class for converting a ResultSet to a JsonArray
+ */
+
 public class ResultSetToJSON {
+
+    /** Convert a resultSet into a JsonArray
+     *
+     * @param rs a ResultSet object
+     * @return a JsonArray containing the same informatino as the ResultSet
+     * @throws SQLException if the data could not be retrieved
+     * @throws JsonException if the data could not be converted to a JsonArray
+     */
     public static JsonArray toJSON(ResultSet rs) throws SQLException, JsonException {
         // If rs is empty, return an empty JsonArray
         if (!rs.isBeforeFirst() ) {
@@ -20,6 +32,23 @@ public class ResultSetToJSON {
 
         rs.next();
 
+        addToJsonObject(rs, jArray, jsonObject, rsmd, columnCount);
+
+        return jArray.build();
+    }
+
+    /** Add the elements of a ResultSet to a JsonArrayBuilder
+     *
+     * @param rs a ResultSet instance
+     * @param jArray the JsonArrayBuilder that we are modifying
+     * @param jsonObject the temporary JsonObjectBuilder
+     * @param rsmd the metadata of the ResultSet
+     * @param columnCount the number of columns in this ResultSet
+     * @throws SQLException if the data could not be retrieved
+     */
+    private static void addToJsonObject(
+            ResultSet rs, JsonArrayBuilder jArray,
+            JsonObjectBuilder jsonObject, ResultSetMetaData rsmd, int columnCount) throws SQLException {
         do {
             for (int i = 1; i <= columnCount; i++) {
                 String column = rsmd.getColumnName(i);
@@ -43,7 +72,5 @@ public class ResultSetToJSON {
             }
             jArray.add(jsonObject);
         }while(rs.next());
-
-        return jArray.build();
     }
 }

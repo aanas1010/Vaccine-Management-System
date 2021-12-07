@@ -32,10 +32,20 @@ public class DatabaseRetrieval implements DataRetrieval {
 
     }
 
+    /** Get the IDs of the clinics
+     *
+     * @return a JsonArray of the clinics
+     * @throws SQLException if the data could not be retrieved
+     */
     public JsonArray getClinicIDs() throws SQLException {
         return databaseClinic.loadAllClinics();
     }
 
+    /** Get the IDs of the bookable clinics
+     *
+     * @return a JsonArray of the bookable clinics
+     * @throws SQLException if the data could not be retrieved
+     */
     public JsonArray getBookableClinicIDs() throws SQLException {
         JsonArray clinics = databaseClinic.loadAllClinics();
 
@@ -51,22 +61,51 @@ public class DatabaseRetrieval implements DataRetrieval {
 
     }
 
+    /** Get all clients
+     *
+     * @return a JsonArray of the clients
+     * @throws SQLException if the data could not be retrieved
+     */
     public JsonArray getClients() throws SQLException {
         return databaseClient.loadAllClients();
     }
 
+    /** Get the info for a clinic
+     *
+     * @param clinicID the clinic whose ID we want
+     * @return a JsonArray of clinics
+     * @throws SQLException if the data could not be retrieved
+     */
     public JsonArray getClinicInfo(int clinicID) throws SQLException {
         return databaseClinic.loadAllClinics();
     }
 
+    /** Get the batches for a clinic
+     *
+     * @param clinicID the ID of the clinic whose batches we want
+     * @return a JsonArray of the batches
+     * @throws SQLException if the data could not be retrieved
+     */
     public JsonArray getVaccineBatches(int clinicID) throws SQLException {
         return databaseBatch.loadBatches(clinicID);
     }
 
+    /** Get the time periods for a clinic
+     *
+     * @param clinicID the ID of the clinic whose batches we want
+     * @return a JsonArray of the time periods
+     * @throws SQLException if the data could not be retrieved
+     */
     public JsonArray getTimePeriods(int clinicID) throws SQLException {
         return databaseTimePeriods.loadTimePeriods(clinicID);
     }
 
+    /** Get the appointments for a bookable clinic
+     *
+     * @param clinicID the ID of a bookable clinic whose appoinments we want
+     * @return a JsonArray of the appointments
+     * @throws SQLException if the data could not be retrieved
+     */
     public JsonArray getAppointments(int clinicID) throws SQLException {
         return databaseAppointment.loadAppointments(clinicID);
     }

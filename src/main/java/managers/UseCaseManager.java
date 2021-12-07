@@ -26,18 +26,6 @@ public class UseCaseManager implements UseCaseManagerInterface {
     private final Modifier modifier;
 
     /**
-     * Stores clinics and manages other use cases. This constructor does not load or store data
-     */
-    public UseCaseManager(){
-        this.clinicIDs = new ArrayList<>();
-        this.bookableClinicIDs = new ArrayList<>();
-        this.clinics = new ArrayList<>();
-        this.clients = new ArrayList<>();
-        this.retriever = null;
-        this.modifier = null;
-    }
-
-    /**
      * Stores clinics and manages other use cases. This constructor can load and store data
      */
     public UseCaseManager(Retriever retriever, Modifier modifier){
@@ -51,7 +39,6 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     /**
      * Load initial data for clinic IDs and users
-     *
      */
     public void loadInitialData() {
         if(retriever == null) {return;}
@@ -92,79 +79,6 @@ public class UseCaseManager implements UseCaseManagerInterface {
 
     }
 
-    /**
-     * Adding a basic clinic. Note that adding a regular clinic doesn't mean that it will be accepting
-     * vaccine appointments.
-     *
-     * @param clinicId The ID of the clinic that is going to be added
-     * @param location Where this clinic is located i.e., address
-     * @throws ManagementSystemException if a clinic with the specified clinic ID already exists
-     */
-    public void addClinic(int clinicId, String location) throws ManagementSystemException {
-        if(containsClinicWithId(clinicId)) {
-            throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
-        }
-
-        clinics.add(new Clinic.ClinicBuilder().clinicId(clinicId).location(location).build());
-    }
-
-    /**
-     * Adding a bookable clinic. Bookable clinics allow for vaccine appointments to be booked.
-     *
-     * @param clinicId The ID of the clinic that is going to be added
-     * @param location Where this clinic is located i.e., address
-     * @throws ManagementSystemException if a clinic with the specified clinic ID already exists
-     */
-    public void addBookableClinic(int clinicId, String location) throws ManagementSystemException {
-        if(containsClinicWithId(clinicId)) {
-            throw new ManagementSystemException(ManagementSystemException.CLINIC_ID_ALREADY_EXISTS);
-        }
-
-        clinics.add(new BookableClinic(new Clinic.ClinicBuilder().clinicId(clinicId).location(location).build()));
-    }
-
-    private boolean containsClinicWithId(int clinicId) {
-        for(ServiceLocation location : clinics) {
-            if(location.getServiceLocationId() == clinicId) {
-                return true;
-            }
-        }
-        return clinicIDs.contains(clinicId);
-    }
-
-    /**
-     * Adding a client to the system given the name and health card number
-     *
-     * @param name The full name of the client who wants to get vaccinated
-     * @param healthCareNumber The client's health card number
-     * @throws ManagementSystemException if a client with the specified health card number already exists in
-     * the system
-     */
-    public void addClient(String name, String healthCareNumber) throws ManagementSystemException {
-        if(containsClientWithHCN(healthCareNumber)) {
-            throw new ManagementSystemException(ManagementSystemException.HCN_ALREADY_EXISTS);
-        }
-
-        clients.add(new Client(name, healthCareNumber));
-    }
-
-    private boolean containsClientWithHCN(String healthCardNumber) {
-        for(User client : clients) {
-            if(client.getHealthCareNumber().equals(healthCardNumber)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private User getClientByHCN(String healthCardNumber) throws ManagementSystemException {
-        for(User client : clients) {
-            if(client.getHealthCareNumber().equals(healthCardNumber)) {
-                return client;
-            }
-        }
-        throw new ManagementSystemException(ManagementSystemException.HCN_DOES_NOT_EXIST);
-    }
 
     /**
      * Adds the batch to the clinic
@@ -398,16 +312,6 @@ public class UseCaseManager implements UseCaseManagerInterface {
         }
     }
 
-    private ServiceLocation getClinicById(int clinicId) {
-        for (ServiceLocation clinic : clinics) {
-            //Call the getClinicId method for all clinics
-            if(clinic.getServiceLocationId() == clinicId) {
-                return clinic;
-            }
-        }
-        return null;
-    }
-
     /**
      * Gets the details of the supply (i.e., all the batches) of the specified clinic
      *
@@ -421,5 +325,35 @@ public class UseCaseManager implements UseCaseManagerInterface {
         }else {
             return "";
         }
+    }
+
+    /**
+     * Gets the ServiceLocation with the given ID
+     * @param clinicId the ID of a clinic that we want to find
+     * @return the ServiceLocation that we want
+     */
+    private ServiceLocation getClinicById(int clinicId) {
+        for (ServiceLocation clinic : clinics) {
+            //Call the getClinicId method for all clinics
+            if(clinic.getServiceLocationId() == clinicId) {
+                return clinic;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the ServiceLocation with the given ID
+     * @param healthCardNumber the HCM of a client that we want to find
+     * @return the User that we want
+     * @throws ManagementSystemException if the User cannot be found
+     */
+    private User getClientByHCN(String healthCardNumber) throws ManagementSystemException {
+        for(User client : clients) {
+            if(client.getHealthCareNumber().equals(healthCardNumber)) {
+                return client;
+            }
+        }
+        throw new ManagementSystemException(ManagementSystemException.HCN_DOES_NOT_EXIST);
     }
 }
